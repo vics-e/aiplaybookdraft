@@ -1,0 +1,2495 @@
+     
+Contents
+Page 1 - Cover	3
+Page 2 - Introduction: The Shift to AI-Assisted Firms	3
+Page 3 - The Three Stages of AI in Accountancy	4
+Page 4 - The Sage AI Practice Framework	5
+Page 5 - Where AI Works Best	6
+Page 6 - The Capacity Opportunity	7
+Page 7 - Assistants vs Agents: The New Way Work Gets Done	8
+Page 8 - The Role of the Accountant in an AI Firm	9
+Page 9 - Professional Ethics and Responsibility in an AI World	10
+Page 10 - The Human-in-the-Loop Model	10
+Section 2 - Professional Guardrails for AI in Practice	12
+Page 11 - Professional Principles for AI in Accountancy	12
+Page 12 - The Real Risk: AI Without Process	12
+Page 13 - The Minimum AI Policy Every Firm Needs	13
+Page 14 - Data and Confidentiality in an AI World	14
+Page 15 - Legal Responsibility Does Not Change	15
+Page 16 - Common AI Failure Modes	16
+Page 17 - Avoiding Over-Reliance on AI	17
+Page 18 - The Four Output Checks	18
+Page 19 - Creating an AI Evidence Trail	18
+Page 20 - The Red-Team Exercise	19
+Section 3 - Assistants, Agents, and the New Workflow Model	20
+Page 21 - Where Assistants Help	20
+Page 22 - Where Agents Transform Work	21
+Page 23 - The Core Agent Workflows in a Firm	22
+Page 24 - The Agent Maturity Ladder	23
+Page 25 - The Workflow Map: Where Agents Work Best	24
+Page 26 - How to Choose Your First Agent	25
+Page 27 - Agent Example: Quarterly Update Preparation	25
+Page 28 - Agent Example: Period-End Preparation	26
+Page 29 - Agent Example: Client Onboarding	27
+Page 30 - Agent Example: Client Chaser	27
+Page 31 - The Agent Spec Template	28
+Page 32 - The Agent Controls Checklist	29
+Page 33 - Building Confidence in Agents	29
+Page 34 - The New Role of the Accountant	30
+Page 35 - The AI-Enabled Workflow	31
+Section 4 - Assistant Skills and Prompting in Practice	32
+Page 36 - The Accountant’s Prompt Framework	32
+Page 37 - The Five Prompt Types Every Accountant Should Know	33
+Page 38 - Prompt Practice: From Basic to Structured	34
+Page 39 - From Prompts to Workflows to Agents	35
+Page 40 - Your Starter Prompt Library	36
+Section 5 - Pricing and the Economics of AI	37
+Page 41 - The AI Dividend	38
+Page 42 - The Capacity Question	38
+Page 44 - The Four Pricing Models in an AI World	40
+Page 45 - The Shift from Effort to Judgement	41
+Page 46 - The 3V Pricing Framework	42
+Page 47 - Designing AI-Era Service Packages	43
+Page 48 - The AI Impact Pricing Exercise	44
+Page 49 - Talking to Clients About AI	44
+Page 50 - Pricing Action Checklist	45
+Section 6 - The 90-Day AI Adoption Plan	46
+Page 51 - The First 30 Days: Build the Foundations	46
+Page 52 - Days 31–60: Move from Prompts to Workflows	47
+Page 53 - Days 61–90: Introduce Your First Agent	48
+Page 54 - The AI Enablement Rhythm	49
+Page 55 - The AI Scorecard	50
+Page 56 - The Stop-Doing List	51
+Page 57 - Three Strategic Questions for the AI-Ready Firm	51
+Page 58 - The Four Stages of the AI-Ready Firm	52
+Section 7 - Templates and Practical Tools	53
+Page 59 - AI Acceptable Use Policy (Starter Template)	53
+Page 60 - Agent Specification Template	54
+Page 61 - AI Output Review Checklist	55
+Page 62 - AI Tool Usage Matrix	56
+Page 63 - AI File Note Template	56
+Page 64 - Client AI Communication Template	57
+Page 65 - AI Glossary	57
+Page 66 – Back cover	62
+
+
+
+
+Page 1 - Cover
+AI in Practice
+The AI Playbook for Accountants & Bookkeepers
+From assistants to agents: building the AI-ready firm
+Artificial intelligence is now part of everyday accountancy.
+This playbook is designed to help firms move from experimentation to structured, confident adoption.
+
+Page 2 - Introduction: The Shift to AI-Assisted Firms
+Over the past two decades, the accounting profession has experienced several major technology shifts.
+First came desktop software.
+Then cloud accounting transformed collaboration.
+Automation reduced manual data entry and repetitive processing.
+Now, we are entering the next phase: AI-assisted firms.
+Artificial intelligence is not about replacing accountants.
+It is about removing repetitive effort, improving consistency, and giving professionals more time to focus on judgement, advice, and client relationships.
+Many firms have already experimented with AI:
+•	drafting emails,
+•	summarising notes,
+•	producing explanations,
+•	or generating checklists.
+But experimentation alone does not create real change.
+What matters is structured adoption, built around:
+•	workflows,
+•	safeguards,
+•	and measurable outcomes.
+
+Even small efficiency improvements compound quickly.
+If routine tasks take 30–50% less time, that can translate into hours back each month across a team, reducing pressure during peak periods and creating space for higher-value work.
+This playbook will help you:
+•	adopt AI safely,
+•	apply it to real workflows,
+•	protect professional judgement,
+•	and create sustainable capacity inside your firm.
+The firms that succeed with AI will not be the ones who experiment the most.
+They will be the ones who turn time saved into better outcomes - for clients and for their teams.
+
+Action: Capacity reflection
+Ask yourself:
+1.	Where does your team spend the most repetitive time?
+2.	Which tasks feel necessary but low value?
+3.	What would you do if those tasks took 30–50% less time – giving you hours back each month? 
+Write down three areas where additional capacity would make the biggest difference, such as:
+•	reducing turnaround times,
+•	improving client communication,
+•	or creating space for advisory conversations.
+
+Page 3 - The Three Stages of AI in Accountancy
+AI adoption in accounting firms is moving through three clear stages.
+Stage 1 - Automation
+Rules-based systems perform repetitive tasks:
+•	bank feeds,
+•	automated postings,
+•	OCR and data capture,
+•	scheduled processes.
+Automation follows fixed rules.
+It is predictable, but limited.
+
+Stage 2 - Assistants
+Generative AI tools help with individual tasks:
+•	drafting emails,
+•	summarising information,
+•	explaining figures,
+•	preparing checklists.
+Assistants are powerful, but they rely on:
+•	prompts,
+•	context,
+•	and human direction.
+They help with tasks, not full processes.
+
+Stage 3 - Agents
+AI agents operate with a defined goal and set of constraints. They can:
+•	performing multiple steps,
+•	operating inside accounting systems, 
+•	make decisions with defined policies,
+•	and presenting results for approval. 
+Agents are not just step-driven like traditional automation.
+They are goal-driven, working within guardrails to reach an outcome.
+All agent activity should include a human-in-the-loop review point before final outputs are used or submitted.
+Instead of only helping with one task, agents can take responsibility for entire processes or defined outcomes.
+
+Core principle
+Assistants respond.
+Agents act. 
+
+Activity: Identify your stage
+Circle the description that best fits your firm:  
+•	We rely on traditional processes, without automation or AI.
+•	We rely mostly on automation.
+•	We are experimenting with AI assistants.
+•	We are using AI inside some workflows.
+•	We are moving toward agent-driven processes.
+
+Page 4 - The Sage AI Practice Framework
+Based on professional guidance, real firm experiences, and emerging best practice, Sage has developed a simple framework for the AI-ready firm.
+The Five Principles of the AI-Ready Firm
+1) Start with the workflow
+AI works best when:
+•	processes are defined,
+•	steps are repeatable,
+•	outcomes are predictable.
+Automation executes predefined steps.
+Assistants respond to prompts.
+Agents pursue outcomes by determining the steps required within defined guardrails. 
+
+2) Keep the accountant in control
+AI may:
+•	draft,
+•	check,
+•	summarise,
+•	or prepare.
+But:
+•	the accountant reviews,
+•	applies judgement,
+•	signs off and presses send – the one in control. 
+All AI-assisted work should follow a human-in-the-loop model, where the professional remains accountable for the result.
+Responsibility always remains with the professional. 
+
+3) Trust structured data over clever prompts
+AI output quality depends on: 
+•	the data,
+•	the context,
+•	the process behind it,
+•	and the quality of the instructions provided
+Clear prompts improve results, but clean, structured records and defined workflows creates error free, reliable AI outcomes. 
+
+4) Turn capacity into value
+AI creates time.  
+Firms must decide how to use it.
+The capacity can be used to:
+•	improve margins,
+•	deliver a better client experience,
+•	deepen client relationships,
+•	take on new clients,
+•	or introduce new advisory services.
+The most successful firms reinvest the AI dividend into client value and long term growth.
+
+5) Build for agents, not just assistants
+Today:
+•	AI helps with individual tasks.
+Tomorrow:
+•	AI systems will take responsibility for defined outcomes across workflows.
+Firms should: 
+•	design clear processes,
+•	define outcomes and review points,
+•	and stay open to new ways of working.
+Do not just experiment with prompts.
+Build structured, agent-ready processes
+
+Page 5 - Where AI Works Best
+AI is not equally effective at every task.
+It performs best where work is:
+•	structured,
+•	repeatable,
+•	and low in judgement.
+Some areas of work still require greater professional oversight, especially where tasks are:  
+•	ambiguous,
+•	high-risk,
+•	or judgement-driven.
+
+
+The AI Workflow Map
+Strong fit for AI and agents  
+These are areas where:
+•	data is structured,
+•	steps are repeatable,
+•	and outcomes are predictable.
+Examples include:
+•	Transaction reviews
+•	Anomaly detection
+•	Quarterly update preparation
+•	Payroll queries
+•	Variance explanations
+•	Client onboarding steps
+Human-led with AI support
+These areas still benefit from AI, but require:
+•	professional judgement,
+•	ethical consideration,
+•	or contextual decision-making.
+Examples include:
+•	Tax treatments
+•	Advisory conversations
+•	Judgement-heavy decisions
+•	Ethical considerations
+•	Client negotiations
+These activities are not always complex, but they do require human responsibility and interpretation.
+
+Activity: Map your firm’s tasks
+List ten common tasks in your firm.
+For each, decide:
+•	AI-ready workflow
+•	Human-led with AI support
+Circle the three best candidates for agent-style automation.
+
+Page 6 - The Capacity Opportunity
+AI does not just speed up individual tasks.
+It changes the capacity of the entire firm.
+When repetitive work is reduced: 
+•	turnaround times improve,
+•	staff stress decreases,
+•	more time becomes available for higher-value work,
+•	and teams gain space for training and upskilling.
+
+Where capacity is usually created
+In most firms, AI reduces time spent on:
+•	quarterly updates,
+•	payroll queries,
+•	client chasers,
+•	variance explanations,
+•	workpaper reviews,
+•	onboarding tasks.
+
+
+What firms can do with the AI dividend
+Every firm faces a choice: 
+1.	Give it away
+Reduce prices and compete on cost.
+2.	Keep it as margin
+Deliver the same services more profitably.
+3.	Reinvest it into value
+Add insight, planning, and proactive support.
+4.	Invest in people and growth
+•	Train and upskill the team
+•	Improve internal processes
+•	Take on more clients
+•	Expand into new services or markets
+
+The most successful firms
+Firms that grow through technology do more than become efficient. They:
+•	reinvest the AI dividend into client value,
+•	strengthen their teams,
+•	and use the additional capacity to grow sustainably.
+
+Action: The capacity question
+If your firm recovered 25% of compliance time:
+•	What would you stop doing?
+•	What would you start offering or improving?
+•	Where would you invest in your team?
+Write down two changes you would make.
+
+Page 7 - Assistants vs Agents: The New Way Work Gets Done
+Understanding the difference between assistants and agents is critical.
+
+Assistant-led work
+The accountant:
+•	performs the process,
+•	uses AI to help with tasks,
+•	and remains in control throughout.
+Examples:
+•	drafting emails,
+•	summarising notes,
+•	preparing explanations.
+In this model, the assistant responds to instructions, and the human performs the overall process.
+
+Agent-led work
+The agent:
+•	works toward a defined goal or outcome,
+•	determines the steps required within set guardrails,
+•	operates across multiple actions,
+•	and prepares the result for review.
+The accountant:
+•	reviews the outcome,
+•	applies judgement,
+•	approves, 
+•	and sends or finalises the result.
+All agent-led work should follow a human-in-the-loop model.
+
+The key shift
+Old model:
+Human performs tasks → time spent.
+Assistant model:
+Human performs the process → AI helps with tasks
+Agent model:
+Agent works toward the outcome → human reviews and approves
+
+Activity: Identify your first agent workflow
+List three processes in your firm that:
+•	are time-consuming,
+•	involve repeated checking or follow-ups,
+•	or are prone to manual errors. 
+These are strong candidates for agent support.
+
+Page 8 - The Role of the Accountant in an AI Firm
+AI changes how work is done.
+It does not change the need for professional judgement.
+
+What AI can do well 
+•	Draft communications
+•	Summarise data
+•	Check consistency
+•	Spot errors and anomalies
+•	Prepare reports
+•	Follow structured workflows
+
+What accountants must still do  
+•	Apply professional judgement
+•	Make decisions
+•	Interpret context
+•	Advise clients
+•	Strengthen client relationships
+•	Manually review and check before submission
+•	Take responsibility for the final outcome
+
+The new role
+From:
+•	processor,
+•	data handler,
+•	and task executor.
+To:
+•	reviewer,
+•	interpreter,
+•	adviser,
+•	and trusted client partner.
+
+Action: Role reflection
+Think about your own role.
+Which tasks:
+•	could AI assist with?
+•	should remain fully human?
+Write down:
+•	one task to delegate to AI,
+•	and one responsibility to protect as human-led.
+
+Page 9 - Professional Ethics and Responsibility in an AI World
+Using AI does not change the ethical responsibilities of accountants.
+Professional codes of ethics and tax conduct guidance, such as those within the Professional Conduct in Relation to Taxation (PCRT) framework, make it clear that responsibility for work remains with the accountant, regardless of the technology used.
+The fundamental principles still apply:
+•	integrity,
+•	objectivity,
+•	professional competence and due care,
+•	confidentiality,
+•	professional behaviour.
+AI may assist the process, but:
+•	the professional signs off the work,
+•	the professional has the final say and pushes to submit, 
+•	the firm remains accountable, 
+•	and judgement cannot be delegated to technology.
+
+The practical rule
+If you would not sign it without checking it,
+you should not send it.
+
+Activity: Judgement reflection
+Think of a recent decision that required professional judgement.
+Ask:
+•	Could AI have prepared options?
+•	Could it have drafted the explanation?
+•	Where was human judgement essential?
+
+Page 10 - The Human-in-the-Loop Model
+AI works best as part of a controlled, supervised process.
+This is known as the human-in-the-loop model.
+
+The workflow
+Step 1 - Assistant or agent
+AI:
+•	collects information,
+•	performs checks,
+•	drafts outputs,
+•	prepares summaries.
+
+Step 2 - Accountant review
+The accountant:
+•	reviews the results,
+•	applies judgement,
+•	makes adjustments.
+
+Step 3 - Accountant approval
+The accountant:
+•	signs off the final output,
+•	sends it to the client or authority,
+•	and takes responsibility.
+
+Why this matters
+This model:
+•	protects quality,
+•	preserves accountability,
+•	aligns with professional standards,
+•	and builds confidence in AI use.
+AI performs the steps.
+The accountant remains accountable.
+
+Action: Define your review rule
+Decide:
+At what stage must a human review AI outputs in your firm?
+Examples:
+•	Before anything is sent to a client.
+•	Before any tax submission.
+•	Before final reports are issued.
+Write down your firm’s review rule.
+
+Section 2 - Professional Guardrails for AI in Practice
+
+Page 11 - Professional Principles for AI in Accountancy
+Artificial intelligence does not change the professional responsibilities of accountants.
+It simply changes how work is produced.
+Professional codes of ethics and tax conduct guidance, including frameworks such as the Professional Conduct in Relation to Taxation (PCRT), make it clear that responsibility always remains with the accountant and the firm.
+Technology may assist the work.
+It does not sign it off.
+
+The professional foundations of AI use
+Any use of AI in an accounting firm must respect the core ethical principles:
+•	Integrity
+Be honest and straightforward in all professional work.
+•	Objectivity
+Do not allow bias, conflict of interest, or undue influence.
+•	Professional competence and due care
+ Maintain knowledge and skill, and review work properly.
+•	Confidentiality
+Protect client and firm information at all times.
+•	Professional behaviour
+Comply with laws, regulations, and professional standards.
+
+Core message
+AI can assist the process.
+The professional remains responsible for the outcome.
+
+Action: Ethics check
+Before using AI for a task, ask:
+1.	Would I be comfortable explaining this process to a client?
+2.	Can I justify the output?
+3.	Am I still exercising professional judgement?
+If the answer to any is no, review the process.
+
+Page 12 - The Real Risk: AI Without Process
+AI itself is not the biggest risk.
+The real risk is unstructured AI use.
+This happens when:
+•	staff use unapproved tools,
+•	client data is pasted into personal accounts,
+•	outputs are not reviewed,
+•	no audit trail is kept,
+•	different people use AI in different ways.
+
+What this leads to
+Unstructured AI use creates:
+•	inconsistent work,
+•	data risks,
+•	ethical concerns,
+•	and loss of professional confidence.
+
+Why structured workflows matter
+Accountants trust:
+•	checklists,
+•	defined processes,
+•	and repeatable steps.
+AI works best when:
+•	it follows those same structures,
+•	inside defined workflows,
+•	with clear, human review points. 
+
+Action: Process confidence check
+Think of one process in your firm that:
+•	is documented,
+•	has clear steps,
+•	produces consistent results.
+Now ask:
+Could AI assist or follow this process safely?
+
+Page 13 - The Minimum AI Policy Every Firm Needs
+Every firm needs a simple, practical AI policy.
+It does not need to be long or complex.
+But it must be clear, understood, and followed.
+
+Your minimum AI policy should cover five areas
+1) Approved tools
+Which AI systems staff are allowed to use.
+2) Prohibited data
+What must never be entered into AI tools.
+3) Review requirements
+What must be checked before outputs are used.
+4) Responsibility
+Who signs off the final work.
+5) Escalation
+What to do when AI outputs are uncertain or incorrect.
+
+Action: Write your starting rule
+Complete this sentence:
+“In our firm, AI is allowed for:
+_________________________________
+But it must never be used for:
+_________________________________”
+This single rule becomes the foundation of your AI policy.
+
+Page 14 - Data and Confidentiality in an AI World
+Accountants handle sensitive information every day.
+AI does not change that responsibility.
+
+The three-level data model
+Level 1 - Public data
+•	General questions
+•	Public tax rates
+•	Industry insights
+Safe for most AI tools.
+
+Level 2 - Internal firm data
+•	Templates
+•	Procedures
+•	Internal notes
+Use only with approved tools.
+
+Level 3 - Client confidential data
+•	Financial records
+•	Personal information
+•	Tax data
+Only use:
+•	inside approved systems,
+•	or AI tools embedded within accounting platforms.
+
+The three-question test
+Before using AI, ask:
+1.	Would I email this data to a stranger?
+2.	Would I store this in a public document?
+3.	Is this the minimum information needed?
+If any answer is no, do not use it.
+
+Activity: Data boundary exercise
+Write down:
+•	One type of data safe for general AI tools.
+•	One type of data restricted to approved tools.
+•	One type of data that must never leave your core systems.
+
+Page 15 - Legal Responsibility Does Not Change
+Using AI does not transfer responsibility to the technology.
+Firms remain legally and professionally accountable for:
+•	the accuracy of their work,
+•	the advice they give,
+•	and the data they handle.
+
+Key legal realities
+If AI produces:
+•	incorrect figures,
+•	misleading advice,
+•	or inappropriate communications,
+the firm may still be liable.
+The fact that AI was used:
+•	is not a defence,
+•	and does not reduce professional responsibility.
+
+Contract and engagement considerations
+Firms should review:
+•	engagement letters,
+•	confidentiality clauses,
+•	and client expectations.
+Some clients may:
+•	require disclosure,
+•	or have restrictions on technology use.
+
+Practical rule
+Review AI outputs as if you created them yourself.
+
+Action: Legal awareness check
+Ask:
+•	If this AI output were wrong, who would be responsible?
+•	Would our current engagement terms still protect us?
+If unsure, review your engagement letter wording.
+
+Page 16 - Common AI Failure Modes
+AI systems can produce convincing outputs that are still incorrect.
+Understanding common failure modes helps firms manage risk.
+
+The most common AI issues
+1) Confident errors
+AI can produce  incorrect answers that sound authoritative.
+
+2) Fabricated information
+AI may:
+•	invent facts,
+•	create false citations,
+•	or reference non-existent sources.
+
+3) Missing context
+AI may:
+•	give generic advice,
+•	ignore important details,
+•	or apply the wrong assumptions.
+
+4) Bias or skewed results
+Outputs may reflect:
+•	incomplete data,
+•	outdated assumptions,
+•	or unbalanced perspectives.
+
+Core message
+AI outputs must always be reviewed with professional scepticism.
+
+Action: Failure awareness exercise
+Think of a task where:
+•	accuracy is critical,
+•	or judgement is required.
+What could go wrong if:
+•	AI output was used without review?
+Write down two potential risks.
+
+Page 17 - Avoiding Over-Reliance on AI
+One of the biggest risks is not technical.
+It is behavioural.
+When AI produces confident outputs, people may:
+•	trust it too quickly,
+•	skip review steps,
+•	or stop questioning results.
+
+Signs of over-reliance
+Watch for:
+•	staff copying outputs without checking,
+•	reduced critical thinking,
+•	fewer questions being asked,
+•	increased confidence with no evidence.
+
+The professional mindset
+AI should be treated as:
+•	a junior assistant,
+•	or a draft-producing tool.
+Not:
+•	a final decision-maker,
+•	or an authority.
+
+Practical rule
+If you cannot explain the output,
+you should not rely on it.
+
+Activity: Scepticism habit
+Ask your team:
+“What would we check before trusting this output?”
+Make that the standard review step.
+
+Page 18 - The Four Output Checks
+Before using any AI output, perform four simple checks.
+
+Check 1 - Accuracy
+Are the facts, figures, and statements correct?
+
+Check 2 - Completeness
+Is anything missing?
+Are there unanswered questions?
+
+Check 3 - Professional tone
+Is the wording:
+•	appropriate,
+•	clear,
+•	and suitable for the client?
+
+Check 4 - Compliance and ethics
+Does the output:
+•	follow professional standards,
+•	respect confidentiality,
+•	and align with firm policies?
+
+Action: Apply the four checks
+Take a recent piece of work:
+•	an email,
+•	a report,
+•	or a tax explanation.
+Apply the four checks and note any changes you would make.
+
+Page 19 - Creating an AI Evidence Trail
+In traditional workflows, accountants keep:
+•	working papers,
+•	notes,
+•	and supporting documents.
+AI-assisted work should follow the same principle.
+
+
+The AI evidence standard
+For any material output, keep a simple record of:
+1.	What AI tool was used
+2.	What task it assisted with
+3.	What checks were performed
+4.	What changes were made
+5.	Who approved the final version
+This creates:
+•	transparency,
+•	accountability,
+•	and confidence.
+
+Simple AI file note template
+For internal use:
+•	AI tool used:
+•	Task assisted:
+•	Key checks performed:
+•	Changes made:
+•	Approved by:
+
+Activity: Build your file note rule
+Decide:
+When must an AI file note be created?
+Examples:
+•	For client-facing outputs
+•	For tax submissions
+•	For advisory reports
+
+Page 20 - The Red-Team Exercise
+One of the best ways to build confidence in AI is to test its weaknesses.
+This is known as a red-team exercise.
+Instead of asking:
+“Where does AI help us?”
+Ask:
+“Where could this go wrong?”
+
+How to run a red-team exercise
+1.	Choose a simple, real task.
+2.	Give AI limited or unclear information.
+3.	Observe the output.
+4.	Identify:
+o	errors,
+o	assumptions,
+o	or risks.
+5.	Write down what controls would prevent this.
+
+Why this matters
+This exercise:
+•	builds scepticism,
+•	improves policies,
+•	and strengthens workflows.
+It turns AI risk into practical learning.
+
+Action: Run your first red-team test
+Choose one task:
+•	email drafting,
+•	tax explanation,
+•	or client summary.
+Test AI with:
+•	incomplete information,
+•	or a vague prompt.
+Then write:
+•	two risks,
+•	and two controls to prevent them.
+
+Section 3 - Assistants, Agents, and the New Workflow Model
+
+Page 21 - Where Assistants Help
+AI assistants are designed to help with individual tasks.
+They respond to prompts and produce:
+•	drafts,
+•	summaries,
+•	explanations,
+•	or checklists.
+Assistants are most useful where:
+•	the task is clear,
+•	the input is limited,
+•	and the output can be easily reviewed.
+
+Common assistant use cases in a firm
+Assistants work well for:
+•	Drafting client emails
+•	Summarising meeting notes
+•	Explaining variances
+•	Preparing checklists
+•	Drafting internal procedures
+•	Creating training materials
+In each case:
+•	the assistant performs a single task,
+•	and the accountant remains fully in control.
+
+Core principle
+Assistants support tasks.
+They do not complete workflows.
+
+Activity: Assistant opportunity check
+List three tasks in your firm that:
+•	are repeated frequently,
+•	involve writing or explaining,
+•	and could be drafted by AI.
+
+Page 22 - Where Agents Transform Work
+Agents are different from assistants.
+Assistants help with individual tasks.
+Agents work toward a defined goal or outcome.
+Instead of responding to a single prompt,
+agents can:
+•	gather the information they need,
+•	perform checks,
+•	take multiple actions,
+•	and prepare a result for human review.
+They operate within:
+•	defined guardrails,
+•	approved data sources,
+•	and clear review points.
+
+The shift from tasks to workflows
+Assistant-led approach
+Human performs the process
+AI helps with individual steps
+
+Agent-led approach
+Agent performs the process
+Human reviews and approves
+
+What makes a good agent opportunity 
+Strong candidates for agent support are processes that:
+•	have a clear goal or outcome,
+•	rely on structured data,
+•	are repeated regularly,
+•	and include defined review points
+
+Activity: Agent candidate check
+Think of three processes in your firm.
+For each, ask:
+1.	Is the outcome clearly defined?
+2.	Does it rely on structured data?
+3.	Is it repeated regularly?
+4.	Can a human review the result before it is finalised?
+If the answer is yes to most of these, it is a strong candidate for agent support.
+
+Page 23 - The Core Agent Workflows in a Firm
+Most accounting firms share a set of common workflows.
+These are natural starting points for agents.
+
+Four high-impact agent workflows
+1) Quarterly update preparation 
+Goal:
+Prepare a complete and accurate quarterly update, while identifying trends and potential issues.
+The agent can:
+•	collect records from approved sources,
+•	check completeness,
+•	identify gaps or missing data,
+•	analyse movements and identify trends,
+•	prepare the quarterly update,
+•	and flag unusual items or risks for revie
+
+2) Period-end preparation
+Goal:
+Prepare period-end figures and highlight significant changes.
+The agent can:
+•	review the ledger,
+•	identify unusual movements,
+•	analyse variances,
+•	prepare draft workpapers,
+•	and present key changes for review.
+
+3) Client onboarding
+Goal:
+Complete onboarding efficiently and consistently.
+The agent can:
+•	request required information,
+•	track outstanding items,
+•	perform identity checks,
+•	prepare engagement documents,
+•	and confirm when onboarding is complete.
+
+4) Client chaser
+Goal:
+Ensure required client information is received on time.
+The agent can:
+•	monitor outstanding items,
+•	send scheduled reminders,
+•	escalate where needed,
+•	and track responses.
+
+These workflows:
+•	have clear outcomes,
+•	rely on structured data,
+•	and are well suited to agent support.
+
+Activity: Choose your first agent
+Circle one of the four workflows above as your starting point.
+
+Page 24 - The Agent Maturity Ladder
+AI adoption usually follows a clear progression.
+
+The five stages of AI maturity
+Stage 1 - Prompts
+Staff use AI to answer questions or draft text.
+Work is still entirely human-led.
+
+Stage 2 - Assistants
+AI is used regularly for defined tasks.
+It helps with drafting, checking, and summarising, while the accountant remains in control.
+
+Stage 3 - Workflow packs
+Prompts, checklists, and processes are standardised across the firm.
+Work becomes more consistent and repeatable.
+
+Stage 4 - Agents
+AI operates inside systems to achieve defined goals or outputs.
+It can perform multiple steps, gather information, carry out checks, and prepare results for review.
+
+Stage 5 - Orchestrated agents
+Multiple agents work together across systems.
+They coordinate tasks, share data, and deliver end-to-end outcomes across entire workflows.
+
+Core insight
+AI maturity is not about using smarter prompts.
+It is about moving from manual effort, to assisted tasks, to goal-driven agent outcomes.
+
+Activity: Identify your stage
+Which stage best describes your firm today?
+Write down:
+•	your current stage,
+•	and your next target stage.
+
+Page 25 - The Workflow Map: Where Agents Work Best
+Not every process should be automated.
+Agents work best where:
+•	the goal or outcome is clearly defined,
+•	the structure of the process is high,
+•	the steps are repeatable,
+•	and the required judgement is limited or well-bounded.
+In these situations, an agent can decide how to reach the outcome by following the available data, rules, and system constraints.
+
+Agents require greater oversight where:
+•	goals are unclear or constantly changing,
+•	the work is highly judgement-driven,
+•	the data is incomplete or unstructured,
+•	or the consequences of error are high.
+In these areas, AI should support the accountant, not replace their judgement.
+
+Core idea:
+Use agents where the destination is clear.
+Keep the human in control where the judgement defines the journey.
+
+High-structure, low-judgement tasks
+Strong candidates for agents:
+•	Data completeness checks
+•	Standard reconciliations
+•	Regular reporting
+•	Chasing missing records
+•	Variance explanations
+
+High-judgement tasks
+Human-led with AI support:
+•	Tax planning
+•	Complex advisory
+•	Client negotiations
+•	Ethical decisions
+•	Strategic recommendations
+
+Activity: Workflow mapping exercise
+Draw two columns:
+Agent-ready workflows
+Human-led workflows
+Place ten firm processes into the appropriate column.
+
+Page 26 - How to Choose Your First Agent
+Firms should not try to automate everything at once.
+Start with one workflow that:
+•	is simple,
+•	repetitive,
+•	and well understood.
+
+The four-question test
+Choose a process where:
+1.	The steps are consistent.
+2.	It happens at least monthly.
+3.	It relies on structured data.
+4.	It has a clear final output.
+If all four apply, it is a strong candidate.
+
+Action: First agent decision
+Complete this sentence:
+“Our first agent workflow will be:
+_________________________________”
+
+Page 27 - Agent Example: Quarterly Update Preparation
+Traditional approach
+1.	Request records from client.
+2.	Check completeness.
+3.	Identify missing items.
+4.	Follow up manually.
+5.	Prepare update.
+6.	Review figures.
+This process is:
+•	repetitive,
+•	time-consuming,
+•	and prone to delays.
+
+Assistant-led approach
+•	AI drafts chaser emails.
+•	AI summarises missing items.
+•	Human still performs most steps.
+
+Agent-led approach
+The agent:
+1.	Checks incoming records.
+2.	Identifies missing items.
+3.	Sends reminders.
+4.	Prepares the update.
+5.	Flags issues for review.
+The accountant:
+•	reviews the summary,
+•	applies judgement,
+•	approves submission. 
+
+Activity
+Estimate:
+•	Time spent per client today.
+•	Time with an agent.
+
+Page 28 - Agent Example: Period-End Preparation
+Traditional process
+1.	Review ledgers.
+2.	Check unusual balances.
+3.	Investigate anomalies.
+4.	Prepare workpapers.
+5.	Draft explanations.
+
+Agent-led process
+The agent:
+1.	Reviews the ledger.
+2.	Identifies unusual movements.
+3.	Prepares a variance summary.
+4.	Drafts explanations.
+The accountant:
+•	reviews the findings,
+•	applies judgement,
+•	approves the adjustments.
+
+Activity
+Ask:
+Which parts of your period-end process are:
+•	rule-based,
+•	repetitive,
+•	and suitable for an agent?
+
+Page 29 - Agent Example: Client Onboarding
+Traditional process
+1.	Send information requests.
+2.	Collect identity documents.
+3.	Perform checks.
+4.	Prepare engagement letter.
+5.	Set up systems.
+Often:
+•	manual,
+•	inconsistent,
+•	and slow.
+
+Agent-led process
+The agent:
+1.	Requests required information.
+2.	Tracks outstanding items.
+3.	Runs identity checks.
+4.	Prepares engagement documents.
+5.	Confirms completion.
+The accountant:
+•	reviews results,
+•	approves onboarding.
+
+Activity
+List three steps in your onboarding process that:
+•	could be automated,
+•	or handled by an agent.
+
+Page 30 - Agent Example: Client Chaser
+Traditional process
+•	Staff manually track missing items.
+•	Emails are sent individually.
+•	Follow-ups are inconsistent.
+
+Agent-led process
+The agent:
+1.	Monitors outstanding items.
+2.	Sends scheduled reminders.
+3.	Escalates after set intervals.
+4.	Tracks responses.
+The accountant:
+•	steps in only when needed.
+
+Core benefit
+Less time chasing.
+More time advising.
+
+Activity
+Estimate:
+How many hours per month are spent chasing clients?
+
+Page 31 - The Agent Spec Template
+Before introducing an agent, define the workflow clearly.
+
+The agent specification
+Workflow name:
+(e.g. Quarterly update preparation)
+Goal or outcome:
+What result should the agent achieve?
+Trigger:
+What starts the process?
+Inputs required:
+What information or data is needed?
+Agent behaviour:
+What types of actions is the agent expected to perform?
+(e.g. gather data, run checks, identify issues, prepare outputs)
+Human review point:
+Where does the accountant step in?
+What must be reviewed before anything is finalised?
+Final output:
+What does the agent produce?
+(e.g. draft update, exception report, completed return)
+Escalation rules:
+When must the agent stop and alert a human?
+(e.g. missing data, unusual results, policy breaches)
+
+Activity
+Complete this template for your chosen first agent.
+Tip:
+Start with a workflow where the goal is clear, the data is structured, and the review step is already defined. These make the strongest first agent candidates.
+
+Page 32 - The Agent Controls Checklist
+Agents must operate within clear boundaries.
+
+Minimum agent controls
+Outcome controls
+•	A clearly defined goal or outcome
+•	A known scope of responsibility
+•	Clear success criteria
+
+Data controls
+•	Only approved data sources
+•	No unapproved client data
+•	Clear data ownership and access rules
+
+Process controls
+•	Defined guardrails and policies
+•	Clear human review points
+•	Escalation rules for exceptions or uncertainty
+
+Evidence controls
+•	Activity logs
+•	Output summaries
+•	Approval records
+•	Version history of outputs
+•	Source references for key calculations or assumptions
+
+Escalation controls
+•	Stop rules for missing or inconsistent data
+•	Human intervention points
+•	Confidence or anomaly thresholds
+•	Client-sensitive scenarios (e.g. tax position changes, large variances)
+
+Accountability controls
+•	Named human owner for each agent workflow
+•	Clear sign-off responsibility
+•	Audit trail of decisions and overrides
+•	Periodic review of agent performance
+
+Activity
+Tick the controls your first agent will include.
+Then ask:
+•	Who owns this agent?
+•	Where does the human review happen?
+•	What would cause the agent to stop and escalate?
+
+Page 33 - Building Confidence in Agents
+Confidence comes from:
+•	visibility,
+•	control,
+•	and clear review processes.
+
+How to build trust in agent workflows
+Step 1 - Start with low-risk processes
+Choose simple, repeatable workflows.
+
+Step 2 - Keep humans in the loop
+Always include review points.
+
+Step 3 - Monitor outcomes
+Track:
+•	time saved,
+•	error rates,
+•	and client feedback.
+
+Step 4 - Expand gradually
+Move from:
+•	one agent,
+•	to multiple workflows.
+
+Activity
+Write down:
+One low-risk workflow to start with
+One control you will apply
+One success measure
+
+Page 34 - The New Role of the Accountant
+As agents take over structured workflows, the role of the accountant evolves.
+
+Old model
+Accountant:
+•	collects data,
+•	performs checks,
+•	prepares reports,
+•	completes submissions.
+
+New model
+Agent:
+•	collects data,
+•	performs checks,
+•	prepares outputs.
+Accountant:
+•	reviews,
+•	interprets,
+•	advises,
+•	and signs off.
+
+The shift in value
+From:
+•	effort,
+•	time,
+•	and processing.
+To:
+•	judgement,
+•	insight,
+•	and outcomes.
+
+Activity
+List three activities you currently perform that:
+•	are structured,
+•	repeatable,
+•	and could be handled by an agent.
+
+Page 35 - The AI-Enabled Workflow
+Traditional workflow
+Client → Data → Accountant → Processing → Output
+
+AI-enabled workflow
+Client → Data → Agent → Accountant review → Insight → Client
+
+What changes
+•	Processing time decreases.
+•	Consistency increases.
+•	Turnaround improves.
+•	Capacity is created.
+
+What does not change
+•	Professional judgement.
+•	Responsibility.
+•	Client trust.
+
+Final message for this section
+AI does not remove the accountant.
+It removes the unnecessary steps between the accountant and the client.
+
+Activity: Your future workflow
+Draw your current process for one service.
+Then redraw it:
+•	with an agent performing the structured steps,
+•	and the accountant focused on review and advice.
+
+Section 4 - Assistant Skills and Prompting in Practice
+
+Page 36 - The Accountant’s Prompt Framework
+AI assistants work best when instructions are:
+•	clear,
+•	structured,
+•	and purposeful.
+A vague question produces a vague answer.
+A structured prompt produces a useful result.
+
+The Sage Prompt Framework
+Every effective prompt has four parts:
+1) Role
+Who the AI should act as.
+Example:
+•	“You are an accountant…”
+•	“You are a payroll specialist…”
+•	“You are a client relationship manager…”
+
+2) Task
+What you want it to do.
+Example:
+•	Draft an email
+•	Summarise a report
+•	Explain a variance
+•	Prepare a checklist
+
+3) Context
+The situation, background, or data.
+Example:
+•	Type of client
+•	Industry
+•	Financial figures
+•	Previous discussion points
+
+4) Constraints
+Any rules the output must follow.
+Example:
+•	Word limit
+•	Tone
+•	Structure
+•	Compliance considerations
+
+Simple prompt structure
+Role + Task + Context + Constraints
+
+Example prompt
+“You are an accountant.
+Draft a short, professional email to a retail client explaining that their quarterly profit has decreased due to higher supplier costs.
+Keep it under 120 words and use a supportive tone.”
+
+Activity: Rewrite a prompt
+Take a vague prompt like:
+“Write an email about the results.”
+Now rewrite it using:
+•	Role
+•	Task
+•	Context
+•	Constraints
+
+Page 37 - The Five Prompt Types Every Accountant Should Know
+Most AI use in a firm falls into five prompt types.
+
+1) Draft prompts
+Used to create:
+•	emails,
+•	letters,
+•	or reports.
+Example:
+“Draft an email to a client explaining their VAT position.”
+
+2) Summary prompts
+Used to:
+•	shorten notes,
+•	condense reports,
+•	or extract key points.
+Example:
+“Summarise these meeting notes into five key actions.”
+
+3) Explanation prompts
+Used to:
+•	explain figures,
+•	describe variances,
+•	or clarify tax treatments.
+Example:
+“Explain why gross profit has fallen this quarter.”
+
+4) Check prompts
+Used to:
+•	review work,
+•	identify risks,
+•	or spot inconsistencies.
+Example:
+“Review this list of expenses and identify any unusual items.”
+
+5) Question prompts
+Used to:
+•	generate questions,
+•	prepare meeting agendas,
+•	or identify missing information.
+Example:
+“List five questions to ask a client with declining cashflow.”
+
+Activity: Prompt type exercise
+Think of a recent task.
+Which of the five prompt types would have helped?
+
+Page 38 - Prompt Practice: From Basic to Structured
+The quality of the output depends on the quality of the prompt.
+
+Example: basic vs structured
+Basic prompt
+“Write a reminder email.”
+Result:
+•	Generic
+•	Lacks context
+•	May be too long or too casual
+
+Structured prompt
+“You are a professional accountant.
+Draft a short reminder email to a construction client who has not yet provided their quarterly records.
+Keep the tone polite and supportive, under 100 words.”
+Result:
+•	More accurate
+•	Better tone
+•	Easier to use
+
+The improvement loop
+When using assistants:
+1.	Write the prompt.
+2.	Review the output.
+3.	Refine the prompt.
+4.	Re-run if needed.
+This creates:
+•	better results,
+•	reusable prompts,
+•	and consistent outputs.
+
+Activity: Prompt improvement
+Take a prompt you have used recently.
+Refine it using:
+•	Role
+•	Task
+•	Context
+•	Constraints
+Compare the results.
+
+Page 39 - From Prompts to Workflows to Agents 
+AI adoption usually follows a simple progression.
+
+Step 1 - Individual prompts
+Staff use AI:
+•	occasionally,
+•	for specific tasks.
+
+Step 2 - Standard prompts
+The firm:
+•	documents useful prompts,
+•	shares them internally,
+•	builds consistency.
+
+Step 3 - Workflow packs
+Prompts become part of:
+•	checklists,
+•	procedures,
+•	and defined processes.
+AI is now embedded into the workflow.
+
+Step 4 - Agents
+The workflow is:
+•	structured,
+•	goal-driven,
+•	and executed by an agent.
+Agents may still use prompts internally to perform tasks.
+The accountant:
+•	defines the goal or outcome,
+•	reviews the result,
+•	approves,
+•	and advises.
+
+Core message
+Prompts are the starting point. 
+Workflows create consistency.
+Agents create transformation.
+
+Activity: Workflow progression
+Choose one task you currently perform.
+Ask:
+1.	What prompt could assist this?
+2.	How could it become part of a checklist?
+3.	Could it become an agent workflow?
+
+Page 40 - Your Starter Prompt Library
+Every firm should build a small, shared prompt library.
+Start with five practical prompts.
+
+Starter prompts for accountants
+1) Client reminder email
+“You are an accountant.
+Draft a polite reminder email to a client who has not yet provided their monthly records.
+Keep it under 100 words and use a supportive tone.”
+
+2) Variance explanation
+“You are a finance manager.
+Explain the main reasons why expenses increased this quarter based on the following figures: [insert data].
+Keep the explanation clear and client-friendly.”
+
+3) Meeting summary
+“You are an assistant.
+Summarise these meeting notes into five key actions for the client.”
+
+4) Expense review
+“You are an accountant.
+Review this list of expenses and identify any unusual or potentially disallowable items.”
+
+5) Client questions
+“You are an adviser.
+Generate five questions to ask a client whose cashflow has been declining over the last three months.”
+
+Building your firm’s prompt library
+A good prompt library should:
+•	contain 10–20 common prompts,
+•	be shared across the firm,
+•	and be updated regularly.
+
+Activity: Create your first prompt library
+Write down:
+•	three prompts your firm will use regularly,
+•	and store them in a shared document.
+
+
+Section 5 - Pricing and the Economics of AI
+
+Page 41 - The AI Dividend
+Artificial intelligence changes the economics of accounting work.
+When repetitive tasks are reduced:
+•	work takes less time,
+•	errors decrease,
+•	turnaround improves,
+•	and capacity is created.
+This is known as the AI dividend.
+It is the efficiency gained when:
+•	assistants help with tasks,
+•	and agents take over structured workflows.
+
+Where the dividend comes from
+In most firms, AI reduces time spent on:
+•	data checking,
+•	drafting communications,
+•	chasing clients,
+•	preparing summaries,
+•	reviewing standard reports,
+•	and repetitive compliance steps.
+This creates time that did not exist before.
+
+Core message
+AI creates capacity.
+Firms must decide what to do with it.
+
+Activity: Identify your AI dividend
+List three areas where AI could:
+•	reduce time,
+•	remove repetition,
+•	or improve consistency.
+
+Page 42 - The Capacity Question  
+Every firm adopting AI faces the same strategic decision:
+What will you do with the extra capacity?
+
+The three common responses
+1) Give it away
+•	Reduce prices
+•	Compete on cost
+•	Race to the bottom
+
+2) Keep it as margin
+•	Same services
+•	Higher profitability
+•	Improved efficiency
+
+3) Reinvest it into value
+•	Add advisory services
+•	Improve client experience
+•	Deliver insight more frequently
+
+The most successful firms
+Firms that grow through technology do not just become more efficient.
+They:
+•	use capacity to deliver more value,
+•	deepen client relationships,
+•	and move up the value chain.
+
+Activity: Capacity decision
+If your firm saved 25% of compliance time:
+Would you:
+•	reduce fees,
+•	increase margins,
+•	or add new services?
+Circle one and explain why.
+
+Page 43 - Why Time-Based Pricing Becomes Unstable
+Traditional accounting pricing is often linked to time.
+•	Hourly billing
+•	Time estimates
+•	Effort-based fees
+AI changes this relationship.
+When effort drops:
+•	the time required decreases,
+•	but the client’s outcome does not change.
+
+The problem with time-based pricing
+If work takes:
+•	four hours today,
+•	and one hour with AI tomorrow,
+the value to the client may be exactly the same.
+But the fee would fall dramatically under a time-based model.
+
+Core insight
+AI reduces effort.
+It does not reduce the value of the outcome.
+
+Activity: Effort vs value
+Think of one service you provide.
+Ask:
+•	What outcome does the client actually value?
+•	Is it the time spent, or the result delivered?
+
+Page 44 - The Four Pricing Models in an AI World
+As AI changes how work is done, firms tend to move through four pricing models.
+
+Model 1 - Time-based pricing
+•	Fees linked to hours
+•	Sensitive to efficiency changes
+•	Unstable in an AI environment
+
+Model 2 - Fixed compliance pricing
+•	Monthly or annual packages
+•	Predictable and scalable
+•	Well suited to agent-driven workflows
+
+Model 3 - Outcome-based pricing
+Fees linked to:
+•	results,
+•	decisions,
+•	or risk reduction.
+Examples:
+•	tax planning outcomes,
+•	cashflow improvements,
+•	faster reporting.
+
+Model 4 - Tiered value pricing
+Three structured service levels:
+Core
+Compliance-only services
+Growth
+Compliance plus insight
+Strategic
+Compliance plus advisory
+
+Activity: Pricing model review
+Which pricing model best describes your firm today?
+Which model do you want to move toward?
+
+Page 45 - The Shift from Effort to Judgement
+In an agent-driven firm:
+•	agents perform structured tasks,
+•	humans review and advise.
+This shifts the source of value.
+
+Old value model
+Clients paid for:
+•	time,
+•	processing,
+•	and task completion.
+
+New value model
+Clients pay for:
+•	availability,
+•	judgement,
+•	experience,
+•	insight,
+•	and confidence.
+
+Core message
+In an AI-enabled firm,
+you are no longer selling effort.
+You are selling judgement and outcomes.
+
+Activity: Value reflection
+Ask yourself:
+If AI handled 70% of the processing,
+what would clients still pay you for?
+Write down three answers.
+
+Page 46 - The 3V Pricing Framework
+To price services in an AI-enabled firm, use the 3V model.
+
+The three pricing factors
+1) Volume
+•	Number of transactions
+•	Number of employees
+•	Number of properties
+•	Level of activity
+
+2) Value
+•	Client complexity
+•	Risk level
+•	Industry challenges
+•	Growth ambitions
+
+3) Visibility
+How often the accountant is involved:
+•	Annual
+•	Quarterly
+•	Monthly
+•	Real-time
+
+How this replaces time-based pricing
+Instead of:
+“£120 per hour”
+You price based on:
+•	how much activity exists,
+•	how complex the client is,
+•	and how often you are involved.
+
+Activity: 3V exercise
+Choose one client and define:
+Volume:
+Value:
+Visibility:
+Use this to estimate a monthly fee.
+
+Page 47 - Designing AI-Era Service Packages
+AI enables firms to structure services more clearly.
+A simple three-tier model works well.
+
+Core package
+Compliance-focused services:
+•	Bookkeeping
+•	Payroll
+•	Tax submissions
+•	Standard reporting
+Agent-driven wherever possible.
+
+Growth package
+Compliance plus insight:
+•	Quarterly reviews
+•	Variance explanations
+•	Cashflow summaries
+•	Basic forecasting
+
+Strategic package
+Compliance plus advisory:
+•	Scenario planning
+•	Tax strategy
+•	Board-style reviews
+•	Growth planning
+
+Core principle
+AI supports the Core package.
+Human judgement drives the Strategic package.
+
+Activity: Package design
+Define:
+Core package:
+Growth package:
+Strategic package:
+
+Page 48 - The AI Impact Pricing Exercise
+AI changes the time required to deliver services.
+This exercise helps visualise the impact.
+
+Step 1 - Choose three services
+For example:
+•	Bookkeeping
+•	Payroll
+•	Accounts preparation
+
+Step 2 - Estimate time today
+Service	Time today	Time with AI	Human value
+
+Step 3 - Estimate time with AI
+Assume:
+•	assistants reduce drafting time,
+•	agents reduce structured workflow time.
+
+Step 4 - Identify the human value
+Ask:
+What part of this service requires judgement?
+
+Activity
+Complete the table for the three services you chose.
+
+Page 49 - Talking to Clients About AI
+Clients may ask:
+•	Are you using AI?
+•	Does this reduce my fees?
+•	Is my data safe?
+Firms should be ready with clear, confident answers.
+
+Key messages for clients
+1) AI improves quality and consistency
+It reduces:
+•	manual errors,
+•	delays,
+•	and repetitive tasks.
+
+2) AI frees up time for advice
+More time is spent on:
+•	insight,
+•	planning,
+•	and proactive support.
+
+3) Professional responsibility remains unchanged
+All work is:
+•	reviewed by an accountant,
+•	and signed off professionally.
+
+Example client statement
+“We use modern technology, including AI, to reduce repetitive work and improve accuracy.
+All outputs are reviewed by qualified professionals, and your data remains protected within approved systems.”
+
+Activity: Client messaging
+Write a one-paragraph explanation of how your firm uses AI.
+
+Page 50 - Pricing Action Checklist
+Use this checklist to start adapting your pricing for an AI-enabled firm.
+
+Step 1 - Understand your AI dividend
+Identify where time will be saved.
+☐ Three workflows identified
+☐ Estimated time savings
+
+Step 2 - Choose your capacity strategy
+Decide how you will use the extra time.
+☐ Margin
+☐ New services
+☐ Improved experience
+
+Step 3 - Review your pricing model
+Move away from pure time-based pricing.
+☐ Fixed packages
+☐ Outcome-based elements
+☐ Tiered services
+
+Step 4 - Apply the 3V framework
+For key clients:
+☐ Volume assessed
+☐ Value assessed
+☐ Visibility defined
+
+Step 5 - Update client communication
+Prepare a simple explanation of your AI approach.
+☐ Client AI statement drafted
+☐ Engagement terms reviewed
+
+Final message for this section
+AI changes how the work is done.
+It does not change the value of the outcome.
+
+Section 6 - The 90-Day AI Adoption Plan
+
+Page 51 - The First 30 Days: Build the Foundations
+The first 30 days are about:
+•	clarity,
+•	control,
+•	and confidence.
+You are not trying to transform the entire firm.
+You are building a safe, structured starting point.
+
+Your 30-day priorities
+1) Choose approved AI tools
+Decide:
+•	which tools staff can use,
+•	and which are not allowed.
+
+2) Create a simple AI policy
+Define:
+•	what AI can be used for,
+•	what data must never be entered,
+•	and what review is required.
+
+3) Identify three assistant use cases
+Choose tasks such as:
+•	drafting client emails,
+•	summarising notes,
+•	or explaining variances.
+
+4) Nominate two AI champions
+Select team members who will:
+•	test tools,
+•	share prompts,
+•	and support colleagues.
+
+30-day checklist
+☐ Approved tools selected
+☐ AI policy written
+☐ Three assistant use cases chosen
+☐ Two AI champions nominated
+
+Activity
+Complete this sentence:
+“In the next 30 days, our firm will start using AI for:
+_________________________________”
+
+Page 52 - Days 31–60: Move from Prompts to Workflows 
+The next phase is about:
+•	consistency,
+•	structure,
+•	and repeatable outcomes.
+In the first 30 days, your team experimented with AI through individual prompts.
+Now the focus shifts from one-off prompts to standardised workflows where prompts are embedded inside the process.
+
+Your 60-day priorities
+1) Build a shared AI prompt library
+Create:
+•	10–15 standard prompts
+for common firm tasks.
+These should be:
+•	clearly named,
+•	stored in one shared location,
+•	and used consistently across the team.
+The goal is not more prompts.
+The goal is consistent outputs.
+
+2) Standardise one workflow
+Choose one process, such as:
+•	quarterly updates,
+•	onboarding,
+•	or period-end preparation.
+Define:
+•	the desired outcome,
+•	the key steps,
+•	the prompts used at each step,
+•	and the human review points.
+The workflow should be:
+•	repeatable,
+•	easy to follow,
+•	and produce consistent results.
+
+3) Introduce the four output checks
+Ensure staff:
+•	review accuracy,
+•	check completeness,
+•	confirm tone,
+•	and consider compliance.
+This reinforces the principle that:
+AI prepares the work.
+The accountant remains in control.
+
+60-day checklist
+☐ Prompt library created
+☐ One workflow standardised
+☐ Output review rules adopted
+
+Activity
+Write down the workflow you will standardise first:
+“Our first standardised AI workflow will be:
+_________________________________”
+
+Page 53 - Days 61–90: Introduce Your First Agent
+By the final 30 days, the firm should be ready to:
+•	move from assistants to agents,
+•	and automate one structured workflow.
+
+Your 90-day priorities
+1) Choose your first agent workflow
+Select a process that is:
+•	repetitive,
+•	structured,
+•	and low in judgement.
+Examples:
+•	quarterly update preparation,
+•	client chaser,
+•	onboarding steps.
+
+2) Create the agent specification
+Define:
+•	the trigger,
+•	the steps,
+•	the review point,
+•	and the output.
+
+3) Apply agent controls
+Ensure:
+•	data boundaries are clear,
+•	review points exist,
+•	and outputs are logged.
+
+90-day checklist
+☐ First agent workflow selected
+☐ Agent specification completed
+☐ Controls applied
+☐ Success measure defined
+
+Activity
+Complete this sentence:
+“By day 90, our firm will have an agent handling:
+_________________________________”
+
+Page 54 - The AI Enablement Rhythm
+AI adoption is not a one-off project.
+It is an ongoing process.
+Firms need a simple rhythm to:
+•	build skills,
+•	share learning,
+•	and maintain control.
+
+A simple enablement cadence
+Weekly
+15-minute prompt or workflow clinic:
+•	share prompts,
+•	discuss results,
+•	identify improvements.
+
+Monthly
+Workflow design session:
+•	review one process,
+•	identify automation opportunities,
+•	update procedures.
+
+Quarterly
+Governance review:
+•	review policies,
+•	assess risks,
+•	update tool approvals.
+
+Key roles
+•	AI champion
+•	Workflow owner
+•	Partner sponsor
+
+Activity
+Decide:
+•	who your AI champion will be,
+•	and when your first prompt clinic will take place.
+
+Page 55 - The AI Scorecard
+AI adoption should be measured.
+Without measurement:
+•	success is unclear,
+•	and confidence is harder to build.
+
+Five simple AI metrics
+1) Time saved
+Reduction in time spent on key workflows.
+
+2) Turnaround time
+Speed from client data to final output.
+
+3) Rework rate
+How often work needs correction.
+
+4) Adoption rate
+Percentage of jobs using approved AI.
+
+5) Team capacity
+Hours freed up for higher-value work.
+
+Activity: Choose your metrics
+Select two metrics to track for the next 90 days:
+1.	
+2.	
+
+Page 56 - The Stop-Doing List
+AI adoption is not just about adding new tools.
+It is also about:
+•	removing unnecessary steps,
+•	and simplifying processes.
+
+Common tasks firms stop doing
+After adopting AI, many firms reduce or remove:
+•	manual chasing processes
+•	duplicate data entry
+•	repetitive internal reports
+•	unnecessary formatting tasks
+•	manual summary writing
+
+The stop-doing exercise
+Ask your team:
+What do we do because we always have?
+What could AI remove or simplify?
+
+Activity
+List three tasks your firm could stop doing:
+1.	
+2.	
+3.	
+
+Page 57 - Three Strategic Questions for the AI-Ready Firm
+Every firm should regularly reflect on three key questions.
+
+Question 1
+What is no longer useful?
+Which processes:
+•	exist only because of old technology,
+•	or manual limitations?
+
+Question 2
+What is now possible?
+Which services:
+•	could be delivered faster,
+•	more frequently,
+•	or more proactively?
+
+Question 3
+Where will we create value?
+How will the firm use:
+•	new capacity,
+•	new insight,
+•	and new workflows?
+
+Activity
+Discuss these questions at your next partner or leadership meeting.
+Write down one answer to each.
+
+Page 58 - The Four Stages of the AI-Ready Firm
+AI adoption does not happen overnight.
+Firms typically progress through four stages.
+
+Stage 1 - Experimentation
+•	Occasional AI use
+•	No standard processes
+•	Individual prompts
+
+Stage 2 - Structured assistants
+•	Shared prompts
+•	Defined review rules
+•	Basic policies
+
+Stage 3 - Workflow integration
+•	AI embedded in processes
+•	Standardised steps
+•	Measurable time savings
+
+Stage 4 - Agent-driven firm
+•	Agents handle structured workflows
+•	Accountants focus on judgement
+•	Capacity redirected into advisory
+
+Final message
+The goal is not to use more AI.
+The goal is to build a better firm.
+
+Activity: Stage assessment
+Which stage best describes your firm today?
+What is the next step forward?
+
+
+Section 7 - Templates and Practical Tools
+
+Page 59 - AI Acceptable Use Policy (Starter Template)
+Every firm should have a simple, clear policy for AI use.
+This does not need to be complex.
+It just needs to set expectations.
+
+AI acceptable use policy (starter version)
+Purpose
+Our firm uses AI tools to:
+•	improve efficiency,
+•	reduce repetitive tasks,
+•	and enhance client service.
+All work remains subject to professional review and approval.
+
+Approved uses
+AI may be used for:
+•	drafting communications,
+•	summarising notes,
+•	preparing explanations,
+•	internal checklists,
+•	and other low-risk tasks.
+
+Restricted uses
+AI must not be used for:
+•	final client outputs without review,
+•	high-judgement decisions,
+•	or unapproved workflows.
+
+Data rules
+•	Public or generic data may be used in general AI tools.
+•	Internal firm data may only be used in approved systems.
+•	Client confidential data must only be used in approved, secure environments.
+
+Review rule
+All AI-assisted outputs must:
+•	be reviewed by a member of staff,
+•	and approved before being shared externally.
+
+Responsibility
+The accountant remains responsible for:
+•	the accuracy,
+•	the compliance,
+•	and the professional quality of the work.
+
+Activity
+Adapt this policy for your firm by:
+•	adding your approved tools,
+•	defining your review rule,
+•	and sharing it with the team.
+
+Page 60 - Agent Specification Template
+Before introducing an agent, define the workflow clearly.
+
+Agent specification template
+Workflow name:
+(e.g. Quarterly update preparation)
+
+Trigger:
+What starts the process?
+
+Inputs required:
+What information is needed?
+
+Agent steps:
+1.
+2.
+3.
+4.
+5.
+
+Human review point:
+Where does the accountant step in?
+
+Final output:
+What does the agent produce?
+
+Escalation rules:
+When must the agent stop and alert a human?
+
+Activity
+Complete this template for your first agent workflow.
+
+Page 61 - AI Output Review Checklist
+Every AI output should follow a simple review process.
+
+The four output checks
+1) Accuracy
+Are the facts and figures correct?
+
+2) Completeness
+Is anything missing?
+
+3) Professional tone
+Is the wording appropriate and clear?
+
+4) Compliance and ethics
+Does the output align with:
+•	professional standards,
+•	firm policies,
+•	and confidentiality rules?
+
+Quick review checklist
+Before sending or using an AI output:
+☐ Facts checked
+☐ Key points covered
+☐ Tone appropriate
+☐ Compliance confirmed
+
+Activity
+Add this checklist to:
+•	your internal procedures,
+•	or your workflow documentation.
+
+Page 62 - AI Tool Usage Matrix
+Different tools should be used for different types of work.
+
+Example tool usage matrix
+Tool type	Allowed tasks	Data allowed	Review required
+General AI assistant	Drafting, summaries, checklists	Public or generic data	Yes
+Firm-approved AI assistant	Internal documents, structured prompts	Internal firm data	Yes
+AI embedded in accounting systems	Bookkeeping, reporting, compliance workflows	Client confidential data	Yes
+Agent workflows	Structured processes	Approved system data only	Yes, at review points
+
+Activity
+Create your own matrix by:
+•	listing the tools your firm uses,
+•	defining allowed tasks,
+•	and setting data boundaries.
+
+Page 63 - AI File Note Template
+AI-assisted work should have a simple evidence trail.
+
+AI file note template
+AI tool used:
+Task assisted:
+Type of output:
+(e.g. email draft, summary, variance explanation)
+Key checks performed:
+•	Accuracy
+•	Completeness
+•	Tone
+•	Compliance
+Changes made after AI output:
+Approved by:
+Date:
+
+When to use this
+Create an AI file note when:
+•	the output is client-facing,
+•	the work involves judgement,
+•	or the task is material.
+
+Activity
+Decide:
+When will your firm require an AI file note?
+
+Page 64 - Client AI Communication Template
+Clients may ask how AI is used in your firm.
+A simple, clear explanation builds confidence.
+
+Standard client AI statement
+“We use modern technology, including artificial intelligence, to reduce repetitive work and improve accuracy.
+All outputs are reviewed by qualified professionals, and your data remains protected within approved systems.
+Our use of AI allows us to spend more time providing insight, advice, and proactive support.”
+
+Short version
+“We use AI to reduce manual work, improve accuracy, and spend more time advising you.
+All work is reviewed by our team.”
+
+Activity
+Write your firm’s AI statement in your own tone and style.
+
+Page 65 - AI Glossary
+A quick reference to common AI terms.
+
+AI (Artificial Intelligence)
+Technology that performs tasks normally requiring human intelligence, such as analysing data or generating text.
+
+AI Agent
+An AI system that:
+•	works towards a defined goal or outcome,
+•	can perform multiple steps across systems or data sources,
+•	makes decisions within set rules or constraints,
+•	and prepares results for human review and approval.
+Agents focus on achieving outcomes, not just completing individual tasks
+
+AI Audit Trail 
+A record showing:
+•	how AI was used,
+•	what outputs were generated,
+•	and who approved the final result.
+
+AI Assistant
+An AI tool that helps with individual tasks, such as:
+•	drafting emails,
+•	summarising notes,
+•	or explaining figures.
+Assistants respond to prompts and require human direction.
+
+AI dividend
+The time and efficiency gained from using AI and agents.
+
+AI Policy
+A firm’s internal rules governing:
+•	how AI can be used,
+•	what data is allowed,
+•	and what review is required.
+
+Generative AI 
+AI that creates new content, such as:
+•	text,
+•	summaries,
+•	explanations,
+•	code,
+•	images,
+•	audio,
+•	or video.
+Generative AI produces original outputs based on patterns learned from large sets of training data
+
+Audit trail
+A record showing:
+•	what was done,
+•	how it was done,
+•	and who approved it.
+
+Automation
+Technology that performs tasks using fixed rules and processes, without human intervention.
+Examples:
+•	bank feeds,
+•	recurring journals,
+•	rules-based expense coding.
+Automation is different from generative AI, which creates new content.
+
+Bias (in AI)
+When an AI system produces skewed or unfair results because of:
+•	incomplete data,
+•	unbalanced training,
+•	or incorrect assumptions.
+
+Context
+The background information provided to an AI system.
+Better context usually leads to:
+•	more accurate,
+•	more relevant,
+•	and more useful outputs.
+
+Context Window
+The amount of information an AI system can consider at one time when producing a response.
+Larger context windows allow AI to:
+•	analyse longer documents,
+•	or consider more data at once.
+
+Data Minimisation
+The principle of only sharing the minimum amount of data needed to complete a task.
+
+Fine-Tuning
+The process of adjusting an AI model using specific data to improve performance for a particular task or industry.
+
+Hallucination (AI)
+When an AI system produces:
+•	incorrect,
+•	fabricated,
+•	or misleading information
+that appears confident and believable.
+This is why all AI outputs must be reviewed.
+
+Human-in-the-loop
+A process where:
+•	AI performs tasks,
+•	and a human reviews and approves the outcome.
+
+LLM (Large Language Model)
+A type of AI trained on large amounts of text data.
+It can understand language, generate responses, summarise information, and assist with writing or analysis.
+Most modern AI assistants are powered by LLMs.
+
+Machine Learning (ML)
+A type of AI where systems learn patterns from data and improve over time without being explicitly programmed for every rule.
+Used in:
+•	fraud detection,
+•	expense categorisation,
+•	and forecasting tools.
+
+Model
+The AI system itself, trained on data to perform tasks such as:
+•	prediction,
+•	classification,
+•	or content generation.
+
+Natural Language Processing (NLP)
+Technology that allows computers to:
+•	understand,
+•	interpret,
+•	and generate human language.
+NLP enables AI tools to:
+•	read emails,
+•	interpret text,
+•	and answer questions.
+
+Prompt
+The instruction given to an AI system.
+
+Prompt Engineering
+The practice of writing clear, structured prompts to improve AI results.
+This includes:
+•	defining the role,
+•	setting the task,
+•	providing context,
+•	and adding constraints.
+
+Structured data
+Organised, consistent information that AI systems can process reliably.
+
+Training Data
+The information used to teach an AI Model  how to:
+•	recognise patterns,
+•	generate responses,
+•	and perform tasks.
+The quality of the training data affects the quality of the results.
+
+Workflow
+A defined sequence of steps used to complete a task or service.
+
+
+Page 66 – Back cover
+
+Final Playbook Message
+AI will not replace accountants.
+But accountants who use AI effectively will replace those who do not.
+The future firm is:
+•	structured,
+•	agent-enabled,
+•	and led by human judgement.
+

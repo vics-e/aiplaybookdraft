@@ -1,0 +1,40 @@
+/* Fallback to Google Fonts Inter if Sage fonts don't load */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+/* Sage Brand Fonts */
+
+/* Sage Header - Bold display font */
+@font-face {
+  font-family: 'Sage Header';
+  src: url('https://fonts.cdnfonts.com/s/93102/SageDisplayHeadline-Bold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Sage Text - Regular body font */
+@font-face {
+  font-family: 'Sage Text';
+  src: url('https://fonts.cdnfonts.com/s/93102/SageText-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Sage Text - Medium */
+@font-face {
+  font-family: 'Sage Text';
+  src: url('https://fonts.cdnfonts.com/s/93102/SageText-Medium.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Sage Text - Bold */
+@font-face {
+  font-family: 'Sage Text';
+  src: url('https://fonts.cdnfonts.com/s/93102/SageText-Bold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
