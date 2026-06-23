@@ -55,9 +55,9 @@ export default function SageAIPlaybook() {
       for (let i = 0; i < contentsPage.sections.length; i++) {
         const section = contentsPage.sections[i];
         const nextSection = contentsPage.sections[i + 1];
-        if (currentPage >= section.pageNumber && (!nextSection || currentPage < nextSection.pageNumber)) {
-          const sectionPages = nextSection ? nextSection.pageNumber - section.pageNumber : totalPages - section.pageNumber;
-          const progress = ((currentPage - section.pageNumber + 1) / sectionPages) * 100;
+        if (currentPage >= section.startPageIndex && (!nextSection || currentPage < nextSection.startPageIndex)) {
+          const sectionPages = nextSection ? nextSection.startPageIndex - section.startPageIndex : totalPages - section.startPageIndex;
+          const progress = ((currentPage - section.startPageIndex + 1) / sectionPages) * 100;
           return { name: section.title, progress };
         }
       }

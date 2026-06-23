@@ -48,6 +48,7 @@ export interface TableOfContentsItem {
   pages: string;
   icon: string;
   pageNumber: string;
+  startPageIndex: number;
 }
 
 export const playbook: PlaybookPage[] = [
@@ -66,14 +67,14 @@ export const playbook: PlaybookPage[] = [
     title: 'Contents',
     content: [],
     sections: [
-      { title: 'Understanding AI in Accountancy', sectionLabel: 'Section 1', pages: '7 pages', icon: 'BookOpen', pageNumber: '2' },
-      { title: 'Professional Guardrails', sectionLabel: 'Section 2', pages: '10 pages', icon: 'Shield', pageNumber: '9' },
-      { title: 'Assistants & Agents', sectionLabel: 'Section 3', pages: '11 pages', icon: 'Bot', pageNumber: '19' },
-      { title: 'Prompting Skills', sectionLabel: 'Section 4', pages: '5 pages', icon: 'MessageSquare', pageNumber: '30' },
-      { title: 'Pricing & Economics', sectionLabel: 'Section 5', pages: '10 pages', icon: 'DollarSign', pageNumber: '35' },
-      { title: '90-Day Adoption Plan', sectionLabel: 'Section 6', pages: '8 pages', icon: 'Calendar', pageNumber: '38' },
-      { title: 'Templates & Tools', sectionLabel: 'Section 7', pages: '7 pages', icon: 'FileText', pageNumber: '46' },
-      { title: 'Completion & Certificate', sectionLabel: 'Conclusion', pages: '2 pages', icon: 'Award', pageNumber: '53' }
+      { title: 'Understanding AI in Accountancy', sectionLabel: 'Section 1', pages: '7 pages', icon: 'BookOpen', pageNumber: '3', startPageIndex: 2 },
+      { title: 'Professional Guardrails', sectionLabel: 'Section 2', pages: '10 pages', icon: 'Shield', pageNumber: '10', startPageIndex: 9 },
+      { title: 'Assistants & Agents', sectionLabel: 'Section 3', pages: '11 pages', icon: 'Bot', pageNumber: '20', startPageIndex: 19 },
+      { title: 'Prompting Skills', sectionLabel: 'Section 4', pages: '5 pages', icon: 'MessageSquare', pageNumber: '31', startPageIndex: 30 },
+      { title: 'Pricing & Economics', sectionLabel: 'Section 5', pages: '10 pages', icon: 'DollarSign', pageNumber: '36', startPageIndex: 35 },
+      { title: '90-Day Adoption Plan', sectionLabel: 'Section 6', pages: '8 pages', icon: 'Calendar', pageNumber: '46', startPageIndex: 45 },
+      { title: 'Templates & Tools', sectionLabel: 'Section 7', pages: '7 pages', icon: 'FileText', pageNumber: '54', startPageIndex: 53 },
+      { title: 'Completion & Certificate', sectionLabel: 'Conclusion', pages: '2 pages', icon: 'Award', pageNumber: '61', startPageIndex: 60 }
     ]
   },
 

@@ -167,7 +167,7 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.05, duration: 0.4 }}
                 className="group bg-white/[0.03] border-2 border-white/10 rounded-xl p-5 hover:bg-white/[0.06] hover:border-[#00DC51]/50 transition-all cursor-pointer"
-                onClick={() => goToPage(section.pageNumber)}
+                onClick={() => goToPage(section.startPageIndex)}
               >
                 <div className="flex items-center gap-4">
                   <div className="w-12 h-12 bg-[#00DC51]/15 rounded-xl flex items-center justify-center flex-shrink-0 border border-[#00DC51]/30 group-hover:bg-[#00DC51]/25 group-hover:scale-110 transition-all">
