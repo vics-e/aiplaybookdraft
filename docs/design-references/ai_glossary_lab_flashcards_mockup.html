@@ -1,0 +1,734 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>AI Glossary Lab and Flashcards</title>
+<style>
+:root{
+  --bg:#000;
+  --panel:#050806;
+  --panel2:#07140b;
+  --panel3:#0b120d;
+  --line:rgba(255,255,255,.13);
+  --line2:rgba(0,214,57,.42);
+  --green:#00d639;
+  --greenSoft:rgba(0,214,57,.13);
+  --text:#fff;
+  --muted:#aeb8b1;
+  --radius:24px;
+  --shadow:0 24px 90px rgba(0,0,0,.45);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:
+    radial-gradient(circle at 80% 0%,rgba(0,214,57,.12),transparent 28%),
+    radial-gradient(circle at 0% 55%,rgba(0,214,57,.07),transparent 30%),
+    var(--bg);
+  color:var(--text);
+  font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  font-weight:740;
+}
+button,input{font:inherit}
+.wrap{width:min(1180px,calc(100% - 36px));margin:auto;padding:34px 0 70px}
+.pill{
+  display:inline-flex;
+  border:1px solid var(--green);
+  background:var(--greenSoft);
+  color:var(--green);
+  border-radius:999px;
+  padding:11px 18px;
+  font-size:12px;
+  text-transform:uppercase;
+  letter-spacing:.04em;
+  margin-bottom:26px;
+}
+h1{font-size:clamp(42px,6vw,76px);letter-spacing:-.06em;line-height:.92;margin:0 0 14px}
+.lead{font-size:20px;color:var(--muted);max-width:760px;margin:0 0 26px;line-height:1.45}
+.shell{
+  border:1px solid var(--line);
+  background:linear-gradient(135deg,rgba(255,255,255,.06),rgba(0,214,57,.05));
+  border-radius:28px;
+  padding:22px;
+  box-shadow:var(--shadow);
+}
+.topbar{
+  display:flex;
+  justify-content:space-between;
+  gap:16px;
+  align-items:flex-end;
+  margin-bottom:18px;
+}
+.topbar h2{margin:0;font-size:28px;letter-spacing:-.04em}
+.topbar p{margin:6px 0 0;color:var(--muted)}
+.mode-tabs{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+.tab{
+  border:1px solid var(--line);
+  background:#101310;
+  color:#fff;
+  border-radius:999px;
+  padding:11px 15px;
+  cursor:pointer;
+  font-weight:900;
+}
+.tab.active{
+  background:var(--green);
+  border-color:var(--green);
+  color:#001c09;
+}
+.mode{display:none}
+.mode.active{display:block}
+.controls{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px}
+.search{
+  flex:1;
+  min-width:240px;
+  background:#030604;
+  border:1px solid var(--line);
+  color:#fff;
+  border-radius:14px;
+  padding:13px 15px;
+  outline:0;
+  font-weight:800;
+}
+.search:focus{border-color:var(--green);box-shadow:0 0 0 4px rgba(0,214,57,.09)}
+.chip,button{
+  border:1px solid var(--line);
+  background:#101310;
+  color:#fff;
+  border-radius:999px;
+  padding:11px 14px;
+  cursor:pointer;
+  font-weight:900;
+}
+.chip.active,button.primary{
+  background:var(--green);
+  border-color:var(--green);
+  color:#001c09;
+}
+.glossary-grid{
+  display:grid;
+  grid-template-columns:290px minmax(0,1fr);
+  gap:16px;
+}
+.term-list{
+  border:1px solid var(--line);
+  background:#030604;
+  border-radius:22px;
+  padding:10px;
+  display:grid;
+  gap:8px;
+  align-content:start;
+  max-height:560px;
+  overflow:auto;
+}
+.term-btn{
+  width:100%;
+  text-align:left;
+  border-radius:16px;
+  padding:12px 13px;
+  background:rgba(255,255,255,.035);
+  border:1px solid var(--line);
+  color:#fff;
+}
+.term-btn:hover,.term-btn.active{
+  border-color:var(--green);
+  background:var(--greenSoft);
+}
+.term-btn small{
+  display:block;
+  color:var(--green);
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:.06em;
+  margin-bottom:5px;
+}
+.stage{
+  border:1px solid var(--line);
+  background:
+    radial-gradient(circle at top right,rgba(0,214,57,.12),transparent 34%),
+    linear-gradient(145deg,#07140b,#020403);
+  border-radius:22px;
+  padding:24px;
+  min-height:560px;
+}
+.kicker{
+  color:var(--green);
+  text-transform:uppercase;
+  letter-spacing:.12em;
+  font-size:12px;
+  margin-bottom:8px;
+}
+.term-title{
+  font-size:clamp(34px,5vw,58px);
+  letter-spacing:-.06em;
+  line-height:.94;
+  margin:0 0 14px;
+}
+.definition{
+  color:#dbe4df;
+  font-size:18px;
+  line-height:1.55;
+  max-width:860px;
+  margin-bottom:22px;
+}
+.meta{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:12px;
+  margin-bottom:20px;
+}
+.meta-card{
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.035);
+  border-radius:18px;
+  padding:16px;
+  min-height:132px;
+}
+.meta-card b{
+  display:block;
+  color:var(--green);
+  text-transform:uppercase;
+  letter-spacing:.09em;
+  font-size:12px;
+  margin-bottom:9px;
+}
+.meta-card span{color:#e9eee9;line-height:1.45}
+.related{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 22px}
+.related button{
+  color:var(--muted);
+  background:rgba(255,255,255,.04);
+}
+.related button:hover{
+  color:#fff;
+  border-color:var(--green);
+  background:var(--greenSoft);
+}
+.actions{display:flex;gap:10px;flex-wrap:wrap}
+.copy-text{
+  margin-top:16px;
+  border:1px solid var(--line);
+  background:#030604;
+  color:var(--muted);
+  border-radius:16px;
+  padding:14px;
+  line-height:1.5;
+}
+.empty{
+  border:1px dashed var(--line);
+  border-radius:18px;
+  padding:18px;
+  color:var(--muted);
+}
+.flash-wrap{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 340px;
+  gap:18px;
+}
+.flashcard{
+  min-height:390px;
+  border:1px solid var(--green);
+  border-radius:24px;
+  background:
+    radial-gradient(circle at top right,rgba(0,214,57,.16),transparent 38%),
+    linear-gradient(135deg,#03170b,#010201);
+  padding:34px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  text-align:center;
+  cursor:pointer;
+  box-shadow:0 22px 80px rgba(0,214,57,.08);
+}
+.flashcard .small{
+  color:var(--green);
+  font-weight:950;
+  text-transform:uppercase;
+  letter-spacing:.12em;
+  margin-bottom:20px;
+  font-size:12px;
+}
+.flashcard h3{
+  font-size:clamp(36px,5vw,64px);
+  letter-spacing:-.06em;
+  line-height:1;
+  margin:0;
+}
+.flashcard .answer{
+  display:none;
+  font-size:22px;
+  line-height:1.45;
+  color:#e9f1ec;
+  max-width:760px;
+  margin:0 auto;
+}
+.flashcard.flipped h3{display:none}
+.flashcard.flipped .answer{display:block}
+.flash-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:14px;
+}
+.progress-panel{
+  border:1px solid var(--line);
+  background:
+    radial-gradient(circle at top right,rgba(0,214,57,.14),transparent 38%),
+    #030604;
+  border-radius:22px;
+  padding:22px;
+}
+.progress{
+  height:12px;
+  background:#202620;
+  border-radius:999px;
+  overflow:hidden;
+  margin:14px 0;
+}
+.bar{
+  height:100%;
+  width:0%;
+  background:var(--green);
+  transition:.2s;
+}
+.learned-list{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  max-height:300px;
+  overflow:auto;
+  margin-top:16px;
+}
+.learned-item{
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:10px;
+  color:#cbd4cf;
+  background:rgba(255,255,255,.035);
+}
+.key{
+  margin-top:18px;
+  display:grid;
+  grid-template-columns:48px 1fr;
+  gap:14px;
+  align-items:center;
+  border:1px solid var(--green);
+  border-radius:20px;
+  padding:18px;
+  background:linear-gradient(90deg,rgba(0,214,57,.18),rgba(0,214,57,.04));
+}
+.icon{
+  width:48px;
+  height:48px;
+  border-radius:16px;
+  background:var(--green);
+  color:#001c09;
+  display:grid;
+  place-items:center;
+  font-weight:950;
+}
+.toast{
+  position:fixed;
+  bottom:24px;
+  left:50%;
+  transform:translateX(-50%) translateY(15px);
+  opacity:0;
+  background:#fff;
+  color:#000;
+  border-radius:999px;
+  padding:12px 18px;
+  font-weight:950;
+  transition:.18s;
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+@media(max-width:900px){
+  .topbar{display:block}
+  .mode-tabs{margin-top:14px}
+  .glossary-grid,.flash-wrap{grid-template-columns:1fr}
+  .term-list{max-height:none}
+  .meta{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <div class="pill">Section 7: Templates & Tools</div>
+  <h1>AI Glossary</h1>
+  <p class="lead">Quick reference to common AI terms. Search, explore, copy a plain-English explanation, or switch into flashcard mode to test yourself.</p>
+
+  <section class="shell">
+    <div class="topbar">
+      <div>
+        <h2>Glossary Lab</h2>
+        <p>Explore terms as a reference tool, then use flashcards to remember the key ideas.</p>
+      </div>
+      <div class="mode-tabs">
+        <button class="tab active" data-mode="lab">Glossary Lab</button>
+        <button class="tab" data-mode="flashcards">Flashcards</button>
+      </div>
+    </div>
+
+    <section id="labMode" class="mode active">
+      <div class="controls">
+        <input class="search" id="search" placeholder="Search glossary terms..." />
+        <button class="chip active" data-filter="All">All</button>
+        <button class="chip" data-filter="Core Concepts">Core Concepts</button>
+        <button class="chip" data-filter="Prompting">Prompting</button>
+        <button class="chip" data-filter="Governance">Governance</button>
+        <button class="chip" data-filter="Advanced">Advanced</button>
+      </div>
+
+      <div class="glossary-grid">
+        <aside class="term-list" id="termList"></aside>
+
+        <section class="stage">
+          <div class="kicker" id="category">Core Concepts</div>
+          <h2 class="term-title" id="title">AI Agent</h2>
+          <p class="definition" id="definition"></p>
+
+          <div class="meta">
+            <div class="meta-card"><b>Example</b><span id="example"></span></div>
+            <div class="meta-card"><b>Watch out</b><span id="risk"></span></div>
+            <div class="meta-card"><b>Plain English</b><span id="plain"></span></div>
+          </div>
+
+          <div>
+            <div class="kicker">Related concepts</div>
+            <div class="related" id="related"></div>
+          </div>
+
+          <div class="actions">
+            <button class="primary" onclick="copyCurrent()">Copy explanation</button>
+            <button onclick="toggleSimple()">Toggle simple mode</button>
+          </div>
+
+          <div class="copy-text" id="copyPreview"></div>
+        </section>
+      </div>
+    </section>
+
+    <section id="flashcardsMode" class="mode">
+      <div class="flash-wrap">
+        <div>
+          <div id="flashcard" class="flashcard">
+            <div class="small">Click to reveal</div>
+            <h3 id="flashTerm"></h3>
+            <p id="flashAnswer" class="answer"></p>
+          </div>
+          <div class="flash-actions">
+            <button id="prev">Previous</button>
+            <button id="learned" class="primary">I know this</button>
+            <button id="next">Next</button>
+            <button id="resetLearned">Reset progress</button>
+          </div>
+        </div>
+
+        <aside class="progress-panel">
+          <div class="kicker">Flashcard progress</div>
+          <h2>Learning mode</h2>
+          <p id="progressText" style="color:var(--muted);margin-top:8px;">0 / 16 learned</p>
+          <div class="progress"><div id="progressBar" class="bar"></div></div>
+          <div class="learned-list" id="learnedList"></div>
+        </aside>
+      </div>
+    </section>
+  </section>
+
+  <section class="key">
+    <div class="icon">i</div>
+    <div>
+      <div class="kicker">Key takeaway</div>
+      <strong>A glossary should help people find, understand and remember terms, not just read a long list.</strong>
+    </div>
+  </section>
+</main>
+
+<div class="toast" id="toast">Copied</div>
+
+<script>
+const terms = [
+  {
+    term:"AI (Artificial Intelligence)",
+    category:"Core Concepts",
+    definition:"Technology that performs tasks normally requiring human intelligence, such as analysing data or generating text.",
+    example:"An AI tool summarises financial notes or helps draft a client email.",
+    risk:"AI can sound confident even when the answer needs checking.",
+    plain:"AI is software that can help with tasks that usually need human thinking.",
+    related:["Generative AI","Machine Learning (ML)","Model"]
+  },
+  {
+    term:"AI Agent",
+    category:"Core Concepts",
+    definition:"An AI system that works towards a defined goal or outcome, can perform multiple steps across systems or data sources, makes decisions within set rules or constraints, and prepares results for human review and approval.",
+    example:"An agent monitors a shared inbox, drafts replies, checks a policy source and asks for approval before sending.",
+    risk:"Do not let it take high-risk actions without review, permissions and clear limits.",
+    plain:"Assistants respond. Agents work through steps towards an outcome.",
+    related:["AI Assistant","Human-in-the-loop","Workflow"]
+  },
+  {
+    term:"AI Assistant",
+    category:"Core Concepts",
+    definition:"An AI tool that helps with individual tasks, such as drafting emails, summarising notes, or explaining figures. Assistants respond to prompts and require human direction.",
+    example:"Ask it to summarise a meeting note or rewrite an email.",
+    risk:"It needs clear instructions and human review.",
+    plain:"An assistant helps when you ask. It does not run a whole process by itself.",
+    related:["Prompt","AI Agent","Context"]
+  },
+  {
+    term:"AI Audit Trail",
+    category:"Governance",
+    definition:"A record showing how AI was used, what outputs were generated, and who approved the final result.",
+    example:"A file note records the prompt, output, reviewer and final decision.",
+    risk:"Without a trail, it becomes hard to evidence judgement or responsibility.",
+    plain:"A record of what AI did and who checked it.",
+    related:["Human-in-the-loop","AI Policy","Data Minimisation"]
+  },
+  {
+    term:"AI Dividend",
+    category:"Core Concepts",
+    definition:"The time and efficiency gained from using AI and agents.",
+    example:"A process that took two hours now takes 30 minutes, creating capacity.",
+    risk:"The saved time still needs a deliberate decision about where it goes.",
+    plain:"The benefit you get back when AI reduces effort.",
+    related:["Workflow","Automation","AI Agent"]
+  },
+  {
+    term:"AI Policy",
+    category:"Governance",
+    definition:"A firm's internal rules governing how AI can be used, what data is allowed, and what review is required.",
+    example:"A policy says client confidential data cannot be pasted into unapproved tools.",
+    risk:"Rules that are too vague will not guide real behaviour.",
+    plain:"The firm’s rules for safe and approved AI use.",
+    related:["Data Minimisation","AI Audit Trail","Human-in-the-loop"]
+  },
+  {
+    term:"Automation",
+    category:"Core Concepts",
+    definition:"Technology that performs tasks using fixed rules and processes, without human intervention.",
+    example:"Bank feeds or recurring journals follow defined rules.",
+    risk:"Automation is not the same as generative AI, which creates new content.",
+    plain:"Automation follows rules. AI can generate or interpret.",
+    related:["Workflow","AI Agent","Generative AI"]
+  },
+  {
+    term:"Bias (in AI)",
+    category:"Governance",
+    definition:"When an AI system produces skewed or unfair results because of incomplete data, unbalanced training, or incorrect assumptions.",
+    example:"A model gives weaker suggestions because the source data is incomplete.",
+    risk:"Bias can be hidden inside confident-looking outputs.",
+    plain:"AI can reflect problems in the data or assumptions behind it.",
+    related:["Training Data","Human-in-the-loop","Hallucination (AI)"]
+  },
+  {
+    term:"Context",
+    category:"Prompting",
+    definition:"The background information provided to an AI system. Better context usually leads to more accurate, more relevant, and more useful outputs.",
+    example:"Tell the AI the client type, audience, goal, tone and constraints.",
+    risk:"Weak context creates generic answers.",
+    plain:"Context is the useful background you give the AI.",
+    related:["Prompt","Prompt Engineering","Context Window"]
+  },
+  {
+    term:"Context Window",
+    category:"Prompting",
+    definition:"The amount of information an AI system can consider at one time when producing a response.",
+    example:"A larger context window can handle a longer report or multiple source documents.",
+    risk:"More context does not automatically mean better context.",
+    plain:"The amount of information the AI can hold in mind at once.",
+    related:["Context","Prompt","LLM (Large Language Model)"]
+  },
+  {
+    term:"Data Minimisation",
+    category:"Governance",
+    definition:"The principle of only sharing the minimum amount of data needed to complete a task.",
+    example:"Remove unnecessary personal data before asking an AI tool to summarise a document.",
+    risk:"Sharing more data than needed creates avoidable confidentiality risk.",
+    plain:"Only give the AI what it actually needs.",
+    related:["AI Policy","AI Audit Trail","Human-in-the-loop"]
+  },
+  {
+    term:"Generative AI",
+    category:"Core Concepts",
+    definition:"AI that creates new content, such as text, summaries, explanations, code, images, audio, or video.",
+    example:"A tool drafts a client email from rough notes.",
+    risk:"Generated content must still be checked.",
+    plain:"AI that creates something new from your instructions.",
+    related:["AI Assistant","LLM (Large Language Model)","Prompt"]
+  },
+  {
+    term:"Hallucination (AI)",
+    category:"Governance",
+    definition:"When an AI system produces incorrect, fabricated, or misleading information that appears confident and believable.",
+    example:"The AI invents a tax rule or cites a source that does not exist.",
+    risk:"Confident wording can make errors harder to spot.",
+    plain:"The AI can make things up.",
+    related:["Human-in-the-loop","AI Audit Trail","Prompt"]
+  },
+  {
+    term:"Human-in-the-loop",
+    category:"Governance",
+    definition:"A process where AI performs tasks, and a human reviews and approves the outcome.",
+    example:"AI drafts a client message, but a qualified person approves it before sending.",
+    risk:"The review step must be clear, owned and documented.",
+    plain:"A human stays in control of important moments.",
+    related:["AI Audit Trail","AI Policy","AI Agent"]
+  },
+  {
+    term:"LLM (Large Language Model)",
+    category:"Core Concepts",
+    definition:"A type of AI trained on large amounts of text data. It can understand language, generate responses, summarise information, and assist with writing or analysis.",
+    example:"ChatGPT, Claude and Copilot-style tools are powered by language models.",
+    risk:"It predicts language, so outputs still need judgement and review.",
+    plain:"An LLM is the engine behind many AI chat tools.",
+    related:["Model","Generative AI","Prompt"]
+  },
+  {
+    term:"Workflow",
+    category:"Core Concepts",
+    definition:"A defined sequence of steps used to complete a task or service.",
+    example:"Collect documents, review them, prepare a draft, approve, then send to client.",
+    risk:"AI works best when the workflow is clear.",
+    plain:"A workflow is the step-by-step way work gets done.",
+    related:["Automation","AI Agent","AI Audit Trail"]
+  }
+];
+
+let activeFilter = "All";
+let selected = terms[1];
+let simple = false;
+let flashIndex = 0;
+const learned = new Set();
+
+const list = document.getElementById("termList");
+const search = document.getElementById("search");
+
+document.querySelectorAll(".tab").forEach(tab => {
+  tab.onclick = () => {
+    document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+    tab.classList.add("active");
+    document.querySelectorAll(".mode").forEach(m => m.classList.remove("active"));
+    document.getElementById(tab.dataset.mode === "lab" ? "labMode" : "flashcardsMode").classList.add("active");
+  };
+});
+
+function renderList(){
+  const q = search.value.toLowerCase().trim();
+  const filtered = terms.filter(t =>
+    (activeFilter === "All" || t.category === activeFilter) &&
+    (!q || t.term.toLowerCase().includes(q) || t.definition.toLowerCase().includes(q))
+  );
+
+  list.innerHTML = filtered.length ? "" : '<div class="empty">No glossary terms found.</div>';
+
+  filtered.forEach(t => {
+    const btn = document.createElement("button");
+    btn.className = "term-btn" + (t.term === selected.term ? " active" : "");
+    btn.innerHTML = `<small>${t.category}</small>${t.term}`;
+    btn.onclick = () => { selected = t; renderAll(); };
+    list.appendChild(btn);
+  });
+}
+
+function renderStage(){
+  document.getElementById("category").textContent = selected.category;
+  document.getElementById("title").textContent = selected.term;
+  document.getElementById("definition").textContent = simple ? selected.plain : selected.definition;
+  document.getElementById("example").textContent = selected.example;
+  document.getElementById("risk").textContent = selected.risk;
+  document.getElementById("plain").textContent = selected.plain;
+
+  const related = document.getElementById("related");
+  related.innerHTML = "";
+  selected.related.forEach(name => {
+    const btn = document.createElement("button");
+    btn.textContent = name;
+    btn.onclick = () => {
+      const found = terms.find(t => t.term === name);
+      if(found){ selected = found; simple = false; renderAll(); }
+    };
+    related.appendChild(btn);
+  });
+
+  document.getElementById("copyPreview").textContent =
+`${selected.term}: ${simple ? selected.plain : selected.definition}
+
+Example: ${selected.example}
+
+Watch out: ${selected.risk}`;
+}
+
+function renderFlash(){
+  const flashcard = document.getElementById("flashcard");
+  flashcard.classList.remove("flipped");
+  document.getElementById("flashTerm").textContent = terms[flashIndex].term;
+  document.getElementById("flashAnswer").textContent = terms[flashIndex].definition;
+  updateProgress();
+}
+
+function updateProgress(){
+  document.getElementById("progressText").textContent = `${learned.size} / ${terms.length} learned`;
+  document.getElementById("progressBar").style.width = `${(learned.size / terms.length) * 100}%`;
+  const learnedList = document.getElementById("learnedList");
+  learnedList.innerHTML = "";
+  Array.from(learned).forEach(i => {
+    const item = document.createElement("div");
+    item.className = "learned-item";
+    item.textContent = terms[i].term;
+    learnedList.appendChild(item);
+  });
+}
+
+function renderAll(){
+  renderList();
+  renderStage();
+  renderFlash();
+}
+
+document.querySelectorAll(".chip").forEach(chip => {
+  chip.onclick = () => {
+    document.querySelectorAll(".chip").forEach(c => c.classList.remove("active"));
+    chip.classList.add("active");
+    activeFilter = chip.dataset.filter;
+    renderList();
+  };
+});
+
+search.oninput = renderList;
+
+function toggleSimple(){
+  simple = !simple;
+  renderStage();
+}
+
+document.getElementById("flashcard").onclick = () => document.getElementById("flashcard").classList.toggle("flipped");
+document.getElementById("prev").onclick = () => { flashIndex = (flashIndex - 1 + terms.length) % terms.length; renderFlash(); };
+document.getElementById("next").onclick = () => { flashIndex = (flashIndex + 1) % terms.length; renderFlash(); };
+document.getElementById("learned").onclick = () => { learned.add(flashIndex); flashIndex = (flashIndex + 1) % terms.length; renderFlash(); };
+document.getElementById("resetLearned").onclick = () => { learned.clear(); renderFlash(); };
+
+async function copyCurrent(){
+  const text = document.getElementById("copyPreview").textContent;
+  try{
+    await navigator.clipboard.writeText(text);
+    showToast("Copied explanation");
+  }catch(e){
+    window.prompt("Copy manually:", text);
+  }
+}
+
+function showToast(text){
+  const toast = document.getElementById("toast");
+  toast.textContent = text;
+  toast.classList.add("show");
+  setTimeout(() => toast.classList.remove("show"), 1200);
+}
+
+renderAll();
+</script>
+</body>
+</html>

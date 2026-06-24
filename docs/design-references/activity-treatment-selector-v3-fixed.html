@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Activity Treatment Selector V3 Fixed</title>
+  <style>
+    :root{
+      --bg:#050605;
+      --panel:#0d0f0d;
+      --panel-2:#111511;
+      --panel-3:#151a15;
+      --line:rgba(255,255,255,.1);
+      --line-2:rgba(255,255,255,.17);
+      --muted:rgba(255,255,255,.58);
+      --text:#f6f7f4;
+      --green:#00D639;
+      --green-soft:rgba(0,214,57,.14);
+      --green-line:rgba(0,214,57,.42);
+      --shadow:0 30px 100px rgba(0,0,0,.42);
+      --radius:24px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:#000;
+      color:var(--text);
+    }
+    button,input,textarea,select{font:inherit}
+    .wrap{max-width:1260px;margin:auto;padding:34px 18px 90px}
+    .hero{
+      border:1px solid var(--line);
+      background:linear-gradient(145deg, rgba(255,255,255,.085), rgba(255,255,255,.025));
+      border-radius:34px;
+      padding:clamp(24px,5vw,44px);
+      box-shadow:var(--shadow);
+      position:relative;
+      overflow:hidden;
+    }
+    .hero:after{
+      content:"";
+      display:none;
+    }
+    .hero > *{position:relative;z-index:1}
+    .eyebrow{color:var(--green);font-weight:850;text-transform:uppercase;letter-spacing:.14em;font-size:12px}
+    h1{font-size:clamp(38px,7vw,88px);line-height:.9;margin:14px 0 16px;letter-spacing:-.07em;max-width:950px}
+    .lead{max-width:800px;color:var(--muted);font-size:18px;line-height:1.55}
+    .hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:28px}
+    .pill,button{
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.05);
+      color:var(--text);
+      border-radius:999px;
+      padding:11px 15px;
+      cursor:pointer;
+      transition:.2s ease;
+    }
+    button.primary{background:var(--green);border-color:var(--green);color:#001b07;font-weight:850}
+    .pill:hover,.pill.active,button:hover{border-color:var(--green-line);background:var(--green-soft)}
+    .section{margin-top:34px}
+    .section-head{display:flex;justify-content:space-between;gap:18px;align-items:end;margin:0 4px 16px}
+    .section h2{font-size:clamp(26px,3vw,40px);letter-spacing:-.05em;margin:0}
+    .section p{color:var(--muted);margin:6px 0 0;line-height:1.45}
+    .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+    .grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .card{
+      border:1px solid var(--line);
+      background:linear-gradient(180deg, rgba(255,255,255,.058), rgba(255,255,255,.025));
+      border-radius:var(--radius);
+      padding:22px;
+      min-height:270px;
+      position:relative;
+      overflow:hidden;
+      box-shadow:0 16px 50px rgba(0,0,0,.22);
+    }
+    .card.tall{min-height:360px}
+    .card::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:radial-gradient(circle at top right, rgba(0,214,57,.12), transparent 38%);
+      pointer-events:none;
+    }
+    .card > *{position:relative}
+    .card-head{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;margin-bottom:18px}
+    h3{font-size:22px;letter-spacing:-.035em;margin:0}
+    .tag{font-size:12px;color:var(--green);border:1px solid var(--green-line);background:var(--green-soft);border-radius:999px;padding:6px 9px;white-space:nowrap}
+    .hint{color:var(--muted);font-size:14px;line-height:1.45;margin-top:5px}
+    textarea,input,select{
+      width:100%;
+      background:#070907;
+      border:1px solid var(--line);
+      color:var(--text);
+      border-radius:16px;
+      padding:13px 14px;
+      outline:none;
+    }
+    textarea:focus,input:focus,select:focus{border-color:var(--green-line);box-shadow:0 0 0 4px rgba(0,214,57,.08)}
+    .row{display:flex;gap:10px;flex-wrap:wrap}
+    .answer,.notice{
+      margin-top:12px;background:#070907;border:1px solid var(--line);border-radius:18px;padding:14px;color:var(--muted);line-height:1.45
+    }
+    .options{display:grid;gap:10px}
+    .option{
+      display:flex;gap:10px;align-items:center;
+      border:1px solid var(--line);border-radius:18px;padding:14px;background:rgba(255,255,255,.035);cursor:pointer;transition:.2s
+    }
+    .option:hover,.option.selected{border-color:var(--green-line);background:var(--green-soft);transform:translateY(-1px)}
+    .dot{width:18px;height:18px;border:1px solid var(--line);border-radius:50%;display:grid;place-items:center;flex:none}
+    .selected .dot::after{content:"";width:8px;height:8px;background:var(--green);border-radius:50%}
+    .worksheet{display:grid;gap:10px}
+    .check{display:flex;gap:10px;align-items:center;padding:12px;border:1px solid var(--line);border-radius:16px}
+    .check input{width:auto;accent-color:#00D639}
+    .range-wrap{background:#070907;border:1px solid var(--line);padding:16px;border-radius:18px}
+    input[type=range]{accent-color:#00D639;padding:0}
+    .score{font-size:46px;font-weight:950;letter-spacing:-.07em}
+    pre,.prompt-box{
+      margin:0;white-space:pre-wrap;background:#070907;border:1px solid var(--line);border-radius:18px;
+      padding:14px;color:rgba(255,255,255,.76);font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;line-height:1.45;
+    }
+    .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+    .step{border:1px solid var(--line);border-radius:18px;padding:14px;background:rgba(255,255,255,.035)}
+    .step b{color:var(--green);display:block;margin-bottom:8px}
+    .glossary{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+    .term{border:1px solid var(--line);border-radius:16px;padding:13px;background:rgba(255,255,255,.035)}
+    .term b{display:block;margin-bottom:4px}
+    .term span{color:var(--muted);font-size:13px}
+    .swipe-deck{height:215px;position:relative;perspective:1000px}
+    .swipe-card{
+      position:absolute;inset:0;border:1px solid var(--line);border-radius:22px;padding:20px;
+      background:linear-gradient(145deg,#121812,#080a08);display:flex;flex-direction:column;justify-content:space-between;
+      transition:.32s ease;box-shadow:0 18px 40px rgba(0,0,0,.32)
+    }
+    .swipe-card:nth-child(2){transform:translate(10px,10px) scale(.96);opacity:.75}
+    .swipe-card:nth-child(3){transform:translate(20px,20px) scale(.92);opacity:.45}
+    .swipe-title{font-size:25px;font-weight:900;letter-spacing:-.04em}
+    .compare{position:relative;border-radius:22px;overflow:hidden;border:1px solid var(--line);height:220px;background:#070907}
+    .compare .before,.compare .after{position:absolute;inset:0;padding:22px;display:flex;flex-direction:column;justify-content:center}
+    .compare .after{background:linear-gradient(135deg,#071208,#003f12);clip-path:inset(0 50% 0 0)}
+    .compare input{position:absolute;left:18px;right:18px;bottom:14px;width:calc(100% - 36px)}
+    .hotspot-area{height:260px;border:1px solid var(--line);border-radius:22px;background:radial-gradient(circle,#142016,#070907 68%);position:relative}
+    .node{position:absolute;width:88px;height:88px;border:1px solid var(--green-line);border-radius:50%;display:grid;place-items:center;text-align:center;background:rgba(0,214,57,.08);cursor:pointer;font-size:13px}
+    .node:nth-child(1){left:8%;top:38%}.node:nth-child(2){left:38%;top:12%}.node:nth-child(3){right:10%;top:40%}.node:nth-child(4){left:39%;bottom:8%}
+    .reveal{
+      min-height:170px;border:1px solid var(--line);border-radius:22px;background:#070907;padding:18px;display:grid;place-items:center;text-align:center;cursor:pointer
+    }
+    .path-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+    .path{border:1px solid var(--line);border-radius:18px;padding:15px;background:rgba(255,255,255,.035);cursor:pointer}
+    .path:hover,.path.active{background:var(--green-soft);border-color:var(--green-line)}
+    .drop-zone{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+    .zone{min-height:155px;border:1px dashed var(--line-2);border-radius:18px;padding:12px;background:rgba(255,255,255,.025)}
+    .chip{display:inline-flex;margin:5px;padding:9px 11px;border-radius:999px;background:rgba(255,255,255,.07);border:1px solid var(--line);cursor:grab}
+    .timeline{display:grid;gap:10px}
+    .timeline-item{display:flex;align-items:center;gap:12px;border:1px solid var(--line);border-radius:18px;padding:12px;background:rgba(255,255,255,.035);cursor:pointer}
+    .num{width:28px;height:28px;border-radius:50%;background:var(--green);color:#001b07;font-weight:900;display:grid;place-items:center;flex:none}
+    .map{height:250px;border:1px solid var(--line);border-radius:22px;position:relative;background:#070907;overflow:hidden}
+    .map svg{position:absolute;inset:0;width:100%;height:100%}
+    .map-node{position:absolute;border:1px solid var(--green-line);background:#0c140c;border-radius:16px;padding:10px 12px;font-weight:800;cursor:pointer}
+    .meter{height:190px;border-radius:22px;border:1px solid var(--line);display:grid;place-items:center;background:conic-gradient(from 220deg, rgba(0,214,57,.18), rgba(0,214,57,.7), rgba(255,255,255,.08));position:relative}
+    .meter-inner{width:132px;height:132px;border-radius:50%;background:#070907;border:1px solid var(--line);display:grid;place-items:center;text-align:center}
+    .wheel{height:190px;border:1px solid var(--line);border-radius:22px;display:grid;place-items:center;background:radial-gradient(circle,rgba(0,214,57,.14),#070907 70%)}
+    .idea-result{font-size:22px;font-weight:900;text-align:center;letter-spacing:-.035em;max-width:360px}
+    .locks{display:grid;gap:10px}
+    .lock{display:flex;justify-content:space-between;align-items:center;border:1px solid var(--line);border-radius:18px;padding:14px;background:rgba(255,255,255,.035)}
+    .lock.done{border-color:var(--green-line);background:var(--green-soft)}
+    .story{display:flex;gap:10px;overflow-x:auto;padding-bottom:6px;scroll-snap-type:x mandatory}
+    .story-card{min-width:220px;scroll-snap-align:start;border:1px solid var(--line);border-radius:20px;padding:16px;background:rgba(255,255,255,.04)}
+    .story-card b{color:var(--green)}
+    .flow{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;align-items:center}
+    .flow-box{position:relative;border:1px solid var(--line);border-radius:18px;padding:14px;background:#070907;text-align:center;min-height:84px;display:grid;place-items:center}
+    .flow-box:after{content:"";position:absolute;right:-14px;top:50%;width:18px;height:2px;background:var(--green);box-shadow:0 0 18px var(--green);animation:pulse 1.3s infinite}
+    .flow-box:last-child:after{display:none}
+    @keyframes pulse{50%{opacity:.35;transform:scaleX(.55)}}
+    .toggle-compare{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--line);border-radius:22px;overflow:hidden}
+    .toggle-side{padding:18px;background:#070907}
+    .toggle-side.active{background:var(--green-soft)}
+    .mini-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+    .mini-tab{padding:8px 11px;border-radius:999px;border:1px solid var(--line);cursor:pointer;color:var(--muted)}
+    .mini-tab.active{color:var(--text);background:var(--green-soft);border-color:var(--green-line)}
+
+    .glossary-lab{
+      display:grid;
+      grid-template-columns:260px 1fr;
+      gap:14px;
+      min-height:360px;
+    }
+    .term-list{
+      border:1px solid var(--line);
+      border-radius:22px;
+      background:#070907;
+      padding:10px;
+      display:grid;
+      gap:8px;
+      align-content:start;
+    }
+    .term-button{
+      text-align:left;
+      border-radius:16px;
+      padding:12px;
+      background:rgba(255,255,255,.035);
+      border:1px solid var(--line);
+      color:var(--text);
+      cursor:pointer;
+    }
+    .term-button.active{
+      background:var(--green-soft);
+      border-color:var(--green-line);
+    }
+    .term-stage{
+      border:1px solid var(--line);
+      border-radius:22px;
+      background:linear-gradient(145deg, rgba(0,214,57,.08), rgba(255,255,255,.025)), #070907;
+      padding:20px;
+      display:grid;
+      gap:14px;
+      align-content:start;
+    }
+    .term-title{
+      font-size:34px;
+      line-height:1;
+      letter-spacing:-.055em;
+      margin:0;
+    }
+    .term-definition{
+      color:rgba(255,255,255,.74);
+      line-height:1.55;
+      max-width:720px;
+    }
+    .term-meta{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:10px;
+    }
+    .term-meta-card{
+      border:1px solid var(--line);
+      border-radius:18px;
+      background:rgba(255,255,255,.035);
+      padding:13px;
+    }
+    .term-meta-card b{
+      display:block;
+      color:var(--green);
+      font-size:12px;
+      text-transform:uppercase;
+      letter-spacing:.1em;
+      margin-bottom:6px;
+    }
+    .term-links{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+    }
+    .term-link{
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.04);
+      border-radius:999px;
+      padding:8px 10px;
+      color:var(--muted);
+      cursor:pointer;
+    }
+    .term-link:hover{
+      color:var(--text);
+      border-color:var(--green-line);
+      background:var(--green-soft);
+    }
+
+    @media(max-width:980px){
+      .grid,.grid.three{grid-template-columns:1fr}
+      .section-head{display:block}
+      .flow{grid-template-columns:1fr}
+      .flow-box:after{display:none}
+      .glossary-lab{grid-template-columns:1fr}
+      .term-meta{grid-template-columns:1fr}
+    }
+    @media(max-width:680px){
+      .wrap{padding:20px 12px 60px}
+      .hero{border-radius:26px}
+      .card{padding:18px;border-radius:22px}
+      .card-head{display:block}
+      .tag{display:inline-flex;margin-top:10px}
+      .steps,.glossary,.drop-zone,.path-grid{grid-template-columns:1fr}
+      .node{width:74px;height:74px;font-size:12px}
+      .hero-actions{position:sticky;top:8px;z-index:5;background:rgba(5,6,5,.78);backdrop-filter:blur(12px);padding:8px;border-radius:22px;border:1px solid var(--line)}
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <section class="hero">
+      <div class="eyebrow">V3 fixed interaction gallery</div>
+      <h1>Premium activity patterns that stop learning pages feeling like forms.</h1>
+      <p class="lead">A responsive one-page HTML playground combining reflection, choice, drag-and-drop, reveal, builders, cards, sliders, search and copyable outputs.</p>
+      <div class="hero-actions">
+        <a class="pill active" href="#quick">Quick choices</a>
+        <a class="pill" href="#tactile">Tactile</a>
+        <a class="pill" href="#builders">Builders</a>
+        <a class="pill" href="#copy">Copyable</a>
+        <a class="pill" href="#content">Content</a>
+      </div>
+    </section>
+
+    <section class="section" id="quick">
+      <div class="section-head">
+        <div><h2>Quick choices</h2><p>Low-effort activities where the user clicks, reveals or selects rather than writing paragraphs.</p></div>
+      </div>
+      <div class="grid three">
+        <article class="card">
+          <div class="card-head"><div><h3>Card stack swipe</h3><p class="hint">Best for browsing scenarios quickly.</p></div><span class="tag">Swipe</span></div>
+          <div class="swipe-deck" id="deck">
+            <div class="swipe-card"><div class="swipe-title">Reduce admin</div><p class="hint">Find a task that repeats every week and design a faster version.</p><button onclick="nextCard()">Next card</button></div>
+            <div class="swipe-card"><div class="swipe-title">Improve quality</div><p class="hint">Use AI to spot errors, gaps or unclear logic.</p></div>
+            <div class="swipe-card"><div class="swipe-title">Create faster</div><p class="hint">Turn rough notes into a useful first draft.</p></div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-head"><div><h3>Mystery reveal</h3><p class="hint">Best for myths, examples and common mistakes.</p></div><span class="tag">Reveal</span></div>
+          <div class="reveal" id="reveal" onclick="revealAnswer()">
+            <div><b>Tap to reveal</b><p class="hint">What is the most common reason AI outputs disappoint?</p></div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-head"><div><h3>Path chooser</h3><p class="hint">Best when content can adapt by user intent.</p></div><span class="tag">Choose</span></div>
+          <div class="path-grid">
+            <div class="path" onclick="choosePath(this,'Start with a repetitive admin task. Look for copy, paste, summarise or reformat work.')">Save time</div>
+            <div class="path" onclick="choosePath(this,'Start with a review task. Use AI to compare, critique and spot missing details.')">Improve quality</div>
+            <div class="path" onclick="choosePath(this,'Start with a handover task. Build a reusable template or prompt.')">Share knowledge</div>
+            <div class="path" onclick="choosePath(this,'Start with a process that has a trigger, tool and output.')">Build an agent</div>
+          </div>
+          <div class="answer" id="pathOut">Choose a path to see the suggested next step.</div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="tactile">
+      <div class="section-head">
+        <div><h2>Tactile activities</h2><p>More physical interactions: drag, slide, reorder, connect and compare.</p></div>
+      </div>
+      <div class="grid">
+        <article class="card tall">
+          <div class="card-head"><div><h3>Before / after slider</h3><p class="hint">Best for showing transformation.</p></div><span class="tag">Compare</span></div>
+          <div class="compare">
+            <div class="before"><h3>Manual process</h3><p class="hint">Copy notes, rewrite summary, chase approvals, format output.</p></div>
+            <div class="after" id="afterLayer"><h3>AI-assisted process</h3><p class="hint">Summarise notes, suggest actions, create draft, highlight risks.</p></div>
+            <input type="range" min="5" max="95" value="50" oninput="slideCompare(this.value)" />
+          </div>
+        </article>
+
+        <article class="card tall">
+          <div class="card-head"><div><h3>Drag and drop sorting</h3><p class="hint">Best for categorising tasks.</p></div><span class="tag">Sort</span></div>
+          <div class="row" id="dragChips">
+            <span class="chip" draggable="true">Summarise meeting</span>
+            <span class="chip" draggable="true">Approve payment</span>
+            <span class="chip" draggable="true">Draft email</span>
+            <span class="chip" draggable="true">Check policy</span>
+          </div>
+          <div class="drop-zone" style="margin-top:12px">
+            <div class="zone" ondrop="drop(event)" ondragover="allowDrop(event)"><b>AI task</b></div>
+            <div class="zone" ondrop="drop(event)" ondragover="allowDrop(event)"><b>Human task</b></div>
+            <div class="zone" ondrop="drop(event)" ondragover="allowDrop(event)"><b>Agent task</b></div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-head"><div><h3>Timeline builder</h3><p class="hint">Best for ordering steps.</p></div><span class="tag">Sequence</span></div>
+          <div class="timeline" id="timeline">
+            <div class="timeline-item" onclick="moveDown(this)"><span class="num">1</span> Review source material</div>
+            <div class="timeline-item" onclick="moveDown(this)"><span class="num">2</span> Draft prompt</div>
+            <div class="timeline-item" onclick="moveDown(this)"><span class="num">3</span> Validate output</div>
+            <div class="timeline-item" onclick="moveDown(this)"><span class="num">4</span> Share final answer</div>
+          </div>
+          <div class="answer">Tap a row to move it down. Useful for lightweight ordering exercises.</div>
+        </article>
+
+        <article class="card">
+          <div class="card-head"><div><h3>Connection map</h3><p class="hint">Best for explaining relationships.</p></div><span class="tag">Map</span></div>
+          <div class="map">
+            <svg>
+              <line x1="20%" y1="30%" x2="50%" y2="50%" stroke="rgba(0,214,57,.55)" stroke-width="2"/>
+              <line x1="50%" y1="50%" x2="80%" y2="30%" stroke="rgba(0,214,57,.55)" stroke-width="2"/>
+              <line x1="50%" y1="50%" x2="50%" y2="80%" stroke="rgba(0,214,57,.55)" stroke-width="2"/>
+            </svg>
+            <div class="map-node" style="left:8%;top:20%">Prompt</div>
+            <div class="map-node" style="left:40%;top:43%">Model</div>
+            <div class="map-node" style="right:7%;top:20%">Tools</div>
+            <div class="map-node" style="left:38%;bottom:8%">Memory</div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="builders">
+      <div class="section-head">
+        <div><h2>Builders and personalisation</h2><p>Structured interactions that still produce something useful the user can take away.</p></div>
+      </div>
+      <div class="grid">
+        <article class="card tall">
+          <div class="card-head"><div><h3>Agent workflow builder</h3><p class="hint">Best when the user is designing a process.</p></div><span class="tag">Builder</span></div>
+          <div class="steps">
+            <div class="step"><b>1. Trigger</b><input placeholder="When this happens..." /></div>
+            <div class="step"><b>2. Tools</b><input placeholder="It can use..." /></div>
+            <div class="step"><b>3. Output</b><input placeholder="It produces..." /></div>
+          </div>
+          <div class="answer">Good for explaining agents without making the page feel too technical.</div>
+        </article>
+
+        <article class="card tall">
+          <div class="card-head"><div><h3>Prompt personaliser</h3><p class="hint">Best for editable variables plus copy.</p></div><span class="tag">Prompt</span></div>
+          <input id="roleInput" placeholder="Role, e.g. finance analyst" oninput="personalisePrompt()" />
+          <input id="taskInput" placeholder="Task, e.g. summarise customer feedback" style="margin-top:10px" oninput="personalisePrompt()" />
+          <div class="prompt-box" id="promptText" style="margin-top:10px">Act as a helpful expert for a [role]. Help me with [task]. Ask clarifying questions, suggest quick wins, and produce a practical next-step plan.</div>
+          <div class="row" style="margin-top:10px">
+            <button class="primary" onclick="personalisePrompt()">Personalise</button>
+            <button onclick="copyText('promptText', this)">Copy prompt</button>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-head"><div><h3>Reflection question</h3><p class="hint">Best as a compact answer card.</p></div><span class="tag">Reflect</span></div>
+          <textarea id="reflection" rows="4" placeholder="What is one workflow you would improve with AI?"></textarea>
+          <div class="row" style="margin-top:10px">
+            <button class="primary" onclick="saveReflection()">Save answer</button>
+            <button onclick="document.getElementById('reflection').value=''">Clear</button>
+          </div>
+          <div id="reflectionOut" class="answer">Your answer preview will appear here.</div>
+        </article>
+
+        <article class="card">
+          <div class="card-head"><div><h3>Mini worksheet</h3><p class="hint">Best for 2 to 3 ideas.</p></div><span class="tag">Worksheet</span></div>
+          <div class="worksheet">
+            <input placeholder="Idea 1" />
+            <input placeholder="Idea 2" />
+            <input placeholder="Idea 3" />
+          </div>
+          <div class="answer">This is still useful, but should be mixed with more visual activities.</div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="copy">
+      <div class="section-head">
+        <div><h2>Copyable and reusable outputs</h2><p>Activities that create something useful, not just engagement for the sake of it.</p></div>
+      </div>
+      <div class="grid three">
+        <article class="card">
+          <div class="card-head"><div><h3>Template</h3><p class="hint">Best as a structured form.</p></div><span class="tag">Copy</span></div>
+          <pre id="templateText">Goal:
+Audience:
+Current process:
+Pain point:
+Desired output:
+Risks / constraints:
+Next action:</pre>
+          <button class="primary" style="margin-top:10px" onclick="copyText('templateText', this)">Copy template</button>
+        </article>
+
+        <article class="card">
+          <div class="card-head"><div><h3>Spin for an idea</h3><p class="hint">Best for discovery and inspiration.</p></div><span class="tag">Random</span></div>
+          <div class="wheel"><div class="idea-result" id="ideaResult">Press spin to get a workflow idea.</div></div>
+          <button class="primary" style="margin-top:10px" onclick="spinIdea()">Spin idea</button>
+        </article>
+
+        <article class="card">
+          <div class="card-head"><div><h3>Unlock progress</h3><p class="hint">Best for giving sections momentum.</p></div><span class="tag">Progress</span></div>
+          <div class="locks">
+            <div class="lock done"><span>Prompt basics</span><b>Unlocked</b></div>
+            <div class="lock" id="lock2"><span>Agent basics</span><button onclick="unlock('lock2')">Unlock</button></div>
+            <div class="lock" id="lock3"><span>Workflow design</span><button onclick="unlock('lock3')">Unlock</button></div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="content">
+      <div class="section-head">
+        <div><h2>Content exploration</h2><p>Useful where the page needs to teach concepts without becoming a wall of copy.</p></div>
+      </div>
+      <div class="grid">
+        <article class="card tall">
+          <div class="card-head"><div><h3>Hotspot diagram</h3><p class="hint">Best for concepts like agents, tools and memory.</p></div><span class="tag">Hotspots</span></div>
+          <div class="hotspot-area">
+            <div class="node" onclick="hotspot('Trigger starts the workflow, usually from a user action, schedule or event.')">Trigger</div>
+            <div class="node" onclick="hotspot('Memory gives the system context from previous interactions or stored knowledge.')">Memory</div>
+            <div class="node" onclick="hotspot('Tools let the agent search, calculate, create, update or take action.')">Tools</div>
+            <div class="node" onclick="hotspot('Output is the useful result: answer, draft, report, update or action.')">Output</div>
+          </div>
+          <div class="answer" id="hotspotOut">Tap a hotspot to explain that part of the system.</div>
+        </article>
+
+        <article class="card tall">
+          <div class="card-head"><div><h3>Story mode</h3><p class="hint">Best for case studies and examples.</p></div><span class="tag">Story</span></div>
+          <div class="story">
+            <div class="story-card"><b>Problem</b><p class="hint">The team spends hours rewriting meeting notes.</p></div>
+            <div class="story-card"><b>Attempt</b><p class="hint">They ask AI to summarise everything.</p></div>
+            <div class="story-card"><b>Failure</b><p class="hint">The output is generic and misses decisions.</p></div>
+            <div class="story-card"><b>Better</b><p class="hint">They give a decision-focused template.</p></div>
+            <div class="story-card"><b>Outcome</b><p class="hint">The summary becomes usable in minutes.</p></div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-head"><div><h3>Live workflow animation</h3><p class="hint">Best for showing flow without extra text.</p></div><span class="tag">Flow</span></div>
+          <div class="flow">
+            <div class="flow-box">Trigger</div>
+            <div class="flow-box">AI step</div>
+            <div class="flow-box">Review</div>
+            <div class="flow-box">Output</div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-head"><div><h3>Assistant vs Agent</h3><p class="hint">Best as an interactive comparison.</p></div><span class="tag">Compare</span></div>
+          <div class="mini-tabs">
+            <span class="mini-tab active" onclick="setCompare(this,'assistant')">Assistant</span>
+            <span class="mini-tab" onclick="setCompare(this,'agent')">Agent</span>
+          </div>
+          <div class="toggle-compare">
+            <div class="toggle-side active" id="assistant"><b>Assistant</b><p class="hint">Responds to a request. Helps draft, explain, summarise or analyse.</p></div>
+            <div class="toggle-side" id="agent"><b>Agent</b><p class="hint">Works through steps. Uses tools, memory and actions towards a goal.</p></div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-head"><div><h3>Score / maturity check</h3><p class="hint">Best as a glowing dial or staged selector.</p></div><span class="tag">Score</span></div>
+          <div class="meter">
+            <div class="meter-inner"><div><div class="score" id="scoreVal">3</div><div class="hint">Maturity</div></div></div>
+          </div>
+          <input type="range" min="1" max="5" value="3" oninput="setScore(this.value)" style="margin-top:14px" />
+          <div id="scoreText" class="answer">Emerging: some structure exists, but it is not repeatable yet.</div>
+        </article>
+
+        <article class="card">
+          <div class="card-head"><div><h3>Glossary</h3><p class="hint">Best as searchable / filterable cards.</p></div><span class="tag">Search</span></div>
+          <input id="search" placeholder="Search terms..." oninput="filterTerms()" />
+          <div class="glossary" id="glossary" style="margin-top:12px">
+            <div class="term"><b>Prompt</b><span>An instruction given to an AI model.</span></div>
+            <div class="term"><b>Agent</b><span>A system that can use tools and take steps towards a goal.</span></div>
+            <div class="term"><b>RAG</b><span>Using retrieved knowledge to improve an AI answer.</span></div>
+            <div class="term"><b>Human-in-the-loop</b><span>A person reviews or approves key actions.</span></div>
+          </div>
+        </article>
+
+        <article class="card tall" style="grid-column:1 / -1">
+          <div class="card-head"><div><h3>Glossary lab</h3><p class="hint">A more premium version: tap a term to get definition, example, risk, related terms and a copyable plain-English explanation.</p></div><span class="tag">Explore</span></div>
+          <div class="glossary-lab">
+            <div class="term-list">
+              <button class="term-button active" onclick="setGlossaryLab(this,'agent')">Agent</button>
+              <button class="term-button" onclick="setGlossaryLab(this,'prompt')">Prompt</button>
+              <button class="term-button" onclick="setGlossaryLab(this,'rag')">RAG</button>
+              <button class="term-button" onclick="setGlossaryLab(this,'human')">Human-in-the-loop</button>
+              <button class="term-button" onclick="setGlossaryLab(this,'eval')">Evaluation</button>
+            </div>
+            <div class="term-stage">
+              <h3 class="term-title" id="labTitle">Agent</h3>
+              <div class="term-definition" id="labDefinition">A system that can work through steps towards a goal, often using tools, memory and rules rather than only answering a single prompt.</div>
+              <div class="term-meta">
+                <div class="term-meta-card"><b>Example</b><span id="labExample">An agent monitors a shared inbox, drafts replies, checks a policy source and asks for approval before sending.</span></div>
+                <div class="term-meta-card"><b>Watch out</b><span id="labRisk">Do not let it take high-risk actions without review, permissions and clear limits.</span></div>
+                <div class="term-meta-card"><b>Plain English</b><span id="labPlain">Assistants respond. Agents act through steps.</span></div>
+              </div>
+              <div>
+                <div class="hint" style="margin-bottom:8px">Related concepts</div>
+                <div class="term-links" id="labLinks">
+                  <span class="term-link" onclick="jumpTerm('prompt')">Prompt</span>
+                  <span class="term-link" onclick="jumpTerm('human')">Human-in-the-loop</span>
+                  <span class="term-link" onclick="jumpTerm('eval')">Evaluation</span>
+                </div>
+              </div>
+              <div class="row">
+                <button class="primary" onclick="copyGlossary(this)">Copy explanation</button>
+                <button onclick="togglePlainMode()">Toggle simple mode</button>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    let dragged = null;
+    document.querySelectorAll('.chip').forEach(chip=>{
+      chip.addEventListener('dragstart', e=>{ dragged = e.target; });
+      chip.addEventListener('click', e=>{
+        document.querySelectorAll('.chip').forEach(c=>c.style.borderColor='var(--line)');
+        dragged = e.target;
+        e.target.style.borderColor = 'var(--green-line)';
+      });
+    });
+    document.querySelectorAll('.zone').forEach(zone=>{
+      zone.addEventListener('click', e=>{
+        if(dragged && e.currentTarget.classList.contains('zone')){
+          e.currentTarget.appendChild(dragged);
+          dragged.style.borderColor='var(--line)';
+          dragged = null;
+        }
+      });
+    });
+    function allowDrop(e){ e.preventDefault(); }
+    function drop(e){
+      e.preventDefault();
+      if(dragged && e.currentTarget.classList.contains('zone')){
+        e.currentTarget.appendChild(dragged);
+        dragged.style.borderColor='var(--line)';
+        dragged = null;
+      }
+    }
+
+    function nextCard(){
+      const deck = document.getElementById('deck');
+      deck.appendChild(deck.firstElementChild);
+    }
+    function revealAnswer(){
+      const el = document.getElementById('reveal');
+      el.innerHTML = '<div><b style="color:var(--green)">Weak context.</b><p class="hint">Most poor outputs happen because the model was not given the audience, goal, constraints or examples.</p></div>';
+    }
+    function choosePath(el,text){
+      document.querySelectorAll('.path').forEach(p=>p.classList.remove('active'));
+      el.classList.add('active');
+      document.getElementById('pathOut').textContent = text;
+    }
+    function slideCompare(v){ document.getElementById('afterLayer').style.clipPath = `inset(0 ${100-v}% 0 0)`; }
+    function moveDown(el){
+      const parent = document.getElementById('timeline');
+      if(el.nextElementSibling) parent.insertBefore(el.nextElementSibling, el);
+      [...parent.children].forEach((item,i)=>item.querySelector('.num').textContent=i+1);
+    }
+    function saveReflection(){
+      const val = document.getElementById('reflection').value.trim();
+      document.getElementById('reflectionOut').textContent = val || 'Your answer preview will appear here.';
+    }
+    function personalisePrompt(){
+      const role = document.getElementById('roleInput').value.trim() || '[role]';
+      const task = document.getElementById('taskInput').value.trim() || '[task]';
+      document.getElementById('promptText').textContent =
+`Act as a helpful expert for a ${role}. Help me with ${task}. Ask clarifying questions, suggest quick wins, and produce a practical next-step plan.`;
+    }
+    async function copyText(id, btn){
+      const text = document.getElementById(id).innerText;
+      try{
+        await navigator.clipboard.writeText(text);
+        const old = btn.textContent;
+        btn.textContent = 'Copied';
+        setTimeout(()=>btn.textContent = old, 900);
+      }catch(err){
+        window.prompt('Copy manually:', text);
+      }
+    }
+    function spinIdea(){
+      const ideas = [
+        'Turn meeting notes into decisions and actions.',
+        'Create a client email from rough bullet points.',
+        'Compare two documents and highlight differences.',
+        'Build a weekly trading summary from dashboard notes.',
+        'Create a checklist from a policy document.',
+        'Draft a first version of a training plan.'
+      ];
+      document.getElementById('ideaResult').textContent = ideas[Math.floor(Math.random()*ideas.length)];
+    }
+    function unlock(id){
+      const el = document.getElementById(id);
+      el.classList.add('done');
+      el.innerHTML = '<span>' + el.querySelector('span').textContent + '</span><b>Unlocked</b>';
+    }
+    function hotspot(text){ document.getElementById('hotspotOut').textContent = text; }
+    function setCompare(tab,type){
+      document.querySelectorAll('.mini-tab').forEach(t=>t.classList.remove('active'));
+      tab.classList.add('active');
+      document.querySelectorAll('.toggle-side').forEach(s=>s.classList.remove('active'));
+      document.getElementById(type).classList.add('active');
+    }
+    function setScore(v){
+      const labels = {
+        1:'Initial: mostly manual or unclear.',
+        2:'Basic: some repeatable steps exist.',
+        3:'Emerging: some structure exists, but it is not repeatable yet.',
+        4:'Managed: clear process, owner and success measure.',
+        5:'Optimised: scalable, measured and continuously improved.'
+      };
+      document.getElementById('scoreVal').textContent = v;
+      document.getElementById('scoreText').textContent = labels[v];
+    }
+    function filterTerms(){
+      const q = document.getElementById('search').value.toLowerCase();
+      document.querySelectorAll('.term').forEach(term=>{
+        term.style.display = term.innerText.toLowerCase().includes(q) ? '' : 'none';
+      });
+    }
+
+    const glossaryData = {
+      agent:{
+        title:'Agent',
+        definition:'A system that can work through steps towards a goal, often using tools, memory and rules rather than only answering a single prompt.',
+        example:'An agent monitors a shared inbox, drafts replies, checks a policy source and asks for approval before sending.',
+        risk:'Do not let it take high-risk actions without review, permissions and clear limits.',
+        plain:'Assistants respond. Agents act through steps.',
+        links:['prompt','human','eval']
+      },
+      prompt:{
+        title:'Prompt',
+        definition:'The instruction, context and constraints you give to an AI system so it knows what to produce and how to produce it.',
+        example:'Summarise this meeting for a sales leader. Focus only on decisions, risks and next actions.',
+        risk:'A vague prompt usually creates a vague output.',
+        plain:'A prompt is the brief you give the AI.',
+        links:['agent','rag','eval']
+      },
+      rag:{
+        title:'RAG',
+        definition:'Retrieval augmented generation. The AI searches or retrieves relevant information first, then uses that material to answer.',
+        example:'A support assistant searches approved help articles before drafting an answer to a customer.',
+        risk:'Bad retrieval means the answer can still be incomplete or misleading.',
+        plain:'The AI checks sources before answering.',
+        links:['prompt','agent','eval']
+      },
+      human:{
+        title:'Human-in-the-loop',
+        definition:'A design where a person reviews, approves or corrects important AI outputs before they are used.',
+        example:'AI drafts a client response, but a qualified person approves it before it is sent.',
+        risk:'If the review step is unclear, people may assume someone else checked it.',
+        plain:'A human stays in control of important moments.',
+        links:['agent','eval','prompt']
+      },
+      eval:{
+        title:'Evaluation',
+        definition:'A way of testing whether an AI output is good enough, using criteria, examples, scoring or review.',
+        example:'Score ten AI summaries against accuracy, usefulness, tone and missing information.',
+        risk:'Without evaluation, you only know the demo worked once.',
+        plain:'Evaluation checks whether the AI is actually good.',
+        links:['prompt','rag','human']
+      }
+    };
+    let simpleMode = false;
+    let currentGlossaryKey = 'agent';
+
+    function setGlossaryLab(btn,key){
+      currentGlossaryKey = key;
+      document.querySelectorAll('.term-button').forEach(b=>b.classList.remove('active'));
+      if(btn) btn.classList.add('active');
+      const item = glossaryData[key];
+      document.getElementById('labTitle').textContent = item.title;
+      document.getElementById('labDefinition').textContent = simpleMode ? item.plain : item.definition;
+      document.getElementById('labExample').textContent = item.example;
+      document.getElementById('labRisk').textContent = item.risk;
+      document.getElementById('labPlain').textContent = item.plain;
+      document.getElementById('labLinks').innerHTML = item.links.map(link => `<span class="term-link" onclick="jumpTerm('${link}')">${glossaryData[link].title}</span>`).join('');
+    }
+    function jumpTerm(key){
+      const btn = [...document.querySelectorAll('.term-button')].find(b => b.textContent.trim() === glossaryData[key].title);
+      setGlossaryLab(btn,key);
+    }
+    function togglePlainMode(){
+      simpleMode = !simpleMode;
+      const btn = [...document.querySelectorAll('.term-button')].find(b=>b.classList.contains('active'));
+      setGlossaryLab(btn,currentGlossaryKey);
+    }
+    async function copyGlossary(btn){
+      const item = glossaryData[currentGlossaryKey];
+      const text = `${item.title}: ${simpleMode ? item.plain : item.definition}\nExample: ${item.example}\nWatch out: ${item.risk}`;
+      await navigator.clipboard.writeText(text);
+      const old = btn.textContent;
+      btn.textContent = 'Copied';
+      setTimeout(()=>btn.textContent = old, 900);
+    }
+
+  </script>
+</body>
+</html>

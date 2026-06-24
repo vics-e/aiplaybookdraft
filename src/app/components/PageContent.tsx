@@ -57,12 +57,190 @@ interface PromptLibraryState {
   activityCompleted: string[];
 }
 
+interface GlossaryTerm {
+  id: string;
+  term: string;
+  definition: string;
+}
+
+interface GlossaryHelperContent {
+  plainEnglish?: string;
+  example?: string;
+  watchOut?: string;
+  relatedTerms?: string[];
+}
+
+interface GlossaryPageState {
+  mode: 'lab' | 'flashcards';
+  searchQuery: string;
+  selectedTerm: string;
+  currentFlashcardIndex: number;
+  learnedTerms: string[];
+  flippedTerms: string[];
+}
+
 const DEFAULT_PROMPT_LIBRARY_STATE: PromptLibraryState = {
   searchQuery: '',
   expandedPromptIds: [],
   promptValues: {},
   activityAnswers: {},
   activityCompleted: [],
+};
+
+const DEFAULT_GLOSSARY_STATE: GlossaryPageState = {
+  mode: 'lab',
+  searchQuery: '',
+  selectedTerm: '',
+  currentFlashcardIndex: 0,
+  learnedTerms: [],
+  flippedTerms: [],
+};
+
+const GLOSSARY_HELPER_CONTENT: Record<string, GlossaryHelperContent> = {
+  'AI (Artificial Intelligence)': {
+    plainEnglish: 'Software that can help with tasks that usually need human thinking.',
+    example: 'An AI tool summarises client notes or helps draft a professional email.',
+    watchOut: 'AI can sound confident even when the answer still needs checking.',
+    relatedTerms: ['Generative AI', 'Machine Learning (ML)', 'Model'],
+  },
+  'AI Agent': {
+    plainEnglish: 'An agent works through several steps to achieve an outcome, not just a single task.',
+    example: 'An agent gathers information, checks it against rules, and prepares a draft result for approval.',
+    watchOut: 'Agents should operate inside clear guardrails, permissions, and review points.',
+    relatedTerms: ['AI Assistant', 'Human-in-the-loop', 'Workflow'],
+  },
+  'AI Assistant': {
+    plainEnglish: 'An assistant helps when you ask. It does not run a whole process by itself.',
+    example: 'Use an assistant to summarise a meeting note or rewrite a client message.',
+    watchOut: 'Assistants still need clear prompts and human review.',
+    relatedTerms: ['Prompt', 'AI Agent', 'Context'],
+  },
+  'AI Audit Trail': {
+    plainEnglish: 'A record of what AI did and who checked it.',
+    example: 'A file note records the prompt, output, reviewer, and final decision.',
+    watchOut: 'Without a trail, it is harder to evidence judgement or responsibility.',
+    relatedTerms: ['Human-in-the-loop', 'AI Policy', 'Data Minimisation'],
+  },
+  'AI Dividend': {
+    plainEnglish: 'The benefit you get back when AI reduces effort.',
+    example: 'A task that took two hours now takes 30 minutes, creating capacity for higher-value work.',
+    watchOut: 'Saved time only creates value if the firm decides how to use it.',
+    relatedTerms: ['Workflow', 'Automation', 'AI Agent'],
+  },
+  'AI Policy': {
+    plainEnglish: 'Your firm’s rules for safe and approved AI use.',
+    example: 'A policy might say client confidential data can only go into approved secure systems.',
+    watchOut: 'Rules that are too vague will not guide real day-to-day behaviour.',
+    relatedTerms: ['Data Minimisation', 'AI Audit Trail', 'Human-in-the-loop'],
+  },
+  'Automation': {
+    plainEnglish: 'Automation follows rules. AI can generate or interpret.',
+    example: 'Bank feeds and recurring journals follow defined rules without new reasoning.',
+    watchOut: 'Automation is not the same as generative AI.',
+    relatedTerms: ['Workflow', 'AI Agent', 'Generative AI'],
+  },
+  'Bias (in AI)': {
+    plainEnglish: 'AI can reflect problems in the data or assumptions behind it.',
+    example: 'A model gives weaker suggestions because the source data is incomplete or skewed.',
+    watchOut: 'Bias can be hidden inside outputs that look polished or confident.',
+    relatedTerms: ['Training Data', 'Human-in-the-loop', 'Hallucination (AI)'],
+  },
+  'Context': {
+    plainEnglish: 'Context is the useful background you give the AI.',
+    example: 'Tell the AI the client type, audience, goal, tone, and constraints.',
+    watchOut: 'Weak context often creates generic or less relevant answers.',
+    relatedTerms: ['Prompt', 'Prompt Engineering', 'Context Window'],
+  },
+  'Context Window': {
+    plainEnglish: 'The amount of information the AI can hold in mind at once.',
+    example: 'A larger context window can work with longer reports or multiple documents together.',
+    watchOut: 'More context does not automatically mean better context.',
+    relatedTerms: ['Context', 'Prompt', 'LLM (Large Language Model)'],
+  },
+  'Data Minimisation': {
+    plainEnglish: 'Only give the AI what it actually needs.',
+    example: 'Remove unnecessary personal data before asking an AI tool to summarise a document.',
+    watchOut: 'Sharing more data than needed creates avoidable confidentiality risk.',
+    relatedTerms: ['AI Policy', 'AI Audit Trail', 'Human-in-the-loop'],
+  },
+  'Fine-Tuning': {
+    plainEnglish: 'Customising a model with additional training for a specific use case.',
+    example: 'A model is further trained on industry material to improve performance on specialist tasks.',
+    watchOut: 'Fine-tuning does not remove the need for review, testing, or governance.',
+    relatedTerms: ['Model', 'Training Data', 'Machine Learning (ML)'],
+  },
+  'Generative AI': {
+    plainEnglish: 'AI that creates something new from your instructions.',
+    example: 'A tool drafts a client email or summarises a meeting from rough notes.',
+    watchOut: 'Generated content still needs checking before you rely on it.',
+    relatedTerms: ['AI Assistant', 'LLM (Large Language Model)', 'Prompt'],
+  },
+  'Hallucination (AI)': {
+    plainEnglish: 'The AI can make things up.',
+    example: 'The AI invents a rule, figure, or source that does not actually exist.',
+    watchOut: 'Confident wording can make errors harder to spot.',
+    relatedTerms: ['Human-in-the-loop', 'AI Audit Trail', 'Prompt'],
+  },
+  'Human-in-the-loop': {
+    plainEnglish: 'A human stays in control of important moments.',
+    example: 'AI drafts a client message, but a qualified person approves it before sending.',
+    watchOut: 'The review step must be clear, owned, and documented.',
+    relatedTerms: ['AI Audit Trail', 'AI Policy', 'AI Agent'],
+  },
+  'LLM (Large Language Model)': {
+    plainEnglish: 'The engine behind many AI chat tools.',
+    example: 'Modern AI assistants often rely on large language models to understand and generate text.',
+    watchOut: 'An LLM predicts language, so outputs still need judgement and review.',
+    relatedTerms: ['Model', 'Generative AI', 'Prompt'],
+  },
+  'Machine Learning (ML)': {
+    plainEnglish: 'Systems learn patterns from data instead of being told every rule directly.',
+    example: 'ML helps with fraud detection, categorisation, and forecasting.',
+    watchOut: 'The results depend heavily on the quality of the data and setup.',
+    relatedTerms: ['AI (Artificial Intelligence)', 'Model', 'Training Data'],
+  },
+  'Model': {
+    plainEnglish: 'The trained AI system that does the work.',
+    example: 'A model can classify information, generate text, or predict outcomes.',
+    watchOut: 'Different models have different strengths, weaknesses, and limits.',
+    relatedTerms: ['LLM (Large Language Model)', 'Machine Learning (ML)', 'Training Data'],
+  },
+  'Natural Language Processing (NLP)': {
+    plainEnglish: 'Technology that helps computers work with human language.',
+    example: 'NLP helps tools read emails, interpret text, and answer questions.',
+    watchOut: 'Useful language handling still does not guarantee correct meaning or judgement.',
+    relatedTerms: ['LLM (Large Language Model)', 'Prompt', 'Context'],
+  },
+  'Prompt': {
+    plainEnglish: 'The instruction you give the AI.',
+    example: 'A prompt can ask the AI to explain, summarise, draft, check, or rewrite something.',
+    watchOut: 'Vague prompts usually produce weaker results.',
+    relatedTerms: ['Prompt Engineering', 'Context', 'AI Assistant'],
+  },
+  'Prompt Engineering': {
+    plainEnglish: 'Writing clearer, more structured instructions to get better AI outputs.',
+    example: 'Set the role, define the task, add context, and state constraints.',
+    watchOut: 'A good prompt helps, but it does not replace review or good source data.',
+    relatedTerms: ['Prompt', 'Context', 'Structured Data'],
+  },
+  'Structured Data': {
+    plainEnglish: 'Information arranged consistently so systems can process it reliably.',
+    example: 'Clean ledgers, standard fields, and consistent formats are all structured data.',
+    watchOut: 'Messy or inconsistent data weakens AI performance.',
+    relatedTerms: ['Workflow', 'Automation', 'Context'],
+  },
+  'Training Data': {
+    plainEnglish: 'The information used to teach a model how to perform.',
+    example: 'Training data shapes what patterns the model learns and what outputs it can produce.',
+    watchOut: 'Poor or biased training data leads to poorer or biased results.',
+    relatedTerms: ['Machine Learning (ML)', 'Model', 'Bias (in AI)'],
+  },
+  'Workflow': {
+    plainEnglish: 'The step-by-step way work gets done.',
+    example: 'Collect documents, review them, prepare a draft, approve, then send to the client.',
+    watchOut: 'AI works best when the workflow is clear and repeatable.',
+    relatedTerms: ['Automation', 'AI Agent', 'AI Audit Trail'],
+  },
 };
 
 function extractPromptVariables(text: string) {
@@ -218,6 +396,61 @@ function parseNumberedSteps(text: string) {
     .map((step) => step.trim())
     .filter(Boolean)
     .map((step) => step.replace(/^\d+\.\s*/, ''));
+}
+
+function buildGlossaryTerms(content: PlaybookPage['content']): GlossaryTerm[] {
+  const glossaryBlock = content.find((block) => block.type === 'numbered-list');
+  if (!glossaryBlock?.items) {
+    return [];
+  }
+
+  return glossaryBlock.items
+    .filter((item): item is { title: string; desc: string } => typeof item?.title === 'string' && typeof item?.desc === 'string')
+    .map((item, index) => ({
+      id: `glossary-${index}`,
+      term: item.title,
+      definition: item.desc,
+    }))
+    .sort((a, b) => a.term.localeCompare(b.term));
+}
+
+function parseGlossaryPageState(userInput: string) {
+  if (!userInput || userInput === '') {
+    return DEFAULT_GLOSSARY_STATE;
+  }
+
+  try {
+    const parsed = JSON.parse(userInput) as Record<string, unknown>;
+    const hasGlossaryShape =
+      parsed.mode === 'lab' ||
+      parsed.mode === 'flashcards' ||
+      typeof parsed.searchQuery === 'string' ||
+      typeof parsed.selectedTerm === 'string' ||
+      typeof parsed.currentFlashcardIndex === 'number' ||
+      Array.isArray(parsed.learnedTerms) ||
+      Array.isArray(parsed.flippedTerms);
+
+    if (!hasGlossaryShape) {
+      return DEFAULT_GLOSSARY_STATE;
+    }
+
+    return {
+      mode: parsed.mode === 'flashcards' ? 'flashcards' : 'lab',
+      searchQuery: typeof parsed.searchQuery === 'string' ? parsed.searchQuery : '',
+      selectedTerm: typeof parsed.selectedTerm === 'string' ? parsed.selectedTerm : '',
+      currentFlashcardIndex: typeof parsed.currentFlashcardIndex === 'number' && Number.isFinite(parsed.currentFlashcardIndex)
+        ? parsed.currentFlashcardIndex
+        : 0,
+      learnedTerms: Array.isArray(parsed.learnedTerms)
+        ? parsed.learnedTerms.filter((value): value is string => typeof value === 'string')
+        : [],
+      flippedTerms: Array.isArray(parsed.flippedTerms)
+        ? parsed.flippedTerms.filter((value): value is string => typeof value === 'string')
+        : [],
+    };
+  } catch {
+    return DEFAULT_GLOSSARY_STATE;
+  }
 }
 
 function escapeForXml(text: string) {
@@ -444,6 +677,7 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
     ? new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }).format(new Date())
     : '';
   const isPromptLibraryPage = page.id === 's4-library';
+  const isGlossaryPage = page.id === 's7-glossary';
   const [copiedPromptId, setCopiedPromptId] = useState<string | null>(null);
   const promptLibraryState = isPromptLibraryPage
     ? parsePromptLibraryState(userInput)
@@ -482,6 +716,38 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
     }
 
     const nextState = updater(promptLibraryState);
+    onInputChange(JSON.stringify(nextState));
+  };
+  const glossaryTerms = isGlossaryPage ? buildGlossaryTerms(page.content) : [];
+  const glossaryState = isGlossaryPage ? parseGlossaryPageState(userInput) : DEFAULT_GLOSSARY_STATE;
+  const filteredGlossaryTerms = glossaryTerms.filter((term) => {
+    const query = glossaryState.searchQuery.trim().toLowerCase();
+    return !query || term.term.toLowerCase().includes(query) || term.definition.toLowerCase().includes(query);
+  });
+  const selectedGlossaryTerm = isGlossaryPage
+    ? filteredGlossaryTerms.find((term) => term.term === glossaryState.selectedTerm)
+      || glossaryTerms.find((term) => term.term === glossaryState.selectedTerm)
+      || filteredGlossaryTerms[0]
+      || glossaryTerms[0]
+    : undefined;
+  const glossaryFlashcardIndex = isGlossaryPage && glossaryTerms.length > 0
+    ? Math.min(Math.max(glossaryState.currentFlashcardIndex, 0), glossaryTerms.length - 1)
+    : 0;
+  const activeFlashcard = isGlossaryPage ? glossaryTerms[glossaryFlashcardIndex] : undefined;
+  const activeFlashcardIsFlipped = activeFlashcard ? glossaryState.flippedTerms.includes(activeFlashcard.term) : false;
+  const glossaryLearnedTerms = isGlossaryPage
+    ? glossaryTerms.filter((term) => glossaryState.learnedTerms.includes(term.term))
+    : [];
+  const glossaryProgress = glossaryTerms.length > 0
+    ? (glossaryLearnedTerms.length / glossaryTerms.length) * 100
+    : 0;
+
+  const updateGlossaryState = (updater: (current: GlossaryPageState) => GlossaryPageState) => {
+    if (!isGlossaryPage) {
+      return;
+    }
+
+    const nextState = updater(glossaryState);
     onInputChange(JSON.stringify(nextState));
   };
 
@@ -789,7 +1055,7 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
                   <div className="w-6 h-6 bg-blue-500/20 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5 border border-blue-400/30 group-hover:bg-blue-500/30 transition-all">
                     <CheckCircle className="text-blue-400" size={14} strokeWidth={3} />
                   </div>
-                  <p className="text-sm text-white/80 font-medium leading-relaxed">Summarize data</p>
+                  <p className="text-sm text-white/80 font-medium leading-relaxed">Summarise data</p>
                 </li>
                 <li className="flex items-start gap-3 group">
                   <div className="w-6 h-6 bg-blue-500/20 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5 border border-blue-400/30 group-hover:bg-blue-500/30 transition-all">
@@ -1598,7 +1864,301 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
         );
       })()}
 
-      {isPromptLibraryPage ? (
+      {isGlossaryPage ? (
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.45 }}
+          className="space-y-6 xl:-mx-4 xl:w-[calc(100%+2rem)] 2xl:-mx-6 2xl:w-[calc(100%+3rem)]"
+        >
+          <style>{`
+            .glossary-term-list {
+              scrollbar-width: thin;
+              scrollbar-color: #00DC51 #030604;
+            }
+
+            .glossary-term-list::-webkit-scrollbar {
+              width: 10px;
+            }
+
+            .glossary-term-list::-webkit-scrollbar-track {
+              background: #030604;
+              border-radius: 999px;
+            }
+
+            .glossary-term-list::-webkit-scrollbar-thumb {
+              background: linear-gradient(180deg, #00DC51 0%, #00b842 100%);
+              border-radius: 999px;
+              border: 2px solid #030604;
+            }
+
+            .glossary-term-list::-webkit-scrollbar-thumb:hover {
+              background: linear-gradient(180deg, #00ff5f 0%, #00c948 100%);
+            }
+          `}</style>
+          <div className="rounded-[28px] border border-white/12 bg-gradient-to-br from-white/[0.05] via-[#00DC51]/[0.05] to-transparent p-5 shadow-[0_24px_90px_rgba(0,0,0,0.35)] md:p-6">
+            <div className="mb-5 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+              <div>
+                <h3 className="text-2xl font-black tracking-tight text-white md:text-3xl">Glossary Lab</h3>
+                <p className="mt-2 max-w-2xl text-sm font-medium leading-relaxed text-white/68 md:text-base">
+                  Explore terms as a reference tool, then switch into flashcards to remember the key ideas.
+                </p>
+              </div>
+              <div className="inline-flex w-full max-w-full rounded-full border border-white/12 bg-[#101310] p-1 sm:w-auto max-[380px]:flex-col">
+                <button
+                  type="button"
+                  onClick={() => {
+                    updateGlossaryState((current) => ({ ...current, mode: 'lab' }));
+                  }}
+                  className={`flex-1 rounded-full px-4 py-2.5 text-sm font-black transition-colors sm:flex-none ${
+                    glossaryState.mode === 'lab'
+                      ? 'bg-[#00DC51] text-black'
+                      : 'bg-transparent text-white hover:text-[#00DC51]'
+                  }`}
+                >
+                  Glossary Lab
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    updateGlossaryState((current) => ({ ...current, mode: 'flashcards' }));
+                  }}
+                  className={`flex-1 rounded-full px-4 py-2.5 text-sm font-black transition-colors sm:flex-none ${
+                    glossaryState.mode === 'flashcards'
+                      ? 'bg-[#00DC51] text-black'
+                      : 'bg-transparent text-white hover:text-[#00DC51]'
+                  }`}
+                >
+                  Flashcards
+                </button>
+              </div>
+            </div>
+
+            {glossaryState.mode === 'lab' ? (
+              <div className="space-y-5">
+                <div className="relative">
+                  <Search className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-[#00DC51]" size={18} strokeWidth={2.5} />
+                  <input
+                    value={glossaryState.searchQuery}
+                    onChange={(e) => {
+                      const nextSearchQuery = e.target.value;
+                      updateGlossaryState((current) => ({
+                        ...current,
+                        mode: 'lab',
+                        searchQuery: nextSearchQuery,
+                      }));
+                    }}
+                    placeholder="Search glossary terms..."
+                    className="w-full rounded-2xl border border-white/15 bg-[#030604] py-3 pl-12 pr-4 text-sm font-bold text-white outline-none transition-colors placeholder:text-white/35 focus:border-[#00DC51]"
+                  />
+                </div>
+
+                <div className="grid gap-4 lg:grid-cols-[280px_minmax(0,1fr)]">
+                  <aside className="glossary-term-list grid content-start gap-2 rounded-3xl border border-white/12 bg-[#030604] p-3 lg:max-h-[560px] lg:overflow-auto">
+                    {filteredGlossaryTerms.length > 0 ? filteredGlossaryTerms.map((term) => (
+                      <button
+                        key={term.id}
+                        type="button"
+                        onClick={() => {
+                          updateGlossaryState((current) => ({
+                            ...current,
+                            mode: 'lab',
+                            selectedTerm: term.term,
+                          }));
+                        }}
+                        className={`w-full rounded-2xl border px-4 py-3 text-left transition-colors ${
+                          selectedGlossaryTerm?.term === term.term
+                            ? 'border-[#00DC51] bg-[#00DC51]/12'
+                            : 'border-white/12 bg-white/[0.035] hover:border-[#00DC51]/60 hover:bg-[#00DC51]/8'
+                        }`}
+                      >
+                        <p className="text-sm font-black text-white">{term.term}</p>
+                      </button>
+                    )) : (
+                      <div className="rounded-2xl border border-dashed border-white/15 px-4 py-6 text-center text-sm font-medium text-white/55">
+                        No glossary terms found.
+                      </div>
+                    )}
+                  </aside>
+
+                  <section className="rounded-3xl border border-white/12 bg-[radial-gradient(circle_at_top_right,_rgba(0,214,57,0.12),_transparent_34%),linear-gradient(145deg,#07140b,#020403)] p-6 md:p-7">
+                    {selectedGlossaryTerm ? (
+                      <>
+                        <div className="mb-2 text-xs font-black uppercase tracking-[0.18em] text-[#00DC51]">Definition</div>
+                        <h3 className="mb-4 text-3xl font-black tracking-tight text-white md:text-5xl">{selectedGlossaryTerm.term}</h3>
+                        <p className="mb-6 max-w-4xl text-base font-medium leading-relaxed text-white/86 md:text-lg">
+                          {selectedGlossaryTerm.definition}
+                        </p>
+
+                        {(() => {
+                          const helper = GLOSSARY_HELPER_CONTENT[selectedGlossaryTerm.term];
+                          const helperCards = [
+                            helper?.example ? { label: 'Example', value: helper.example } : null,
+                            helper?.watchOut ? { label: 'Watch out', value: helper.watchOut } : null,
+                            helper?.plainEnglish ? { label: 'Plain English', value: helper.plainEnglish } : null,
+                          ].filter((item): item is { label: string; value: string } => Boolean(item));
+
+                          return helperCards.length > 0 ? (
+                            <div className="mb-5 grid gap-3 md:grid-cols-3">
+                              {helperCards.map((card) => (
+                                <div key={card.label} className="min-h-[132px] rounded-2xl border border-white/12 bg-white/[0.035] p-4">
+                                  <p className="mb-2 text-xs font-black uppercase tracking-[0.12em] text-[#00DC51]">{card.label}</p>
+                                  <p className="text-sm font-medium leading-relaxed text-white/82">{card.value}</p>
+                                </div>
+                              ))}
+                            </div>
+                          ) : null;
+                        })()}
+
+                        {GLOSSARY_HELPER_CONTENT[selectedGlossaryTerm.term]?.relatedTerms?.length ? (
+                          <div className="mb-5">
+                            <p className="mb-2 text-xs font-black uppercase tracking-[0.14em] text-[#00DC51]">Related terms</p>
+                            <div className="flex flex-wrap gap-2">
+                              {GLOSSARY_HELPER_CONTENT[selectedGlossaryTerm.term]?.relatedTerms?.map((relatedTerm) => (
+                                <button
+                                  key={relatedTerm}
+                                  type="button"
+                                  onClick={() => {
+                                    updateGlossaryState((current) => ({
+                                      ...current,
+                                      mode: 'lab',
+                                      selectedTerm: relatedTerm,
+                                    }));
+                                  }}
+                                  className="rounded-full border border-white/15 bg-white/[0.04] px-3 py-2 text-xs font-black text-white/75 transition-colors hover:border-[#00DC51]/60 hover:bg-[#00DC51]/10 hover:text-white"
+                                >
+                                  {relatedTerm}
+                                </button>
+                              ))}
+                            </div>
+                          </div>
+                        ) : null}
+
+                        <div className="flex flex-wrap gap-3">
+                          <button
+                            type="button"
+                            onClick={() => handlePromptCopy(`${selectedGlossaryTerm.term}\n\n${selectedGlossaryTerm.definition}`, `glossary-${selectedGlossaryTerm.term}`)}
+                            className="inline-flex items-center gap-2 rounded-full bg-[#00DC51] px-4 py-2.5 text-sm font-black text-black transition-colors hover:bg-[#00FF5F]"
+                          >
+                            {copiedPromptId === `glossary-${selectedGlossaryTerm.term}` ? <Check size={16} strokeWidth={3} /> : <Copy size={16} strokeWidth={2.5} />}
+                            <span>{copiedPromptId === `glossary-${selectedGlossaryTerm.term}` ? 'Copied' : 'Copy explanation'}</span>
+                          </button>
+                        </div>
+                      </>
+                    ) : (
+                      <div className="rounded-2xl border border-dashed border-white/15 px-5 py-8 text-center text-sm font-medium text-white/55">
+                        Select a term to view the official definition.
+                      </div>
+                    )}
+                  </section>
+                </div>
+              </div>
+            ) : (
+              <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_320px]">
+                <div>
+                  {activeFlashcard ? (
+                    <>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          updateGlossaryState((current) => {
+                            const isFlipped = current.flippedTerms.includes(activeFlashcard.term);
+                            return {
+                              ...current,
+                              flippedTerms: isFlipped
+                                ? current.flippedTerms.filter((term) => term !== activeFlashcard.term)
+                                : [...current.flippedTerms, activeFlashcard.term],
+                            };
+                          });
+                        }}
+                        className="flex min-h-[390px] w-full flex-col items-center justify-center rounded-[24px] border border-[#00DC51] bg-[radial-gradient(circle_at_top_right,_rgba(0,214,57,0.16),_transparent_38%),linear-gradient(135deg,#03170b,#010201)] p-8 text-center shadow-[0_22px_80px_rgba(0,214,57,0.08)]"
+                      >
+                        <p className="mb-5 text-xs font-black uppercase tracking-[0.18em] text-[#00DC51]">Click to reveal</p>
+                        {!activeFlashcardIsFlipped ? (
+                          <h3 className="text-4xl font-black tracking-tight text-white md:text-6xl">{activeFlashcard.term}</h3>
+                        ) : (
+                          <p className="max-w-3xl text-lg font-medium leading-relaxed text-white/88 md:text-2xl">
+                            {activeFlashcard.definition}
+                          </p>
+                        )}
+                      </button>
+
+                      <div className="mt-4 flex flex-wrap gap-2">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            updateGlossaryState((current) => ({
+                              ...current,
+                              currentFlashcardIndex: current.currentFlashcardIndex <= 0 ? glossaryTerms.length - 1 : current.currentFlashcardIndex - 1,
+                            }));
+                          }}
+                          className="rounded-full border border-white/15 bg-[#101310] px-4 py-2.5 text-sm font-black text-white transition-colors hover:border-[#00DC51]/60 hover:text-[#00DC51]"
+                        >
+                          Previous
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            updateGlossaryState((current) => ({
+                              ...current,
+                              learnedTerms: current.learnedTerms.includes(activeFlashcard.term)
+                                ? current.learnedTerms
+                                : [...current.learnedTerms, activeFlashcard.term],
+                              currentFlashcardIndex: current.currentFlashcardIndex >= glossaryTerms.length - 1 ? 0 : current.currentFlashcardIndex + 1,
+                            }));
+                          }}
+                          className="rounded-full bg-[#00DC51] px-4 py-2.5 text-sm font-black text-black transition-colors hover:bg-[#00FF5F]"
+                        >
+                          I know this
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            updateGlossaryState((current) => ({
+                              ...current,
+                              currentFlashcardIndex: current.currentFlashcardIndex >= glossaryTerms.length - 1 ? 0 : current.currentFlashcardIndex + 1,
+                            }));
+                          }}
+                          className="rounded-full border border-white/15 bg-[#101310] px-4 py-2.5 text-sm font-black text-white transition-colors hover:border-[#00DC51]/60 hover:text-[#00DC51]"
+                        >
+                          Next
+                        </button>
+                      </div>
+                    </>
+                  ) : null}
+                </div>
+
+                <aside className="rounded-3xl border border-white/12 bg-[radial-gradient(circle_at_top_right,_rgba(0,214,57,0.14),_transparent_38%),#030604] p-5">
+                  <p className="text-xs font-black uppercase tracking-[0.18em] text-[#00DC51]">Flashcard progress</p>
+                  <h3 className="mt-2 text-2xl font-black tracking-tight text-white">Learning mode</h3>
+                  <p className="mt-3 text-sm font-medium text-white/65">
+                    {glossaryLearnedTerms.length} / {glossaryTerms.length} learned
+                  </p>
+                  <div className="mt-4 h-3 overflow-hidden rounded-full bg-white/12">
+                    <motion.div
+                      className="h-full rounded-full bg-[#00DC51]"
+                      animate={{ width: `${glossaryProgress}%` }}
+                      transition={{ duration: 0.2 }}
+                    />
+                  </div>
+
+                  <div className="mt-5 space-y-2">
+                    {glossaryLearnedTerms.length > 0 ? glossaryLearnedTerms.map((term) => (
+                      <div key={term.term} className="rounded-2xl border border-white/12 bg-white/[0.035] px-4 py-3 text-sm font-medium text-white/78">
+                        {term.term}
+                      </div>
+                    )) : (
+                      <div className="rounded-2xl border border-dashed border-white/15 px-4 py-5 text-sm font-medium text-white/55">
+                        Terms you mark as known will appear here.
+                      </div>
+                    )}
+                  </div>
+                </aside>
+              </div>
+            )}
+          </div>
+        </motion.div>
+      ) : isPromptLibraryPage ? (
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}

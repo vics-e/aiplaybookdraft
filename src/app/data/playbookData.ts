@@ -470,7 +470,7 @@ export const playbook: PlaybookPage[] = [
       },
       {
         type: 'text',
-        text: 'Many firms establish clear rules: anonymize client data before using external AI, use only approved enterprise AI tools with data protection agreements, or prohibit the use of public AI tools for client work entirely.'
+        text: 'Many firms establish clear rules: anonymise client data before using external AI, use only approved enterprise AI tools with data protection agreements, or prohibit the use of public AI tools for client work entirely.'
       }
     ],
     activity: {
@@ -479,7 +479,7 @@ export const playbook: PlaybookPage[] = [
       type: 'multi-question',
       questions: [
         'List 3 types of data that must NEVER be entered into public AI tools (e.g., client financial records, personal information)',
-        'List 2 types of data that might be acceptable to enter if anonymized or de-identified (e.g., general tax questions, process templates)',
+        'List 2 types of data that might be acceptable to enter if anonymised or de-identified (e.g., general tax questions, process templates)',
         'What safeguards would you put in place to prevent accidental data exposure through AI tools?'
       ]
     },
@@ -1119,7 +1119,7 @@ export const playbook: PlaybookPage[] = [
           },
           {
             title: 'Analysis and classification',
-            desc: 'Agents can analyse trends, categorize transactions, identify patterns, calculate variances, and summarise results.'
+            desc: 'Agents can analyse trends, categorise transactions, identify patterns, calculate variances, and summarise results.'
           },
           {
             title: 'Output preparation',
@@ -1343,7 +1343,7 @@ export const playbook: PlaybookPage[] = [
       {
         type: 'box',
         title: 'What to Avoid for Your First Agent:',
-        text: '✗ Workflows requiring significant judgement or interpretation\n✗ Client-facing work with no review step\n✗ Processes with incomplete or unstructured data\n✗ High-stakes compliance tasks (save these for later, once confidence is built)\n✗ Workflows that occur infrequently (annual tasks are harder to refine and optimize)',
+        text: '✗ Workflows requiring significant judgement or interpretation\n✗ Client-facing work with no review step\n✗ Processes with incomplete or unstructured data\n✗ High-stakes compliance tasks (save these for later, once confidence is built)\n✗ Workflows that occur infrequently (annual tasks are harder to refine and optimise)',
         style: 'dark'
       },
       {
@@ -1444,7 +1444,7 @@ export const playbook: PlaybookPage[] = [
       },
       {
         type: 'highlight',
-        text: 'Every agent needs: a clear goal, defined inputs, specific behaviors, human review points, and escalation rules.'
+        text: 'Every agent needs: a clear goal, defined inputs, specific behaviours, human review points, and escalation rules.'
       }
     ],
     activity: {
@@ -1617,7 +1617,7 @@ export const playbook: PlaybookPage[] = [
           },
           {
             title: 'Expand gradually',
-            desc: 'Move from one agent to multiple workflows only after the first agent has proven reliable. Gradual expansion reduces risk and builds organizational confidence.'
+            desc: 'Move from one agent to multiple workflows only after the first agent has proven reliable. Gradual expansion reduces risk and builds organisational confidence.'
           }
         ]
       },
@@ -2615,7 +2615,7 @@ export const playbook: PlaybookPage[] = [
       },
       {
         type: 'text',
-        text: 'The answer depends almost entirely on how you frame it. Firms that apologize for AI use, or that treat it as a secret, create exactly the anxiety they are trying to avoid. Firms that communicate AI use confidently—as a professional enhancement, not a shortcut—find that most clients respond positively.'
+        text: 'The answer depends almost entirely on how you frame it. Firms that apologise for AI use, or that treat it as a secret, create exactly the anxiety they are trying to avoid. Firms that communicate AI use confidently—as a professional enhancement, not a shortcut—find that most clients respond positively.'
       },
       {
         type: 'box',
@@ -3211,7 +3211,7 @@ export const playbook: PlaybookPage[] = [
     ],
     activity: {
       title: 'Adapt This Policy',
-      prompt: 'Customize this policy for your firm:',
+      prompt: 'Customise this policy for your firm:',
       questions: [
         'List your approved AI tools:',
         'Define your review rule:',
@@ -3675,8 +3675,8 @@ export const playbook: PlaybookPage[] = [
       }
     ],
     activity: {
-      title: 'Personalize Your Certificate',
-      prompt: 'Enter your name or practice name to personalize this certificate:',
+      title: 'Personalise Your Certificate',
+      prompt: 'Enter your name or practice name to personalise this certificate:',
       type: 'multi-question',
       questions: [
         'Name / Practice Name:'

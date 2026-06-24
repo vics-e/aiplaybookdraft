@@ -1,0 +1,351 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Glossary Concepts</title>
+<style>
+:root {
+  --bg:#000;
+  --panel:#02170b;
+  --panel2:#041109;
+  --card:#050807;
+  --line:#27322d;
+  --muted:#a9b3ad;
+  --text:#fff;
+  --green:#00d639;
+  --green2:#0c7b2b;
+  --shadow: 0 18px 60px rgba(0,214,57,.10);
+}
+* { box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+  margin:0;
+  background: radial-gradient(circle at 15% 0%, rgba(0,214,57,.12), transparent 28%), var(--bg);
+  color:var(--text);
+  font-family: Inter, Arial, sans-serif;
+  line-height:1.45;
+}
+.wrap { width:min(1180px, calc(100% - 40px)); margin:0 auto; padding:30px 0 60px; }
+.badge { display:inline-flex; border:1px solid var(--green); background:rgba(0,214,57,.10); color:var(--green); padding:12px 20px; border-radius:999px; font-weight:800; font-size:13px; }
+.hero { display:grid; grid-template-columns: 1.4fr .9fr; gap:28px; align-items:start; margin-bottom:28px; }
+h1 { font-size:clamp(42px, 6vw, 72px); line-height:.95; margin:34px 0 16px; letter-spacing:-3px; }
+h2 { margin:0 0 8px; font-size:26px; }
+h3 { margin:0 0 8px; font-size:20px; }
+p { margin:0; }
+.lead { color:var(--muted); font-size:20px; font-weight:700; }
+.intro { max-width:740px; margin-top:24px; font-weight:700; color:#e7ece9; }
+.nav {
+  position:sticky; top:0; z-index:10; backdrop-filter: blur(12px);
+  background:rgba(0,0,0,.84); border-bottom:1px solid #122018;
+}
+.nav-inner { width:min(1180px, calc(100% - 40px)); margin:auto; display:flex; gap:10px; padding:12px 0; overflow:auto; }
+.nav a, .button, button {
+  border:1px solid var(--line); color:#fff; background:#111; border-radius:12px; padding:11px 14px;
+  font-weight:850; text-decoration:none; cursor:pointer; font-size:14px;
+}
+.nav a.active, .button.primary, button.primary { background:var(--green); color:#001c09; border-color:var(--green); }
+.panel {
+  border:1px solid var(--green); background:linear-gradient(135deg, rgba(0,214,57,.10), rgba(0,0,0,.35));
+  border-radius:20px; padding:26px; box-shadow:var(--shadow);
+}
+.controls { display:flex; gap:12px; flex-wrap:wrap; margin:24px 0; align-items:center; }
+input[type="search"] {
+  flex:1; min-width:240px; border:1px solid var(--line); background:#040806; color:#fff; border-radius:12px; padding:14px 16px; font-size:16px;
+}
+.chip { border:1px solid var(--line); background:#0c0f0d; color:#fff; border-radius:999px; padding:10px 14px; cursor:pointer; font-weight:800; }
+.chip.active { border-color:var(--green); color:var(--green); background:rgba(0,214,57,.10); }
+.page { margin-top:36px; padding-top:20px; }
+.section-head { display:flex; justify-content:space-between; gap:20px; align-items:end; margin:0 0 18px; }
+.grid { display:grid; grid-template-columns:repeat(3, 1fr); gap:16px; }
+.card {
+  border:1px solid var(--line); background:linear-gradient(180deg, #07100b, #020403); border-radius:18px; padding:20px; min-height:190px;
+  transition:.18s ease; cursor:pointer;
+}
+.card:hover { transform:translateY(-3px); border-color:var(--green); }
+.num { width:38px; height:38px; border:1px solid var(--green); color:var(--green); border-radius:999px; display:grid; place-items:center; font-weight:900; margin-bottom:16px; }
+.cat { color:var(--green); font-size:12px; font-weight:900; letter-spacing:.08em; text-transform:uppercase; margin-bottom:8px; }
+.def { color:#c8d0cb; font-weight:650; }
+.modal { position:fixed; inset:0; display:none; align-items:center; justify-content:center; background:rgba(0,0,0,.74); z-index:99; padding:20px; }
+.modal.show { display:flex; }
+.modal-card { width:min(720px, 100%); border:1px solid var(--green); background:#020503; border-radius:22px; padding:26px; }
+.modal-top { display:flex; justify-content:space-between; gap:16px; margin-bottom:14px; }
+.x { width:42px; height:42px; border-radius:999px; padding:0; }
+.flash-wrap { display:grid; grid-template-columns: 1fr 340px; gap:20px; }
+.flashcard {
+  min-height:360px; border:1px solid var(--green); border-radius:24px; background:linear-gradient(135deg, #03170b, #010201); padding:34px;
+  display:flex; flex-direction:column; justify-content:center; text-align:center; cursor:pointer;
+}
+.flashcard .small { color:var(--green); font-weight:900; text-transform:uppercase; letter-spacing:.12em; margin-bottom:20px; }
+.flashcard h3 { font-size:clamp(34px, 5vw, 58px); line-height:1; margin:0; }
+.flashcard .answer { display:none; font-size:23px; font-weight:750; color:#e9f1ec; }
+.flashcard.flipped h3 { display:none; }
+.flashcard.flipped .answer { display:block; }
+.progress { height:12px; background:#202620; border-radius:999px; overflow:hidden; }
+.bar { height:100%; width:0%; background:var(--green); transition:.2s; }
+.learned-list { display:flex; flex-direction:column; gap:8px; max-height:330px; overflow:auto; margin-top:16px; }
+.learned-item { border:1px solid var(--line); border-radius:12px; padding:10px; color:#cbd4cf; }
+.map-area { display:grid; grid-template-columns: 1.1fr .9fr; gap:20px; }
+.nodes { min-height:560px; position:relative; border:1px solid var(--line); border-radius:22px; background:radial-gradient(circle at 50% 45%, rgba(0,214,57,.14), transparent 38%), #020503; overflow:hidden; }
+.node {
+  position:absolute; transform:translate(-50%, -50%); border:1px solid var(--green); background:#03170a; color:#fff;
+  border-radius:999px; padding:12px 16px; font-weight:900; cursor:pointer; box-shadow:0 0 30px rgba(0,214,57,.12); text-align:center; max-width:190px;
+}
+.node.main { font-size:24px; padding:20px 28px; background:var(--green); color:#001c09; }
+.compare { display:grid; grid-template-columns:repeat(2, 1fr); gap:14px; margin-top:16px; }
+.compare > div { border:1px solid var(--line); border-radius:16px; padding:18px; background:#030806; }
+.footer-card { margin-top:22px; display:flex; gap:18px; align-items:center; }
+.iconbox { width:54px; height:54px; border-radius:18px; background:var(--green); color:#001b09; display:grid; place-items:center; font-weight:950; font-size:22px; flex:0 0 auto; }
+.hidden { display:none !important; }
+@media (max-width: 900px) {
+  .hero, .flash-wrap, .map-area { grid-template-columns:1fr; }
+  .grid { grid-template-columns:1fr; }
+  .section-head { display:block; }
+  h1 { letter-spacing:-2px; }
+  .nodes { min-height:720px; }
+}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#cards" class="active">Page 1: Card Glossary</a>
+    <a href="#flashcards">Page 2: Flashcards</a>
+    <a href="#map">Page 3: Concept Map</a>
+  </div>
+</nav>
+
+<main class="wrap">
+  <section class="hero">
+    <div>
+      <span class="badge">SECTION 7: TEMPLATES & TOOLS</span>
+      <h1>AI Glossary</h1>
+      <p class="lead">Quick reference to common AI terms</p>
+      <p class="intro">Three redesign routes using the same glossary content: a cleaner reference view, a learning flashcard mode, and a relationship map to show how terms connect.</p>
+    </div>
+    <aside class="panel">
+      <h3>Ways this improves the page</h3>
+      <p class="def">Search makes it usable as a reference. Cards reduce the wall of text. Flashcards make it feel like learning. The map helps people understand which terms belong together.</p>
+    </aside>
+  </section>
+
+  <section id="cards" class="page">
+    <div class="section-head">
+      <div>
+        <h2>Page 1: Card-based glossary</h2>
+        <p class="def">A safer corporate version. Search, filter, scan, then open a term for more detail.</p>
+      </div>
+    </div>
+    <div class="controls">
+      <input id="search" type="search" placeholder="Search glossary...">
+      <button class="chip active" data-filter="All">All</button>
+      <button class="chip" data-filter="Core Concepts">Core Concepts</button>
+      <button class="chip" data-filter="Prompting">Prompting</button>
+      <button class="chip" data-filter="Governance">Governance</button>
+      <button class="chip" data-filter="Advanced">Advanced</button>
+    </div>
+    <div id="grid" class="grid"></div>
+  </section>
+
+  <section id="flashcards" class="page">
+    <div class="section-head">
+      <div>
+        <h2>Page 2: Flashcard learning mode</h2>
+        <p class="def">Click the card to reveal the definition. Mark the term as learned to move the progress bar.</p>
+      </div>
+    </div>
+    <div class="flash-wrap">
+      <div>
+        <div id="flashcard" class="flashcard">
+          <div class="small">Click to reveal</div>
+          <h3 id="flashTerm"></h3>
+          <p id="flashAnswer" class="answer"></p>
+        </div>
+        <div class="controls">
+          <button id="prev">Previous</button>
+          <button id="learned" class="primary">I know this</button>
+          <button id="next">Next</button>
+        </div>
+      </div>
+      <aside class="panel">
+        <h3>Progress</h3>
+        <p id="progressText" class="def" style="margin-bottom:12px;">0 / 24 learned</p>
+        <div class="progress"><div id="progressBar" class="bar"></div></div>
+        <div id="learnedList" class="learned-list"></div>
+      </aside>
+    </div>
+  </section>
+
+  <section id="map" class="page">
+    <div class="section-head">
+      <div>
+        <h2>Page 3: Concept map</h2>
+        <p class="def">A more visual route. Click a term to see the same definition and related comparison prompts.</p>
+      </div>
+    </div>
+    <div class="map-area">
+      <div class="nodes" id="nodes"></div>
+      <aside class="panel" id="mapDetail">
+        <p class="cat">Selected term</p>
+        <h2>AI (Artificial Intelligence)</h2>
+        <p class="def">Technology that performs tasks normally requiring human intelligence, such as analysing data or generating text.</p>
+        <div class="compare">
+          <div>
+            <h3>Good for</h3>
+            <p class="def">Understanding the main concept before exploring related terms.</p>
+          </div>
+          <div>
+            <h3>Related idea</h3>
+            <p class="def">Try Generative AI, Machine Learning, LLM, Model, or Prompt.</p>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <div class="panel footer-card">
+    <div class="iconbox">i</div>
+    <div>
+      <p class="cat">Key takeaway</p>
+      <h3>A glossary should help people find, understand, and remember terms, not just read a long list.</h3>
+    </div>
+  </div>
+</main>
+
+<div class="modal" id="modal">
+  <div class="modal-card">
+    <div class="modal-top">
+      <div>
+        <p id="modalCat" class="cat"></p>
+        <h2 id="modalTitle"></h2>
+      </div>
+      <button class="x" id="closeModal">×</button>
+    </div>
+    <p id="modalDef" class="def"></p>
+    <div class="compare">
+      <div>
+        <h3>Simple example</h3>
+        <p class="def" id="modalExample">Use this as a quick reference during the lesson.</p>
+      </div>
+      <div>
+        <h3>Learning check</h3>
+        <p class="def">Can you explain this term back in one sentence?</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const terms = [{"i": 1, "term": "AI (Artificial Intelligence)", "definition": "Technology that performs tasks normally requiring human intelligence, such as analysing data or generating text.", "category": "Core Concepts"}, {"i": 2, "term": "AI Agent", "definition": "An AI system that works towards a defined goal or outcome, can perform multiple steps across systems or data sources, makes decisions within set rules or constraints, and prepares results for human review and approval. Agents focus on achieving outcomes, not just completing individual tasks.", "category": "Core Concepts"}, {"i": 3, "term": "AI Assistant", "definition": "An AI tool that helps with individual tasks, such as drafting emails, summarising notes, or explaining figures. Assistants respond to prompts and require human direction.", "category": "Core Concepts"}, {"i": 4, "term": "AI Audit Trail", "definition": "A record showing how AI was used, what outputs were generated, and who approved the final result.", "category": "Governance"}, {"i": 5, "term": "AI Dividend", "definition": "The time and efficiency gained from using AI and agents.", "category": "Core Concepts"}, {"i": 6, "term": "AI Policy", "definition": "A firm's internal rules governing how AI can be used, what data is allowed, and what review is required.", "category": "Governance"}, {"i": 7, "term": "Automation", "definition": "Technology that performs tasks using fixed rules and processes, without human intervention. Examples: bank feeds, recurring journals, rules-based expense coding. Automation is different from generative AI, which creates new content.", "category": "Core Concepts"}, {"i": 8, "term": "Bias (in AI)", "definition": "When an AI system produces skewed or unfair results because of incomplete data, unbalanced training, or incorrect assumptions.", "category": "Governance"}, {"i": 9, "term": "Context", "definition": "The background information provided to an AI system. Better context usually leads to more accurate, more relevant, and more useful outputs.", "category": "Prompting"}, {"i": 10, "term": "Context Window", "definition": "The amount of information an AI system can consider at one time when producing a response. Larger context windows allow AI to analyse longer documents, or consider more data at once.", "category": "Prompting"}, {"i": 11, "term": "Data Minimisation", "definition": "The principle of only sharing the minimum amount of data needed to complete a task.", "category": "Governance"}, {"i": 12, "term": "Fine-Tuning", "definition": "The process of adjusting an AI model using specific data to improve performance for a particular task or industry.", "category": "Advanced"}, {"i": 13, "term": "Generative AI", "definition": "AI that creates new content, such as text, summaries, explanations, code, images, audio, or video. Generative AI produces original outputs based on patterns learned from large sets of training data.", "category": "Core Concepts"}, {"i": 14, "term": "Hallucination (AI)", "definition": "When an AI system produces incorrect, fabricated, or misleading information that appears confident and believable. This is why all AI outputs must be reviewed.", "category": "Governance"}, {"i": 15, "term": "Human-in-the-loop", "definition": "A process where AI performs tasks, and a human reviews and approves the outcome.", "category": "Governance"}, {"i": 16, "term": "LLM (Large Language Model)", "definition": "A type of AI trained on large amounts of text data. It can understand language, generate responses, summarise information, and assist with writing or analysis. Most modern AI assistants are powered by LLMs.", "category": "Core Concepts"}, {"i": 17, "term": "Machine Learning (ML)", "definition": "A type of AI where systems learn patterns from data and improve over time without being explicitly programmed for every rule. Used in fraud detection, expense categorisation, and forecasting tools.", "category": "Advanced"}, {"i": 18, "term": "Model", "definition": "The AI system itself, trained on data to perform tasks such as prediction, classification, or content generation.", "category": "Advanced"}, {"i": 19, "term": "Natural Language Processing (NLP)", "definition": "Technology that allows computers to understand, interpret, and generate human language. NLP enables AI tools to read emails, interpret text, and answer questions.", "category": "Advanced"}, {"i": 20, "term": "Prompt", "definition": "The instruction given to an AI system.", "category": "Prompting"}, {"i": 21, "term": "Prompt Engineering", "definition": "The practice of writing clear, structured prompts to improve AI results. This includes defining the role, setting the task, providing context, and adding constraints.", "category": "Prompting"}, {"i": 22, "term": "Structured Data", "definition": "Organised, consistent information that AI systems can process reliably.", "category": "Advanced"}, {"i": 23, "term": "Training Data", "definition": "The information used to teach an AI model how to recognise patterns, generate responses, and perform tasks. The quality of the training data affects the quality of the results.", "category": "Advanced"}, {"i": 24, "term": "Workflow", "definition": "A defined sequence of steps used to complete a task or service.", "category": "Core Concepts"}];
+const examples = {
+  "AI Agent": "Find missing invoices, categorise them, prepare a draft summary, then send it for human review.",
+  "AI Assistant": "Summarise this meeting note or draft an email when directly asked.",
+  "Automation": "If an invoice arrives, save it to a folder using a fixed rule.",
+  "Prompt": "Summarise this report in five bullet points for a client meeting.",
+  "Context": "Tell the AI who the client is, what the task is, and what tone to use.",
+  "Hallucination (AI)": "The AI invents a confident answer, so the output needs checking."
+};
+
+let activeFilter = "All";
+const grid = document.getElementById("grid");
+const search = document.getElementById("search");
+
+function renderCards() {
+  const q = search.value.toLowerCase().trim();
+  grid.innerHTML = "";
+  terms
+    .filter(t => activeFilter === "All" || t.category === activeFilter)
+    .filter(t => !q || t.term.toLowerCase().includes(q) || t.definition.toLowerCase().includes(q))
+    .forEach(t => {
+      const card = document.createElement("article");
+      card.className = "card";
+      card.innerHTML = `<div class="num">${t.i}</div><div class="cat">${t.category}</div><h3>${t.term}</h3><p class="def">${t.definition}</p>`;
+      card.addEventListener("click", () => openModal(t));
+      grid.appendChild(card);
+    });
+}
+document.querySelectorAll(".chip").forEach(chip => {
+  chip.addEventListener("click", () => {
+    document.querySelectorAll(".chip").forEach(c => c.classList.remove("active"));
+    chip.classList.add("active");
+    activeFilter = chip.dataset.filter;
+    renderCards();
+  });
+});
+search.addEventListener("input", renderCards);
+
+const modal = document.getElementById("modal");
+function openModal(t) {
+  document.getElementById("modalCat").textContent = t.category;
+  document.getElementById("modalTitle").textContent = t.term;
+  document.getElementById("modalDef").textContent = t.definition;
+  document.getElementById("modalExample").textContent = examples[t.term] || "Use this as a quick reference during the lesson.";
+  modal.classList.add("show");
+}
+document.getElementById("closeModal").addEventListener("click", () => modal.classList.remove("show"));
+modal.addEventListener("click", e => { if (e.target === modal) modal.classList.remove("show"); });
+
+let idx = 0;
+const learned = new Set();
+const flashcard = document.getElementById("flashcard");
+function renderFlash() {
+  flashcard.classList.remove("flipped");
+  document.getElementById("flashTerm").textContent = terms[idx].term;
+  document.getElementById("flashAnswer").textContent = terms[idx].definition;
+  updateProgress();
+}
+function updateProgress() {
+  document.getElementById("progressText").textContent = `${learned.size} / ${terms.length} learned`;
+  document.getElementById("progressBar").style.width = `${(learned.size / terms.length) * 100}%`;
+  const list = document.getElementById("learnedList");
+  list.innerHTML = "";
+  Array.from(learned).forEach(i => {
+    const item = document.createElement("div");
+    item.className = "learned-item";
+    item.textContent = terms[i].term;
+    list.appendChild(item);
+  });
+}
+flashcard.addEventListener("click", () => flashcard.classList.toggle("flipped"));
+document.getElementById("prev").addEventListener("click", () => { idx = (idx - 1 + terms.length) % terms.length; renderFlash(); });
+document.getElementById("next").addEventListener("click", () => { idx = (idx + 1) % terms.length; renderFlash(); });
+document.getElementById("learned").addEventListener("click", () => { learned.add(idx); idx = (idx + 1) % terms.length; renderFlash(); });
+
+const nodePositions = [
+  ["AI (Artificial Intelligence)",50,15,"main"], ["Generative AI",28,35,""], ["Machine Learning (ML)",72,35,""],
+  ["LLM (Large Language Model)",25,55,""], ["Prompt",25,75,""], ["Context",48,63,""], ["Prompt Engineering",49,83,""],
+  ["Model",72,55,""], ["Training Data",82,73,""], ["Bias (in AI)",66,82,""], ["AI Agent",13,28,""],
+  ["AI Assistant",13,45,""], ["Automation",88,25,""], ["Human-in-the-loop",88,45,""], ["AI Policy",15,92,""],
+  ["Data Minimisation",79,93,""], ["AI Audit Trail",50,35,""]
+];
+const nodes = document.getElementById("nodes");
+nodePositions.forEach(([name,x,y,cls]) => {
+  const t = terms.find(v => v.term === name);
+  if (!t) return;
+  const n = document.createElement("button");
+  n.className = "node " + cls;
+  n.style.left = x + "%";
+  n.style.top = y + "%";
+  n.textContent = name.replace(" (Artificial Intelligence)","");
+  n.addEventListener("click", () => {
+    const detail = document.getElementById("mapDetail");
+    detail.innerHTML = `<p class="cat">${t.category}</p><h2>${t.term}</h2><p class="def">${t.definition}</p>
+    <div class="compare"><div><h3>Good for</h3><p class="def">Showing this term in context instead of as a flat list.</p></div><div><h3>Related idea</h3><p class="def">${examples[t.term] || "Click nearby nodes to compare connected ideas."}</p></div></div>`;
+  });
+  nodes.appendChild(n);
+});
+
+const links = document.querySelectorAll(".nav a");
+const sections = [...links].map(a => document.querySelector(a.getAttribute("href")));
+window.addEventListener("scroll", () => {
+  let current = 0;
+  sections.forEach((s, i) => { if (s.getBoundingClientRect().top < 140) current = i; });
+  links.forEach(a => a.classList.remove("active"));
+  links[current].classList.add("active");
+});
+
+renderCards();
+renderFlash();
+</script>
+</body>
+</html>
