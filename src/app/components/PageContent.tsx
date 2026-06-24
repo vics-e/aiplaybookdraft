@@ -8,6 +8,11 @@ import coverBackground from 'figma:asset/7d10c58b13d65e57e14197ae9cce3c931f5cc64
 import sageLogo from 'figma:asset/85dce1db2c171f8d15f5e966d3ca5f37099a8078.png';
 import aiAssistedFirmsImage from '../../assets/images/optimised/ai-assisted-firms.jpg';
 import aiDividendImage from '../../assets/images/optimised/ai-dividend.jpg';
+import ethicsResponsibilityImage from '../../assets/images/optimised/ethics-responsibility.jpg';
+import assistantsAgentsImage from '../../assets/images/optimised/assistants-agents.jpg';
+import promptingFrameworkImage from '../../assets/images/optimised/prompting-framework.jpg';
+import firstThirtyDaysImage from '../../assets/images/optimised/first-30-days.jpg';
+import acceptableUsePolicyImage from '../../assets/images/optimised/acceptable-use-policy.jpg';
 
 interface PageContentProps {
   page: PlaybookPage;
@@ -18,10 +23,21 @@ interface PageContentProps {
   onUpdatePageInput?: (pageId: string, value: string) => void;
 }
 
+const SECTION_IMAGE_BY_PAGE_ID: Record<string, string> = {
+  's1-intro': aiAssistedFirmsImage,
+  's2-ethics-responsibility': ethicsResponsibilityImage,
+  's3-where-assistants': assistantsAgentsImage,
+  's4-framework': promptingFrameworkImage,
+  's5-dividend': aiDividendImage,
+  's6-days1-30': firstThirtyDaysImage,
+  's7-policy': acceptableUsePolicyImage,
+};
+
 export function PageContent({ page, userInput, onInputChange, goToPage, pageInputs, onUpdatePageInput }: PageContentProps) {
   const [expandedItems, setExpandedItems] = useState<Set<number>>(new Set([0]));
   const [checkedItems, setCheckedItems] = useState<Set<number>>(new Set());
-  const usesSectionImageTreatment = page.id === 's1-intro' || page.id === 's5-dividend';
+  const sectionImageSrc = SECTION_IMAGE_BY_PAGE_ID[page.id];
+  const usesSectionImageTreatment = Boolean(sectionImageSrc);
 
   const toggleExpanded = (index: number) => {
     setExpandedItems(prev => {
@@ -226,14 +242,14 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
       </div>
 
       {/* Image */}
-      {page.image && page.id !== 's3-difference' && page.id !== 's1-stages' && (
+      {(page.image || sectionImageSrc) && page.id !== 's3-difference' && page.id !== 's1-stages' && (
         <div
           className={`rounded-2xl overflow-hidden border-2 border-white/10 shadow-2xl shadow-black/50 ${
             usesSectionImageTreatment ? 'mx-auto w-full max-w-3xl aspect-[3/2]' : ''
           }`}
         >
           <ImageWithFallback
-            src={page.id === 's1-intro' ? aiAssistedFirmsImage : page.id === 's5-dividend' ? aiDividendImage : page.image}
+            src={sectionImageSrc ?? page.image}
             alt={page.title}
             className={
               usesSectionImageTreatment ? 'w-full h-full object-cover object-center' :

@@ -363,6 +363,7 @@ export const playbook: PlaybookPage[] = [
     section: 'Section 2: Professional Guardrails',
     title: 'Professional **Ethics** and Responsibility in an AI World',
     subtitle: 'Your responsibilities don\'t change',
+    image: 'section-opener',
     content: [
       {
         type: 'text',
@@ -960,6 +961,7 @@ export const playbook: PlaybookPage[] = [
     section: 'Section 3: Assistants & Agents',
     title: 'Where **Assistants** Help',
     subtitle: 'Understanding when to use AI assistants vs. when to build agent workflows',
+    image: 'section-opener',
     content: [
       {
         type: 'text',
@@ -1717,6 +1719,7 @@ export const playbook: PlaybookPage[] = [
     section: 'Section 4: Prompting Skills',
     title: 'The Accountant\'s **Prompt Framework**',
     subtitle: 'How to get better results from AI assistants',
+    image: 'section-opener',
     content: [
       {
         type: 'text',
@@ -2761,6 +2764,7 @@ export const playbook: PlaybookPage[] = [
     section: 'Section 6: 90-Day Plan',
     title: 'The First **30 Days**: Build the Foundations',
     subtitle: 'Clarity, control, and confidence',
+    image: 'section-opener',
     content: [
       {
         type: 'text',
@@ -3150,6 +3154,7 @@ export const playbook: PlaybookPage[] = [
     section: 'Section 7: Templates & Tools',
     title: 'AI **Acceptable Use Policy** (Starter Template)',
     subtitle: 'Simple, clear expectations for AI use',
+    image: 'section-opener',
     content: [
       {
         type: 'text',
