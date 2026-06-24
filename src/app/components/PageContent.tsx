@@ -6,8 +6,8 @@ import { ImageWithFallback } from './figma/ImageWithFallback';
 import { ActivitySummary } from './ActivitySummary';
 import coverBackground from 'figma:asset/7d10c58b13d65e57e14197ae9cce3c931f5cc649.png';
 import sageLogo from 'figma:asset/85dce1db2c171f8d15f5e966d3ca5f37099a8078.png';
-import aiAssistedFirmsImage from 'figma:asset/c4dcd24a1a26454f51b76968c451f7d30c463cc8.png';
-import aiDividendImage from 'figma:asset/401a764ba6882b8cc4eaee28ab8349b4feeb6652.png';
+import aiAssistedFirmsImage from '../../assets/images/optimised/ai-assisted-firms.jpg';
+import aiDividendImage from '../../assets/images/optimised/ai-dividend.jpg';
 
 interface PageContentProps {
   page: PlaybookPage;
@@ -21,6 +21,7 @@ interface PageContentProps {
 export function PageContent({ page, userInput, onInputChange, goToPage, pageInputs, onUpdatePageInput }: PageContentProps) {
   const [expandedItems, setExpandedItems] = useState<Set<number>>(new Set([0]));
   const [checkedItems, setCheckedItems] = useState<Set<number>>(new Set());
+  const usesSectionImageTreatment = page.id === 's1-intro' || page.id === 's5-dividend';
 
   const toggleExpanded = (index: number) => {
     setExpandedItems(prev => {
@@ -226,17 +227,20 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
 
       {/* Image */}
       {page.image && page.id !== 's3-difference' && page.id !== 's1-stages' && (
-        <div className="rounded-2xl overflow-hidden border-2 border-white/10 shadow-2xl shadow-black/50">
+        <div
+          className={`rounded-2xl overflow-hidden border-2 border-white/10 shadow-2xl shadow-black/50 ${
+            usesSectionImageTreatment ? 'mx-auto w-full max-w-3xl aspect-[3/2]' : ''
+          }`}
+        >
           <ImageWithFallback
             src={page.id === 's1-intro' ? aiAssistedFirmsImage : page.id === 's5-dividend' ? aiDividendImage : page.image}
             alt={page.title}
             className={
-              page.id === 's1-intro' ? 'w-full h-96 object-cover object-center' : 
-              page.id === 's5-dividend' ? 'w-full h-80 object-cover object-center' :
+              usesSectionImageTreatment ? 'w-full h-full object-cover object-center' :
               'w-full h-56 object-cover'
             }
             style={
-              page.id === 's1-intro' || page.id === 's5-dividend' 
+              usesSectionImageTreatment 
                 ? { filter: 'contrast(1.05) saturate(1.1) brightness(1.02)' } 
                 : undefined
             }

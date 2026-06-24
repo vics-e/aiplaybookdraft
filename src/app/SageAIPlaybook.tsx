@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ChevronLeft, ChevronRight, Home, BookOpen, Shield, Bot, MessageSquare, DollarSign, Calendar, FileText, CheckCircle, Lightbulb, Target, Zap } from 'lucide-react';
 import { playbook } from './data/playbookData';
@@ -6,14 +6,107 @@ import { PageContent } from './components/PageContent';
 import { ProgressBar } from './components/ProgressBar';
 import sageLogo from 'figma:asset/85dce1db2c171f8d15f5e966d3ca5f37099a8078.png';
 
+const PLAYBOOK_STORAGE_KEY = 'sage-ai-playbook-progress';
+
+interface PersistedPlaybookState {
+  currentPage?: unknown;
+  userInputs?: unknown;
+  visitedPages?: unknown;
+}
+
+function canUseLocalStorage() {
+  return typeof window !== 'undefined' && typeof window.localStorage !== 'undefined';
+}
+
+function getValidatedCurrentPage(value: unknown, totalPages: number) {
+  return typeof value === 'number' && Number.isInteger(value) && value >= 0 && value < totalPages
+    ? value
+    : 0;
+}
+
+function getValidatedUserInputs(value: unknown): Record<string, string> {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) {
+    return {};
+  }
+
+  return Object.entries(value as Record<string, unknown>).reduce<Record<string, string>>((acc, [key, entryValue]) => {
+    if (typeof entryValue === 'string') {
+      acc[key] = entryValue;
+    }
+    return acc;
+  }, {});
+}
+
+function getValidatedVisitedPages(value: unknown, totalPages: number, currentPage: number) {
+  const defaultPages = new Set<number>([0, currentPage]);
+
+  if (!Array.isArray(value)) {
+    return defaultPages;
+  }
+
+  const validPages = value.filter(
+    (page): page is number => typeof page === 'number' && Number.isInteger(page) && page >= 0 && page < totalPages
+  );
+
+  return new Set<number>([...validPages, 0, currentPage]);
+}
+
+function getInitialPlaybookState(totalPages: number) {
+  const defaults = {
+    currentPage: 0,
+    userInputs: {} as Record<string, string>,
+    visitedPages: new Set<number>([0])
+  };
+
+  if (!canUseLocalStorage()) {
+    return defaults;
+  }
+
+  try {
+    const storedValue = window.localStorage.getItem(PLAYBOOK_STORAGE_KEY);
+    if (!storedValue) {
+      return defaults;
+    }
+
+    const parsed = JSON.parse(storedValue) as PersistedPlaybookState;
+    const currentPage = getValidatedCurrentPage(parsed.currentPage, totalPages);
+    const userInputs = getValidatedUserInputs(parsed.userInputs);
+    const visitedPages = getValidatedVisitedPages(parsed.visitedPages, totalPages, currentPage);
+
+    return { currentPage, userInputs, visitedPages };
+  } catch {
+    return defaults;
+  }
+}
+
 export default function SageAIPlaybook() {
-  const [currentPage, setCurrentPage] = useState(0);
-  const [userInputs, setUserInputs] = useState<Record<string, string>>({});
+  const [persistedState] = useState(() => getInitialPlaybookState(playbook.length));
+  const [currentPage, setCurrentPage] = useState(persistedState.currentPage);
+  const [userInputs, setUserInputs] = useState<Record<string, string>>(persistedState.userInputs);
   const [sidebarOpen, setSidebarOpen] = useState(true);
-  const [visitedPages, setVisitedPages] = useState<Set<number>>(new Set([0]));
+  const [visitedPages, setVisitedPages] = useState<Set<number>>(persistedState.visitedPages);
   const [expandedSections, setExpandedSections] = useState<Set<string>>(new Set(['Introduction']));
 
   const totalPages = playbook.length;
+
+  useEffect(() => {
+    if (!canUseLocalStorage()) {
+      return;
+    }
+
+    try {
+      window.localStorage.setItem(
+        PLAYBOOK_STORAGE_KEY,
+        JSON.stringify({
+          currentPage,
+          userInputs,
+          visitedPages: Array.from(visitedPages)
+        })
+      );
+    } catch {
+      // Ignore storage write failures so the app keeps working normally.
+    }
+  }, [currentPage, userInputs, visitedPages]);
 
   const goToPage = (page: number) => {
     if (page >= 0 && page < totalPages) {
