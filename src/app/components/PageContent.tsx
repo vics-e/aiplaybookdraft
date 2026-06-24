@@ -398,6 +398,14 @@ function parseNumberedSteps(text: string) {
     .map((step) => step.replace(/^\d+\.\s*/, ''));
 }
 
+function parseStructuredInputs(userInput: string) {
+  try {
+    return userInput && userInput !== '' ? JSON.parse(userInput) : {};
+  } catch {
+    return {};
+  }
+}
+
 function buildGlossaryTerms(content: PlaybookPage['content']): GlossaryTerm[] {
   const glossaryBlock = content.find((block) => block.type === 'numbered-list');
   if (!glossaryBlock?.items) {
@@ -741,6 +749,10 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
   const glossaryProgress = glossaryTerms.length > 0
     ? (glossaryLearnedTerms.length / glossaryTerms.length) * 100
     : 0;
+  const structuredInputs = parseStructuredInputs(userInput) as Record<string, any>;
+  const ninetyDayWorkflowAnswer = page.id === 's6-days61-90'
+    ? (structuredInputs['workflow-name'] || structuredInputs['task-0']?.label || '').trim()
+    : '';
 
   const updateGlossaryState = (updater: (current: GlossaryPageState) => GlossaryPageState) => {
     if (!isGlossaryPage) {
@@ -3410,8 +3422,8 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
             </div>
           )}
 
-          {/* Numbered List Input for list activities */}
-          {page.activity.type === 'numbered-list' && page.activity.listCount && (
+          {/* List / Numbered List Input */}
+          {(page.activity.type === 'numbered-list' || page.activity.type === 'list') && page.activity.listCount && (
             <div className="space-y-3">
               {Array.from({ length: page.activity.listCount }).map((_, index) => {
                 const inputKey = `item-${index}`;
@@ -3605,6 +3617,23 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
           {/* Checkbox Tasks */}
           {page.activity.type === 'checkbox-tasks' && page.activity.checkboxTasks && (
             <div className="space-y-4">
+              {page.id === 's6-days61-90' && (
+                <div className="space-y-2">
+                  <label className="text-sm font-bold text-white/90 block">
+                    Define your first agent workflow:
+                  </label>
+                  <input
+                    type="text"
+                    value={structuredInputs['workflow-name'] || ''}
+                    onChange={(e) => {
+                      const newInputs = { ...structuredInputs, ['workflow-name']: e.target.value };
+                      onInputChange(JSON.stringify(newInputs));
+                    }}
+                    placeholder="e.g., Quarterly update preparation, Client chaser, Onboarding steps"
+                    className="w-full bg-black/40 border-2 border-white/20 focus:border-[#00DC51] rounded-xl px-4 py-3 text-white placeholder-white/40 focus:outline-none font-medium transition-colors text-sm"
+                  />
+                </div>
+              )}
               {page.activity.checkboxTasks.map((task, taskIndex) => {
                 const taskKey = `task-${taskIndex}`;
                 let savedInputs = {};
@@ -3626,7 +3655,7 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
                         const newInputs = { ...savedInputs, [taskKey]: newTaskData };
                         onInputChange(JSON.stringify(newInputs));
                       }}
-                      placeholder={task.label}
+                      placeholder={page.id === 's6-days61-90' ? 'Optional: add a short name for this checklist' : task.label}
                       className="w-full bg-black/40 border-2 border-white/20 focus:border-[#00DC51] rounded-lg px-4 py-2.5 text-white placeholder-white/40 focus:outline-none font-bold transition-colors text-sm"
                     />
                     
@@ -3901,7 +3930,14 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
             </div>
             <div className="flex-1">
               <div className="text-xs font-black text-[#00DC51] mb-2 uppercase tracking-wider">Key Takeaway</div>
-              <p className="font-bold text-base leading-relaxed">{page.takeaway}</p>
+              <p className="font-bold text-base leading-relaxed">
+                {page.id === 's6-days61-90' && page.takeaway.includes('[your answer from the activity above]')
+                  ? page.takeaway.replace(
+                      '[your answer from the activity above]',
+                      ninetyDayWorkflowAnswer || '[your answer from the activity above]'
+                    )
+                  : page.takeaway}
+              </p>
             </div>
           </div>
         </motion.div>

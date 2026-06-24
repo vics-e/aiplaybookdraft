@@ -25,6 +25,8 @@ export function ActivitySummary({ pageInputs, onInputChange }: ActivitySummaryPr
       listCount: page.activity!.listCount,
       placeholderPrefix: page.activity!.placeholderPrefix,
       questions: page.activity!.questions,
+      specFields: page.activity!.specFields,
+      checkboxTasks: page.activity!.checkboxTasks,
       response: pageInputs[page.id] || '',
       activityNumber: index + 1
     }));
@@ -75,7 +77,14 @@ export function ActivitySummary({ pageInputs, onInputChange }: ActivitySummaryPr
   };
 
   // Format response for display
-  const formatResponse = (response: string, type: string, listCount?: number, questions?: string[]) => {
+  const formatResponse = (
+    response: string,
+    type: string,
+    listCount?: number,
+    questions?: string[],
+    specFields?: { label: string; placeholder: string; helper?: string }[],
+    checkboxTasks?: { label: string; criteria: string[] }[],
+  ) => {
     if (!response || response === '{}') {
       return <span className="text-white/30 italic text-sm">No answer provided</span>;
     }
@@ -111,7 +120,7 @@ export function ActivitySummary({ pageInputs, onInputChange }: ActivitySummaryPr
       }
     }
 
-    if (type === 'numbered-list' && listCount) {
+    if ((type === 'numbered-list' || type === 'list') && listCount) {
       try {
         const inputs = JSON.parse(response);
         const items = Array.from({ length: listCount }).map((_, i) => inputs[`item-${i}`] || '');
@@ -130,6 +139,84 @@ export function ActivitySummary({ pageInputs, onInputChange }: ActivitySummaryPr
                     {index + 1}
                   </div>
                   <p className="flex-1 text-white/90 text-sm font-medium leading-relaxed pt-0.5">{item}</p>
+                </div>
+              )
+            ))}
+          </div>
+        );
+      } catch (e) {
+        return <p className="text-white/90 text-sm font-medium leading-relaxed whitespace-pre-wrap">{response}</p>;
+      }
+    }
+
+    if (type === 'spec-form' && specFields) {
+      try {
+        const inputs = JSON.parse(response);
+        const hasContent = specFields.some((_, index) => (inputs[`field-${index}`] || '').trim() !== '');
+
+        if (!hasContent) {
+          return <span className="text-white/30 italic text-sm">No answer provided</span>;
+        }
+
+        return (
+          <div className="space-y-3">
+            {specFields.map((field, index) => {
+              const answer = inputs[`field-${index}`] || '';
+              if (!answer) return null;
+
+              return (
+                <div key={index} className="space-y-1">
+                  <p className="text-xs font-bold text-white/70">{field.label}</p>
+                  <p className="text-white/90 text-sm font-medium leading-relaxed pl-4 whitespace-pre-wrap">{answer}</p>
+                </div>
+              );
+            })}
+          </div>
+        );
+      } catch (e) {
+        return <p className="text-white/90 text-sm font-medium leading-relaxed whitespace-pre-wrap">{response}</p>;
+      }
+    }
+
+    if (type === 'checkbox-tasks' && checkboxTasks) {
+      try {
+        const inputs = JSON.parse(response);
+        const workflowName = inputs['workflow-name'] || '';
+        const taskSummaries = checkboxTasks.map((task, taskIndex) => {
+          const taskData = inputs[`task-${taskIndex}`] || {};
+          return {
+            label: taskData.label || '',
+            checks: Array.isArray(taskData.checks) ? taskData.checks : [],
+            placeholder: task.label,
+          };
+        });
+        const hasContent =
+          workflowName.trim() !== '' ||
+          taskSummaries.some((task) => task.label.trim() !== '' || task.checks.length > 0);
+
+        if (!hasContent) {
+          return <span className="text-white/30 italic text-sm">No answer provided</span>;
+        }
+
+        return (
+          <div className="space-y-3">
+            {workflowName && (
+              <div className="space-y-1">
+                <p className="text-xs font-bold text-white/70">First agent workflow</p>
+                <p className="text-white/90 text-sm font-medium leading-relaxed pl-4">{workflowName}</p>
+              </div>
+            )}
+            {taskSummaries.map((task, index) => (
+              (task.label || task.checks.length > 0) && (
+                <div key={index} className="space-y-1">
+                  <p className="text-xs font-bold text-white/70">{task.label || task.placeholder}</p>
+                  {task.checks.length > 0 && (
+                    <div className="space-y-1 pl-4">
+                      {task.checks.map((check: string) => (
+                        <p key={check} className="text-white/90 text-sm font-medium leading-relaxed">• {check}</p>
+                      ))}
+                    </div>
+                  )}
                 </div>
               )
             ))}
@@ -315,7 +402,14 @@ export function ActivitySummary({ pageInputs, onInputChange }: ActivitySummaryPr
                         </div>
                       ) : (
                         <div className="space-y-3 print:space-y-2">
-                          {formatResponse(activity.response, activity.type, activity.listCount, activity.questions)}
+                      {formatResponse(
+                        activity.response,
+                        activity.type,
+                        activity.listCount,
+                        activity.questions,
+                        activity.specFields,
+                        activity.checkboxTasks
+                      )}
                           <button
                             onClick={() => handleEditStart(activity.id, activity.response, activity.type)}
                             className="group flex items-center gap-2 px-3 py-1.5 bg-white/5 border border-white/20 text-white/70 hover:text-white font-medium rounded-lg hover:bg-white/10 transition-all text-xs print:hidden"
