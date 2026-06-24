@@ -203,9 +203,9 @@ export default function SageAIPlaybook() {
   };
 
   return (
-    <div className="bg-black text-white min-h-screen flex" style={{ fontFamily: 'var(--font-family-body)' }}>
+    <div className="playbook-app-shell bg-black text-white min-h-screen flex" style={{ fontFamily: 'var(--font-family-body)' }}>
       {/* Sidebar Navigation */}
-      <aside className={`fixed left-0 top-0 h-screen bg-black/95 backdrop-blur-xl border-r border-[#00DC51]/20 z-50 transition-transform duration-300 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} w-80`}>
+      <aside className={`playbook-sidebar fixed left-0 top-0 h-screen bg-black/95 backdrop-blur-xl border-r border-[#00DC51]/20 z-50 transition-transform duration-300 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} w-80`}>
         <div className="flex flex-col h-full">
           {/* Sidebar Header */}
           <div className="p-6 border-b border-[#00DC51]/20">
@@ -370,7 +370,7 @@ export default function SageAIPlaybook() {
       {/* Sidebar Toggle Button */}
       <button
         onClick={() => setSidebarOpen(!sidebarOpen)}
-        className={`fixed top-6 z-50 bg-[#00DC51] text-black p-2.5 rounded-r-xl shadow-lg transition-all hover:bg-[#00FF5F] ${
+        className={`playbook-sidebar-toggle fixed top-6 z-50 bg-[#00DC51] text-black p-2.5 rounded-r-xl shadow-lg transition-all hover:bg-[#00FF5F] ${
           sidebarOpen ? 'left-80' : 'left-0'
         }`}
       >
@@ -378,8 +378,8 @@ export default function SageAIPlaybook() {
       </button>
 
       {/* Main Content Area */}
-      <main className={`flex-1 transition-all duration-300 ${sidebarOpen ? 'ml-80' : 'ml-0'}`}>
-        <div className="max-w-5xl mx-auto px-12 py-12">
+      <main className={`playbook-main flex-1 transition-all duration-300 ${sidebarOpen ? 'ml-80' : 'ml-0'}`}>
+        <div className="playbook-main-inner max-w-5xl mx-auto px-12 py-12">
           <AnimatePresence mode="wait">
             <motion.div
               key={currentPage}
@@ -404,7 +404,7 @@ export default function SageAIPlaybook() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2 }}
-            className="flex items-center justify-between gap-4 mt-12 pt-8 border-t border-white/10"
+            className="playbook-page-nav flex items-center justify-between gap-4 mt-12 pt-8 border-t border-white/10"
           >
             <button
               onClick={() => goToPage(currentPage - 1)}

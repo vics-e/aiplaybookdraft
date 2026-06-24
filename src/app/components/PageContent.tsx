@@ -33,11 +33,231 @@ const SECTION_IMAGE_BY_PAGE_ID: Record<string, string> = {
   's7-policy': acceptableUsePolicyImage,
 };
 
+const CERTIFICATE_NAME_PLACEHOLDER = '[Name / Practice Name]';
+
+function escapeForXml(text: string) {
+  return text
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&apos;');
+}
+
+function escapeForHtml(text: string) {
+  return text
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+function wrapText(text: string, maxCharacters: number) {
+  const words = text.trim().split(/\s+/).filter(Boolean);
+  const lines: string[] = [];
+  let currentLine = '';
+
+  for (const word of words) {
+    const nextLine = currentLine ? `${currentLine} ${word}` : word;
+    if (nextLine.length <= maxCharacters) {
+      currentLine = nextLine;
+    } else {
+      if (currentLine) {
+        lines.push(currentLine);
+      }
+      currentLine = word;
+    }
+  }
+
+  if (currentLine) {
+    lines.push(currentLine);
+  }
+
+  return lines;
+}
+
+function createTspans(lines: string[], x: number, firstY: number, lineHeight: number) {
+  return lines
+    .map((line, index) => {
+      const y = firstY + (index * lineHeight);
+      return `<tspan x="${x}" y="${y}">${escapeForXml(line)}</tspan>`;
+    })
+    .join('');
+}
+
+function buildCertificatePrintMarkup({
+  title,
+  subtitle,
+  displayName,
+  statement,
+  poweredByTitle,
+  poweredByText,
+  completionDate,
+}: {
+  title: string;
+  subtitle: string;
+  displayName: string;
+  statement: string;
+  poweredByTitle: string;
+  poweredByText: string;
+  completionDate: string;
+}) {
+  const nameLines = wrapText(displayName, 28).slice(0, 2);
+  const statementLines = wrapText(statement, 74).slice(0, 3);
+  const poweredLines = wrapText(poweredByText, 60).slice(0, 3);
+
+  const svg = `
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1123 794" role="img" aria-label="${escapeForXml(subtitle)}">
+      <defs>
+        <linearGradient id="borderGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#00DC51" stop-opacity="1"/>
+          <stop offset="100%" stop-color="#6BFF9D" stop-opacity="0.9"/>
+        </linearGradient>
+        <radialGradient id="heroGlow" cx="50%" cy="0%" r="95%">
+          <stop offset="0%" stop-color="#0E5F2E" stop-opacity="0.55"/>
+          <stop offset="55%" stop-color="#050505" stop-opacity="1"/>
+          <stop offset="100%" stop-color="#020202" stop-opacity="1"/>
+        </radialGradient>
+      </defs>
+
+      <rect width="1123" height="794" fill="#050505"/>
+      <rect x="22" y="22" width="1079" height="750" rx="28" fill="url(#heroGlow)" stroke="url(#borderGlow)" stroke-width="4"/>
+      <rect x="42" y="42" width="1039" height="710" rx="22" fill="none" stroke="#00DC51" stroke-opacity="0.22" stroke-width="1.5"/>
+
+      <line x1="110" y1="118" x2="1013" y2="118" stroke="#00DC51" stroke-opacity="0.58" stroke-width="1.2"/>
+      <line x1="110" y1="676" x2="1013" y2="676" stroke="#00DC51" stroke-opacity="0.44" stroke-width="1.2"/>
+
+      <text x="561.5" y="105" text-anchor="middle" fill="#8DFFB3" font-size="15" font-weight="700" letter-spacing="5.4" font-family="Georgia, 'Times New Roman', serif">
+        ${escapeForXml(title.toUpperCase())}
+      </text>
+
+      <text x="561.5" y="182" text-anchor="middle" fill="#FFFFFF" font-size="40" font-weight="700" font-family="Georgia, 'Times New Roman', serif">
+        ${escapeForXml(subtitle)}
+      </text>
+
+      <text x="561.5" y="238" text-anchor="middle" fill="#A7B1AB" font-size="13" font-weight="700" letter-spacing="4" font-family="Arial, Helvetica, sans-serif">
+        PRESENTED TO
+      </text>
+
+      <text x="561.5" y="302" text-anchor="middle" fill="#FFFFFF" font-size="${nameLines.length > 1 ? 34 : 40}" font-weight="700" font-family="Georgia, 'Times New Roman', serif">
+        ${createTspans(nameLines, 561.5, 302, 42)}
+      </text>
+
+      <line x1="230" y1="350" x2="893" y2="350" stroke="#00DC51" stroke-opacity="0.72" stroke-width="2"/>
+
+      <text x="561.5" y="404" text-anchor="middle" fill="#F5F7F6" font-size="18" font-weight="500" font-family="Arial, Helvetica, sans-serif">
+        ${createTspans(statementLines, 561.5, 404, 24)}
+      </text>
+
+      <rect x="212" y="500" width="699" height="104" rx="18" fill="#0E1210" stroke="#FFFFFF" stroke-opacity="0.12" stroke-width="1.5"/>
+      <text x="561.5" y="534" text-anchor="middle" fill="#00DC51" font-size="18" font-weight="700" letter-spacing="3.2" font-family="Arial, Helvetica, sans-serif">
+        ${escapeForXml(poweredByTitle.toUpperCase())}
+      </text>
+      <text x="561.5" y="564" text-anchor="middle" fill="#EAF3EE" font-size="13.5" font-weight="500" font-family="Arial, Helvetica, sans-serif">
+        ${createTspans(poweredLines, 561.5, 564, 18)}
+      </text>
+
+      <text x="330" y="648" text-anchor="middle" fill="#9AA39E" font-size="12" font-weight="700" letter-spacing="2.4" font-family="Arial, Helvetica, sans-serif">
+        COMPLETION DATE
+      </text>
+      <text x="330" y="671" text-anchor="middle" fill="#FFFFFF" font-size="17" font-weight="600" font-family="Arial, Helvetica, sans-serif">
+        ${escapeForXml(completionDate)}
+      </text>
+
+      <text x="792" y="648" text-anchor="middle" fill="#9AA39E" font-size="12" font-weight="700" letter-spacing="2.4" font-family="Arial, Helvetica, sans-serif">
+        POWERED BY
+      </text>
+      <text x="792" y="671" text-anchor="middle" fill="#00DC51" font-size="20" font-weight="700" font-family="Arial, Helvetica, sans-serif">
+        Sage
+      </text>
+    </svg>
+  `;
+
+  return `<!doctype html>
+  <html lang="en">
+    <head>
+      <meta charset="utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <title>${escapeForHtml(subtitle)}</title>
+      <style>
+        @page { size: A4 landscape; margin: 10mm; }
+        html, body {
+          margin: 0;
+          padding: 0;
+          width: 100%;
+          min-height: 100%;
+          background: #050505;
+          color: #ffffff;
+          print-color-adjust: exact;
+          -webkit-print-color-adjust: exact;
+          font-family: Arial, Helvetica, sans-serif;
+        }
+        body {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .certificate-sheet {
+          width: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          page-break-inside: avoid;
+          break-inside: avoid;
+        }
+        .certificate-sheet svg {
+          display: block;
+          width: 100%;
+          max-width: 277mm;
+          height: auto;
+          max-height: 185mm;
+          page-break-inside: avoid;
+          break-inside: avoid;
+        }
+      </style>
+    </head>
+    <body>
+      <div class="certificate-sheet">${svg}</div>
+      <script>
+        window.addEventListener('load', () => {
+          window.setTimeout(() => {
+            window.focus();
+            window.print();
+          }, 150);
+        });
+        window.addEventListener('afterprint', () => {
+          window.close();
+        });
+      </script>
+    </body>
+  </html>`;
+}
+
 export function PageContent({ page, userInput, onInputChange, goToPage, pageInputs, onUpdatePageInput }: PageContentProps) {
   const [expandedItems, setExpandedItems] = useState<Set<number>>(new Set([0]));
   const [checkedItems, setCheckedItems] = useState<Set<number>>(new Set());
   const sectionImageSrc = SECTION_IMAGE_BY_PAGE_ID[page.id];
   const usesSectionImageTreatment = Boolean(sectionImageSrc);
+  const isCertificatePage = page.id === 'certificate';
+  let parsedCertificateInputs: Record<string, string> = {};
+  if (isCertificatePage) {
+    try {
+      parsedCertificateInputs = userInput && userInput !== '' ? JSON.parse(userInput) : {};
+    } catch {
+      parsedCertificateInputs = {};
+    }
+  }
+  const certificateName = isCertificatePage ? (parsedCertificateInputs['question-0'] || '').trim() : '';
+  const certificateDisplayName = certificateName || CERTIFICATE_NAME_PLACEHOLDER;
+  const certificateTitleBlock = isCertificatePage ? page.content.find(block => block.type === 'box') : undefined;
+  const certificateStatement = isCertificatePage ? page.content.find(block => block.type === 'highlight')?.text || '' : '';
+  const poweredBySageBlock = isCertificatePage
+    ? page.content.find(block => block.type === 'box' && block.title === 'Powered by Sage')
+    : undefined;
+  const certificateCompletionDate = isCertificatePage
+    ? new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }).format(new Date())
+    : '';
 
   const toggleExpanded = (index: number) => {
     setExpandedItems(prev => {
@@ -81,6 +301,31 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
         </span>
       ) : part
     );
+  };
+
+  const handleCertificatePrint = () => {
+    if (typeof window === 'undefined') {
+      return;
+    }
+
+    const printWindow = window.open('', '_blank', 'width=1280,height=900');
+    if (!printWindow) {
+      return;
+    }
+
+    const printDocument = buildCertificatePrintMarkup({
+      title: certificateTitleBlock?.title || 'The AI Playbook for Accountants & Bookkeepers',
+      subtitle: certificateTitleBlock?.text || 'Certificate of Completion',
+      displayName: certificateDisplayName,
+      statement: certificateStatement,
+      poweredByTitle: poweredBySageBlock?.title || 'Powered by Sage',
+      poweredByText: poweredBySageBlock?.text || '',
+      completionDate: certificateCompletionDate,
+    });
+
+    printWindow.document.open();
+    printWindow.document.write(printDocument);
+    printWindow.document.close();
   };
 
   if (page.type === 'cover') {
@@ -217,20 +462,22 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
   }
 
   return (
-    <div className="space-y-8">
+    <div className={`space-y-8 ${isCertificatePage ? 'certificate-page-root' : ''}`}>
       {/* Section Badge */}
       {page.section && (
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
-          className="inline-block px-4 py-2 bg-[#00DC51]/15 border-2 border-[#00DC51]/40 rounded-full backdrop-blur-sm"
+          className={`inline-block px-4 py-2 bg-[#00DC51]/15 border-2 border-[#00DC51]/40 rounded-full backdrop-blur-sm ${
+            isCertificatePage ? 'certificate-screen-only' : ''
+          }`}
         >
           <span className="text-[#00DC51] font-bold text-xs tracking-wide uppercase">{page.section}</span>
         </motion.div>
       )}
 
       {/* Title */}
-      <div>
+      <div className={isCertificatePage ? 'certificate-screen-only' : ''}>
         <h2 className="text-3xl md:text-4xl lg:text-5xl font-black mb-4 leading-[1.05] tracking-tight" style={{ fontFamily: 'var(--font-family-header)' }}>
           {renderTitle(page.title)}
         </h2>
@@ -246,6 +493,8 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
         <div
           className={`rounded-2xl overflow-hidden border-2 border-white/10 shadow-2xl shadow-black/50 ${
             usesSectionImageTreatment ? 'mx-auto w-full max-w-3xl aspect-[3/2]' : ''
+          } ${
+            isCertificatePage ? 'certificate-screen-only' : ''
           }`}
         >
           <ImageWithFallback
@@ -1108,7 +1357,7 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
       })()}
 
       {/* Content Blocks */}
-      <div className="space-y-5">
+      <div className={`space-y-5 ${isCertificatePage ? 'certificate-screen-only' : ''}`}>
         {page.content.map((block, index) => {
           // Skip the numbered-list and quote on s1-stages page since they're in the custom graphic
           if (page.id === 's1-stages' && (block.type === 'numbered-list' || block.type === 'quote')) {
@@ -1794,9 +2043,11 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
-          className="bg-gradient-to-br from-[#00DC51]/15 to-[#00DC51]/5 border-2 border-[#00DC51] rounded-2xl p-6 backdrop-blur-sm"
+          className={`bg-gradient-to-br from-[#00DC51]/15 to-[#00DC51]/5 border-2 border-[#00DC51] rounded-2xl p-6 backdrop-blur-sm ${
+            isCertificatePage ? 'certificate-activity-shell' : ''
+          }`}
         >
-          <div className="flex items-start gap-4 mb-5">
+          <div className={`flex items-start gap-4 mb-5 ${isCertificatePage ? 'certificate-screen-only' : ''}`}>
             <div className="w-11 h-11 bg-[#00DC51] rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-[#00DC51]/40">
               <Lightbulb className="text-black" size={22} strokeWidth={2.5} />
             </div>
@@ -1836,6 +2087,63 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
           {/* Multi-Question Input */}
           {page.activity.type === 'multi-question' && page.activity.questions && (
             <div className="space-y-5">
+              {isCertificatePage && (
+                <div className="certificate-print-area">
+                  <div className="certificate-print-card relative overflow-hidden rounded-[32px] border-2 border-[#00DC51] bg-[radial-gradient(circle_at_top,_rgba(0,220,81,0.16),_rgba(0,0,0,0.96)_55%)] px-6 py-8 text-center shadow-2xl shadow-[#00DC51]/20 md:px-12 md:py-12">
+                    <div className="absolute inset-x-6 top-6 h-px bg-gradient-to-r from-transparent via-[#00DC51]/70 to-transparent md:inset-x-12" />
+                    <div className="absolute inset-x-6 bottom-6 h-px bg-gradient-to-r from-transparent via-[#00DC51]/50 to-transparent md:inset-x-12" />
+
+                    <div className="relative z-10 space-y-6">
+                      <div className="space-y-3">
+                        <p className="text-xs font-black uppercase tracking-[0.35em] text-[#00DC51]/90">
+                          {certificateTitleBlock?.title || 'The AI Playbook for Accountants & Bookkeepers'}
+                        </p>
+                        <h3
+                          className="text-3xl font-black text-white md:text-5xl"
+                          style={{ fontFamily: 'var(--font-family-header)' }}
+                        >
+                          {certificateTitleBlock?.text || 'Certificate of Completion'}
+                        </h3>
+                      </div>
+
+                      <div className="space-y-3">
+                        <p className="text-xs font-bold uppercase tracking-[0.3em] text-white/55">
+                          Presented to
+                        </p>
+                        <div className="mx-auto max-w-3xl border-b border-[#00DC51]/60 px-4 pb-4">
+                          <p
+                            className={`text-3xl font-black md:text-5xl ${
+                              certificateName ? 'text-white' : 'text-white/50'
+                            }`}
+                            style={{ fontFamily: 'var(--font-family-header)' }}
+                          >
+                            {certificateDisplayName}
+                          </p>
+                        </div>
+                      </div>
+
+                      <p className="mx-auto max-w-3xl text-sm font-medium leading-relaxed text-white/80 md:text-base">
+                        {certificateStatement}
+                      </p>
+
+                      <div className="mx-auto max-w-2xl rounded-2xl border border-white/10 bg-white/5 px-5 py-4">
+                        <p className="text-sm font-black uppercase tracking-[0.25em] text-[#00DC51]">
+                          {poweredBySageBlock?.title || 'Powered by Sage'}
+                        </p>
+                        <p className="mt-2 text-sm font-medium leading-relaxed text-white/70">
+                          {poweredBySageBlock?.text || ''}
+                        </p>
+                      </div>
+
+                      <div className="flex flex-col items-center justify-center gap-2 pt-2 text-white/65 md:flex-row md:gap-6">
+                        <span className="text-xs font-bold uppercase tracking-[0.2em] text-white/50">Completion Date</span>
+                        <span className="text-sm font-semibold">{certificateCompletionDate}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+
               {page.activity.questions.map((question, index) => {
                 const questionKey = `question-${index}`;
                 let savedInputs = {};
@@ -1854,7 +2162,7 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
                 const itemCount = listMatch ? parseInt(listMatch[1], 10) : 0;
 
                 return (
-                  <div key={index} className="space-y-2">
+                  <div key={index} className={`space-y-2 ${isCertificatePage ? 'certificate-screen-only' : ''}`}>
                     <label className="text-sm font-bold text-white/90 block">
                       {index + 1}. {question}
                     </label>
@@ -1927,7 +2235,7 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
                 <motion.div
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  className="mt-3 flex items-center gap-2 text-[#00DC51] font-bold text-xs"
+                  className={`mt-3 flex items-center gap-2 text-[#00DC51] font-bold text-xs ${isCertificatePage ? 'certificate-screen-only' : ''}`}
                 >
                   <CheckCircle size={16} strokeWidth={2.5} />
                   <span>Answers saved locally</span>
@@ -2391,19 +2699,16 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
       )}
 
       {/* Certificate Download Button */}
-      {page.id === 'certificate' && userInput && (
+      {page.id === 'certificate' && (
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5 }}
-          className="mt-6"
+          className="mt-6 certificate-screen-only"
         >
           <button
-            onClick={() => {
-              // Create a printable certificate
-              window.print();
-            }}
-            className="w-full group inline-flex items-center justify-center gap-3 px-8 py-4 bg-[#00DC51] text-black font-black rounded-xl hover:bg-[#00FF5F] transition-all shadow-lg shadow-[#00DC51]/40 hover:shadow-[#00DC51]/60 hover:scale-105 text-base"
+            onClick={handleCertificatePrint}
+            className="certificate-print-button w-full group inline-flex items-center justify-center gap-3 px-8 py-4 bg-[#00DC51] text-black font-black rounded-xl hover:bg-[#00FF5F] transition-all shadow-lg shadow-[#00DC51]/40 hover:shadow-[#00DC51]/60 hover:scale-105 text-base"
           >
             <Download size={22} strokeWidth={2.5} />
             <span>Download Certificate</span>
@@ -2420,7 +2725,9 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
-          className="bg-[#00DC51]/10 border-2 border-[#00DC51] rounded-2xl p-6 backdrop-blur-sm"
+          className={`bg-[#00DC51]/10 border-2 border-[#00DC51] rounded-2xl p-6 backdrop-blur-sm ${
+            isCertificatePage ? 'certificate-screen-only' : ''
+          }`}
         >
           <div className="flex items-start gap-4">
             <div className="w-11 h-11 bg-[#00DC51] rounded-full flex items-center justify-center flex-shrink-0 shadow-lg shadow-[#00DC51]/40">

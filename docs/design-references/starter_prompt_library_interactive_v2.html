@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your Starter Prompt Library V2</title>
+  <style>
+    :root{--bg:#000;--panel:#07130c;--panel2:#020806;--line:rgba(255,255,255,.18);--green:#00d639;--green2:#29ff71;--text:#fff;--muted:#c8d0cc;--soft:rgba(0,214,57,.12)}
+    *{box-sizing:border-box} body{margin:0;background:radial-gradient(circle at 75% 8%,rgba(0,214,57,.12),transparent 30%),radial-gradient(circle at 10% 45%,rgba(0,214,57,.06),transparent 28%),var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.45;font-weight:700} 
+    .wrap{width:min(1180px,calc(100% - 40px));margin:0 auto;padding:34px 0 64px}.hero{display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:32px;align-items:start;margin-bottom:24px}.pill{display:inline-flex;border:1px solid var(--green);background:var(--soft);color:var(--green2);border-radius:999px;padding:10px 16px;font-size:12px;text-transform:uppercase;margin-bottom:24px}h1{font-size:clamp(36px,5vw,62px);line-height:.98;margin:0 0 14px;letter-spacing:-.05em}.subtitle{font-size:20px;color:var(--muted);margin-bottom:24px}.intro{max-width:760px;color:#f3f7f5}.how{border:1px solid var(--green);background:linear-gradient(135deg,rgba(0,214,57,.12),rgba(0,214,57,.02));border-radius:14px;padding:20px}.how h3{margin:0 0 14px;font-size:16px}.steps{display:grid;gap:10px}.step{display:grid;grid-template-columns:26px 1fr;gap:10px;align-items:start;font-size:14px;color:#eef6f1}.step span:first-child,.num{display:grid;place-items:center;width:26px;height:26px;border:2px solid var(--green);border-radius:50%;color:var(--green2);font-weight:900}.toolbar{display:grid;grid-template-columns:auto auto 1fr;gap:12px;margin:18px 0}.btn{border:1px solid var(--line);background:#111;color:var(--text);padding:11px 15px;border-radius:8px;cursor:pointer;font-weight:900}.btn:hover{border-color:var(--green)}.btn.primary{background:var(--green);color:#001d0a;border-color:var(--green)}.search{justify-self:end;width:min(320px,100%);background:#020806;color:white;border:1px solid var(--line);border-radius:8px;padding:12px 14px;outline:0;font-weight:700}.search:focus{border-color:var(--green)}.library{display:grid;gap:8px}.card{border:1px solid var(--line);border-radius:12px;background:linear-gradient(90deg,rgba(255,255,255,.045),rgba(255,255,255,.015));overflow:hidden}.card-main{display:grid;grid-template-columns:44px 1fr auto;gap:18px;align-items:center;padding:20px}.title{font-size:19px;margin-bottom:5px}.prompt{font-size:15px;color:white}.var{color:var(--green2);font-weight:1000}.actions{display:flex;gap:10px;align-items:center}.chev{border:0;background:transparent;color:white;font-size:18px;cursor:pointer;padding:8px 10px}.card.open .chev{transform:rotate(180deg)}.personalise{display:none;border-top:1px solid var(--line);padding:18px}.card.open .personalise{display:block}.personalise-grid{display:grid;grid-template-columns:360px minmax(0,1fr);gap:18px}.fields,.live{border:1px solid var(--line);border-radius:10px;background:rgba(0,214,57,.045);padding:16px}.fields h4,.live h4{margin:0 0 14px;color:var(--green2);font-size:12px;text-transform:uppercase;letter-spacing:.04em}.field{margin-bottom:14px}.field label{display:block;font-size:12px;margin-bottom:7px;text-transform:uppercase;color:#fff}.field input{width:100%;background:#000;color:white;border:1px solid var(--line);border-radius:8px;padding:10px 11px;outline:0}.field input:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(0,214,57,.1)}.live-text{min-height:112px;font-size:16px;white-space:pre-wrap}.live-actions{margin-top:20px;display:flex;gap:10px;flex-wrap:wrap}.note{margin:18px 0;border:1px solid var(--green);background:linear-gradient(90deg,rgba(0,214,57,.18),rgba(0,214,57,.04));border-radius:8px;padding:20px 24px;display:flex;gap:16px;align-items:center}.note-mark{width:34px;height:34px;border-radius:50%;background:rgba(0,214,57,.25);border:1px solid var(--green);display:grid;place-items:center;color:var(--green2)}.activity{margin-top:26px;border:1px solid var(--green);border-radius:14px;background:linear-gradient(135deg,rgba(0,214,57,.10),rgba(0,214,57,.02));padding:22px}.activity-head{display:grid;grid-template-columns:1fr auto;gap:16px;align-items:start}.activity-kicker{color:var(--green2);font-size:12px;text-transform:uppercase;margin-bottom:4px}.progress-wrap{display:flex;gap:10px;align-items:center;font-size:13px}.progress{width:170px;height:8px;background:rgba(255,255,255,.18);border-radius:99px;overflow:hidden}.bar{height:100%;width:0;background:var(--green);transition:.2s}.task-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:18px}.task{border:1px solid var(--line);border-radius:10px;padding:16px;background:rgba(0,0,0,.28)}.task.done{border-color:var(--green);background:rgba(0,214,57,.1)}.task-title{display:grid;grid-template-columns:34px 1fr;gap:12px;margin-bottom:14px}.task textarea{width:100%;min-height:82px;resize:vertical;background:#000;color:white;border:1px solid var(--line);border-radius:8px;padding:12px;outline:0;font-weight:700}.task textarea:focus{border-color:var(--green)}.check{display:flex;gap:8px;margin-top:10px;font-size:13px;color:var(--muted);align-items:center}.check input{accent-color:var(--green);width:16px;height:16px}.takeaway{margin-top:14px;border:1px solid var(--green);background:linear-gradient(90deg,rgba(0,214,57,.18),rgba(0,214,57,.04));border-radius:14px;padding:20px 24px;display:grid;grid-template-columns:42px 1fr;gap:16px;align-items:center}.takeaway .mark{width:42px;height:42px;border-radius:50%;border:2px solid #fff;display:grid;place-items:center;color:var(--green2)}.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);opacity:0;background:#fff;color:#000;padding:12px 18px;border-radius:999px;font-weight:900;transition:.2s}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}@media(max-width:900px){.hero{grid-template-columns:1fr}.toolbar{grid-template-columns:1fr 1fr}.search{grid-column:1/-1;justify-self:stretch}.card-main{grid-template-columns:34px 1fr}.actions{grid-column:1/-1;margin-left:52px}.personalise-grid,.task-grid{grid-template-columns:1fr}.activity-head{grid-template-columns:1fr}.progress-wrap{align-items:flex-start}.note,.takeaway{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <section class="hero">
+      <div>
+        <div class="pill">Section 4: Prompting Skills</div>
+        <h1>Your Starter Prompt Library</h1>
+        <div class="subtitle">Ready-to-use prompts for common accounting tasks</div>
+        <p class="intro">You don't need to write every prompt from scratch. This starter library provides tested, professional prompts for the most common accounting tasks. Copy them, adapt them, and use them as templates for your own prompts.</p>
+      </div>
+      <aside class="how">
+        <h3>How to Use This Library</h3>
+        <div class="steps">
+          <div class="step"><span>1</span><span>Choose the prompt type that matches your task</span></div>
+          <div class="step"><span>2</span><span>Copy the template</span></div>
+          <div class="step"><span>3</span><span>Replace the [PLACEHOLDERS] with your specific details</span></div>
+          <div class="step"><span>4</span><span>Run the prompt and review the output</span></div>
+          <div class="step"><span>5</span><span>Refine if needed</span></div>
+          <div class="step"><span>6</span><span>Save successful adaptations to your firm's internal library</span></div>
+        </div>
+      </aside>
+    </section>
+
+    <div class="toolbar">
+      <button class="btn" id="expandAll">Expand All</button>
+      <button class="btn" id="collapseAll">Collapse All</button>
+      <input class="search" id="search" placeholder="Filter prompts..." />
+    </div>
+
+    <section class="library" id="library"></section>
+
+    <section class="note">
+      <div class="note-mark">i</div>
+      <div>These prompts are templates. Replace the [BRACKETED PLACEHOLDERS] with your specific details, and you have a professional, structured prompt ready to use.</div>
+    </section>
+
+    <p class="intro">As you use these prompts, you'll notice patterns. You'll start adapting them without thinking. Eventually, structured prompts become second nature, not because you've memorized them, but because you've practiced them.</p>
+
+    <section class="activity">
+      <div class="activity-head">
+        <div>
+          <div class="activity-kicker">Activity</div>
+          <h2 style="margin:0">Build Your Prompt Library</h2>
+          <div class="intro" style="margin-top:4px">Start building your own prompt library based on the tasks you perform most often:</div>
+        </div>
+        <div class="progress-wrap"><span id="progressText">0 / 3 completed</span><div class="progress"><div class="bar" id="progressBar"></div></div></div>
+      </div>
+      <div class="task-grid">
+        <div class="task"><div class="task-title"><div class="num">1</div><div>Choose one prompt from the starter library above. Adapt it to a real task you have this week by filling in the placeholders.</div></div><textarea placeholder="Type your answer here..."></textarea><label class="check"><input type="checkbox" class="complete"> Mark as complete</label></div>
+        <div class="task"><div class="task-title"><div class="num">2</div><div>Identify one task you perform regularly that is NOT in the starter library. Write a new structured prompt for it using Role + Task + Context + Constraints.</div></div><textarea placeholder="Type your answer here..."></textarea><label class="check"><input type="checkbox" class="complete"> Mark as complete</label></div>
+        <div class="task"><div class="task-title"><div class="num">3</div><div>Where will you store your firm's prompt library so the team can access and share useful prompts?</div></div><textarea placeholder="Type your answer here..."></textarea><label class="check"><input type="checkbox" class="complete"> Mark as complete</label></div>
+      </div>
+    </section>
+
+    <section class="takeaway"><div class="mark">!</div><div><div class="activity-kicker">Key Takeaway</div>A good prompt library is not built overnight. Start with these 10, adapt them to your work, and add new ones as you discover what works.</div></section>
+  </main>
+  <div class="toast" id="toast">Copied</div>
+
+<script>
+const prompts = [
+  { title: 'Draft Client Email - Accounts Ready', text: 'You are an accountant. Draft a professional email to [CLIENT NAME], a [CLIENT TYPE] client, letting them know their [ACCOUNTS TYPE] are now ready for review. Mention that [KEY FINDING - e.g., revenue increased by X%, profit margin improved]. Keep it under 100 words and use a positive, client-friendly tone.' },
+  { title: 'Draft Client Email - Missing Information', text: 'You are a bookkeeper. Draft a polite, professional email to [CLIENT NAME] requesting [SPECIFIC ITEMS - e.g., missing bank statements for March, supplier invoices]. Explain that we need these to complete their [TASK - e.g., VAT return, year-end accounts]. Keep it under 80 words and use a friendly but clear tone.' },
+  { title: 'Draft Client Email - Deadline Reminder', text: 'You are an accountant. Draft a reminder email to [CLIENT NAME] about an upcoming deadline for [TASK - e.g., Self-Assessment tax return, Corporation Tax payment]. The deadline is [DATE]. Keep it under 60 words, use a helpful tone, and remind them what action they need to take.' },
+  { title: 'Explain a Tax Concept', text: 'You are a tax accountant. Explain [CONCEPT - e.g., Capital Gains Tax, IR35, VAT Flat Rate Scheme] to a [CLIENT TYPE - e.g., sole trader, first-time company director] who has never encountered this before. Use simple language, avoid jargon, and keep it under 120 words.' },
+  { title: 'Summarise Financial Results', text: 'You are an accountant. Summarise the key financial results from [DOCUMENT TYPE - e.g., management accounts, year-end report] for [CLIENT NAME]. Focus on: revenue performance, profit or loss, major cost changes, and cash position. Present as 4-5 bullet points suitable for a client meeting.' },
+  { title: 'Check for Completeness', text: 'You are a bookkeeper. Review [DOCUMENT TYPE - e.g., this expense claim, this invoice, this timesheet] and check for completeness. Verify: all required fields are filled in, amounts are clear and legible, dates are present, and [SPECIFIC REQUIREMENT - e.g., VAT is correctly identified, receipts are attached]. List any issues or missing items.' },
+  { title: 'Draft Variance Explanation', text: 'You are an accountant. Draft a brief explanation for why [METRIC - e.g., revenue, costs, profit] changed by [AMOUNT/PERCENTAGE] compared to [COMPARISON PERIOD - e.g., last quarter, prior year]. Base the explanation on [DATA/CONTEXT - e.g., higher supplier costs, seasonal demand]. Keep it under 60 words and use professional language suitable for a client report.' },
+  { title: 'Create a Checklist', text: 'You are a practice manager. Create a checklist for [PROCESS - e.g., client onboarding, year-end close, VAT return preparation] for a [CLIENT TYPE - e.g., small limited company, sole trader with employees]. Include all key steps, required documents, and deadlines. Format as a numbered list.' },
+  { title: 'Answer a Technical Question', text: 'You are a tax accountant. What is [QUESTION - e.g., the current VAT registration threshold, the deadline for Self-Assessment registration, the Corporation Tax rate for small companies]? Provide a clear, factual answer with the current figures and any relevant conditions.' },
+  { title: 'Draft Meeting Summary', text: 'You are an accountant. Summarise the key points from a client meeting about [TOPIC - e.g., year-end planning, tax strategy, business growth]. Include: decisions made, actions required, deadlines, and who is responsible for each action. Format as bullet points under clear headings.' }
+];
+
+const library = document.getElementById('library');
+function esc(s){return String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+function tokenise(text){return [...text.matchAll(/\[([^\]]+)\]/g)].map((m,i)=>({id:'v'+i,full:m[0],label:m[1],key:m[1].split(' - ')[0].trim()}));}
+function render(text, vars, values={}){
+  let out='', last=0;
+  vars.forEach(v=>{
+    const idx=text.indexOf(v.full,last);
+    if(idx<0)return;
+    out += esc(text.slice(last,idx));
+    const val = values[v.id] && values[v.id].trim() ? values[v.id].trim() : v.full;
+    out += '<span class="var">' + esc(val) + '</span>';
+    last = idx + v.full.length;
+  });
+  out += esc(text.slice(last));
+  return out;
+}
+function plainPersonalised(text, vars, values={}){
+  let out='', last=0;
+  vars.forEach(v=>{
+    const idx=text.indexOf(v.full,last);
+    if(idx<0)return;
+    out += text.slice(last,idx);
+    const val = values[v.id] && values[v.id].trim() ? values[v.id].trim() : v.full;
+    out += val;
+    last = idx + v.full.length;
+  });
+  out += text.slice(last);
+  return out;
+}
+function makeCard(prompt, index){
+  const vars = tokenise(prompt.text);
+  const card = document.createElement('article');
+  card.className='card'; card.dataset.title=prompt.title.toLowerCase(); card.dataset.text=prompt.text.toLowerCase();
+  card.innerHTML=`<div class="card-main"><div class="num">${index+1}</div><div><div class="title">${esc(prompt.title)}</div><div class="prompt">${render(prompt.text, vars)}</div></div><div class="actions"><button class="btn personaliseBtn">Personalise</button><button class="btn primary copyOriginal">Copy</button><button class="chev" title="Expand">⌄</button></div></div><div class="personalise"><div class="personalise-grid"><div class="fields"><h4>Type values here</h4>${vars.map(v=>`<div class="field"><label>${esc(v.label)}</label><input data-id="${v.id}" placeholder="Type ${esc(v.key.toLowerCase())}..." /></div>`).join('')}</div><div class="live"><h4>Live prompt</h4><div class="live-text"></div><div class="live-actions"><button class="btn primary copyLive">Copy personalised prompt</button><button class="btn reset">Reset fields</button></div></div></div></div>`;
+  const getValues=()=>{const values={};card.querySelectorAll('input[data-id]').forEach(i=>values[i.dataset.id]=i.value);return values;};
+  const updateLive=()=>{const values=getValues();const plain=plainPersonalised(prompt.text,vars,values);card.querySelector('.live-text').innerHTML=render(prompt.text,vars,values);card.dataset.live=plain;};
+  card.querySelector('.personaliseBtn').addEventListener('click',()=>{card.classList.toggle('open');updateLive();});
+  card.querySelector('.chev').addEventListener('click',()=>{card.classList.toggle('open');updateLive();});
+  card.querySelectorAll('input[data-id]').forEach(input=>input.addEventListener('input',updateLive));
+  card.querySelector('.copyOriginal').addEventListener('click',()=>copyText(prompt.text));
+  card.querySelector('.copyLive').addEventListener('click',()=>copyText(card.dataset.live||prompt.text));
+  card.querySelector('.reset').addEventListener('click',()=>{card.querySelectorAll('input[data-id]').forEach(i=>i.value='');updateLive();});
+  updateLive(); return card;
+}
+prompts.forEach((p,i)=>library.appendChild(makeCard(p,i)));
+function copyText(text){navigator.clipboard.writeText(text).then(()=>showToast('Copied'));}
+function showToast(text){const toast=document.getElementById('toast');toast.textContent=text;toast.classList.add('show');setTimeout(()=>toast.classList.remove('show'),1200)}
+document.getElementById('expandAll').onclick=()=>{document.querySelectorAll('.card').forEach(c=>{c.classList.add('open');const ev=new Event('input');c.querySelectorAll('input[data-id]').forEach(i=>i.dispatchEvent(ev));});};
+document.getElementById('collapseAll').onclick=()=>document.querySelectorAll('.card').forEach(c=>c.classList.remove('open'));
+document.getElementById('search').addEventListener('input',e=>{const q=e.target.value.toLowerCase();document.querySelectorAll('.card').forEach(card=>{card.style.display=card.dataset.title.includes(q)||card.dataset.text.includes(q)?'':'none';});});
+const checks=[...document.querySelectorAll('.complete')];
+function updateProgress(){const done=checks.filter(c=>c.checked).length;document.getElementById('progressText').textContent=`${done} / 3 completed`;document.getElementById('progressBar').style.width=`${(done/3)*100}%`;checks.forEach(c=>c.closest('.task').classList.toggle('done',c.checked));}
+checks.forEach(c=>c.addEventListener('change',updateProgress));updateProgress();
+</script>
+</body>
+</html>
