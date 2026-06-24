@@ -79,6 +79,34 @@ interface GlossaryPageState {
   flippedTerms: string[];
 }
 
+interface WorkflowMapEntry {
+  id: string;
+  name: string;
+  repeatability: number;
+  judgement: number;
+}
+
+interface WorkflowMapPageState {
+  workflows: WorkflowMapEntry[];
+  draftName: string;
+  scoringIndex: number;
+  selectedWorkflowIds: string[];
+  currentStep: number;
+}
+
+interface ToolMatrixRow {
+  id: string;
+  toolName: string;
+  allowedTasks: string;
+  dataBoundaries: string;
+  reviewRequired: string;
+}
+
+interface ToolMatrixPageState {
+  rows: ToolMatrixRow[];
+  activeRowId: string;
+}
+
 const DEFAULT_PROMPT_LIBRARY_STATE: PromptLibraryState = {
   searchQuery: '',
   expandedPromptIds: [],
@@ -94,6 +122,14 @@ const DEFAULT_GLOSSARY_STATE: GlossaryPageState = {
   currentFlashcardIndex: 0,
   learnedTerms: [],
   flippedTerms: [],
+};
+
+const DEFAULT_WORKFLOW_MAP_STATE: WorkflowMapPageState = {
+  workflows: [],
+  draftName: '',
+  scoringIndex: 0,
+  selectedWorkflowIds: [],
+  currentStep: 0,
 };
 
 const GLOSSARY_HELPER_CONTENT: Record<string, GlossaryHelperContent> = {
@@ -242,6 +278,287 @@ const GLOSSARY_HELPER_CONTENT: Record<string, GlossaryHelperContent> = {
     relatedTerms: ['Automation', 'AI Agent', 'AI Audit Trail'],
   },
 };
+
+const WORKFLOW_QUADRANTS = {
+  strongAgentCandidate: {
+    label: 'Strong agent candidate',
+    guidance: 'Automate first',
+    colorClass: 'text-[#00DC51]',
+    borderClass: 'border-[#00DC51]/35',
+    bgClass: 'bg-[#00DC51]/10',
+  },
+  humanLedWithAssistant: {
+    label: 'Human-led with assistant support',
+    guidance: 'AI supports your judgement',
+    colorClass: 'text-[#FFD84D]',
+    borderClass: 'border-[#FFD84D]/30',
+    bgClass: 'bg-[#FFD84D]/10',
+  },
+  assistantTask: {
+    label: 'Assistant task',
+    guidance: 'Delegate to AI tools',
+    colorClass: 'text-[#7AB8FF]',
+    borderClass: 'border-[#7AB8FF]/30',
+    bgClass: 'bg-[#7AB8FF]/10',
+  },
+  fullyHumanLed: {
+    label: 'Fully human-led',
+    guidance: 'Keep human for now',
+    colorClass: 'text-[#FF8B8B]',
+    borderClass: 'border-[#FF8B8B]/30',
+    bgClass: 'bg-[#FF8B8B]/10',
+  },
+} as const;
+
+function clampScore(value: unknown) {
+  if (typeof value !== 'number' || !Number.isFinite(value)) {
+    return 3;
+  }
+
+  return Math.min(5, Math.max(1, Math.round(value)));
+}
+
+function getWorkflowQuadrant(repeatability: number, judgement: number) {
+  if (repeatability >= 4 && judgement <= 2) {
+    return 'strongAgentCandidate' as const;
+  }
+  if (repeatability >= 3 && judgement >= 3) {
+    return 'humanLedWithAssistant' as const;
+  }
+  if (repeatability <= 3 && judgement <= 3) {
+    return 'assistantTask' as const;
+  }
+  return 'fullyHumanLed' as const;
+}
+
+function sanitiseWorkflowEntries(value: unknown) {
+  if (!Array.isArray(value)) {
+    return [];
+  }
+
+  return value.reduce<WorkflowMapEntry[]>((acc, entry, index) => {
+    if (!entry || typeof entry !== 'object') {
+      return acc;
+    }
+
+    const name = typeof (entry as Record<string, unknown>).name === 'string'
+      ? (entry as Record<string, unknown>).name.trim()
+      : '';
+
+    if (!name) {
+      return acc;
+    }
+
+    const id = typeof (entry as Record<string, unknown>).id === 'string' && (entry as Record<string, unknown>).id
+      ? String((entry as Record<string, unknown>).id)
+      : `workflow-${index + 1}`;
+
+    acc.push({
+      id,
+      name,
+      repeatability: clampScore((entry as Record<string, unknown>).repeatability),
+      judgement: clampScore((entry as Record<string, unknown>).judgement),
+    });
+
+    return acc;
+  }, []);
+}
+
+function buildWorkflowMapSummary(state: WorkflowMapPageState) {
+  const selectedWorkflows = state.workflows.filter((workflow) => state.selectedWorkflowIds.includes(workflow.id));
+
+  const question0 = state.workflows.map((workflow) => workflow.name).join('\n');
+  const question1 = state.workflows
+    .map((workflow) => {
+      const quadrant = WORKFLOW_QUADRANTS[getWorkflowQuadrant(workflow.repeatability, workflow.judgement)];
+      return `${workflow.name} - Repeatability ${workflow.repeatability}/5, Judgement ${workflow.judgement}/5 (${quadrant.label})`;
+    })
+    .join('\n');
+  const question2 = selectedWorkflows.map((workflow) => workflow.name).join('\n');
+
+  const copyText = [
+    'Workflow map summary',
+    '',
+    'Mapped workflows',
+    ...(state.workflows.length > 0
+      ? state.workflows.map((workflow) => {
+          const quadrant = WORKFLOW_QUADRANTS[getWorkflowQuadrant(workflow.repeatability, workflow.judgement)];
+          return `- ${workflow.name}: Repeatability ${workflow.repeatability}/5, Judgement ${workflow.judgement}/5, ${quadrant.label}`;
+        })
+      : ['- No workflows added yet']),
+    '',
+    'Priority workflows',
+    ...(selectedWorkflows.length > 0
+      ? selectedWorkflows.map((workflow) => `- ${workflow.name}`)
+      : ['- No priority workflows selected yet']),
+  ].join('\n');
+
+  return { question0, question1, question2, copyText };
+}
+
+function parseWorkflowMapState(userInput: string) {
+  if (!userInput || userInput === '') {
+    return DEFAULT_WORKFLOW_MAP_STATE;
+  }
+
+  try {
+    const parsed = JSON.parse(userInput) as Record<string, unknown>;
+    const workflows = sanitiseWorkflowEntries(parsed.workflows);
+    const selectedWorkflowIds = Array.isArray(parsed.selectedWorkflowIds)
+      ? parsed.selectedWorkflowIds.filter((value): value is string => typeof value === 'string')
+      : [];
+
+    return {
+      workflows,
+      draftName: typeof parsed.draftName === 'string' ? parsed.draftName : '',
+      scoringIndex: typeof parsed.scoringIndex === 'number' && Number.isFinite(parsed.scoringIndex)
+        ? Math.min(Math.max(Math.round(parsed.scoringIndex), 0), Math.max(workflows.length - 1, 0))
+        : 0,
+      selectedWorkflowIds,
+      currentStep: typeof parsed.currentStep === 'number' && Number.isFinite(parsed.currentStep)
+        ? Math.min(Math.max(Math.round(parsed.currentStep), 0), 3)
+        : 0,
+    };
+  } catch {
+    return DEFAULT_WORKFLOW_MAP_STATE;
+  }
+}
+
+function parseSpecFormFields(userInput: string, fieldCount: number) {
+  try {
+    const parsed = userInput && userInput !== '' ? JSON.parse(userInput) as Record<string, unknown> : {};
+    return Array.from({ length: fieldCount }).reduce<Record<string, string>>((acc, _, index) => {
+      const key = `field-${index}`;
+      acc[key] = typeof parsed[key] === 'string' ? parsed[key] as string : '';
+      return acc;
+    }, {});
+  } catch {
+    return Array.from({ length: fieldCount }).reduce<Record<string, string>>((acc, _, index) => {
+      acc[`field-${index}`] = '';
+      return acc;
+    }, {});
+  }
+}
+
+function parseToolMatrixRows(content: PlaybookPage['content']) {
+  const matrixBlock = content.find((block) => block.type === 'numbered-list');
+  if (!matrixBlock?.items) {
+    return [];
+  }
+
+  return matrixBlock.items.reduce<ToolMatrixRow[]>((acc, item, index) => {
+    if (!item?.title || !item?.desc) {
+      return acc;
+    }
+
+    const lines = item.desc.split('\n').map((line) => line.trim()).filter(Boolean);
+    const readLine = (prefix: string) => {
+      const match = lines.find((line) => line.startsWith(prefix));
+      return match ? match.slice(prefix.length).trim() : '';
+    };
+
+    acc.push({
+      id: `matrix-row-${index}`,
+      toolName: item.title,
+      allowedTasks: readLine('Allowed tasks:'),
+      dataBoundaries: readLine('Data allowed:'),
+      reviewRequired: readLine('Review required:'),
+    });
+
+    return acc;
+  }, []);
+}
+
+function sanitiseToolMatrixRows(value: unknown, fallbackRows: ToolMatrixRow[]) {
+  if (!Array.isArray(value)) {
+    return fallbackRows;
+  }
+
+  const rows = value.reduce<ToolMatrixRow[]>((acc, row, index) => {
+    if (!row || typeof row !== 'object') {
+      return acc;
+    }
+
+    const rowRecord = row as Record<string, unknown>;
+    const fallback = fallbackRows[index];
+
+    acc.push({
+      id: typeof rowRecord.id === 'string' && rowRecord.id ? String(rowRecord.id) : fallback?.id || `matrix-row-${index}`,
+      toolName: typeof rowRecord.toolName === 'string' && rowRecord.toolName.trim()
+        ? rowRecord.toolName
+        : fallback?.toolName || '',
+      allowedTasks: typeof rowRecord.allowedTasks === 'string'
+        ? rowRecord.allowedTasks
+        : fallback?.allowedTasks || '',
+      dataBoundaries: typeof rowRecord.dataBoundaries === 'string'
+        ? rowRecord.dataBoundaries
+        : fallback?.dataBoundaries || '',
+      reviewRequired: typeof rowRecord.reviewRequired === 'string'
+        ? rowRecord.reviewRequired
+        : fallback?.reviewRequired || '',
+    });
+
+    return acc;
+  }, []);
+
+  return rows.length > 0 ? rows : fallbackRows;
+}
+
+function parseToolMatrixState(userInput: string, fallbackRows: ToolMatrixRow[]) {
+  if (!userInput || userInput === '') {
+    return {
+      rows: fallbackRows,
+      activeRowId: fallbackRows[0]?.id || '',
+    };
+  }
+
+  try {
+    const parsed = JSON.parse(userInput) as Record<string, unknown>;
+    const rows = sanitiseToolMatrixRows(parsed.rows, fallbackRows);
+    return {
+      rows,
+      activeRowId: typeof parsed.activeRowId === 'string' && parsed.activeRowId
+        ? parsed.activeRowId
+        : rows[0]?.id || '',
+    };
+  } catch {
+    return {
+      rows: fallbackRows,
+      activeRowId: fallbackRows[0]?.id || '',
+    };
+  }
+}
+
+function buildToolMatrixSummary(rows: ToolMatrixRow[]) {
+  const question0 = rows.map((row) => row.toolName).join('\n');
+  const question1 = rows.map((row) => `${row.toolName}: ${row.allowedTasks || '(not defined)'}`).join('\n');
+  const question2 = rows.map((row) => `${row.toolName}: ${row.dataBoundaries || '(not defined)'}`).join('\n');
+
+  const copyText = [
+    'AI tool usage matrix',
+    '',
+    ...rows.map((row) => [
+      row.toolName,
+      `Allowed tasks: ${row.allowedTasks || '(not defined)'}`,
+      `Data boundaries: ${row.dataBoundaries || '(not defined)'}`,
+      `Review required: ${row.reviewRequired || '(not defined)'}`,
+      '',
+    ].join('\n')),
+  ].join('\n');
+
+  return { question0, question1, question2, copyText };
+}
+
+function buildAgentSpecCopyText(
+  specFields: { label: string; placeholder: string; helper?: string }[],
+  fieldValues: Record<string, string>,
+) {
+  return [
+    'Agent specification',
+    '',
+    ...specFields.map((field, index) => `${field.label}:\n${fieldValues[`field-${index}`]?.trim() || '(not completed)'}`),
+  ].join('\n\n');
+}
 
 function extractPromptVariables(text: string) {
   return [...text.matchAll(/\[([^\]]+)\]/g)].map((match, index) => {
@@ -663,6 +980,7 @@ function buildCertificatePrintMarkup({
 export function PageContent({ page, userInput, onInputChange, goToPage, pageInputs, onUpdatePageInput }: PageContentProps) {
   const [expandedItems, setExpandedItems] = useState<Set<number>>(new Set([0]));
   const [checkedItems, setCheckedItems] = useState<Set<number>>(new Set());
+  const [workflowMapExplainerStep, setWorkflowMapExplainerStep] = useState(0);
   const sectionImageSrc = SECTION_IMAGE_BY_PAGE_ID[page.id];
   const usesSectionImageTreatment = Boolean(sectionImageSrc);
   const isCertificatePage = page.id === 'certificate';
@@ -686,6 +1004,9 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
     : '';
   const isPromptLibraryPage = page.id === 's4-library';
   const isGlossaryPage = page.id === 's7-glossary';
+  const isWorkflowMapPage = page.id === 's3-workflow-map';
+  const isAgentSpecWizardPage = page.id === 's7-agent-spec';
+  const isToolMatrixPage = page.id === 's7-tool-matrix';
   const [copiedPromptId, setCopiedPromptId] = useState<string | null>(null);
   const promptLibraryState = isPromptLibraryPage
     ? parsePromptLibraryState(userInput)
@@ -750,6 +1071,54 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
     ? (glossaryLearnedTerms.length / glossaryTerms.length) * 100
     : 0;
   const structuredInputs = parseStructuredInputs(userInput) as Record<string, any>;
+  const workflowMapState = isWorkflowMapPage
+    ? parseWorkflowMapState(userInput)
+    : DEFAULT_WORKFLOW_MAP_STATE;
+  const workflowMapSummary = isWorkflowMapPage
+    ? buildWorkflowMapSummary(workflowMapState)
+    : { question0: '', question1: '', question2: '', copyText: '' };
+  const workflowCandidates = workflowMapState.workflows.filter((workflow) => (
+    getWorkflowQuadrant(workflow.repeatability, workflow.judgement) === 'strongAgentCandidate'
+  ));
+  const workflowWizardStep = isWorkflowMapPage
+    ? Math.min(Math.max(workflowMapState.currentStep, 0), 3)
+    : 0;
+  const workflowScoringIndex = isWorkflowMapPage && workflowMapState.workflows.length > 0
+    ? Math.min(Math.max(workflowMapState.scoringIndex, 0), workflowMapState.workflows.length - 1)
+    : 0;
+  const activeWorkflowForScoring = isWorkflowMapPage ? workflowMapState.workflows[workflowScoringIndex] : undefined;
+  const workflowWizardSteps = ['List workflows', 'Score each', 'Reveal the map', 'Prioritise'];
+  const scoredWorkflowCount = workflowMapState.workflows.filter((workflow) => (
+    workflow.repeatability >= 1
+    && workflow.repeatability <= 5
+    && workflow.judgement >= 1
+    && workflow.judgement <= 5
+  )).length;
+  const canAdvanceWorkflowListStep = workflowMapState.workflows.length >= 3 && workflowMapState.workflows.length <= 15;
+  const canAdvanceWorkflowPriorities = workflowMapState.selectedWorkflowIds.length > 0 && workflowMapState.selectedWorkflowIds.length <= 2;
+  const agentSpecFields = isAgentSpecWizardPage ? page.activity?.specFields || [] : [];
+  const agentSpecFieldValues = isAgentSpecWizardPage ? parseSpecFormFields(userInput, agentSpecFields.length) : {};
+  const agentSpecMeta = structuredInputs as Record<string, unknown>;
+  const agentSpecCurrentStep = isAgentSpecWizardPage && typeof agentSpecMeta.currentStep === 'number' && Number.isFinite(agentSpecMeta.currentStep)
+    ? Math.min(Math.max(Math.round(agentSpecMeta.currentStep), 0), Math.max(agentSpecFields.length - 1, 0))
+    : 0;
+  const agentSpecReviewMode = isAgentSpecWizardPage ? agentSpecMeta.reviewMode === true : false;
+  const completedAgentSpecFields = isAgentSpecWizardPage
+    ? agentSpecFields.filter((_, index) => (agentSpecFieldValues[`field-${index}`] || '').trim() !== '').length
+    : 0;
+  const defaultToolMatrixRows = isToolMatrixPage ? parseToolMatrixRows(page.content) : [];
+  const toolMatrixState = isToolMatrixPage
+    ? parseToolMatrixState(userInput, defaultToolMatrixRows)
+    : { rows: [], activeRowId: '' };
+  const activeToolMatrixRow = isToolMatrixPage
+    ? toolMatrixState.rows.find((row) => row.id === toolMatrixState.activeRowId) || toolMatrixState.rows[0]
+    : undefined;
+  const toolMatrixSummary = isToolMatrixPage
+    ? buildToolMatrixSummary(toolMatrixState.rows)
+    : { question0: '', question1: '', question2: '', copyText: '' };
+  const agentSpecCopyText = isAgentSpecWizardPage
+    ? buildAgentSpecCopyText(agentSpecFields, agentSpecFieldValues)
+    : '';
   const ninetyDayWorkflowAnswer = page.id === 's6-days61-90'
     ? (structuredInputs['workflow-name'] || structuredInputs['task-0']?.label || '').trim()
     : '';
@@ -761,6 +1130,45 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
 
     const nextState = updater(glossaryState);
     onInputChange(JSON.stringify(nextState));
+  };
+
+  const updateWorkflowMapState = (updater: (current: WorkflowMapPageState) => WorkflowMapPageState) => {
+    if (!isWorkflowMapPage) {
+      return;
+    }
+
+    const nextState = updater(workflowMapState);
+    const summary = buildWorkflowMapSummary(nextState);
+    onInputChange(JSON.stringify({
+      ...nextState,
+      'question-0': summary.question0,
+      'question-1': summary.question1,
+      'question-2': summary.question2,
+    }));
+  };
+
+  const updateAgentSpecState = (updater: (current: Record<string, unknown>) => Record<string, unknown>) => {
+    if (!isAgentSpecWizardPage) {
+      return;
+    }
+
+    const nextState = updater(structuredInputs);
+    onInputChange(JSON.stringify(nextState));
+  };
+
+  const updateToolMatrixState = (updater: (current: ToolMatrixPageState) => ToolMatrixPageState) => {
+    if (!isToolMatrixPage) {
+      return;
+    }
+
+    const nextState = updater(toolMatrixState);
+    const summary = buildToolMatrixSummary(nextState.rows);
+    onInputChange(JSON.stringify({
+      ...nextState,
+      'question-0': summary.question0,
+      'question-1': summary.question1,
+      'question-2': summary.question2,
+    }));
   };
 
   const toggleExpanded = (index: number) => {
@@ -982,29 +1390,33 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
   }
 
   return (
-    <div className={`space-y-8 ${isCertificatePage ? 'certificate-page-root' : ''}`}>
+    <div className={`space-y-8 ${isWorkflowMapPage ? 'mx-auto max-w-[860px] space-y-7' : ''} ${isCertificatePage ? 'certificate-page-root' : ''}`}>
       {/* Section Badge */}
       {page.section && (
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
-          className={`inline-block px-4 py-2 bg-[#00DC51]/15 border-2 border-[#00DC51]/40 rounded-full backdrop-blur-sm ${
+          className={`inline-block ${
+            isWorkflowMapPage
+              ? 'rounded-md border border-[#00DC51]/35 bg-[#00DC51] px-3 py-1.5'
+              : 'rounded-full border-2 border-[#00DC51]/40 bg-[#00DC51]/15 px-4 py-2 backdrop-blur-sm'
+          } ${
             isCertificatePage ? 'certificate-screen-only' : ''
           }`}
         >
-          <span className="text-[#00DC51] font-bold text-xs tracking-wide uppercase">{page.section}</span>
+          <span className={`${isWorkflowMapPage ? 'text-black' : 'text-[#00DC51]'} font-bold text-xs tracking-wide uppercase`}>{page.section}</span>
         </motion.div>
       )}
 
       {/* Title */}
-      <div className={isCertificatePage ? 'certificate-screen-only' : ''}>
-        <h2 className="text-3xl md:text-4xl lg:text-5xl font-black mb-4 leading-[1.05] tracking-tight" style={{ fontFamily: 'var(--font-family-header)' }}>
+      <div className={`${isWorkflowMapPage ? 'max-w-4xl space-y-3' : ''} ${isCertificatePage ? 'certificate-screen-only' : ''}`}>
+        <h2 className={`${isWorkflowMapPage ? 'mb-2 text-[2.45rem] leading-[1.08] md:text-[3.2rem]' : 'mb-4 text-3xl md:text-4xl lg:text-5xl leading-[1.05]'} font-black tracking-tight`} style={{ fontFamily: 'var(--font-family-header)' }}>
           {renderTitle(page.title)}
         </h2>
 
         {/* Subtitle */}
         {page.subtitle && (
-          <p className="text-base md:text-lg text-white/70 font-medium leading-relaxed">{page.subtitle}</p>
+          <p className={`${isWorkflowMapPage ? 'text-[1.05rem] italic text-white/58 md:text-[1.15rem]' : 'text-base md:text-lg text-white/70'} font-medium leading-relaxed`}>{page.subtitle}</p>
         )}
       </div>
 
@@ -2448,7 +2860,6 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
           if (page.id === 's3-maturity' && (block.type === 'numbered-list' || block.type === 'highlight' || block.type === 'box')) {
             return null;
           }
-
           return (
             <motion.div
               key={index}
@@ -2457,7 +2868,7 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
               transition={{ delay: index * 0.05, duration: 0.4 }}
             >
               {block.type === 'text' && (
-                <p className="text-white/80 leading-relaxed text-sm font-medium">{block.text}</p>
+                <p className={`${page.id === 's3-workflow-map' ? 'max-w-4xl text-[15px] leading-[1.72] text-white/68 md:text-base' : 'text-sm leading-relaxed text-white/80'} font-medium`}>{block.text}</p>
               )}
 
               {block.type === 'highlight' && (
@@ -2494,8 +2905,154 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
                   {/* TABS/COMPARISON - for Section 3 Assistant vs Agent */}
                   {(page.id === 's3-difference' && (block.boxTitle === 'Assistant-Led Work:' || block.boxTitle === 'Agent-Led Work:')) ? null :
 
+                  /* WORKFLOW MAPPER LADDER - for Section 3 Workflow Map */
+                  page.id === 's3-workflow-map' && block.boxTitle === 'How to Map Your Workflows:' ? (
+                    (() => {
+                      const workflowSteps = (block.items || [])
+                        .filter((item): item is { title: string; desc: string } => typeof item?.title === 'string' && typeof item?.desc === 'string')
+                        .map((item, index) => ({
+                          stage: `Step ${index + 1}`,
+                          title: item.title.replace(/^Step \d+:\s*/, ''),
+                          fullTitle: item.title,
+                          desc: item.desc,
+                        }));
+
+                      const safeStepIndex = workflowSteps.length > 0
+                        ? Math.min(workflowMapExplainerStep, workflowSteps.length - 1)
+                        : 0;
+                      const activeStep = workflowSteps[safeStepIndex];
+                      const progressPercentage = workflowSteps.length > 1
+                        ? (safeStepIndex / (workflowSteps.length - 1)) * 100
+                        : 0;
+
+                      const handleWorkflowTrackClick = (e: React.MouseEvent<HTMLDivElement>) => {
+                        if (workflowSteps.length === 0) {
+                          return;
+                        }
+
+                        const rect = e.currentTarget.getBoundingClientRect();
+                        const x = e.clientX - rect.left;
+                        const percentage = x / rect.width;
+                        const stageIndex = Math.min(
+                          Math.floor(percentage * workflowSteps.length),
+                          workflowSteps.length - 1
+                        );
+                        setWorkflowMapExplainerStep(stageIndex);
+                      };
+
+                      if (!activeStep) {
+                        return null;
+                      }
+
+                      return (
+                        <motion.div
+                          initial={{ opacity: 0, y: 14 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.45 }}
+                          className="rounded-[24px] border border-white/10 bg-[#131313] p-5 sm:p-7"
+                        >
+                          <div className="space-y-5">
+                            <div>
+                              <h4 className="font-black text-base text-white">{block.boxTitle}</h4>
+                              <p className="mt-2 text-sm font-medium leading-relaxed text-white/58">
+                                This exercise helps you identify which workflows in your firm are strong agent candidates and which should remain human-led or assistant-supported.
+                              </p>
+                            </div>
+
+                            <div className="relative pt-1">
+                              <div
+                                className="absolute left-7 right-7 top-5 hidden cursor-pointer sm:block"
+                                onClick={handleWorkflowTrackClick}
+                              >
+                                <div className="relative h-px bg-white/10">
+                                  <motion.div
+                                    className="absolute left-0 top-0 h-px bg-[#00DC51]/35"
+                                    initial={{ width: '0%' }}
+                                    animate={{ width: `${progressPercentage}%` }}
+                                    transition={{ duration: 0.35, ease: 'easeOut' }}
+                                  />
+                                </div>
+                              </div>
+
+                              <div className="relative flex justify-between gap-2">
+                              {workflowSteps.map((step, index) => {
+                                const isActive = index === safeStepIndex;
+                                const isPast = index < safeStepIndex;
+
+                                return (
+                                  <div
+                                    key={step.stage}
+                                    className="group/step flex cursor-pointer flex-1 flex-col items-center"
+                                    onClick={() => setWorkflowMapExplainerStep(index)}
+                                  >
+                                    <motion.div
+                                      animate={{
+                                        scale: isActive ? [1, 1.12, 1] : 1,
+                                        backgroundColor: isActive ? '#00DC51' : isPast ? 'rgba(0,220,81,0.18)' : '#1A1A1A',
+                                      }}
+                                      transition={{
+                                        scale: { duration: 0.25 },
+                                        backgroundColor: { duration: 0.2 },
+                                      }}
+                                      className={`mb-3 flex h-8 w-8 items-center justify-center rounded-[10px] border text-sm font-black transition-all ${
+                                        isActive
+                                          ? 'border-[#00DC51] text-black shadow-lg shadow-[#00DC51]/30'
+                                          : isPast
+                                            ? 'border-[#00DC51]/25 text-[#00DC51]'
+                                            : 'border-white/10 text-white/35 group-hover/step:text-white/60'
+                                      }`}
+                                    >
+                                      {index + 1}
+                                    </motion.div>
+
+                                    <div className={`text-center text-xs font-bold transition-colors ${
+                                      isActive
+                                        ? 'text-[#00DC51]'
+                                        : isPast
+                                        ? 'text-white/70'
+                                        : 'text-white/40 group-hover/step:text-white/60'
+                                    }`}>
+                                      {step.title}
+                                    </div>
+                                  </div>
+                                );
+                              })}
+                            </div>
+                            </div>
+                          </div>
+
+                          <motion.div
+                            key={safeStepIndex}
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.25 }}
+                            className="mt-5 rounded-2xl border border-white/10 bg-[#0E0E0E] p-5 sm:p-6"
+                          >
+                            <div className="mb-4 flex items-center gap-3">
+                              <div className="flex h-8 w-8 items-center justify-center rounded-[8px] bg-[#00DC51]">
+                                <span className="text-sm font-black text-black">{safeStepIndex + 1}</span>
+                              </div>
+                              <div>
+                                <div className="mb-1 text-[11px] font-black uppercase tracking-[0.18em] text-[#00DC51]">
+                                  {activeStep.stage}
+                                </div>
+                                <h5 className="text-lg font-black text-white sm:text-xl">
+                                  {activeStep.fullTitle}
+                                </h5>
+                              </div>
+                            </div>
+
+                            <p className="whitespace-pre-line text-sm font-medium leading-relaxed text-white/72 sm:text-[15px]">
+                              {activeStep.desc}
+                            </p>
+                          </motion.div>
+                        </motion.div>
+                      );
+                    })()
+                  )
+
                   /* STEP CARDS - for Section 4 Prompt Framework */
-                  page.section?.includes('Section 4') && block.boxTitle === 'Every Effective Prompt Has 4 Parts:' ? (
+                  : page.section?.includes('Section 4') && block.boxTitle === 'Every Effective Prompt Has 4 Parts:' ? (
                     <div className="space-y-3">
                       <h4 className="font-black text-base mb-4 text-[#00DC51]">{block.boxTitle}</h4>
                       {block.items?.map((item, i) => {
@@ -2956,13 +3513,15 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
                   whileHover={page.section?.includes('Section 2') ? { scale: 1.01 } : {}}
                   transition={{ type: "spring", stiffness: 300 }}
                   className={`rounded-xl p-5 border-2 transition-all ${
-                    block.style === 'green'
+                    page.id === 's3-workflow-map' && block.title === 'Common High-Impact Agent Candidates:'
+                      ? 'bg-white/[0.03] border-white/12 hover:border-white/20'
+                      : block.style === 'green'
                       ? 'bg-[#00DC51]/10 border-[#00DC51] hover:shadow-lg hover:shadow-[#00DC51]/20'
                       : block.style === 'dark'
                       ? 'bg-black/40 border-white/20 hover:border-white/30'
                       : 'bg-white/5 border-white/20 hover:border-white/30'
                   }`}>
-                  {block.title && (
+                  {block.title && !(page.id === 's3-workflow-map' && block.title === 'Common High-Impact Agent Candidates:') && (
                     <div className="flex items-start gap-3 mb-2.5">
                       {page.section?.includes('Section 2') && block.style === 'green' && (
                         <div className="w-8 h-8 bg-[#00DC51] rounded-lg flex items-center justify-center flex-shrink-0">
@@ -2977,25 +3536,74 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
                       <h4 className="font-black text-base flex-1">{block.title}</h4>
                     </div>
                   )}
-                  <p className={`font-medium leading-relaxed text-sm whitespace-pre-line ${
-                    page.section?.includes('Section 2') ? 'text-white/80' : 'text-white/80'
-                  }`}>{block.text}</p>
+                  {page.id === 's3-workflow-map' && block.title === 'Common High-Impact Agent Candidates:' ? (
+                    (() => {
+                      const candidateItems = (block.text || '')
+                        .split('\n')
+                        .map((item) => item.replace(/^•\s*|^â€¢\s*|^Ã¢â‚¬Â¢\s*/, '').trim())
+                        .filter(Boolean);
+
+                      return (
+                        <details className="group">
+                          <summary className="list-none cursor-pointer">
+                            <div className="mb-3 flex items-center justify-between gap-4">
+                              <h4 className="flex-1 text-base font-black text-white">{block.title}</h4>
+                              <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-transparent px-3 py-2 text-xs font-black uppercase tracking-[0.14em] text-white transition-colors group-hover:border-white/35">
+                                <span>Show examples</span>
+                                <ChevronDown className="transition-transform group-open:rotate-180" size={14} strokeWidth={2.8} />
+                              </span>
+                            </div>
+
+                            <p className="text-sm font-medium leading-relaxed text-white">
+                              These are examples to help you think of your own workflows.
+                            </p>
+                          </summary>
+
+                          <div className="mt-4 flex flex-wrap gap-2">
+                            {candidateItems.map((item) => (
+                              <span
+                                key={item}
+                                className="rounded-full border border-white/20 bg-transparent px-3 py-2 text-xs font-semibold text-white"
+                              >
+                                {item}
+                              </span>
+                            ))}
+                          </div>
+                        </details>
+                      );
+                    })()
+                  ) : (
+                    <p className={`font-medium leading-relaxed text-sm whitespace-pre-line ${
+                      page.section?.includes('Section 2') ? 'text-white/80' : 'text-white/80'
+                    }`}>{block.text}</p>
+                  )}
                 </motion.div>
               )}
 
               {block.type === 'quote' && (
-                <motion.div
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.5 }}
-                  className="relative bg-gradient-to-r from-[#00DC51]/15 to-transparent border-l-4 border-[#00DC51] rounded-r-xl p-6 backdrop-blur-sm group hover:from-[#00DC51]/20 transition-all"
-                >
-                  <div className="absolute -left-1 top-5 w-1 h-10 bg-[#00DC51] shadow-[0_0_12px_rgba(0,220,81,0.8)] group-hover:h-14 transition-all" />
-                  <div className="flex items-start gap-4">
-                    <div className="text-[#00DC51] opacity-30 text-5xl font-serif leading-none">"</div>
-                    <p className="text-lg font-bold italic leading-relaxed flex-1 pt-2">{block.text}</p>
-                  </div>
-                </motion.div>
+                page.id === 's3-workflow-map' ? (
+                  <motion.div
+                    initial={{ opacity: 0, x: -12 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.35 }}
+                    className="border-l-[3px] border-[#00DC51] px-5 py-3"
+                  >
+                    <p className="text-[15px] font-bold italic leading-relaxed text-white">{block.text}</p>
+                  </motion.div>
+                ) : (
+                  <motion.div
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.5 }}
+                    className="relative bg-gradient-to-r from-[#00DC51]/15 to-transparent border-l-4 border-[#00DC51] rounded-r-xl p-6 backdrop-blur-sm group hover:from-[#00DC51]/20 transition-all"
+                  >
+                    <div className="absolute -left-1 top-5 w-1 h-10 bg-[#00DC51] shadow-[0_0_12px_rgba(0,220,81,0.8)] group-hover:h-14 transition-all" />
+                    <div className="flex items-start gap-4">
+                      <div className="text-[#00DC51] opacity-30 text-5xl font-serif leading-none">"</div>
+                      <p className="text-lg font-bold italic leading-relaxed flex-1 pt-2">{block.text}</p>
+                    </div>
+                  </motion.div>
+                )
               )}
 
               {block.type === 'columns' && (
@@ -3215,8 +3823,1264 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
         </motion.div>
       )}
 
+      {isWorkflowMapPage && page.activity && (
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.25 }}
+          className="rounded-[28px] border border-white/12 bg-[#131313] p-6 shadow-[0_24px_80px_rgba(0,0,0,0.28)] md:p-8"
+        >
+          <div className="mb-6 flex items-start gap-4">
+            <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-2xl border border-white/10 bg-[#0E0E0E]">
+              <ClipboardList className="text-[#00DC51]" size={24} strokeWidth={2.5} />
+            </div>
+            <div className="flex-1">
+              <div className="mb-2 flex items-center gap-2">
+                <span className="text-xs font-black uppercase tracking-[0.22em] text-[#00DC51]">Activity</span>
+                <div className="h-px flex-1 bg-white/10" />
+              </div>
+              <h4 className="text-xl font-black text-white">{page.activity.title}</h4>
+              <p className="mt-2 max-w-3xl text-sm font-medium leading-relaxed text-white/72">{page.activity.prompt}</p>
+            </div>
+          </div>
+
+          {workflowWizardStep >= 0 ? (
+            <>
+              <div className="mb-6 overflow-hidden rounded-[24px] border border-white/10 bg-[#0E0E0E]">
+                <div className="relative px-4 pt-5 sm:px-6">
+                  <div className="absolute left-10 right-10 top-9 hidden h-px bg-white/10 sm:block" />
+                  <div className="grid gap-3 sm:grid-cols-4">
+                    {workflowWizardSteps.map((label, index) => {
+                      const isActive = workflowWizardStep === index;
+                      const isComplete = workflowWizardStep > index;
+
+                      return (
+                        <button
+                          key={label}
+                          type="button"
+                          onClick={() => {
+                            if (index === 0 || workflowMapState.workflows.length > 0) {
+                              updateWorkflowMapState((current) => ({ ...current, currentStep: index }));
+                            }
+                          }}
+                          className="relative flex flex-col items-center gap-2 pb-4 text-center"
+                        >
+                          <span className={`flex h-9 w-9 items-center justify-center rounded-[10px] border text-sm font-black transition-colors ${
+                            isActive
+                              ? 'border-[#00DC51] bg-[#00DC51] text-black'
+                              : isComplete
+                                ? 'border-[#00DC51]/35 bg-[#00DC51]/10 text-[#00DC51]'
+                                : 'border-white/10 bg-[#131313] text-white/40'
+                          }`}>
+                            {index + 1}
+                          </span>
+                                  <span className={`text-center text-[12px] font-bold ${isActive ? 'text-[#00DC51]' : 'text-white/55'}`}>{label}</span>
+                                </button>
+                              );
+                            })}
+                          </div>
+                </div>
+
+                <div className="border-t border-white/8 px-4 py-5 sm:px-6">
+                  <div className="flex items-center justify-between gap-4">
+                    <div>
+                      <p className="text-xs font-black uppercase tracking-[0.18em] text-[#00DC51]">
+                        Step {workflowWizardStep + 1} of 4
+                      </p>
+                      <h5 className="mt-2 text-lg font-black text-white">{workflowWizardSteps[workflowWizardStep]}</h5>
+                    </div>
+                    <div className="rounded-full border border-white/10 bg-white/[0.03] px-3 py-2 text-xs font-semibold text-white/60">
+                      {workflowMapState.workflows.length} workflow{workflowMapState.workflows.length === 1 ? '' : 's'}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <AnimatePresence mode="wait">
+                {workflowWizardStep === 0 && (
+                  <motion.div
+                    key="workflow-step-list"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    className="space-y-4"
+                  >
+                    <div className="rounded-[24px] border border-white/10 bg-[#0E0E0E] p-5 sm:p-6">
+                      <div className="flex flex-col gap-3 sm:flex-row">
+                        <input
+                          type="text"
+                          value={workflowMapState.draftName}
+                          onChange={(e) => updateWorkflowMapState((current) => ({ ...current, draftName: e.target.value }))}
+                          placeholder="Add a workflow or process, e.g. Monthly reporting"
+                          className="flex-1 rounded-2xl border border-white/12 bg-black/35 px-4 py-3 text-sm font-medium text-white placeholder-white/35 outline-none transition-colors focus:border-[#00DC51]"
+                        />
+                        <button
+                          type="button"
+                          onClick={() => {
+                            const name = workflowMapState.draftName.trim();
+                            if (!name || workflowMapState.workflows.length >= 15) {
+                              return;
+                            }
+
+                            updateWorkflowMapState((current) => ({
+                              ...current,
+                              workflows: [
+                                ...current.workflows,
+                                {
+                                  id: `workflow-${Date.now()}-${current.workflows.length}`,
+                                  name,
+                                  repeatability: 3,
+                                  judgement: 3,
+                                },
+                              ],
+                              draftName: '',
+                              scoringIndex: current.workflows.length === 0 ? 0 : current.scoringIndex,
+                            }));
+                          }}
+                          disabled={!workflowMapState.draftName.trim() || workflowMapState.workflows.length >= 15}
+                          className="inline-flex items-center justify-center rounded-2xl bg-[#00DC51] px-5 py-3 text-sm font-black text-black transition-all hover:bg-[#00F25B] disabled:cursor-not-allowed disabled:bg-white/10 disabled:text-white/35"
+                        >
+                          Add workflow
+                        </button>
+                      </div>
+
+                      <div className="mt-5 flex items-center justify-between gap-4">
+                        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/45">
+                          {workflowMapState.workflows.length} / 15 workflows added
+                        </p>
+                        <p className="text-xs font-medium text-white/45">Write down 10-15 common workflows.</p>
+                      </div>
+
+                      <div className="mt-3 h-2 overflow-hidden rounded-full bg-white/10">
+                        <div
+                          className="h-full rounded-full bg-[#00DC51] transition-all"
+                          style={{ width: `${Math.min((workflowMapState.workflows.length / 15) * 100, 100)}%` }}
+                        />
+                      </div>
+
+                      <div className="mt-5 flex flex-wrap gap-2">
+                        {workflowMapState.workflows.length > 0 ? workflowMapState.workflows.map((workflow) => (
+                          <div
+                            key={workflow.id}
+                            className="inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/[0.04] px-3 py-2 text-xs font-semibold text-white/82"
+                          >
+                            <span>{workflow.name}</span>
+                            <button
+                              type="button"
+                              onClick={() => {
+                                updateWorkflowMapState((current) => {
+                                  const remaining = current.workflows.filter((item) => item.id !== workflow.id);
+                                  return {
+                                    ...current,
+                                    workflows: remaining,
+                                    selectedWorkflowIds: current.selectedWorkflowIds.filter((id) => id !== workflow.id),
+                                    scoringIndex: Math.min(current.scoringIndex, Math.max(remaining.length - 1, 0)),
+                                  };
+                                });
+                              }}
+                              className="text-white/45 transition-colors hover:text-white"
+                              aria-label={`Remove ${workflow.name}`}
+                            >
+                              <X size={14} strokeWidth={3} />
+                            </button>
+                          </div>
+                        )) : (
+                          <p className="text-sm font-medium text-white/45">Add at least 3 workflows to build your first map.</p>
+                        )}
+                      </div>
+                      <div className="mt-5 rounded-2xl border border-white/10 bg-white/[0.03] p-4">
+                        <p className="text-xs font-semibold uppercase tracking-[0.16em] text-white/45">Getting started</p>
+                        <p className="mt-2 text-sm font-medium leading-relaxed text-white/72">Add at least 3 workflows to build your first map. Continue unlocks once you have 3.</p>
+                      </div>
+                    </div>
+                  </motion.div>
+                )}
+
+                {workflowWizardStep === 1 && (
+                  <motion.div
+                    key="workflow-step-score"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    className="space-y-4"
+                  >
+                    <div className="rounded-[24px] border border-white/10 bg-[#0E0E0E] p-5 sm:p-6">
+                      {activeWorkflowForScoring ? (
+                        <>
+                          <div className="flex items-center justify-between gap-4">
+                            <div>
+                              <p className="text-xs font-black uppercase tracking-[0.18em] text-[#00DC51]">
+                                Workflow {workflowScoringIndex + 1} of {workflowMapState.workflows.length}
+                              </p>
+                              <h5 className="mt-2 text-2xl font-black text-white">{activeWorkflowForScoring.name}</h5>
+                            </div>
+                            <div className="rounded-full border border-white/10 bg-white/[0.03] px-3 py-2 text-xs font-semibold text-white/55">
+                              {scoredWorkflowCount} scored
+                            </div>
+                          </div>
+
+                          <div className="mt-4 h-2 overflow-hidden rounded-full bg-white/10">
+                            <div
+                              className="h-full rounded-full bg-[#00DC51] transition-all"
+                              style={{ width: `${workflowMapState.workflows.length > 0 ? ((workflowScoringIndex + 1) / workflowMapState.workflows.length) * 100 : 0}%` }}
+                            />
+                          </div>
+
+                          <div className="mt-5 rounded-2xl border border-white/10 bg-white/[0.03] p-4">
+                            <p className="text-sm font-medium leading-relaxed text-white/70">
+                              Score one workflow at a time. Higher repeatability means the process happens often and follows consistent steps. Higher judgement means it needs more professional interpretation.
+                            </p>
+                          </div>
+
+                          <div className="mt-5 space-y-4">
+                            <div className="rounded-2xl border border-white/10 bg-black/20 p-4 sm:p-5">
+                              <div className="mb-3 flex items-center justify-between">
+                                <span className="text-sm font-bold text-white/82">Repeatability</span>
+                                <span className="text-base font-black text-[#00DC51]">{activeWorkflowForScoring.repeatability}/5</span>
+                              </div>
+                              <div className="grid grid-cols-5 gap-2">
+                                {[1, 2, 3, 4, 5].map((value) => (
+                                  <button
+                                    key={`repeatability-${value}`}
+                                    type="button"
+                                    onClick={() => {
+                                      updateWorkflowMapState((current) => ({
+                                        ...current,
+                                        workflows: current.workflows.map((item) => item.id === activeWorkflowForScoring.id ? { ...item, repeatability: value } : item),
+                                      }));
+                                    }}
+                                    className={`h-11 rounded-lg text-sm font-black transition-colors ${
+                                      value <= activeWorkflowForScoring.repeatability
+                                        ? 'bg-[#00DC51] text-black'
+                                        : 'bg-[#1A1A1A] text-white/25'
+                                    }`}
+                                  >
+                                    {value}
+                                  </button>
+                                ))}
+                              </div>
+                              <p className="mt-3 text-sm font-medium text-white/55">1 = rare/ad-hoc, 5 = daily and highly repeatable.</p>
+                            </div>
+
+                            <div className="rounded-2xl border border-white/10 bg-black/20 p-4 sm:p-5">
+                              <div className="mb-3 flex items-center justify-between">
+                                <span className="text-sm font-bold text-white/82">Judgement required</span>
+                                <span className="text-base font-black text-[#FFB800]">{activeWorkflowForScoring.judgement}/5</span>
+                              </div>
+                              <div className="grid grid-cols-5 gap-2">
+                                {[1, 2, 3, 4, 5].map((value) => (
+                                  <button
+                                    key={`judgement-${value}`}
+                                    type="button"
+                                    onClick={() => {
+                                      updateWorkflowMapState((current) => ({
+                                        ...current,
+                                        workflows: current.workflows.map((item) => item.id === activeWorkflowForScoring.id ? { ...item, judgement: value } : item),
+                                      }));
+                                    }}
+                                    className={`h-11 rounded-lg text-sm font-black transition-colors ${
+                                      value <= activeWorkflowForScoring.judgement
+                                        ? 'bg-[#FFB800] text-black'
+                                        : 'bg-[#1A1A1A] text-white/25'
+                                    }`}
+                                  >
+                                    {value}
+                                  </button>
+                                ))}
+                              </div>
+                              <p className="mt-3 text-sm font-medium text-white/55">1 = pure data entry, 5 = deep professional interpretation.</p>
+                            </div>
+                          </div>
+                        </>
+                      ) : (
+                        <p className="text-sm font-medium text-white/45">Add workflows first to begin scoring.</p>
+                      )}
+                    </div>
+
+                    <div className="rounded-[20px] border border-white/10 bg-[#111111] p-4">
+                      <p className="text-xs font-black uppercase tracking-[0.18em] text-white/45">Workflows in this step</p>
+                      {workflowMapState.workflows.length > 1 && (
+                        <div className="mt-3 grid gap-2 sm:grid-cols-2 xl:grid-cols-3">
+                          {workflowMapState.workflows.map((workflow, index) => (
+                            <button
+                              key={workflow.id}
+                              type="button"
+                              onClick={() => updateWorkflowMapState((current) => ({ ...current, scoringIndex: index }))}
+                              className={`flex items-center justify-between rounded-2xl border px-4 py-3 text-left text-sm transition-colors ${
+                                workflowScoringIndex === index
+                                  ? 'border-[#00DC51]/40 bg-[#00DC51]/10 text-white'
+                                  : 'border-white/10 bg-black/20 text-white/70 hover:border-white/15 hover:text-white'
+                              }`}
+                            >
+                              <span className="font-semibold">{workflow.name}</span>
+                              <span className="text-xs font-black text-white/45">{index + 1}</span>
+                            </button>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  </motion.div>
+                )}
+
+                {workflowWizardStep === 2 && (
+                  <motion.div
+                    key="workflow-step-map"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    className="space-y-6"
+                  >
+                    <div className="rounded-[24px] border border-white/10 bg-[#0E0E0E] p-5 sm:p-6">
+                      <div className="mb-4 flex items-center justify-between gap-4">
+                        <div>
+                          <h5 className="text-lg font-black text-white">Workflow map</h5>
+                          <p className="mt-1 text-sm font-medium text-white/55">High repeatability and low judgement point to the strongest starting agents.</p>
+                        </div>
+                        <div className="rounded-full border border-[#00DC51]/25 bg-[#00DC51]/10 px-3 py-2 text-xs font-bold uppercase tracking-[0.18em] text-[#00DC51]">
+                          {workflowCandidates.length} candidates
+                        </div>
+                      </div>
+
+                      <div className="relative h-[320px] overflow-hidden rounded-[28px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.03),rgba(255,255,255,0.01))]">
+                        <div className="absolute inset-y-0 left-1/2 w-px bg-white/10" />
+                        <div className="absolute inset-x-0 top-1/2 h-px bg-white/10" />
+                        <div className="absolute left-4 top-4 max-w-[38%] text-[11px] font-bold uppercase tracking-[0.14em] text-[#FFD84D]">Human-led + assistant</div>
+                        <div className="absolute right-4 top-4 max-w-[38%] text-right text-[11px] font-bold uppercase tracking-[0.14em] text-[#00DC51]">Strong agent candidate</div>
+                        <div className="absolute bottom-4 left-4 max-w-[38%] text-[11px] font-bold uppercase tracking-[0.14em] text-[#FF8B8B]">Fully human-led</div>
+                        <div className="absolute bottom-4 right-4 max-w-[38%] text-right text-[11px] font-bold uppercase tracking-[0.14em] text-[#7AB8FF]">Assistant task</div>
+
+                        <div className="absolute bottom-3 left-1/2 -translate-x-1/2 text-[11px] font-semibold uppercase tracking-[0.16em] text-white/40">
+                          Repeatability →
+                        </div>
+                        <div className="absolute left-3 top-1/2 -translate-y-1/2 -rotate-90 text-[11px] font-semibold uppercase tracking-[0.16em] text-white/40">
+                          Judgement →
+                        </div>
+
+                        {workflowMapState.workflows.map((workflow) => {
+                          const quadrant = WORKFLOW_QUADRANTS[getWorkflowQuadrant(workflow.repeatability, workflow.judgement)];
+                          const left = ((workflow.repeatability - 1) / 4) * 100;
+                          const top = (1 - ((workflow.judgement - 1) / 4)) * 100;
+
+                          return (
+                            <div
+                              key={workflow.id}
+                              className={`absolute -translate-x-1/2 -translate-y-1/2 rounded-full border-2 bg-black/85 px-3 py-2 text-[11px] font-black text-white shadow-lg ${quadrant.borderClass}`}
+                              style={{ left: `${left}%`, top: `${top}%` }}
+                            >
+                              {workflow.name}
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+
+                    <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+                      {Object.entries(WORKFLOW_QUADRANTS).map(([key, quadrant]) => {
+                        const matchingWorkflows = workflowMapState.workflows.filter((workflow) => (
+                          getWorkflowQuadrant(workflow.repeatability, workflow.judgement) === key
+                        ));
+
+                        return (
+                          <div key={key} className={`rounded-2xl border p-4 ${quadrant.borderClass} ${quadrant.bgClass}`}>
+                            <p className={`text-xs font-black uppercase tracking-[0.16em] ${quadrant.colorClass}`}>{quadrant.label}</p>
+                            <p className="mt-2 text-sm font-semibold text-white">{matchingWorkflows.length} workflow{matchingWorkflows.length === 1 ? '' : 's'}</p>
+                            <p className="mt-2 text-xs font-medium leading-relaxed text-white/55">{quadrant.guidance}</p>
+                            {matchingWorkflows.length > 0 && (
+                              <div className="mt-3 flex flex-wrap gap-2">
+                                {matchingWorkflows.map((workflow) => (
+                                  <span
+                                    key={workflow.id}
+                                    className="rounded-full border border-white/10 bg-black/20 px-3 py-1.5 text-[11px] font-semibold text-white/72"
+                                  >
+                                    {workflow.name}
+                                  </span>
+                                ))}
+                              </div>
+                            )}
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </motion.div>
+                )}
+
+                {workflowWizardStep === 3 && (
+                  <motion.div
+                    key="workflow-step-prioritise"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    className="grid gap-6 xl:grid-cols-[1fr_0.95fr]"
+                  >
+                    <div className="space-y-6">
+                      <div className="rounded-[24px] border border-white/10 bg-[#0E0E0E] p-5 sm:p-6">
+                        <div className="mb-4 flex items-center justify-between gap-4">
+                          <div>
+                            <h5 className="text-lg font-black text-white">Choose 1 to 2 priority workflows</h5>
+                            <p className="mt-1 text-sm font-medium text-white/55">Start with your strongest agent candidates first.</p>
+                          </div>
+                          <div className="rounded-full border border-[#00DC51]/25 bg-[#00DC51]/10 px-3 py-2 text-xs font-bold uppercase tracking-[0.18em] text-[#00DC51]">
+                            {workflowMapState.selectedWorkflowIds.length} selected
+                          </div>
+                        </div>
+
+                        <div className="space-y-3">
+                          {workflowMapState.workflows.map((workflow) => {
+                            const quadrantKey = getWorkflowQuadrant(workflow.repeatability, workflow.judgement);
+                            const quadrant = WORKFLOW_QUADRANTS[quadrantKey];
+                            const isSelected = workflowMapState.selectedWorkflowIds.includes(workflow.id);
+                            const canSelect = quadrantKey === 'strongAgentCandidate';
+
+                            return (
+                              <label
+                                key={workflow.id}
+                                className={`flex items-start gap-3 rounded-2xl border p-4 transition-colors ${
+                                  canSelect
+                                    ? isSelected
+                                      ? 'border-[#00DC51]/40 bg-[#00DC51]/10'
+                                      : 'border-white/10 bg-black/20 hover:border-white/15'
+                                    : 'border-white/10 bg-black/15 opacity-60'
+                                }`}
+                              >
+                                <input
+                                  type="checkbox"
+                                  checked={isSelected}
+                                  disabled={!canSelect}
+                                  onChange={(e) => {
+                                    const checked = e.target.checked;
+                                    updateWorkflowMapState((current) => ({
+                                      ...current,
+                                      selectedWorkflowIds: checked
+                                        ? [...current.selectedWorkflowIds.filter((id) => id !== workflow.id), workflow.id].slice(0, 2)
+                                        : current.selectedWorkflowIds.filter((id) => id !== workflow.id),
+                                    }));
+                                  }}
+                                  className="mt-1 h-4 w-4 rounded border-white/25 bg-transparent accent-[#00DC51]"
+                                />
+                                <div className="flex-1">
+                                  <div className="flex flex-wrap items-center gap-2">
+                                    <h6 className="text-sm font-black text-white">{workflow.name}</h6>
+                                    <span className={`text-[11px] font-black uppercase tracking-[0.14em] ${quadrant.colorClass}`}>
+                                      {quadrant.label}
+                                    </span>
+                                  </div>
+                                  <p className="mt-2 text-xs font-medium leading-relaxed text-white/55">{quadrant.guidance}</p>
+                                </div>
+                              </label>
+                            );
+                          })}
+                        </div>
+                      </div>
+
+                      <div className="rounded-[24px] border border-white/10 bg-[#0E0E0E] p-5 sm:p-6">
+                        <div className="mb-4 flex items-center justify-between gap-4">
+                          <div>
+                            <h5 className="text-lg font-black text-white">Workflow map</h5>
+                            <p className="mt-1 text-sm font-medium text-white/55">Use the map to sense-check the workflows you picked.</p>
+                          </div>
+                        </div>
+
+                        <div className="relative h-[320px] overflow-hidden rounded-[28px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.03),rgba(255,255,255,0.01))]">
+                          <div className="absolute inset-y-0 left-1/2 w-px bg-white/10" />
+                          <div className="absolute inset-x-0 top-1/2 h-px bg-white/10" />
+                          <div className="absolute left-4 top-4 max-w-[38%] text-[11px] font-bold uppercase tracking-[0.14em] text-[#FFD84D]">Human-led + assistant</div>
+                          <div className="absolute right-4 top-4 max-w-[38%] text-right text-[11px] font-bold uppercase tracking-[0.14em] text-[#00DC51]">Strong agent candidate</div>
+                          <div className="absolute bottom-4 left-4 max-w-[38%] text-[11px] font-bold uppercase tracking-[0.14em] text-[#FF8B8B]">Fully human-led</div>
+                          <div className="absolute bottom-4 right-4 max-w-[38%] text-right text-[11px] font-bold uppercase tracking-[0.14em] text-[#7AB8FF]">Assistant task</div>
+
+                          {workflowMapState.workflows.map((workflow) => {
+                            const quadrant = WORKFLOW_QUADRANTS[getWorkflowQuadrant(workflow.repeatability, workflow.judgement)];
+                            const left = ((workflow.repeatability - 1) / 4) * 100;
+                            const top = (1 - ((workflow.judgement - 1) / 4)) * 100;
+                            const isSelected = workflowMapState.selectedWorkflowIds.includes(workflow.id);
+
+                            return (
+                              <button
+                                key={workflow.id}
+                                type="button"
+                                onClick={() => {
+                                  if (getWorkflowQuadrant(workflow.repeatability, workflow.judgement) !== 'strongAgentCandidate') {
+                                    return;
+                                  }
+
+                                  updateWorkflowMapState((current) => {
+                                    const isCurrentlySelected = current.selectedWorkflowIds.includes(workflow.id);
+                                    return {
+                                      ...current,
+                                      selectedWorkflowIds: isCurrentlySelected
+                                        ? current.selectedWorkflowIds.filter((id) => id !== workflow.id)
+                                        : [...current.selectedWorkflowIds.filter((id) => id !== workflow.id), workflow.id].slice(0, 2),
+                                    };
+                                  });
+                                }}
+                                className={`absolute -translate-x-1/2 -translate-y-1/2 rounded-full border-2 px-3 py-2 text-[11px] font-black shadow-lg transition-all ${
+                                  isSelected
+                                    ? 'border-[#00DC51] bg-[#00DC51] text-black shadow-[#00DC51]/40'
+                                    : `bg-black/85 text-white ${quadrant.borderClass}`
+                                }`}
+                                style={{ left: `${left}%`, top: `${top}%` }}
+                              >
+                                {workflow.name}
+                              </button>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="rounded-[24px] border border-white/10 bg-[#0E0E0E] p-5 sm:p-6">
+                      <div className="flex items-start justify-between gap-4">
+                        <div>
+                          <h5 className="text-lg font-black text-white">Copyable workflow summary</h5>
+                          <p className="mt-1 text-sm font-medium text-white/55">Use this output to decide which workflows to test first.</p>
+                        </div>
+                        <button
+                          type="button"
+                          onClick={() => handlePromptCopy(workflowMapSummary.copyText, 'workflow-map-summary')}
+                          className="inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/5 px-4 py-2 text-xs font-bold text-white/80 transition-colors hover:border-[#00DC51]/40 hover:text-white"
+                        >
+                          {copiedPromptId === 'workflow-map-summary' ? <Check size={14} strokeWidth={3} /> : <Copy size={14} strokeWidth={2.5} />}
+                          <span>{copiedPromptId === 'workflow-map-summary' ? 'Copied' : 'Copy summary'}</span>
+                        </button>
+                      </div>
+
+                      <pre className="mt-4 whitespace-pre-wrap rounded-2xl border border-white/10 bg-[#050805] p-4 text-xs font-medium leading-relaxed text-white/72">
+                        {workflowMapSummary.copyText}
+                      </pre>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+
+              <div className="mt-6 flex flex-col gap-3 border-t border-white/8 pt-5 sm:flex-row sm:items-center sm:justify-between">
+                <button
+                  type="button"
+                  onClick={() => updateWorkflowMapState((current) => ({ ...current, currentStep: Math.max(current.currentStep - 1, 0) }))}
+                  disabled={workflowWizardStep === 0}
+                  className="inline-flex items-center justify-center rounded-full border border-white/12 bg-white/[0.03] px-4 py-2 text-sm font-bold text-white/72 transition-colors hover:border-white/20 hover:text-white disabled:cursor-not-allowed disabled:opacity-35"
+                >
+                  Back
+                </button>
+
+                <div className="flex flex-col items-end gap-2">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (workflowWizardStep === 0) {
+                        if (!canAdvanceWorkflowListStep) {
+                          return;
+                        }
+
+                        updateWorkflowMapState((current) => ({
+                          ...current,
+                          currentStep: 1,
+                          scoringIndex: 0,
+                        }));
+                        return;
+                      }
+
+                      if (workflowWizardStep === 1) {
+                        updateWorkflowMapState((current) => ({ ...current, currentStep: 2 }));
+                        return;
+                      }
+
+                      if (workflowWizardStep === 2) {
+                        updateWorkflowMapState((current) => ({ ...current, currentStep: 3 }));
+                      }
+                    }}
+                    disabled={
+                      (workflowWizardStep === 0 && !canAdvanceWorkflowListStep)
+                      || (workflowWizardStep === 1 && workflowMapState.workflows.length === 0)
+                      || (workflowWizardStep === 3 && !canAdvanceWorkflowPriorities)
+                    }
+                    className="inline-flex items-center justify-center rounded-full bg-[#00DC51] px-5 py-2.5 text-sm font-black text-black transition-all hover:bg-[#00F25B] disabled:cursor-not-allowed disabled:bg-white/10 disabled:text-white/35"
+                  >
+                    {workflowWizardStep < 3 ? 'Continue' : 'Ready to use'}
+                  </button>
+                  {workflowWizardStep === 0 && !canAdvanceWorkflowListStep && (
+                    <p className="text-xs font-medium text-white/45">Continue unlocks once you have 3 workflows.</p>
+                  )}
+                  {workflowWizardStep === 3 && !canAdvanceWorkflowPriorities && (
+                    <p className="text-xs font-medium text-white/45">Select 1 or 2 strong candidates to complete the exercise.</p>
+                  )}
+                </div>
+              </div>
+            </>
+          ) : (
+          <div className="grid gap-6 xl:grid-cols-[1.1fr_0.9fr]">
+            <div className="space-y-6">
+              <div className="rounded-3xl border border-white/12 bg-black/30 p-5">
+                <div className="flex flex-col gap-3 sm:flex-row">
+                  <input
+                    type="text"
+                    value={workflowMapState.draftName}
+                    onChange={(e) => updateWorkflowMapState((current) => ({ ...current, draftName: e.target.value }))}
+                    placeholder="Add a workflow or process, e.g. Monthly reporting"
+                    className="flex-1 rounded-2xl border-2 border-white/15 bg-black/40 px-4 py-3 text-sm font-medium text-white placeholder-white/35 outline-none transition-colors focus:border-[#00DC51]"
+                  />
+                  <button
+                    onClick={() => {
+                      const name = workflowMapState.draftName.trim();
+                      if (!name || workflowMapState.workflows.length >= 15) {
+                        return;
+                      }
+
+                      updateWorkflowMapState((current) => ({
+                        ...current,
+                        workflows: [
+                          ...current.workflows,
+                          {
+                            id: `workflow-${Date.now()}-${current.workflows.length}`,
+                            name,
+                            repeatability: 3,
+                            judgement: 3,
+                          },
+                        ],
+                        draftName: '',
+                        scoringIndex: current.workflows.length,
+                      }));
+                    }}
+                    disabled={!workflowMapState.draftName.trim() || workflowMapState.workflows.length >= 15}
+                    className="inline-flex items-center justify-center rounded-2xl bg-[#00DC51] px-5 py-3 text-sm font-black text-black transition-all hover:bg-[#00F25B] disabled:cursor-not-allowed disabled:bg-white/10 disabled:text-white/35"
+                  >
+                    Add workflow
+                  </button>
+                </div>
+
+                <div className="mt-4 flex items-center justify-between">
+                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/45">
+                    {workflowMapState.workflows.length} / 15 workflows mapped
+                  </p>
+                  <p className="text-xs font-medium text-white/45">Score repeatability and judgement for each one.</p>
+                </div>
+
+                <div className="mt-4 flex flex-wrap gap-2">
+                  {workflowMapState.workflows.length > 0 ? workflowMapState.workflows.map((workflow) => (
+                    <div
+                      key={workflow.id}
+                      className="inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/5 px-3 py-2 text-xs font-semibold text-white/80"
+                    >
+                      <span>{workflow.name}</span>
+                      <button
+                        onClick={() => {
+                          updateWorkflowMapState((current) => {
+                            const remaining = current.workflows.filter((item) => item.id !== workflow.id);
+                            return {
+                              ...current,
+                              workflows: remaining,
+                              selectedWorkflowIds: current.selectedWorkflowIds.filter((id) => id !== workflow.id),
+                              scoringIndex: Math.min(current.scoringIndex, Math.max(remaining.length - 1, 0)),
+                            };
+                          });
+                        }}
+                        className="text-white/45 transition-colors hover:text-white"
+                        aria-label={`Remove ${workflow.name}`}
+                      >
+                        <X size={14} strokeWidth={3} />
+                      </button>
+                    </div>
+                  )) : (
+                    <p className="text-sm font-medium text-white/45">Add 5 to 15 workflows to build your map.</p>
+                  )}
+                </div>
+              </div>
+
+              <div className="space-y-4">
+                {workflowMapState.workflows.map((workflow, index) => {
+                  const quadrantKey = getWorkflowQuadrant(workflow.repeatability, workflow.judgement);
+                  const quadrant = WORKFLOW_QUADRANTS[quadrantKey];
+                  const isSelected = workflowMapState.selectedWorkflowIds.includes(workflow.id);
+                  const canSelect = quadrantKey === 'strongAgentCandidate';
+
+                  return (
+                    <div key={workflow.id} className={`rounded-3xl border p-5 ${quadrant.borderClass} ${quadrant.bgClass}`}>
+                      <div className="mb-4 flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between">
+                        <div>
+                          <div className="mb-1 flex items-center gap-2">
+                            <span className="inline-flex h-7 w-7 items-center justify-center rounded-full border border-white/12 bg-black/35 text-xs font-black text-white/70">
+                              {index + 1}
+                            </span>
+                            <h5 className="text-base font-black text-white">{workflow.name}</h5>
+                          </div>
+                          <p className={`text-xs font-bold uppercase tracking-[0.18em] ${quadrant.colorClass}`}>
+                            {quadrant.label}
+                          </p>
+                          <p className="mt-1 text-xs font-medium text-white/55">{quadrant.guidance}</p>
+                        </div>
+
+                        <label className={`inline-flex items-center gap-2 rounded-full border px-3 py-2 text-xs font-semibold ${
+                          canSelect
+                            ? isSelected
+                              ? 'border-[#00DC51] bg-[#00DC51] text-black'
+                              : 'border-white/15 bg-black/30 text-white/75'
+                            : 'border-white/10 bg-black/20 text-white/35'
+                        }`}>
+                          <input
+                            type="checkbox"
+                            checked={isSelected}
+                            disabled={!canSelect}
+                            onChange={(e) => {
+                              const checked = e.target.checked;
+                              updateWorkflowMapState((current) => ({
+                                ...current,
+                                selectedWorkflowIds: checked
+                                  ? [...current.selectedWorkflowIds.filter((id) => id !== workflow.id), workflow.id].slice(0, 2)
+                                  : current.selectedWorkflowIds.filter((id) => id !== workflow.id),
+                              }));
+                            }}
+                            className="sr-only"
+                          />
+                          <Target size={14} strokeWidth={2.5} />
+                          <span>{canSelect ? 'Prioritise this workflow' : 'Not a first agent candidate'}</span>
+                        </label>
+                      </div>
+
+                      <div className="grid gap-4 md:grid-cols-2">
+                        <div className="rounded-2xl border border-white/10 bg-black/35 p-4">
+                          <div className="mb-2 flex items-center justify-between">
+                            <span className="text-xs font-bold uppercase tracking-[0.16em] text-white/60">Repeatability</span>
+                            <span className="text-sm font-black text-[#00DC51]">{workflow.repeatability}/5</span>
+                          </div>
+                          <input
+                            type="range"
+                            min={1}
+                            max={5}
+                            step={1}
+                            value={workflow.repeatability}
+                            onChange={(e) => {
+                              const nextValue = clampScore(Number(e.target.value));
+                              updateWorkflowMapState((current) => ({
+                                ...current,
+                                workflows: current.workflows.map((item) => item.id === workflow.id ? { ...item, repeatability: nextValue } : item),
+                              }));
+                            }}
+                            className="w-full accent-[#00DC51]"
+                          />
+                          <p className="mt-2 text-xs font-medium text-white/45">1 = rare or ad hoc, 5 = frequent and highly repeatable.</p>
+                        </div>
+
+                        <div className="rounded-2xl border border-white/10 bg-black/35 p-4">
+                          <div className="mb-2 flex items-center justify-between">
+                            <span className="text-xs font-bold uppercase tracking-[0.16em] text-white/60">Judgement required</span>
+                            <span className="text-sm font-black text-[#00DC51]">{workflow.judgement}/5</span>
+                          </div>
+                          <input
+                            type="range"
+                            min={1}
+                            max={5}
+                            step={1}
+                            value={workflow.judgement}
+                            onChange={(e) => {
+                              const nextValue = clampScore(Number(e.target.value));
+                              updateWorkflowMapState((current) => ({
+                                ...current,
+                                workflows: current.workflows.map((item) => item.id === workflow.id ? { ...item, judgement: nextValue } : item),
+                              }));
+                            }}
+                            className="w-full accent-[#00DC51]"
+                          />
+                          <p className="mt-2 text-xs font-medium text-white/45">1 = low judgement, 5 = high professional interpretation.</p>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
+            <div className="space-y-6">
+              <div className="rounded-3xl border border-white/12 bg-[#050805] p-5">
+                <div className="mb-4 flex items-center justify-between">
+                  <div>
+                    <h5 className="text-lg font-black text-white">Workflow map</h5>
+                    <p className="mt-1 text-sm font-medium text-white/55">High repeatability and low judgement point to the strongest starting agents.</p>
+                  </div>
+                  <div className="rounded-full border border-[#00DC51]/25 bg-[#00DC51]/10 px-3 py-2 text-xs font-bold uppercase tracking-[0.18em] text-[#00DC51]">
+                    {workflowCandidates.length} candidates
+                  </div>
+                </div>
+
+                <div className="relative h-[320px] overflow-hidden rounded-[28px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.03),rgba(255,255,255,0.01))]">
+                  <div className="absolute inset-y-0 left-1/2 w-px bg-white/10" />
+                  <div className="absolute inset-x-0 top-1/2 h-px bg-white/10" />
+                  <div className="absolute left-4 top-4 max-w-[38%] text-[11px] font-bold uppercase tracking-[0.14em] text-[#FFD84D]">Human-led + assistant</div>
+                  <div className="absolute right-4 top-4 max-w-[38%] text-right text-[11px] font-bold uppercase tracking-[0.14em] text-[#00DC51]">Strong agent candidate</div>
+                  <div className="absolute bottom-4 left-4 max-w-[38%] text-[11px] font-bold uppercase tracking-[0.14em] text-[#FF8B8B]">Fully human-led</div>
+                  <div className="absolute bottom-4 right-4 max-w-[38%] text-right text-[11px] font-bold uppercase tracking-[0.14em] text-[#7AB8FF]">Assistant task</div>
+
+                  <div className="absolute bottom-3 left-1/2 -translate-x-1/2 text-[11px] font-semibold uppercase tracking-[0.16em] text-white/40">
+                    Repeatability →
+                  </div>
+                  <div className="absolute left-3 top-1/2 -translate-y-1/2 -rotate-90 text-[11px] font-semibold uppercase tracking-[0.16em] text-white/40">
+                    Judgement →
+                  </div>
+
+                  {workflowMapState.workflows.map((workflow) => {
+                    const quadrant = WORKFLOW_QUADRANTS[getWorkflowQuadrant(workflow.repeatability, workflow.judgement)];
+                    const left = ((workflow.repeatability - 1) / 4) * 100;
+                    const top = (1 - ((workflow.judgement - 1) / 4)) * 100;
+                    const isSelected = workflowMapState.selectedWorkflowIds.includes(workflow.id);
+
+                    return (
+                      <button
+                        key={workflow.id}
+                        onClick={() => {
+                          if (getWorkflowQuadrant(workflow.repeatability, workflow.judgement) !== 'strongAgentCandidate') {
+                            return;
+                          }
+
+                          updateWorkflowMapState((current) => {
+                            const isCurrentlySelected = current.selectedWorkflowIds.includes(workflow.id);
+                            return {
+                              ...current,
+                              selectedWorkflowIds: isCurrentlySelected
+                                ? current.selectedWorkflowIds.filter((id) => id !== workflow.id)
+                                : [...current.selectedWorkflowIds.filter((id) => id !== workflow.id), workflow.id].slice(0, 2),
+                            };
+                          });
+                        }}
+                        className={`absolute -translate-x-1/2 -translate-y-1/2 rounded-full border-2 px-3 py-2 text-[11px] font-black shadow-lg transition-all ${
+                          isSelected
+                            ? 'border-[#00DC51] bg-[#00DC51] text-black shadow-[#00DC51]/40'
+                            : `bg-black/85 text-white ${quadrant.borderClass}`
+                        }`}
+                        style={{ left: `${left}%`, top: `${top}%` }}
+                      >
+                        {workflow.name}
+                      </button>
+                    );
+                  })}
+                </div>
+
+                <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                  {Object.entries(WORKFLOW_QUADRANTS).map(([key, quadrant]) => {
+                    const count = workflowMapState.workflows.filter((workflow) => (
+                      getWorkflowQuadrant(workflow.repeatability, workflow.judgement) === key
+                    )).length;
+
+                    return (
+                      <div key={key} className={`rounded-2xl border p-3 ${quadrant.borderClass} ${quadrant.bgClass}`}>
+                        <p className={`text-xs font-black uppercase tracking-[0.16em] ${quadrant.colorClass}`}>{quadrant.label}</p>
+                        <p className="mt-1 text-sm font-semibold text-white">{count} workflow{count === 1 ? '' : 's'}</p>
+                        <p className="mt-1 text-xs font-medium text-white/50">{quadrant.guidance}</p>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+
+              <div className="rounded-3xl border border-white/12 bg-black/30 p-5">
+                <div className="flex items-start justify-between gap-4">
+                  <div>
+                    <h5 className="text-lg font-black text-white">Copyable workflow summary</h5>
+                    <p className="mt-1 text-sm font-medium text-white/55">Use this output to decide which workflows to test first.</p>
+                  </div>
+                  <button
+                    onClick={() => handlePromptCopy(workflowMapSummary.copyText, 'workflow-map-summary')}
+                    className="inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/5 px-4 py-2 text-xs font-bold text-white/80 transition-colors hover:border-[#00DC51]/40 hover:text-white"
+                  >
+                    {copiedPromptId === 'workflow-map-summary' ? <Check size={14} strokeWidth={3} /> : <Copy size={14} strokeWidth={2.5} />}
+                    <span>{copiedPromptId === 'workflow-map-summary' ? 'Copied' : 'Copy summary'}</span>
+                  </button>
+                </div>
+
+                <pre className="mt-4 whitespace-pre-wrap rounded-2xl border border-white/10 bg-[#050805] p-4 text-xs font-medium leading-relaxed text-white/72">
+                  {workflowMapSummary.copyText}
+                </pre>
+              </div>
+            </div>
+          </div>
+
+          )}
+
+          {userInput && userInput !== '{}' && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.96 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="mt-4 flex items-center gap-2 text-xs font-bold text-[#00DC51]"
+            >
+              <CheckCircle size={16} strokeWidth={2.5} />
+              <span>Workflow map saved locally</span>
+            </motion.div>
+          )}
+        </motion.div>
+      )}
+
+      {isAgentSpecWizardPage && page.activity && page.activity.specFields && (
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.25 }}
+          className="rounded-[28px] border-2 border-[#00DC51] bg-gradient-to-br from-[#00DC51]/14 via-[#071109] to-black p-6 shadow-2xl shadow-[#00DC51]/10 md:p-8"
+        >
+          <div className="mb-6 flex items-start gap-4">
+            <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-2xl bg-[#00DC51] shadow-lg shadow-[#00DC51]/35">
+              <Bot className="text-black" size={24} strokeWidth={2.5} />
+            </div>
+            <div className="flex-1">
+              <div className="mb-2 flex items-center gap-2">
+                <span className="text-xs font-black uppercase tracking-[0.22em] text-[#00DC51]">Activity</span>
+                <div className="h-px flex-1 bg-[#00DC51]/30" />
+              </div>
+              <h4 className="text-xl font-black text-white">{page.activity.title}</h4>
+              <p className="mt-2 max-w-3xl text-sm font-medium leading-relaxed text-white/72">{page.activity.prompt}</p>
+            </div>
+          </div>
+
+          <div className="mb-6 space-y-3">
+            <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.16em] text-white/45">
+              <span>Step {agentSpecCurrentStep + 1} of {agentSpecFields.length}</span>
+              <span>{completedAgentSpecFields} completed</span>
+            </div>
+            <div className="h-2 overflow-hidden rounded-full bg-white/10">
+              <div
+                className="h-full rounded-full bg-[#00DC51] transition-all"
+                style={{ width: `${agentSpecFields.length > 0 ? ((agentSpecCurrentStep + 1) / agentSpecFields.length) * 100 : 0}%` }}
+              />
+            </div>
+          </div>
+
+          {!agentSpecReviewMode ? (
+            <div className="grid gap-6 xl:grid-cols-[0.8fr_1.2fr]">
+              <div className="rounded-3xl border border-white/12 bg-black/30 p-5">
+                <p className="text-xs font-black uppercase tracking-[0.18em] text-[#00DC51]">
+                  {agentSpecFields[agentSpecCurrentStep]?.label}
+                </p>
+                <h5 className="mt-3 text-2xl font-black text-white">
+                  {agentSpecFields[agentSpecCurrentStep]?.label}
+                </h5>
+                <p className="mt-3 text-sm font-medium leading-relaxed text-white/60">
+                  {agentSpecFields[agentSpecCurrentStep]?.placeholder}
+                </p>
+
+                <div className="mt-5 grid gap-2">
+                  {agentSpecFields.map((field, index) => (
+                    <button
+                      key={field.label}
+                      onClick={() => updateAgentSpecState((current) => ({ ...current, currentStep: index, reviewMode: false }))}
+                      className={`flex items-center justify-between rounded-2xl border px-3 py-3 text-left text-sm font-semibold transition-colors ${
+                        index === agentSpecCurrentStep
+                          ? 'border-[#00DC51] bg-[#00DC51]/10 text-white'
+                          : 'border-white/10 bg-white/5 text-white/60 hover:border-white/20 hover:text-white/80'
+                      }`}
+                    >
+                      <span>{field.label}</span>
+                      {(agentSpecFieldValues[`field-${index}`] || '').trim() ? (
+                        <CheckCircle size={16} className="text-[#00DC51]" strokeWidth={2.5} />
+                      ) : (
+                        <span className="text-[11px] uppercase tracking-[0.16em] text-white/30">Pending</span>
+                      )}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div className="rounded-3xl border border-white/12 bg-[#050805] p-5">
+                <label className="mb-2 block text-sm font-bold text-white/90">
+                  {agentSpecFields[agentSpecCurrentStep]?.label}
+                </label>
+                <textarea
+                  value={agentSpecFieldValues[`field-${agentSpecCurrentStep}`] || ''}
+                  onChange={(e) => {
+                    const fieldKey = `field-${agentSpecCurrentStep}`;
+                    updateAgentSpecState((current) => ({
+                      ...current,
+                      [fieldKey]: e.target.value,
+                    }));
+                  }}
+                  placeholder={agentSpecFields[agentSpecCurrentStep]?.placeholder}
+                  className="min-h-[240px] w-full rounded-3xl border-2 border-white/15 bg-black/40 p-4 text-sm font-medium leading-relaxed text-white placeholder-white/35 outline-none transition-colors focus:border-[#00DC51]"
+                />
+
+                <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:justify-between">
+                  <button
+                    onClick={() => updateAgentSpecState((current) => ({
+                      ...current,
+                      currentStep: Math.max(agentSpecCurrentStep - 1, 0),
+                      reviewMode: false,
+                    }))}
+                    disabled={agentSpecCurrentStep === 0}
+                    className="inline-flex items-center justify-center gap-2 rounded-full border border-white/12 bg-white/5 px-4 py-3 text-sm font-bold text-white/75 transition-colors hover:border-white/25 hover:text-white disabled:cursor-not-allowed disabled:opacity-40"
+                  >
+                    <RotateCcw size={16} strokeWidth={2.5} />
+                    Back
+                  </button>
+
+                  <div className="flex flex-col gap-3 sm:flex-row">
+                    <button
+                      onClick={() => handlePromptCopy(agentSpecCopyText, 'agent-spec-copy')}
+                      className="inline-flex items-center justify-center gap-2 rounded-full border border-white/12 bg-white/5 px-4 py-3 text-sm font-bold text-white/80 transition-colors hover:border-[#00DC51]/40 hover:text-white"
+                    >
+                      {copiedPromptId === 'agent-spec-copy' ? <Check size={16} strokeWidth={3} /> : <Copy size={16} strokeWidth={2.5} />}
+                      <span>{copiedPromptId === 'agent-spec-copy' ? 'Copied' : 'Copy spec'}</span>
+                    </button>
+                    <button
+                      onClick={() => updateAgentSpecState((current) => ({
+                        ...current,
+                        currentStep: Math.min(agentSpecCurrentStep + 1, Math.max(agentSpecFields.length - 1, 0)),
+                        reviewMode: agentSpecCurrentStep >= agentSpecFields.length - 1,
+                      }))}
+                      className="inline-flex items-center justify-center gap-2 rounded-full bg-[#00DC51] px-5 py-3 text-sm font-black text-black transition-all hover:bg-[#00F25B]"
+                    >
+                      <span>{agentSpecCurrentStep >= agentSpecFields.length - 1 ? 'Review spec' : 'Next step'}</span>
+                      <ArrowRight size={16} strokeWidth={2.8} />
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div className="space-y-5">
+              <div className="rounded-3xl border border-[#00DC51]/25 bg-[#00DC51]/10 p-4">
+                <p className="text-sm font-semibold leading-relaxed text-white/78">
+                  Review the full specification below. Every field stays editable, and the final output is copyable for use in a brief, SOP, or implementation handover.
+                </p>
+              </div>
+
+              <div className="grid gap-4 lg:grid-cols-2">
+                {agentSpecFields.map((field, index) => {
+                  const value = agentSpecFieldValues[`field-${index}`] || '';
+
+                  return (
+                    <button
+                      key={field.label}
+                      onClick={() => updateAgentSpecState((current) => ({ ...current, currentStep: index, reviewMode: false }))}
+                      className="rounded-3xl border border-white/12 bg-black/30 p-5 text-left transition-colors hover:border-[#00DC51]/35"
+                    >
+                      <div className="mb-2 flex items-center justify-between gap-3">
+                        <p className="text-xs font-black uppercase tracking-[0.16em] text-[#00DC51]">{field.label}</p>
+                        {(value || '').trim() ? (
+                          <CheckCircle size={16} className="text-[#00DC51]" strokeWidth={2.5} />
+                        ) : (
+                          <AlertCircle size={16} className="text-[#FFD84D]" strokeWidth={2.5} />
+                        )}
+                      </div>
+                      <p className="whitespace-pre-wrap text-sm font-medium leading-relaxed text-white/72">
+                        {value || 'Not completed yet'}
+                      </p>
+                    </button>
+                  );
+                })}
+              </div>
+
+              <div className="rounded-3xl border border-white/12 bg-[#050805] p-5">
+                <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                  <div>
+                    <h5 className="text-lg font-black text-white">Copyable agent specification</h5>
+                    <p className="mt-1 text-sm font-medium text-white/55">Use this output when briefing the workflow, review point, and escalation rules.</p>
+                  </div>
+                  <button
+                    onClick={() => handlePromptCopy(agentSpecCopyText, 'agent-spec-review-copy')}
+                    className="inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/5 px-4 py-2 text-xs font-bold text-white/80 transition-colors hover:border-[#00DC51]/40 hover:text-white"
+                  >
+                    {copiedPromptId === 'agent-spec-review-copy' ? <Check size={14} strokeWidth={3} /> : <Copy size={14} strokeWidth={2.5} />}
+                    <span>{copiedPromptId === 'agent-spec-review-copy' ? 'Copied' : 'Copy spec'}</span>
+                  </button>
+                </div>
+
+                <pre className="whitespace-pre-wrap rounded-2xl border border-white/10 bg-black/35 p-4 text-xs font-medium leading-relaxed text-white/72">
+                  {agentSpecCopyText}
+                </pre>
+              </div>
+
+              <div className="flex flex-wrap gap-3">
+                <button
+                  onClick={() => updateAgentSpecState((current) => ({ ...current, reviewMode: false }))}
+                  className="inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/5 px-4 py-3 text-sm font-bold text-white/75 transition-colors hover:border-white/25 hover:text-white"
+                >
+                  <RotateCcw size={16} strokeWidth={2.5} />
+                  Edit answers
+                </button>
+              </div>
+            </div>
+          )}
+
+          {userInput && userInput !== '{}' && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.96 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="mt-4 flex items-center gap-2 text-xs font-bold text-[#00DC51]"
+            >
+              <CheckCircle size={16} strokeWidth={2.5} />
+              <span>Agent specification saved locally</span>
+            </motion.div>
+          )}
+        </motion.div>
+      )}
+
+      {isToolMatrixPage && page.activity && (
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.25 }}
+          className="rounded-[28px] border-2 border-[#00DC51] bg-gradient-to-br from-[#00DC51]/14 via-[#071109] to-black p-6 shadow-2xl shadow-[#00DC51]/10 md:p-8"
+        >
+          <div className="mb-6 flex items-start gap-4">
+            <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-2xl bg-[#00DC51] shadow-lg shadow-[#00DC51]/35">
+              <Shield className="text-black" size={24} strokeWidth={2.5} />
+            </div>
+            <div className="flex-1">
+              <div className="mb-2 flex items-center gap-2">
+                <span className="text-xs font-black uppercase tracking-[0.22em] text-[#00DC51]">Activity</span>
+                <div className="h-px flex-1 bg-[#00DC51]/30" />
+              </div>
+              <h4 className="text-xl font-black text-white">{page.activity.title}</h4>
+              <p className="mt-2 max-w-3xl text-sm font-medium leading-relaxed text-white/72">{page.activity.prompt}</p>
+            </div>
+          </div>
+
+          <div className="grid gap-6 xl:grid-cols-[0.72fr_1.28fr]">
+            <aside className="space-y-3 rounded-3xl border border-white/12 bg-black/30 p-4">
+              <div>
+                <h5 className="text-lg font-black text-white">Tool boundaries</h5>
+                <p className="mt-1 text-sm font-medium text-white/55">Select a row to define tasks, data boundaries, and review requirements.</p>
+              </div>
+
+              <div className="space-y-2">
+                {toolMatrixState.rows.map((row, index) => {
+                  const icons = [MessageSquare, Shield, Database, Bot];
+                  const Icon = icons[index] || Lock;
+
+                  return (
+                    <button
+                      key={row.id}
+                      onClick={() => updateToolMatrixState((current) => ({ ...current, activeRowId: row.id }))}
+                      className={`w-full rounded-2xl border p-4 text-left transition-colors ${
+                        activeToolMatrixRow?.id === row.id
+                          ? 'border-[#00DC51] bg-[#00DC51]/10'
+                          : 'border-white/10 bg-white/5 hover:border-white/20'
+                      }`}
+                    >
+                      <div className="flex items-start gap-3">
+                        <div className="mt-0.5 flex h-10 w-10 items-center justify-center rounded-2xl bg-black/40 text-[#00DC51]">
+                          <Icon size={18} strokeWidth={2.5} />
+                        </div>
+                        <div>
+                          <p className="text-sm font-black text-white">{row.toolName || 'Untitled tool'}</p>
+                          <p className="mt-1 line-clamp-2 text-xs font-medium leading-relaxed text-white/50">
+                            {row.allowedTasks || 'Add the tasks this tool is allowed to support.'}
+                          </p>
+                        </div>
+                      </div>
+                    </button>
+                  );
+                })}
+              </div>
+            </aside>
+
+            <div className="space-y-5">
+              {activeToolMatrixRow && (
+                <div className="rounded-3xl border border-white/12 bg-[#050805] p-5">
+                  <div className="mb-5 flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between">
+                    <div>
+                      <p className="text-xs font-black uppercase tracking-[0.18em] text-[#00DC51]">Matrix row</p>
+                      <h5 className="mt-2 text-2xl font-black text-white">{activeToolMatrixRow.toolName}</h5>
+                      <p className="mt-2 text-sm font-medium text-white/55">Define exactly what this tool can do, what data it can use, and where review stays mandatory.</p>
+                    </div>
+                    <button
+                      onClick={() => handlePromptCopy(toolMatrixSummary.copyText, 'tool-matrix-summary')}
+                      className="inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/5 px-4 py-2 text-xs font-bold text-white/80 transition-colors hover:border-[#00DC51]/40 hover:text-white"
+                    >
+                      {copiedPromptId === 'tool-matrix-summary' ? <Check size={14} strokeWidth={3} /> : <Copy size={14} strokeWidth={2.5} />}
+                      <span>{copiedPromptId === 'tool-matrix-summary' ? 'Copied' : 'Copy matrix'}</span>
+                    </button>
+                  </div>
+
+                  <div className="grid gap-4">
+                    <div className="space-y-2">
+                      <label className="text-sm font-bold text-white/90">Tool or category name</label>
+                      <input
+                        type="text"
+                        value={activeToolMatrixRow.toolName}
+                        onChange={(e) => {
+                          const value = e.target.value;
+                          updateToolMatrixState((current) => ({
+                            ...current,
+                            rows: current.rows.map((row) => row.id === activeToolMatrixRow.id ? { ...row, toolName: value } : row),
+                          }));
+                        }}
+                        className="w-full rounded-2xl border-2 border-white/15 bg-black/40 px-4 py-3 text-sm font-medium text-white placeholder-white/35 outline-none transition-colors focus:border-[#00DC51]"
+                      />
+                    </div>
+
+                    <div className="space-y-2">
+                      <label className="text-sm font-bold text-white/90">Allowed tasks</label>
+                      <textarea
+                        value={activeToolMatrixRow.allowedTasks}
+                        onChange={(e) => {
+                          const value = e.target.value;
+                          updateToolMatrixState((current) => ({
+                            ...current,
+                            rows: current.rows.map((row) => row.id === activeToolMatrixRow.id ? { ...row, allowedTasks: value } : row),
+                          }));
+                        }}
+                        placeholder="Define the tasks this tool is allowed to support."
+                        className="min-h-[110px] w-full rounded-2xl border-2 border-white/15 bg-black/40 p-4 text-sm font-medium text-white placeholder-white/35 outline-none transition-colors focus:border-[#00DC51]"
+                      />
+                    </div>
+
+                    <div className="grid gap-4 md:grid-cols-2">
+                      <div className="space-y-2">
+                        <label className="text-sm font-bold text-white/90">Data boundaries</label>
+                        <textarea
+                          value={activeToolMatrixRow.dataBoundaries}
+                          onChange={(e) => {
+                            const value = e.target.value;
+                            updateToolMatrixState((current) => ({
+                              ...current,
+                              rows: current.rows.map((row) => row.id === activeToolMatrixRow.id ? { ...row, dataBoundaries: value } : row),
+                            }));
+                          }}
+                          placeholder="What data can this tool use?"
+                          className="min-h-[110px] w-full rounded-2xl border-2 border-white/15 bg-black/40 p-4 text-sm font-medium text-white placeholder-white/35 outline-none transition-colors focus:border-[#00DC51]"
+                        />
+                      </div>
+
+                      <div className="space-y-2">
+                        <label className="text-sm font-bold text-white/90">Review required</label>
+                        <textarea
+                          value={activeToolMatrixRow.reviewRequired}
+                          onChange={(e) => {
+                            const value = e.target.value;
+                            updateToolMatrixState((current) => ({
+                              ...current,
+                              rows: current.rows.map((row) => row.id === activeToolMatrixRow.id ? { ...row, reviewRequired: value } : row),
+                            }));
+                          }}
+                          placeholder="Explain where review or approval is mandatory."
+                          className="min-h-[110px] w-full rounded-2xl border-2 border-white/15 bg-black/40 p-4 text-sm font-medium text-white placeholder-white/35 outline-none transition-colors focus:border-[#00DC51]"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              <div className="rounded-3xl border border-white/12 bg-black/30 p-5">
+                <h5 className="text-lg font-black text-white">Copyable matrix output</h5>
+                <p className="mt-1 text-sm font-medium text-white/55">This output can be copied into internal guidance, policy notes, or staff training material.</p>
+                <pre className="mt-4 whitespace-pre-wrap rounded-2xl border border-white/10 bg-[#050805] p-4 text-xs font-medium leading-relaxed text-white/72">
+                  {toolMatrixSummary.copyText}
+                </pre>
+              </div>
+            </div>
+          </div>
+
+          {userInput && userInput !== '{}' && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.96 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="mt-4 flex items-center gap-2 text-xs font-bold text-[#00DC51]"
+            >
+              <CheckCircle size={16} strokeWidth={2.5} />
+              <span>Tool usage matrix saved locally</span>
+            </motion.div>
+          )}
+        </motion.div>
+      )}
+
       {/* Interactive Activity */}
-      {page.activity && !isPromptLibraryPage && (
+      {page.activity && !isPromptLibraryPage && !isWorkflowMapPage && !isAgentSpecWizardPage && !isToolMatrixPage && (
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
