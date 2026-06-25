@@ -1059,6 +1059,7 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
   const isWorkflowMapPage = page.id === 's3-workflow-map';
   const isAgentSpecWizardPage = page.id === 's7-agent-spec';
   const isToolMatrixPage = page.id === 's7-tool-matrix';
+  const isFinishPage = page.id === 's7-finish';
   const [copiedPromptId, setCopiedPromptId] = useState<string | null>(null);
   const promptLibraryState = isPromptLibraryPage
     ? parsePromptLibraryState(userInput)
@@ -2946,32 +2947,59 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
               )}
 
               {block.type === 'highlight' && (
-                <motion.div
-                  whileHover={page.section?.includes('Section 2') ? { x: 4 } : {}}
-                  transition={{ type: "spring", stiffness: 300 }}
-                  className="relative bg-gradient-to-r from-[#00DC51]/15 to-transparent border-l-4 border-[#00DC51] rounded-r-xl p-5 backdrop-blur-sm group"
-                >
-                  {page.section?.includes('Section 2') && (
-                    <div className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 bg-[#00DC51]/20 rounded-full blur-xl group-hover:bg-[#00DC51]/30 transition-all" />
-                  )}
-                  <div className="relative flex items-start gap-3">
+                isFinishPage ? (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.35 }}
+                    className="rounded-r-xl border-l-[4px] border-[#00DC51] bg-gradient-to-r from-[#00DC51]/16 to-transparent px-5 py-5"
+                  >
+                    <div className="flex items-start gap-3">
+                      <Lightbulb className="mt-0.5 flex-shrink-0 text-[#00DC51]" size={18} strokeWidth={2.5} />
+                      <div className="flex-1">
+                        <p className="text-base font-bold leading-relaxed text-white">{block.text}</p>
+                      </div>
+                    </div>
+                  </motion.div>
+                ) : (
+                  <motion.div
+                    whileHover={page.section?.includes('Section 2') ? { x: 4 } : {}}
+                    transition={{ type: "spring", stiffness: 300 }}
+                    className="relative bg-gradient-to-r from-[#00DC51]/15 to-transparent border-l-4 border-[#00DC51] rounded-r-xl p-5 backdrop-blur-sm group"
+                  >
                     {page.section?.includes('Section 2') && (
-                      <Lightbulb className="text-[#00DC51] flex-shrink-0 mt-0.5" size={20} strokeWidth={2.5} />
+                      <div className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 bg-[#00DC51]/20 rounded-full blur-xl group-hover:bg-[#00DC51]/30 transition-all" />
                     )}
-                    <p className="font-bold text-base leading-relaxed flex-1">{block.text}</p>
-                  </div>
-                </motion.div>
+                    <div className="relative flex items-start gap-3">
+                      {page.section?.includes('Section 2') && (
+                        <Lightbulb className="text-[#00DC51] flex-shrink-0 mt-0.5" size={20} strokeWidth={2.5} />
+                      )}
+                      <p className="font-bold text-base leading-relaxed flex-1">{block.text}</p>
+                    </div>
+                  </motion.div>
+                )
               )}
 
               {block.type === 'list' && (
-                <div className="space-y-2.5">
-                  {block.items?.map((item, i) => (
-                    <div key={i} className="flex items-start gap-3">
-                      <div className="w-1.5 h-1.5 bg-[#00DC51] rounded-full flex-shrink-0 mt-2 shadow-[0_0_8px_rgba(0,220,81,0.6)]" />
-                      <p className="text-white/80 text-sm font-medium flex-1 leading-relaxed">{item}</p>
-                    </div>
-                  ))}
-                </div>
+                isFinishPage ? (
+                  <div className="space-y-4">
+                    {block.items?.map((item, i) => (
+                      <div key={i} className="flex items-start gap-3">
+                        <Check size={14} strokeWidth={3.2} className="mt-1 flex-shrink-0 text-[#00DC51]" />
+                        <p className="flex-1 text-[15px] font-medium leading-relaxed text-white">{item}</p>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="space-y-2.5">
+                    {block.items?.map((item, i) => (
+                      <div key={i} className="flex items-start gap-3">
+                        <div className="w-1.5 h-1.5 bg-[#00DC51] rounded-full flex-shrink-0 mt-2 shadow-[0_0_8px_rgba(0,220,81,0.6)]" />
+                        <p className="text-white/80 text-sm font-medium flex-1 leading-relaxed">{item}</p>
+                      </div>
+                    ))}
+                  </div>
+                )
               )}
 
               {block.type === 'numbered-list' && (
@@ -3746,6 +3774,20 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
                     className="border-l-[3px] border-[#00DC51] px-5 py-3"
                   >
                     <p className="text-[15px] font-bold italic leading-relaxed text-white">{block.text}</p>
+                  </motion.div>
+                ) : isFinishPage ? (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.35 }}
+                    className="rounded-r-xl border-l-[4px] border-[#00DC51] bg-gradient-to-r from-[#00DC51]/16 to-transparent px-5 py-5 sm:px-6"
+                  >
+                    <div className="flex items-start gap-4">
+                      <div className="text-4xl font-black leading-none text-[#00DC51]/90">"</div>
+                      <p className="pt-1 text-lg font-bold italic leading-relaxed text-white">
+                        {block.text}
+                      </p>
+                    </div>
                   </motion.div>
                 ) : (
                   <motion.div
@@ -5276,21 +5318,25 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
-          className={`bg-gradient-to-br from-[#00DC51]/15 to-[#00DC51]/5 border-2 border-[#00DC51] rounded-2xl p-6 backdrop-blur-sm ${
+          className={`${isFinishPage
+            ? 'rounded-[28px] border border-[#00DC51] bg-gradient-to-br from-[#00DC51]/14 to-[#00DC51]/5 p-6 md:p-7'
+            : 'bg-gradient-to-br from-[#00DC51]/15 to-[#00DC51]/5 border-2 border-[#00DC51] rounded-2xl p-6 backdrop-blur-sm'} ${
             isCertificatePage ? 'certificate-activity-shell' : ''
           }`}
         >
           <div className={`flex items-start gap-4 mb-5 ${isCertificatePage ? 'certificate-screen-only' : ''}`}>
-            <div className="w-11 h-11 bg-[#00DC51] rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-[#00DC51]/40">
-              <Lightbulb className="text-black" size={22} strokeWidth={2.5} />
+            <div className={`${isFinishPage
+              ? 'flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl bg-[#00DC51] shadow-lg shadow-[#00DC51]/35'
+              : 'w-11 h-11 bg-[#00DC51] rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-[#00DC51]/40'}`}>
+              <Lightbulb className={isFinishPage ? 'text-black' : 'text-black'} size={20} strokeWidth={2.5} />
             </div>
             <div className="flex-1">
               <div className="flex items-center gap-2 mb-2">
                 <span className="text-xs font-black text-[#00DC51] uppercase tracking-wider">Activity</span>
-                <div className="h-px flex-1 bg-[#00DC51]/30" />
+                <div className={`h-px flex-1 ${isFinishPage ? 'bg-[#00DC51]/30' : 'bg-[#00DC51]/30'}`} />
               </div>
-              <h4 className="font-black text-lg mb-2">{page.activity.title}</h4>
-              <p className="text-sm text-white/70 font-medium leading-relaxed">{page.activity.prompt}</p>
+              <h4 className={`font-black mb-2 ${isFinishPage ? 'text-xl text-white' : 'text-lg'}`}>{page.activity.title}</h4>
+              <p className={`${isFinishPage ? 'max-w-3xl text-base text-white/72' : 'text-sm text-white/70'} font-medium leading-relaxed`}>{page.activity.prompt}</p>
             </div>
           </div>
           
@@ -5301,7 +5347,9 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
                 value={userInput}
                 onChange={(e) => onInputChange(e.target.value)}
                 placeholder="Type your answer here..."
-                className="w-full bg-black/40 border-2 border-white/20 focus:border-[#00DC51] rounded-xl p-4 text-white placeholder-white/40 focus:outline-none resize-none font-medium transition-colors text-sm min-h-[140px]"
+                className={`${isFinishPage
+                  ? 'min-h-[180px] w-full rounded-[20px] border border-white/18 bg-black/32 p-5 text-base text-white placeholder-white/32 focus:border-[#00DC51]'
+                  : 'w-full rounded-xl border-2 border-white/20 bg-black/40 p-4 text-sm text-white placeholder-white/40 focus:border-[#00DC51]'} focus:outline-none resize-none font-medium transition-colors`}
               />
               
               {userInput && (
@@ -5975,17 +6023,21 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
-          className={`bg-[#00DC51]/10 border-2 border-[#00DC51] rounded-2xl p-6 backdrop-blur-sm ${
+          className={`${isFinishPage
+            ? 'rounded-[24px] border border-[#00DC51] bg-gradient-to-br from-[#00DC51]/14 to-[#00DC51]/5 p-5 sm:p-6'
+            : 'bg-[#00DC51]/10 border-2 border-[#00DC51] rounded-2xl p-6 backdrop-blur-sm'} ${
             isCertificatePage ? 'certificate-screen-only' : ''
           }`}
         >
           <div className="flex items-start gap-4">
-            <div className="w-11 h-11 bg-[#00DC51] rounded-full flex items-center justify-center flex-shrink-0 shadow-lg shadow-[#00DC51]/40">
-              <Zap className="text-black" size={22} strokeWidth={2.5} />
+            <div className={`${isFinishPage
+              ? 'flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full bg-[#00DC51] shadow-lg shadow-[#00DC51]/35'
+              : 'w-11 h-11 bg-[#00DC51] rounded-full flex items-center justify-center flex-shrink-0 shadow-lg shadow-[#00DC51]/40'}`}>
+              <Zap className={isFinishPage ? 'text-black' : 'text-black'} size={22} strokeWidth={2.5} />
             </div>
             <div className="flex-1">
-              <div className="text-xs font-black text-[#00DC51] mb-2 uppercase tracking-wider">Key Takeaway</div>
-              <p className="font-bold text-base leading-relaxed">
+              <div className={`mb-2 text-xs font-black uppercase tracking-wider ${isFinishPage ? 'text-[#00DC51]' : 'text-[#00DC51]'}`}>Key Takeaway</div>
+              <p className={`font-bold leading-relaxed ${isFinishPage ? 'text-white text-[15px] sm:text-base' : 'text-base'}`}>
                 {page.id === 's6-days61-90' && page.takeaway.includes('[your answer from the activity above]')
                   ? page.takeaway.replace(
                       '[your answer from the activity above]',
