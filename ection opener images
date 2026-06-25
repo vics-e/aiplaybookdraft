@@ -1,0 +1,71 @@
+[33mcommit 83c96bc1fd4d6bedcdb64e02d17d63a902e9564f[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mv1-design-updates[m[33m, [m[1;31morigin/v1-design-updates[m[33m)[m
+Author: vics-e <victor.egunlae@sage.com>
+Date:   Wed Jun 24 23:44:17 2026 +0100
+
+    redesign page 24 workflow mapper
+
+[33mcommit 582c48b9dc7dc9b5596e6680caf16554fc1dcf01[m
+Author: vics-e <victor.egunlae@sage.com>
+Date:   Wed Jun 24 14:03:15 2026 +0100
+
+    add activity variety plan
+
+[33mcommit 407d7d56bf516e42bcb90812c18d92fa387e89ad[m
+Author: vics-e <victor.egunlae@sage.com>
+Date:   Wed Jun 24 13:49:21 2026 +0100
+
+    add clickthrough review notes
+
+[33mcommit d2f67c462db75c1fd2614f133e5bc6c6ec9aa0f8[m
+Author: vics-e <victor.egunlae@sage.com>
+Date:   Wed Jun 24 13:26:02 2026 +0100
+
+    fix broken playbook activities
+
+[33mcommit 38bd41b513857fda6ae1803d898c8206f71287da[m
+Author: vics-e <victor.egunlae@sage.com>
+Date:   Wed Jun 24 13:08:02 2026 +0100
+
+    improve glossary experience and update UK spelling
+
+[33mcommit 8580b24798e1c47e754edefdf96780bea28df681[m
+Author: vics-e <victor.egunlae@sage.com>
+Date:   Wed Jun 24 11:21:09 2026 +0100
+
+    improve prompt library activity
+
+[33mcommit 24cdddd7a3079c1d8d06e497aeed7ae0e2147ee9[m
+Author: vics-e <victor.egunlae@sage.com>
+Date:   Wed Jun 24 11:06:09 2026 +0100
+
+    fix certificate print output
+
+[33mcommit ea2809eeb1d941569b4ebd85b13e5475bb19d6c8[m
+Author: vics-e <victor.egunlae@sage.com>
+Date:   Wed Jun 24 09:35:47 2026 +0100
+
+    add section opener images
+
+[33mcommit 27400422f167f838418f978c6b3b7b3fcbbe836e[m
+Author: vics-e <victor.egunlae@sage.com>
+Date:   Wed Jun 24 09:15:17 2026 +0100
+
+    optimise playbook images
+
+[33mcommit eaa26f9cd6ffd95b387f366a8d80f1a4b3ad8246[m
+Author: vics-e <victor.egunlae@sage.com>
+Date:   Tue Jun 23 22:38:52 2026 +0100
+
+    fix: correct stale page numbers on contents page
+
+[33mcommit 4dea911882d84ac2aa5a413320125e9c3f8004ab[m
+Author: vics-e <victor.egunlae@sage.com>
+Date:   Tue Jun 23 22:09:20 2026 +0100
+
+    add legacy review docs
+
+[33mcommit 628d0c56842a38caf0b34fa301e561a11295e18b[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m
+Author: vics-e <victor.egunlae@sage.com>
+Date:   Sun May 17 18:32:38 2026 +0100
+
+    Initial commit

@@ -1,0 +1,1407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Workflow Map: Where Agents Work Best</title>
+  <style>
+    :root {
+      --bg: #050705;
+      --panel: #0c120d;
+      --panel-soft: rgba(255, 255, 255, 0.04);
+      --panel-border: rgba(0, 220, 81, 0.22);
+      --panel-border-soft: rgba(255, 255, 255, 0.12);
+      --text: #f5f7f6;
+      --muted: rgba(245, 247, 246, 0.72);
+      --dim: rgba(245, 247, 246, 0.45);
+      --sage: #00dc51;
+      --sage-strong: #00f25b;
+      --amber: #ffd84d;
+      --blue: #7ab8ff;
+      --red: #ff8b8b;
+      --shadow: 0 28px 80px rgba(0, 0, 0, 0.45);
+      --radius-xl: 28px;
+      --radius-lg: 20px;
+      --radius-md: 14px;
+      --font: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --font-display: "Avenir Next", "Segoe UI", Inter, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: var(--font);
+      color: var(--text);
+      background:
+        radial-gradient(circle at top right, rgba(0, 220, 81, 0.12), transparent 32%),
+        linear-gradient(180deg, #081009 0%, var(--bg) 38%, #020302 100%);
+    }
+
+    .page {
+      width: min(1320px, calc(100vw - 32px));
+      margin: 0 auto;
+      padding: 32px 0 56px;
+    }
+
+    .hero {
+      margin-bottom: 24px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 14px;
+      border: 1px solid var(--panel-border);
+      border-radius: 999px;
+      background: rgba(0, 220, 81, 0.08);
+      color: var(--sage);
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    h1 {
+      margin: 18px 0 12px;
+      font: 900 clamp(2.1rem, 4.5vw, 3.6rem)/1.02 var(--font-display);
+      letter-spacing: -0.04em;
+    }
+
+    .subtitle {
+      margin: 0;
+      max-width: 840px;
+      color: var(--muted);
+      font-size: clamp(1rem, 1.7vw, 1.14rem);
+      line-height: 1.6;
+      font-weight: 600;
+    }
+
+    .content-stack {
+      display: grid;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .copy-block,
+    .callout,
+    .steps,
+    .candidates,
+    .activity-shell {
+      border-radius: var(--radius-xl);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02));
+      border: 1px solid var(--panel-border-soft);
+      box-shadow: var(--shadow);
+    }
+
+    .copy-block,
+    .callout,
+    .steps,
+    .candidates {
+      padding: 22px 24px;
+    }
+
+    .copy-block p,
+    .callout p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 0.98rem;
+      font-weight: 600;
+    }
+
+    .copy-block strong,
+    .callout strong {
+      color: var(--text);
+    }
+
+    .section-label {
+      margin: 0 0 12px;
+      color: var(--sage);
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .step-card {
+      position: relative;
+      padding: 16px;
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(0, 0, 0, 0.24);
+      min-height: 172px;
+    }
+
+    .step-number {
+      width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(0, 220, 81, 0.35);
+      background: rgba(0, 220, 81, 0.12);
+      color: var(--sage);
+      font-size: 12px;
+      font-weight: 900;
+      margin-bottom: 14px;
+    }
+
+    .step-title {
+      margin: 0 0 8px;
+      font-size: 0.98rem;
+      font-weight: 800;
+    }
+
+    .step-desc {
+      margin: 0;
+      font-size: 0.88rem;
+      line-height: 1.58;
+      color: var(--muted);
+      font-weight: 600;
+      white-space: pre-line;
+    }
+
+    .callout {
+      border-left: 4px solid var(--sage);
+      background: linear-gradient(90deg, rgba(0, 220, 81, 0.12), rgba(0, 220, 81, 0.02));
+    }
+
+    .candidate-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .candidate-chip {
+      padding: 11px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text);
+      font-size: 0.88rem;
+      font-weight: 700;
+      line-height: 1.35;
+    }
+
+    .activity-shell {
+      padding: 28px;
+      border: 2px solid var(--sage);
+      background: linear-gradient(135deg, rgba(0, 220, 81, 0.14), rgba(7, 17, 9, 0.94) 42%, rgba(0, 0, 0, 0.98));
+    }
+
+    .activity-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .activity-badge {
+      width: 48px;
+      height: 48px;
+      display: grid;
+      place-items: center;
+      border-radius: 16px;
+      background: var(--sage);
+      color: #071109;
+      font-size: 20px;
+      font-weight: 900;
+      box-shadow: 0 14px 28px rgba(0, 220, 81, 0.28);
+      flex: 0 0 auto;
+    }
+
+    .activity-meta {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .activity-meta-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .activity-meta-row span {
+      color: var(--sage);
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .activity-meta-row i {
+      display: block;
+      flex: 1;
+      height: 1px;
+      background: rgba(0, 220, 81, 0.32);
+    }
+
+    .activity-title {
+      margin: 0;
+      font-size: clamp(1.35rem, 2.4vw, 1.7rem);
+      font-weight: 900;
+    }
+
+    .activity-prompt {
+      margin: 10px 0 0;
+      color: var(--muted);
+      font-size: 0.97rem;
+      line-height: 1.65;
+      font-weight: 600;
+      max-width: 860px;
+    }
+
+    .activity-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.08fr) minmax(320px, 0.92fr);
+      gap: 24px;
+    }
+
+    .stack {
+      display: grid;
+      gap: 18px;
+    }
+
+    .panel {
+      border-radius: var(--radius-xl);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(0, 0, 0, 0.28);
+      padding: 20px;
+    }
+
+    .panel h3,
+    .panel h4 {
+      margin: 0;
+      font-weight: 900;
+    }
+
+    .panel-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .panel-meta {
+      margin: 8px 0 0;
+      color: var(--dim);
+      font-size: 0.82rem;
+      font-weight: 700;
+    }
+
+    .input-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    input[type="text"] {
+      flex: 1 1 260px;
+      min-width: 0;
+      padding: 15px 16px;
+      border-radius: 18px;
+      border: 2px solid rgba(255, 255, 255, 0.16);
+      background: rgba(0, 0, 0, 0.42);
+      color: var(--text);
+      font: 600 0.94rem/1.2 var(--font);
+      outline: none;
+      transition: border-color 140ms ease, transform 140ms ease;
+    }
+
+    input[type="text"]:focus {
+      border-color: var(--sage);
+      transform: translateY(-1px);
+    }
+
+    button {
+      border: 0;
+      cursor: pointer;
+      font: 800 0.9rem/1 var(--font);
+      transition: transform 140ms ease, background 140ms ease, border-color 140ms ease, color 140ms ease;
+    }
+
+    button:hover:not(:disabled) {
+      transform: translateY(-1px);
+    }
+
+    button:disabled {
+      cursor: not-allowed;
+      opacity: 0.42;
+    }
+
+    .btn-primary {
+      padding: 0 18px;
+      min-height: 50px;
+      border-radius: 18px;
+      background: var(--sage);
+      color: #061008;
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      background: var(--sage-strong);
+    }
+
+    .btn-secondary {
+      min-height: 42px;
+      padding: 0 15px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.05);
+      color: rgba(245, 247, 246, 0.86);
+    }
+
+    .btn-secondary:hover:not(:disabled) {
+      border-color: rgba(0, 220, 81, 0.42);
+      color: var(--text);
+    }
+
+    .workflow-count {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 14px;
+      color: var(--dim);
+      font-size: 0.74rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      font-weight: 800;
+    }
+
+    .chip-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .workflow-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 12px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: rgba(245, 247, 246, 0.86);
+      font-size: 0.82rem;
+      font-weight: 700;
+    }
+
+    .chip-remove {
+      width: 20px;
+      height: 20px;
+      display: grid;
+      place-items: center;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08);
+      color: rgba(245, 247, 246, 0.72);
+      font-size: 12px;
+      font-weight: 900;
+      padding: 0;
+      min-height: 0;
+    }
+
+    .chip-remove:hover {
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.16);
+    }
+
+    .hint {
+      margin: 0;
+      color: var(--dim);
+      font-size: 0.92rem;
+      font-weight: 600;
+      line-height: 1.55;
+    }
+
+    .workflow-card {
+      border-radius: var(--radius-xl);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      padding: 18px;
+    }
+
+    .workflow-card.is-strong {
+      border-color: rgba(0, 220, 81, 0.4);
+      background: rgba(0, 220, 81, 0.08);
+    }
+
+    .workflow-card.is-assistant {
+      border-color: rgba(122, 184, 255, 0.35);
+      background: rgba(122, 184, 255, 0.08);
+    }
+
+    .workflow-card.is-human-assist {
+      border-color: rgba(255, 216, 77, 0.35);
+      background: rgba(255, 216, 77, 0.08);
+    }
+
+    .workflow-card.is-human {
+      border-color: rgba(255, 139, 139, 0.3);
+      background: rgba(255, 139, 139, 0.08);
+    }
+
+    .workflow-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+
+    .workflow-title-wrap h4 {
+      margin: 0;
+      font-size: 1.05rem;
+    }
+
+    .workflow-index {
+      display: inline-grid;
+      place-items: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      margin-right: 10px;
+      background: rgba(0, 0, 0, 0.34);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: rgba(245, 247, 246, 0.72);
+      font-size: 0.76rem;
+      font-weight: 900;
+    }
+
+    .quadrant-label {
+      margin: 8px 0 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      font-size: 0.73rem;
+      font-weight: 900;
+    }
+
+    .quadrant-label.strong { color: var(--sage); }
+    .quadrant-label.assistant { color: var(--blue); }
+    .quadrant-label.human-assist { color: var(--amber); }
+    .quadrant-label.human { color: var(--red); }
+
+    .quadrant-guidance {
+      margin: 0;
+      color: var(--dim);
+      font-size: 0.8rem;
+      line-height: 1.5;
+      font-weight: 600;
+    }
+
+    .priority-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border-radius: 999px;
+      padding: 10px 13px;
+      font-size: 0.78rem;
+      font-weight: 800;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      background: rgba(0, 0, 0, 0.28);
+      color: rgba(245, 247, 246, 0.78);
+    }
+
+    .priority-toggle.active {
+      background: var(--sage);
+      border-color: var(--sage);
+      color: #051007;
+    }
+
+    .priority-toggle.disabled {
+      color: rgba(245, 247, 246, 0.34);
+      background: rgba(0, 0, 0, 0.18);
+    }
+
+    .slider-grid {
+      display: grid;
+      gap: 14px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .slider-card {
+      border-radius: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(0, 0, 0, 0.34);
+      padding: 14px;
+    }
+
+    .slider-card header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .slider-card label {
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      font-size: 0.72rem;
+      font-weight: 900;
+      color: rgba(245, 247, 246, 0.62);
+    }
+
+    .slider-value {
+      color: var(--sage);
+      font-size: 0.92rem;
+      font-weight: 900;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--sage);
+    }
+
+    .slider-note {
+      margin: 8px 0 0;
+      font-size: 0.78rem;
+      color: var(--dim);
+      line-height: 1.5;
+      font-weight: 600;
+    }
+
+    .candidate-count {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      padding: 10px 13px;
+      background: rgba(0, 220, 81, 0.1);
+      border: 1px solid rgba(0, 220, 81, 0.25);
+      color: var(--sage);
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      font-size: 0.72rem;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .map {
+      position: relative;
+      height: 320px;
+      border-radius: var(--radius-xl);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01));
+      overflow: hidden;
+      margin-top: 16px;
+    }
+
+    .map-axis-x,
+    .map-axis-y {
+      position: absolute;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .map-axis-x {
+      left: 0;
+      right: 0;
+      top: 50%;
+      height: 1px;
+    }
+
+    .map-axis-y {
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      width: 1px;
+    }
+
+    .quadrant-note {
+      position: absolute;
+      max-width: 38%;
+      font-size: 11px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      line-height: 1.3;
+    }
+
+    .map-x-label,
+    .map-y-label {
+      position: absolute;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: rgba(245, 247, 246, 0.38);
+    }
+
+    .map-x-label {
+      bottom: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .map-y-label {
+      left: 10px;
+      top: 50%;
+      transform: translateY(-50%) rotate(-90deg);
+      transform-origin: left top;
+    }
+
+    .map-node {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      padding: 9px 12px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 900;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      background: rgba(0, 0, 0, 0.84);
+      color: var(--text);
+      box-shadow: 0 14px 28px rgba(0, 0, 0, 0.24);
+      white-space: nowrap;
+    }
+
+    .map-node.strong {
+      border-color: rgba(0, 220, 81, 0.45);
+    }
+
+    .map-node.assistant {
+      border-color: rgba(122, 184, 255, 0.4);
+    }
+
+    .map-node.human-assist {
+      border-color: rgba(255, 216, 77, 0.4);
+    }
+
+    .map-node.human {
+      border-color: rgba(255, 139, 139, 0.35);
+    }
+
+    .map-node.selected {
+      background: var(--sage);
+      color: #051007;
+      border-color: var(--sage);
+      box-shadow: 0 18px 36px rgba(0, 220, 81, 0.35);
+    }
+
+    .quadrant-grid {
+      display: grid;
+      gap: 12px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      margin-top: 16px;
+    }
+
+    .quadrant-card {
+      border-radius: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      padding: 14px;
+    }
+
+    .quadrant-card strong {
+      display: block;
+      font-size: 0.72rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      font-weight: 900;
+      margin-bottom: 8px;
+    }
+
+    .quadrant-card p {
+      margin: 0;
+      font-size: 0.87rem;
+      line-height: 1.55;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .summary-box pre {
+      margin: 16px 0 0;
+      border-radius: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: #050805;
+      padding: 16px;
+      color: rgba(245, 247, 246, 0.76);
+      font: 600 0.79rem/1.6 "SFMono-Regular", ui-monospace, Consolas, monospace;
+      white-space: pre-wrap;
+    }
+
+    .saved-note {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 18px;
+      color: var(--sage);
+      font-size: 0.8rem;
+      font-weight: 900;
+    }
+
+    .saved-note::before {
+      content: "✓";
+      display: inline-grid;
+      place-items: center;
+      width: 18px;
+      height: 18px;
+      border-radius: 999px;
+      border: 1px solid rgba(0, 220, 81, 0.38);
+      background: rgba(0, 220, 81, 0.1);
+      font-size: 12px;
+    }
+
+    .toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-top: 18px;
+      flex-wrap: wrap;
+    }
+
+    .small-link {
+      background: none;
+      color: rgba(245, 247, 246, 0.62);
+      font-size: 0.82rem;
+      font-weight: 800;
+      padding: 0;
+    }
+
+    .small-link:hover {
+      color: var(--text);
+    }
+
+    @media (max-width: 1080px) {
+      .activity-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 860px) {
+      .steps-grid,
+      .quadrant-grid,
+      .slider-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .page {
+        width: min(100vw - 20px, 100%);
+        padding: 20px 0 40px;
+      }
+
+      .copy-block,
+      .callout,
+      .steps,
+      .candidates,
+      .activity-shell {
+        padding-left: 18px;
+        padding-right: 18px;
+      }
+
+      .activity-shell {
+        padding-top: 22px;
+        padding-bottom: 22px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .workflow-count,
+      .panel-top,
+      .activity-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .input-row {
+        flex-direction: column;
+      }
+
+      .btn-primary {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="hero">
+      <div class="eyebrow">Section 3: Assistants &amp; Agents</div>
+      <h1>The <strong>Workflow Map</strong>: Where Agents Work Best</h1>
+      <p class="subtitle">Mapping your firm's processes to identify agent opportunities</p>
+    </section>
+
+    <section class="content-stack">
+      <article class="copy-block">
+        <p>Not all workflows are equal candidates for agent automation. Some are perfectly suited; others require too much judgement, involve unstructured data, or occur too infrequently to justify the setup effort.</p>
+      </article>
+
+      <article class="copy-block">
+        <p><strong>The Workflow Mapping Exercise:</strong> This exercise helps you identify which workflows in your firm are strong agent candidates and which should remain human-led or assistant-supported.</p>
+      </article>
+
+      <article class="steps">
+        <p class="section-label">How to Map Your Workflows</p>
+        <div class="steps-grid" id="steps-grid"></div>
+      </article>
+
+      <article class="callout">
+        <p>The goal is not to automate everything. It's to identify where agents create the most value with the least risk.</p>
+      </article>
+
+      <article class="candidates">
+        <p class="section-label">Common High-Impact Agent Candidates</p>
+        <div class="candidate-list" id="candidate-list"></div>
+      </article>
+    </section>
+
+    <section class="activity-shell">
+      <div class="activity-header">
+        <div class="activity-badge">≣</div>
+        <div class="activity-meta">
+          <div class="activity-meta-row"><span>Activity</span><i></i></div>
+          <h2 class="activity-title">Map Your Workflows</h2>
+          <p class="activity-prompt">Complete the workflow mapping exercise for your firm:</p>
+        </div>
+      </div>
+
+      <div class="activity-grid">
+        <div class="stack">
+          <section class="panel">
+            <div class="input-row">
+              <input id="workflow-name-input" type="text" placeholder="Add a workflow or process, e.g. Monthly reporting" />
+              <button id="add-workflow-button" class="btn-primary">Add workflow</button>
+            </div>
+
+            <div class="workflow-count">
+              <span id="workflow-count-label">0 / 15 workflows mapped</span>
+              <span>Score repeatability and judgement for each one.</span>
+            </div>
+
+            <div class="chip-list" id="workflow-chip-list"></div>
+            <div class="toolbar">
+              <p class="hint" id="workflow-empty-hint">Add 5 to 15 workflows to build your map.</p>
+              <button id="reset-map-button" class="small-link" type="button">Reset map</button>
+            </div>
+          </section>
+
+          <section class="stack" id="workflow-card-list"></section>
+        </div>
+
+        <div class="stack">
+          <section class="panel">
+            <div class="panel-top">
+              <div>
+                <h3>Workflow map</h3>
+                <p class="panel-meta">High repeatability + low judgement point to the strongest starting agents.</p>
+              </div>
+              <div class="candidate-count" id="candidate-count">0 candidates</div>
+            </div>
+
+            <div class="map" id="workflow-map">
+              <div class="map-axis-x"></div>
+              <div class="map-axis-y"></div>
+              <div class="quadrant-note" style="left: 16px; top: 16px; color: var(--amber);">Human-led + assistant</div>
+              <div class="quadrant-note" style="right: 16px; top: 16px; text-align: right; color: var(--sage);">Strong agent candidate</div>
+              <div class="quadrant-note" style="left: 16px; bottom: 16px; color: var(--red);">Fully human-led</div>
+              <div class="quadrant-note" style="right: 16px; bottom: 16px; text-align: right; color: var(--blue);">Assistant task</div>
+              <div class="map-x-label">Repeatability →</div>
+              <div class="map-y-label">Judgement →</div>
+            </div>
+
+            <div class="quadrant-grid" id="quadrant-grid"></div>
+          </section>
+
+          <section class="panel summary-box">
+            <div class="panel-top">
+              <div>
+                <h3>Copyable workflow summary</h3>
+                <p class="panel-meta">Use this output to decide which workflows to test first.</p>
+              </div>
+              <button id="copy-summary-button" class="btn-secondary" type="button">Copy summary</button>
+            </div>
+            <pre id="summary-output"></pre>
+          </section>
+        </div>
+      </div>
+
+      <div class="saved-note" id="saved-note">Workflow map saved locally</div>
+    </section>
+  </main>
+
+  <script>
+    const STORAGE_KEY = 'standalone-workflow-map-page24';
+    const MAX_WORKFLOWS = 15;
+    const MAX_PRIORITIES = 2;
+
+    const steps = [
+      {
+        title: 'Step 1: List your workflows',
+        desc: 'Write down 10-15 common workflows or processes in your firm (e.g., monthly reporting, client onboarding, tax return preparation, payroll processing).',
+      },
+      {
+        title: 'Step 2: Score each workflow',
+        desc: 'For each workflow, rate it on two dimensions:\n• Repeatability (1-5): How often is this done? How consistent are the steps?\n• Judgement Requirement (1-5): How much professional interpretation is needed?',
+      },
+      {
+        title: 'Step 3: Plot the results',
+        desc: 'High repeatability + Low judgement = Strong agent candidate\nHigh repeatability + High judgement = Human-led with assistant support\nLow repeatability + Low judgement = Assistant task\nLow repeatability + High judgement = Fully human-led',
+      },
+      {
+        title: 'Step 4: Prioritise',
+        desc: 'From your strong agent candidates, choose 1-2 workflows to start with based on impact, data availability, and team readiness.',
+      },
+    ];
+
+    const candidateExamples = [
+      'Quarterly business reviews',
+      'Period-end preparation',
+      'Client onboarding and document collection',
+      'Outstanding item chasing',
+      'Compliance deadline tracking',
+      'Payroll query handling',
+      'Expense claim review',
+      'Bank reconciliation support',
+    ];
+
+    const quadrants = {
+      humanAssist: {
+        key: 'humanAssist',
+        label: 'Human-led + assistant',
+        guidance: 'Maintain strong human ownership while using AI to prepare drafts, check data, or speed up sub-tasks.',
+        countLabel: 'Human-led + assistant',
+        className: 'is-human-assist',
+        labelClass: 'human-assist',
+      },
+      strongAgentCandidate: {
+        key: 'strongAgentCandidate',
+        label: 'Strong agent candidate',
+        guidance: 'These workflows have the best mix of repeatability and lower judgement for a first agent use case.',
+        countLabel: 'Strong agent candidate',
+        className: 'is-strong',
+        labelClass: 'strong',
+      },
+      fullyHumanLed: {
+        key: 'fullyHumanLed',
+        label: 'Fully human-led',
+        guidance: 'These tasks rely heavily on human interpretation and are less suitable for agent-led execution.',
+        countLabel: 'Fully human-led',
+        className: 'is-human',
+        labelClass: 'human',
+      },
+      assistantTask: {
+        key: 'assistantTask',
+        label: 'Assistant task',
+        guidance: 'These can still benefit from AI help, but they are not the strongest first agent candidates.',
+        countLabel: 'Assistant task',
+        className: 'is-assistant',
+        labelClass: 'assistant',
+      },
+    };
+
+    const defaultState = {
+      draftName: '',
+      workflows: [],
+      selectedWorkflowIds: [],
+    };
+
+    const elements = {
+      stepsGrid: document.getElementById('steps-grid'),
+      candidateList: document.getElementById('candidate-list'),
+      workflowNameInput: document.getElementById('workflow-name-input'),
+      addWorkflowButton: document.getElementById('add-workflow-button'),
+      workflowCountLabel: document.getElementById('workflow-count-label'),
+      workflowChipList: document.getElementById('workflow-chip-list'),
+      workflowEmptyHint: document.getElementById('workflow-empty-hint'),
+      workflowCardList: document.getElementById('workflow-card-list'),
+      workflowMap: document.getElementById('workflow-map'),
+      quadrantGrid: document.getElementById('quadrant-grid'),
+      candidateCount: document.getElementById('candidate-count'),
+      summaryOutput: document.getElementById('summary-output'),
+      copySummaryButton: document.getElementById('copy-summary-button'),
+      savedNote: document.getElementById('saved-note'),
+      resetMapButton: document.getElementById('reset-map-button'),
+    };
+
+    let state = loadState();
+
+    function canUseLocalStorage() {
+      return typeof window !== 'undefined' && typeof window.localStorage !== 'undefined';
+    }
+
+    function clampScore(value) {
+      const parsed = Number(value);
+      if (!Number.isFinite(parsed)) return 3;
+      return Math.min(Math.max(Math.round(parsed), 1), 5);
+    }
+
+    function sanitiseWorkflows(value) {
+      if (!Array.isArray(value)) return [];
+      return value
+        .filter((item) => item && typeof item === 'object')
+        .map((item, index) => ({
+          id: typeof item.id === 'string' ? item.id : `workflow-${Date.now()}-${index}`,
+          name: typeof item.name === 'string' ? item.name.trim() : '',
+          repeatability: clampScore(item.repeatability),
+          judgement: clampScore(item.judgement),
+        }))
+        .filter((item) => item.name)
+        .slice(0, MAX_WORKFLOWS);
+    }
+
+    function loadState() {
+      if (!canUseLocalStorage()) return { ...defaultState };
+      try {
+        const raw = window.localStorage.getItem(STORAGE_KEY);
+        if (!raw) return { ...defaultState };
+        const parsed = JSON.parse(raw);
+        const workflows = sanitiseWorkflows(parsed.workflows);
+        const selectedWorkflowIds = Array.isArray(parsed.selectedWorkflowIds)
+          ? parsed.selectedWorkflowIds.filter((id) => typeof id === 'string')
+          : [];
+        return {
+          draftName: typeof parsed.draftName === 'string' ? parsed.draftName : '',
+          workflows,
+          selectedWorkflowIds: selectedWorkflowIds.filter((id) => workflows.some((workflow) => workflow.id === id)).slice(0, MAX_PRIORITIES),
+        };
+      } catch {
+        return { ...defaultState };
+      }
+    }
+
+    function saveState() {
+      if (!canUseLocalStorage()) return;
+      try {
+        window.localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      } catch {
+        // Keep the page working even if storage is unavailable.
+      }
+    }
+
+    function getQuadrant(repeatability, judgement) {
+      if (repeatability >= 4 && judgement <= 2) return 'strongAgentCandidate';
+      if (repeatability >= 4 && judgement >= 3) return 'humanAssist';
+      if (repeatability <= 3 && judgement <= 2) return 'assistantTask';
+      return 'fullyHumanLed';
+    }
+
+    function getSelectedWorkflows() {
+      return state.workflows.filter((workflow) => state.selectedWorkflowIds.includes(workflow.id));
+    }
+
+    function buildSummary() {
+      const selectedWorkflows = getSelectedWorkflows();
+      const candidateNames = state.workflows
+        .filter((workflow) => getQuadrant(workflow.repeatability, workflow.judgement) === 'strongAgentCandidate')
+        .map((workflow) => workflow.name);
+
+      const question0 = state.workflows.length > 0
+        ? state.workflows.map((workflow) => `- ${workflow.name}`).join('\n')
+        : '- No workflows added yet';
+
+      const question1 = state.workflows.length > 0
+        ? state.workflows
+            .map((workflow) => `- ${workflow.name}: Repeatability ${workflow.repeatability}/5, Judgement ${workflow.judgement}/5 → ${quadrants[getQuadrant(workflow.repeatability, workflow.judgement)].label}`)
+            .join('\n')
+        : '- No scoring completed yet';
+
+      const question2 = selectedWorkflows.length > 0
+        ? selectedWorkflows.map((workflow) => `- ${workflow.name}`).join('\n')
+        : '- No priority workflows selected yet';
+
+      const copyText = [
+        'Workflow Map Summary',
+        '',
+        '1. Workflows listed',
+        question0,
+        '',
+        '2. Workflow assessment',
+        question1,
+        '',
+        '3. Strong agent candidates',
+        candidateNames.length > 0 ? candidateNames.map((name) => `- ${name}`).join('\n') : '- No strong agent candidates identified yet',
+        '',
+        '4. Priority workflows to start with',
+        question2,
+      ].join('\n');
+
+      return { copyText };
+    }
+
+    function updateState(updater) {
+      state = updater(state);
+      saveState();
+      render();
+    }
+
+    function addWorkflow() {
+      const name = elements.workflowNameInput.value.trim();
+      if (!name || state.workflows.length >= MAX_WORKFLOWS) return;
+
+      updateState((current) => ({
+        ...current,
+        draftName: '',
+        workflows: [
+          ...current.workflows,
+          {
+            id: `workflow-${Date.now()}-${current.workflows.length}`,
+            name,
+            repeatability: 3,
+            judgement: 3,
+          },
+        ],
+      }));
+    }
+
+    function removeWorkflow(id) {
+      updateState((current) => {
+        const workflows = current.workflows.filter((workflow) => workflow.id !== id);
+        return {
+          ...current,
+          workflows,
+          selectedWorkflowIds: current.selectedWorkflowIds.filter((workflowId) => workflowId !== id),
+        };
+      });
+    }
+
+    function updateWorkflowScore(id, field, value) {
+      updateState((current) => ({
+        ...current,
+        workflows: current.workflows.map((workflow) => (
+          workflow.id === id ? { ...workflow, [field]: clampScore(value) } : workflow
+        )),
+      }));
+    }
+
+    function togglePriority(id) {
+      const workflow = state.workflows.find((item) => item.id === id);
+      if (!workflow) return;
+      if (getQuadrant(workflow.repeatability, workflow.judgement) !== 'strongAgentCandidate') return;
+
+      updateState((current) => {
+        const isSelected = current.selectedWorkflowIds.includes(id);
+        return {
+          ...current,
+          selectedWorkflowIds: isSelected
+            ? current.selectedWorkflowIds.filter((workflowId) => workflowId !== id)
+            : [...current.selectedWorkflowIds.filter((workflowId) => workflowId !== id), id].slice(0, MAX_PRIORITIES),
+        };
+      });
+    }
+
+    async function copySummary() {
+      const { copyText } = buildSummary();
+      const originalLabel = elements.copySummaryButton.textContent;
+      try {
+        if (navigator.clipboard && window.isSecureContext) {
+          await navigator.clipboard.writeText(copyText);
+        } else {
+          const textarea = document.createElement('textarea');
+          textarea.value = copyText;
+          textarea.setAttribute('readonly', '');
+          textarea.style.position = 'absolute';
+          textarea.style.left = '-9999px';
+          document.body.appendChild(textarea);
+          textarea.select();
+          document.execCommand('copy');
+          textarea.remove();
+        }
+        elements.copySummaryButton.textContent = 'Copied';
+      } catch {
+        elements.copySummaryButton.textContent = 'Copy failed';
+      }
+      window.setTimeout(() => {
+        elements.copySummaryButton.textContent = originalLabel;
+      }, 1400);
+    }
+
+    function resetMap() {
+      if (!window.confirm('Reset the standalone workflow map? This clears the saved local state for this page.')) {
+        return;
+      }
+      state = { ...defaultState };
+      saveState();
+      render();
+    }
+
+    function renderStaticContent() {
+      elements.stepsGrid.innerHTML = steps.map((step, index) => `
+        <article class="step-card">
+          <div class="step-number">${index + 1}</div>
+          <h3 class="step-title">${step.title}</h3>
+          <p class="step-desc">${step.desc}</p>
+        </article>
+      `).join('');
+
+      elements.candidateList.innerHTML = candidateExamples.map((item) => `
+        <span class="candidate-chip">${item}</span>
+      `).join('');
+    }
+
+    function renderWorkflowChips() {
+      elements.workflowCountLabel.textContent = `${state.workflows.length} / ${MAX_WORKFLOWS} workflows mapped`;
+      elements.workflowEmptyHint.style.display = state.workflows.length > 0 ? 'none' : 'block';
+
+      if (state.workflows.length === 0) {
+        elements.workflowChipList.innerHTML = '';
+        return;
+      }
+
+      elements.workflowChipList.innerHTML = state.workflows.map((workflow) => `
+        <span class="workflow-chip">
+          <span>${workflow.name}</span>
+          <button class="chip-remove" type="button" data-remove-id="${workflow.id}" aria-label="Remove ${workflow.name}">×</button>
+        </span>
+      `).join('');
+
+      elements.workflowChipList.querySelectorAll('[data-remove-id]').forEach((button) => {
+        button.addEventListener('click', () => removeWorkflow(button.getAttribute('data-remove-id')));
+      });
+    }
+
+    function renderWorkflowCards() {
+      if (state.workflows.length === 0) {
+        elements.workflowCardList.innerHTML = '';
+        return;
+      }
+
+      elements.workflowCardList.innerHTML = state.workflows.map((workflow, index) => {
+        const quadrantKey = getQuadrant(workflow.repeatability, workflow.judgement);
+        const quadrant = quadrants[quadrantKey];
+        const isSelected = state.selectedWorkflowIds.includes(workflow.id);
+        const canSelect = quadrantKey === 'strongAgentCandidate';
+
+        return `
+          <article class="workflow-card ${quadrant.className}">
+            <div class="workflow-head">
+              <div class="workflow-title-wrap">
+                <h4><span class="workflow-index">${index + 1}</span>${workflow.name}</h4>
+                <p class="quadrant-label ${quadrant.labelClass}">${quadrant.label}</p>
+                <p class="quadrant-guidance">${quadrant.guidance}</p>
+              </div>
+              <button
+                class="priority-toggle ${isSelected ? 'active' : ''} ${!canSelect ? 'disabled' : ''}"
+                type="button"
+                data-priority-id="${workflow.id}"
+                ${!canSelect ? 'disabled' : ''}
+              >
+                ${canSelect ? (isSelected ? 'Priority workflow selected' : 'Prioritise this workflow') : 'Not a first agent candidate'}
+              </button>
+            </div>
+
+            <div class="slider-grid">
+              <section class="slider-card">
+                <header>
+                  <label for="repeatability-${workflow.id}">Repeatability</label>
+                  <span class="slider-value">${workflow.repeatability}/5</span>
+                </header>
+                <input id="repeatability-${workflow.id}" type="range" min="1" max="5" step="1" value="${workflow.repeatability}" data-score-id="${workflow.id}" data-score-field="repeatability" />
+                <p class="slider-note">1 = rare or ad hoc, 5 = frequent and highly repeatable.</p>
+              </section>
+
+              <section class="slider-card">
+                <header>
+                  <label for="judgement-${workflow.id}">Judgement required</label>
+                  <span class="slider-value">${workflow.judgement}/5</span>
+                </header>
+                <input id="judgement-${workflow.id}" type="range" min="1" max="5" step="1" value="${workflow.judgement}" data-score-id="${workflow.id}" data-score-field="judgement" />
+                <p class="slider-note">1 = low judgement, 5 = high professional interpretation.</p>
+              </section>
+            </div>
+          </article>
+        `;
+      }).join('');
+
+      elements.workflowCardList.querySelectorAll('[data-score-id]').forEach((input) => {
+        input.addEventListener('input', (event) => {
+          const target = event.currentTarget;
+          updateWorkflowScore(target.getAttribute('data-score-id'), target.getAttribute('data-score-field'), target.value);
+        });
+      });
+
+      elements.workflowCardList.querySelectorAll('[data-priority-id]').forEach((button) => {
+        button.addEventListener('click', () => togglePriority(button.getAttribute('data-priority-id')));
+      });
+    }
+
+    function renderMap() {
+      elements.workflowMap.querySelectorAll('.map-node').forEach((node) => node.remove());
+
+      const candidateCount = state.workflows.filter((workflow) => (
+        getQuadrant(workflow.repeatability, workflow.judgement) === 'strongAgentCandidate'
+      )).length;
+      elements.candidateCount.textContent = `${candidateCount} candidate${candidateCount === 1 ? '' : 's'}`;
+
+      state.workflows.forEach((workflow) => {
+        const quadrantKey = getQuadrant(workflow.repeatability, workflow.judgement);
+        const left = ((workflow.repeatability - 1) / 4) * 100;
+        const top = (1 - ((workflow.judgement - 1) / 4)) * 100;
+        const isSelected = state.selectedWorkflowIds.includes(workflow.id);
+        const node = document.createElement('button');
+        node.type = 'button';
+        node.className = `map-node ${quadrants[quadrantKey].labelClass} ${isSelected ? 'selected' : ''}`;
+        node.style.left = `${left}%`;
+        node.style.top = `${top}%`;
+        node.textContent = workflow.name;
+        node.title = workflow.name;
+        node.addEventListener('click', () => togglePriority(workflow.id));
+        if (quadrantKey !== 'strongAgentCandidate') {
+          node.disabled = true;
+        }
+        elements.workflowMap.appendChild(node);
+      });
+    }
+
+    function renderQuadrantSummary() {
+      elements.quadrantGrid.innerHTML = Object.values(quadrants).map((quadrant) => {
+        const count = state.workflows.filter((workflow) => getQuadrant(workflow.repeatability, workflow.judgement) === quadrant.key).length;
+        return `
+          <article class="quadrant-card ${quadrant.className}">
+            <strong class="${quadrant.labelClass}">${quadrant.countLabel}</strong>
+            <p>${count} workflow${count === 1 ? '' : 's'}<br />${quadrant.guidance}</p>
+          </article>
+        `;
+      }).join('');
+    }
+
+    function renderSummary() {
+      const summary = buildSummary();
+      elements.summaryOutput.textContent = summary.copyText;
+    }
+
+    function render() {
+      elements.workflowNameInput.value = state.draftName;
+      elements.addWorkflowButton.disabled = !state.draftName.trim() || state.workflows.length >= MAX_WORKFLOWS;
+      elements.savedNote.style.display = canUseLocalStorage() ? 'inline-flex' : 'none';
+
+      renderWorkflowChips();
+      renderWorkflowCards();
+      renderMap();
+      renderQuadrantSummary();
+      renderSummary();
+    }
+
+    elements.workflowNameInput.addEventListener('input', (event) => {
+      const value = event.currentTarget.value;
+      state = { ...state, draftName: value };
+      saveState();
+      render();
+    });
+
+    elements.workflowNameInput.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        addWorkflow();
+      }
+    });
+
+    elements.addWorkflowButton.addEventListener('click', addWorkflow);
+    elements.copySummaryButton.addEventListener('click', copySummary);
+    elements.resetMapButton.addEventListener('click', resetMap);
+
+    renderStaticContent();
+    render();
+  </script>
+</body>
+</html>
