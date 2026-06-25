@@ -331,6 +331,57 @@ function getWorkflowQuadrant(repeatability: number, judgement: number) {
   return 'fullyHumanLed' as const;
 }
 
+const WORKFLOW_MAP_POINT_INSET_PERCENT = 12;
+
+function clampPercentage(value: number, min = 0, max = 100) {
+  if (!Number.isFinite(value)) {
+    return min;
+  }
+
+  return Math.min(max, Math.max(min, value));
+}
+
+function getWorkflowPlotPosition(workflow: WorkflowMapEntry) {
+  const left = ((clampScore(workflow.repeatability) - 1) / 4) * 100;
+  const top = (1 - ((clampScore(workflow.judgement) - 1) / 4)) * 100;
+
+  return {
+    left: clampPercentage(left, WORKFLOW_MAP_POINT_INSET_PERCENT, 100 - WORKFLOW_MAP_POINT_INSET_PERCENT),
+    top: clampPercentage(top, WORKFLOW_MAP_POINT_INSET_PERCENT, 100 - WORKFLOW_MAP_POINT_INSET_PERCENT),
+  };
+}
+
+function updateSelectedWorkflowIds(selectedWorkflowIds: string[], workflowId: string, nextSelected?: boolean) {
+  const isSelected = selectedWorkflowIds.includes(workflowId);
+  const shouldSelect = nextSelected ?? !isSelected;
+
+  if (!shouldSelect) {
+    return selectedWorkflowIds.filter((id) => id !== workflowId);
+  }
+
+  if (isSelected || selectedWorkflowIds.length >= 2) {
+    return selectedWorkflowIds;
+  }
+
+  return [...selectedWorkflowIds, workflowId];
+}
+
+function formatWorkflowNameList(names: string[]) {
+  if (names.length === 0) {
+    return '';
+  }
+
+  if (names.length === 1) {
+    return names[0];
+  }
+
+  if (names.length === 2) {
+    return `${names[0]} and ${names[1]}`;
+  }
+
+  return `${names.slice(0, -1).join(', ')}, and ${names[names.length - 1]}`;
+}
+
 function sanitiseWorkflowEntries(value: unknown) {
   if (!Array.isArray(value)) {
     return [];
@@ -981,6 +1032,7 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
   const [expandedItems, setExpandedItems] = useState<Set<number>>(new Set([0]));
   const [checkedItems, setCheckedItems] = useState<Set<number>>(new Set());
   const [workflowMapExplainerStep, setWorkflowMapExplainerStep] = useState(0);
+  const [toolMatrixGuideIndex, setToolMatrixGuideIndex] = useState(0);
   const sectionImageSrc = SECTION_IMAGE_BY_PAGE_ID[page.id];
   const usesSectionImageTreatment = Boolean(sectionImageSrc);
   const isCertificatePage = page.id === 'certificate';
@@ -1080,6 +1132,9 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
   const workflowCandidates = workflowMapState.workflows.filter((workflow) => (
     getWorkflowQuadrant(workflow.repeatability, workflow.judgement) === 'strongAgentCandidate'
   ));
+  const selectedPriorityWorkflows = workflowMapState.workflows.filter((workflow) => (
+    workflowMapState.selectedWorkflowIds.includes(workflow.id)
+  ));
   const workflowWizardStep = isWorkflowMapPage
     ? Math.min(Math.max(workflowMapState.currentStep, 0), 3)
     : 0;
@@ -1087,7 +1142,8 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
     ? Math.min(Math.max(workflowMapState.scoringIndex, 0), workflowMapState.workflows.length - 1)
     : 0;
   const activeWorkflowForScoring = isWorkflowMapPage ? workflowMapState.workflows[workflowScoringIndex] : undefined;
-  const workflowWizardSteps = ['List workflows', 'Score each', 'Reveal the map', 'Prioritise'];
+  const isLastWorkflowScoringStep = workflowMapState.workflows.length > 0 && workflowScoringIndex >= workflowMapState.workflows.length - 1;
+  const workflowWizardSteps = ['List workflows', 'Score each', 'See results', 'Prioritise'];
   const scoredWorkflowCount = workflowMapState.workflows.filter((workflow) => (
     workflow.repeatability >= 1
     && workflow.repeatability <= 5
@@ -1096,6 +1152,8 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
   )).length;
   const canAdvanceWorkflowListStep = workflowMapState.workflows.length >= 3 && workflowMapState.workflows.length <= 15;
   const canAdvanceWorkflowPriorities = workflowMapState.selectedWorkflowIds.length > 0 && workflowMapState.selectedWorkflowIds.length <= 2;
+  const hasReachedWorkflowPriorityLimit = workflowMapState.selectedWorkflowIds.length >= 2;
+  const selectedPriorityWorkflowNames = formatWorkflowNameList(selectedPriorityWorkflows.map((workflow) => workflow.name));
   const agentSpecFields = isAgentSpecWizardPage ? page.activity?.specFields || [] : [];
   const agentSpecFieldValues = isAgentSpecWizardPage ? parseSpecFormFields(userInput, agentSpecFields.length) : {};
   const agentSpecMeta = structuredInputs as Record<string, unknown>;
@@ -1119,6 +1177,7 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
   const agentSpecCopyText = isAgentSpecWizardPage
     ? buildAgentSpecCopyText(agentSpecFields, agentSpecFieldValues)
     : '';
+  const hasUsefulAgentSpecContent = isAgentSpecWizardPage && completedAgentSpecFields > 0;
   const ninetyDayWorkflowAnswer = page.id === 's6-days61-90'
     ? (structuredInputs['workflow-name'] || structuredInputs['task-0']?.label || '').trim()
     : '';
@@ -1154,6 +1213,21 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
 
     const nextState = updater(structuredInputs);
     onInputChange(JSON.stringify(nextState));
+  };
+
+  const clearAgentSpecAnswers = () => {
+    if (!isAgentSpecWizardPage || !hasUsefulAgentSpecContent) {
+      return;
+    }
+
+    if (!window.confirm('Clear all answers for this agent specification?')) {
+      return;
+    }
+
+    updateAgentSpecState(() => ({
+      currentStep: 0,
+      reviewMode: false,
+    }));
   };
 
   const updateToolMatrixState = (updater: (current: ToolMatrixPageState) => ToolMatrixPageState) => {
@@ -3451,6 +3525,83 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
                     </div>
                   )
 
+                  /* TABBED GUIDE - for s7-tool-matrix */
+                  : page.id === 's7-tool-matrix' && block.boxTitle === 'Tool Usage Matrix:' ? (
+                    (() => {
+                      const guideItems = (block.items || []).filter((item): item is Exclude<typeof item, string> => typeof item !== 'string');
+                      const activeGuide = guideItems[Math.min(toolMatrixGuideIndex, Math.max(guideItems.length - 1, 0))];
+                      const detailLines = activeGuide?.desc
+                        ? activeGuide.desc.split('\n').map((line) => line.trim()).filter(Boolean)
+                        : [];
+                      const parsedDetails = detailLines.reduce<Record<string, string>>((acc, line) => {
+                        const [label, ...rest] = line.split(':');
+                        if (!label || rest.length === 0) {
+                          return acc;
+                        }
+
+                        acc[label.trim()] = rest.join(':').trim();
+                        return acc;
+                      }, {});
+
+                      return (
+                        <div className="space-y-4 rounded-[24px] border border-white/12 bg-white/[0.03] p-5 sm:p-6">
+                          <div className="space-y-2">
+                            <h4 className="text-base font-black text-white">{block.boxTitle}</h4>
+                            <p className="text-sm font-medium leading-relaxed text-white/60">
+                              Select a tool type to see the boundaries for tasks, data, and review.
+                            </p>
+                          </div>
+
+                          <div className="flex flex-wrap gap-2">
+                            {guideItems.map((item, index) => (
+                              <button
+                                key={item.title}
+                                onClick={() => setToolMatrixGuideIndex(index)}
+                                className={`rounded-full border px-3 py-2 text-xs font-black uppercase tracking-[0.12em] transition-colors sm:text-[11px] ${
+                                  index === toolMatrixGuideIndex
+                                    ? 'border-[#00DC51]/35 bg-[#00DC51]/12 text-[#00DC51]'
+                                    : 'border-white/12 bg-black/20 text-white/72 hover:border-white/20 hover:text-white'
+                                }`}
+                              >
+                                {item.title}
+                              </button>
+                            ))}
+                          </div>
+
+                          {activeGuide && (
+                            <motion.div
+                              key={activeGuide.title}
+                              initial={{ opacity: 0, y: 8 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              transition={{ duration: 0.18 }}
+                              className="rounded-[22px] border border-white/10 bg-[#111111] p-5"
+                            >
+                              <div className="mb-4">
+                                <p className="text-xs font-black uppercase tracking-[0.16em] text-[#00DC51]">Selected tool type</p>
+                                <h5 className="mt-2 text-xl font-black text-white">{activeGuide.title}</h5>
+                              </div>
+
+                              <div className="grid gap-3 md:grid-cols-3">
+                                <div className="rounded-2xl border border-white/10 bg-black/20 p-4">
+                                  <p className="text-[11px] font-black uppercase tracking-[0.16em] text-white/45">Allowed tasks</p>
+                                  <p className="mt-2 text-sm font-medium leading-relaxed text-white">{parsedDetails['Allowed tasks'] || '—'}</p>
+                                </div>
+                                <div className="rounded-2xl border border-white/10 bg-black/20 p-4">
+                                  <p className="text-[11px] font-black uppercase tracking-[0.16em] text-white/45">Data allowed</p>
+                                  <p className="mt-2 text-sm font-medium leading-relaxed text-white">{parsedDetails['Data allowed'] || '—'}</p>
+                                </div>
+                                <div className="rounded-2xl border border-white/10 bg-black/20 p-4">
+                                  <p className="text-[11px] font-black uppercase tracking-[0.16em] text-white/45">Review required</p>
+                                  <p className="mt-2 text-sm font-medium leading-relaxed text-white">{parsedDetails['Review required'] || '—'}</p>
+                                </div>
+                              </div>
+                            </motion.div>
+                          )}
+                        </div>
+                      );
+                    })()
+                  )
+
                   /* DEFAULT NUMBERED LIST - for all other pages */
                   : (
                     <div className={block.boxTitle ? "bg-[#00DC51]/10 border-2 border-[#00DC51] rounded-xl p-5 backdrop-blur-sm" : ""}>
@@ -3515,6 +3666,12 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
                   className={`rounded-xl p-5 border-2 transition-all ${
                     page.id === 's3-workflow-map' && block.title === 'Common High-Impact Agent Candidates:'
                       ? 'bg-white/[0.03] border-white/12 hover:border-white/20'
+                      : page.id === 's7-tool-matrix'
+                      ? block.style === 'green'
+                        ? 'bg-white/[0.03] border-white/12 text-white hover:border-white/20'
+                        : block.style === 'dark'
+                        ? 'bg-black/35 border-white/12 hover:border-white/20'
+                        : 'bg-white/[0.04] border-white/12 hover:border-white/20'
                       : block.style === 'green'
                       ? 'bg-[#00DC51]/10 border-[#00DC51] hover:shadow-lg hover:shadow-[#00DC51]/20'
                       : block.style === 'dark'
@@ -4134,40 +4291,40 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
                       <div className="mb-4 flex items-center justify-between gap-4">
                         <div>
                           <h5 className="text-lg font-black text-white">Workflow map</h5>
-                          <p className="mt-1 text-sm font-medium text-white/55">High repeatability and low judgement point to the strongest starting agents.</p>
+                          <p className="mt-1 text-sm font-medium text-white/72">High repeatability and low judgement point to the strongest starting agents.</p>
                         </div>
                         <div className="rounded-full border border-[#00DC51]/25 bg-[#00DC51]/10 px-3 py-2 text-xs font-bold uppercase tracking-[0.18em] text-[#00DC51]">
                           {workflowCandidates.length} candidates
                         </div>
                       </div>
 
-                      <div className="relative h-[320px] overflow-hidden rounded-[28px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.03),rgba(255,255,255,0.01))]">
-                        <div className="absolute inset-y-0 left-1/2 w-px bg-white/10" />
-                        <div className="absolute inset-x-0 top-1/2 h-px bg-white/10" />
-                        <div className="absolute left-4 top-4 max-w-[38%] text-[11px] font-bold uppercase tracking-[0.14em] text-[#FFD84D]">Human-led + assistant</div>
-                        <div className="absolute right-4 top-4 max-w-[38%] text-right text-[11px] font-bold uppercase tracking-[0.14em] text-[#00DC51]">Strong agent candidate</div>
-                        <div className="absolute bottom-4 left-4 max-w-[38%] text-[11px] font-bold uppercase tracking-[0.14em] text-[#FF8B8B]">Fully human-led</div>
-                        <div className="absolute bottom-4 right-4 max-w-[38%] text-right text-[11px] font-bold uppercase tracking-[0.14em] text-[#7AB8FF]">Assistant task</div>
+                      <div className="relative h-[280px] overflow-hidden rounded-[24px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.03),rgba(255,255,255,0.01))] sm:h-[300px]">
+                        <div className="absolute inset-y-10 left-1/2 w-px bg-white/10" />
+                        <div className="absolute inset-x-6 top-1/2 h-px bg-white/10 sm:inset-x-8" />
+                        <div className="absolute left-4 top-4 max-w-[38%] text-[10px] font-bold uppercase tracking-[0.16em] text-[#FFD84D] sm:text-[11px]">Human-led + assistant</div>
+                        <div className="absolute right-4 top-4 max-w-[38%] text-right text-[10px] font-bold uppercase tracking-[0.16em] text-[#00DC51] sm:text-[11px]">Strong agent candidate</div>
+                        <div className="absolute bottom-5 left-4 max-w-[38%] text-[10px] font-bold uppercase tracking-[0.16em] text-[#FF8B8B] sm:text-[11px]">Fully human-led</div>
+                        <div className="absolute bottom-5 right-4 max-w-[38%] text-right text-[10px] font-bold uppercase tracking-[0.16em] text-[#7AB8FF] sm:text-[11px]">Assistant task</div>
 
-                        <div className="absolute bottom-3 left-1/2 -translate-x-1/2 text-[11px] font-semibold uppercase tracking-[0.16em] text-white/40">
+                        <div className="absolute bottom-2 left-1/2 -translate-x-1/2 text-[11px] font-semibold uppercase tracking-[0.16em] text-white/50">
                           Repeatability →
                         </div>
-                        <div className="absolute left-3 top-1/2 -translate-y-1/2 -rotate-90 text-[11px] font-semibold uppercase tracking-[0.16em] text-white/40">
+                        <div className="absolute left-2 top-1/2 -translate-y-1/2 -rotate-90 text-[11px] font-semibold uppercase tracking-[0.16em] text-white/50">
                           Judgement →
                         </div>
 
                         {workflowMapState.workflows.map((workflow) => {
                           const quadrant = WORKFLOW_QUADRANTS[getWorkflowQuadrant(workflow.repeatability, workflow.judgement)];
-                          const left = ((workflow.repeatability - 1) / 4) * 100;
-                          const top = (1 - ((workflow.judgement - 1) / 4)) * 100;
+                          const { left, top } = getWorkflowPlotPosition(workflow);
 
                           return (
                             <div
                               key={workflow.id}
-                              className={`absolute -translate-x-1/2 -translate-y-1/2 rounded-full border-2 bg-black/85 px-3 py-2 text-[11px] font-black text-white shadow-lg ${quadrant.borderClass}`}
+                              title={workflow.name}
+                              className={`absolute flex max-w-[9.5rem] -translate-x-1/2 -translate-y-1/2 items-center rounded-full border bg-black/90 px-3 py-2 text-[11px] font-black text-white shadow-lg sm:max-w-[11rem] ${quadrant.borderClass}`}
                               style={{ left: `${left}%`, top: `${top}%` }}
                             >
-                              {workflow.name}
+                              <span className="block truncate">{workflow.name}</span>
                             </div>
                           );
                         })}
@@ -4210,143 +4367,134 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -10 }}
-                    className="grid gap-6 xl:grid-cols-[1fr_0.95fr]"
+                    className="space-y-5"
                   >
-                    <div className="space-y-6">
-                      <div className="rounded-[24px] border border-white/10 bg-[#0E0E0E] p-5 sm:p-6">
-                        <div className="mb-4 flex items-center justify-between gap-4">
-                          <div>
-                            <h5 className="text-lg font-black text-white">Choose 1 to 2 priority workflows</h5>
-                            <p className="mt-1 text-sm font-medium text-white/55">Start with your strongest agent candidates first.</p>
-                          </div>
-                          <div className="rounded-full border border-[#00DC51]/25 bg-[#00DC51]/10 px-3 py-2 text-xs font-bold uppercase tracking-[0.18em] text-[#00DC51]">
-                            {workflowMapState.selectedWorkflowIds.length} selected
-                          </div>
+                    <div className="rounded-[24px] border border-white/10 bg-[#0E0E0E] p-5 sm:p-6">
+                      <div className="mb-6 flex flex-wrap items-start justify-between gap-4">
+                        <div>
+                          <p className="text-xs font-black uppercase tracking-[0.18em] text-[#00DC51]">Step 4 of 4</p>
+                          <h5 className="mt-2 text-2xl font-black text-white">Choose 1 to 2 priority workflows</h5>
+                          <p className="mt-3 max-w-3xl text-base font-medium leading-relaxed text-white/82">
+                            These workflows scored high on repeatability and low on judgement. Pick 1-2 to start with based on impact, data availability, and team readiness.
+                          </p>
                         </div>
-
-                        <div className="space-y-3">
-                          {workflowMapState.workflows.map((workflow) => {
-                            const quadrantKey = getWorkflowQuadrant(workflow.repeatability, workflow.judgement);
-                            const quadrant = WORKFLOW_QUADRANTS[quadrantKey];
-                            const isSelected = workflowMapState.selectedWorkflowIds.includes(workflow.id);
-                            const canSelect = quadrantKey === 'strongAgentCandidate';
-
-                            return (
-                              <label
-                                key={workflow.id}
-                                className={`flex items-start gap-3 rounded-2xl border p-4 transition-colors ${
-                                  canSelect
-                                    ? isSelected
-                                      ? 'border-[#00DC51]/40 bg-[#00DC51]/10'
-                                      : 'border-white/10 bg-black/20 hover:border-white/15'
-                                    : 'border-white/10 bg-black/15 opacity-60'
-                                }`}
-                              >
-                                <input
-                                  type="checkbox"
-                                  checked={isSelected}
-                                  disabled={!canSelect}
-                                  onChange={(e) => {
-                                    const checked = e.target.checked;
-                                    updateWorkflowMapState((current) => ({
-                                      ...current,
-                                      selectedWorkflowIds: checked
-                                        ? [...current.selectedWorkflowIds.filter((id) => id !== workflow.id), workflow.id].slice(0, 2)
-                                        : current.selectedWorkflowIds.filter((id) => id !== workflow.id),
-                                    }));
-                                  }}
-                                  className="mt-1 h-4 w-4 rounded border-white/25 bg-transparent accent-[#00DC51]"
-                                />
-                                <div className="flex-1">
-                                  <div className="flex flex-wrap items-center gap-2">
-                                    <h6 className="text-sm font-black text-white">{workflow.name}</h6>
-                                    <span className={`text-[11px] font-black uppercase tracking-[0.14em] ${quadrant.colorClass}`}>
-                                      {quadrant.label}
-                                    </span>
-                                  </div>
-                                  <p className="mt-2 text-xs font-medium leading-relaxed text-white/55">{quadrant.guidance}</p>
-                                </div>
-                              </label>
-                            );
-                          })}
+                        <div className="rounded-full border border-[#00DC51]/25 bg-[#00DC51]/10 px-3 py-2 text-xs font-bold uppercase tracking-[0.18em] text-[#00DC51]">
+                          {workflowMapState.selectedWorkflowIds.length} selected
                         </div>
                       </div>
 
-                      <div className="rounded-[24px] border border-white/10 bg-[#0E0E0E] p-5 sm:p-6">
-                        <div className="mb-4 flex items-center justify-between gap-4">
-                          <div>
-                            <h5 className="text-lg font-black text-white">Workflow map</h5>
-                            <p className="mt-1 text-sm font-medium text-white/55">Use the map to sense-check the workflows you picked.</p>
-                          </div>
-                        </div>
-
-                        <div className="relative h-[320px] overflow-hidden rounded-[28px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.03),rgba(255,255,255,0.01))]">
-                          <div className="absolute inset-y-0 left-1/2 w-px bg-white/10" />
-                          <div className="absolute inset-x-0 top-1/2 h-px bg-white/10" />
-                          <div className="absolute left-4 top-4 max-w-[38%] text-[11px] font-bold uppercase tracking-[0.14em] text-[#FFD84D]">Human-led + assistant</div>
-                          <div className="absolute right-4 top-4 max-w-[38%] text-right text-[11px] font-bold uppercase tracking-[0.14em] text-[#00DC51]">Strong agent candidate</div>
-                          <div className="absolute bottom-4 left-4 max-w-[38%] text-[11px] font-bold uppercase tracking-[0.14em] text-[#FF8B8B]">Fully human-led</div>
-                          <div className="absolute bottom-4 right-4 max-w-[38%] text-right text-[11px] font-bold uppercase tracking-[0.14em] text-[#7AB8FF]">Assistant task</div>
-
-                          {workflowMapState.workflows.map((workflow) => {
-                            const quadrant = WORKFLOW_QUADRANTS[getWorkflowQuadrant(workflow.repeatability, workflow.judgement)];
-                            const left = ((workflow.repeatability - 1) / 4) * 100;
-                            const top = (1 - ((workflow.judgement - 1) / 4)) * 100;
+                      {workflowCandidates.length > 0 ? (
+                        <div className="space-y-4">
+                          {workflowCandidates.map((workflow) => {
+                            const quadrant = WORKFLOW_QUADRANTS.strongAgentCandidate;
                             const isSelected = workflowMapState.selectedWorkflowIds.includes(workflow.id);
+                            const isDisabled = !isSelected && hasReachedWorkflowPriorityLimit;
 
                             return (
                               <button
                                 key={workflow.id}
                                 type="button"
+                                disabled={isDisabled}
+                                aria-pressed={isSelected}
                                 onClick={() => {
-                                  if (getWorkflowQuadrant(workflow.repeatability, workflow.judgement) !== 'strongAgentCandidate') {
-                                    return;
-                                  }
-
-                                  updateWorkflowMapState((current) => {
-                                    const isCurrentlySelected = current.selectedWorkflowIds.includes(workflow.id);
-                                    return {
-                                      ...current,
-                                      selectedWorkflowIds: isCurrentlySelected
-                                        ? current.selectedWorkflowIds.filter((id) => id !== workflow.id)
-                                        : [...current.selectedWorkflowIds.filter((id) => id !== workflow.id), workflow.id].slice(0, 2),
-                                    };
-                                  });
+                                  updateWorkflowMapState((current) => ({
+                                    ...current,
+                                    selectedWorkflowIds: updateSelectedWorkflowIds(current.selectedWorkflowIds, workflow.id),
+                                  }));
                                 }}
-                                className={`absolute -translate-x-1/2 -translate-y-1/2 rounded-full border-2 px-3 py-2 text-[11px] font-black shadow-lg transition-all ${
+                                className={`w-full rounded-[22px] border p-5 text-left transition-all disabled:cursor-not-allowed ${
                                   isSelected
-                                    ? 'border-[#00DC51] bg-[#00DC51] text-black shadow-[#00DC51]/40'
-                                    : `bg-black/85 text-white ${quadrant.borderClass}`
+                                    ? 'border-[#00DC51]/45 bg-[#0F2417] shadow-[0_0_0_1px_rgba(0,220,81,0.1)]'
+                                    : isDisabled
+                                      ? 'border-white/8 bg-black/20 opacity-60'
+                                      : 'border-white/10 bg-black/20 hover:border-white/18 hover:bg-white/[0.03]'
                                 }`}
-                                style={{ left: `${left}%`, top: `${top}%` }}
                               >
-                                {workflow.name}
+                                <div className="flex items-start gap-4">
+                                  <div className="min-w-0 flex-1">
+                                    <div className="flex flex-wrap items-center gap-2">
+                                      <h6 className="text-lg font-black text-white">{workflow.name}</h6>
+                                      <span className={`rounded-full bg-[#00DC51]/12 px-3 py-1 text-[11px] font-black uppercase tracking-[0.14em] ${quadrant.colorClass}`}>
+                                        {quadrant.label}
+                                      </span>
+                                    </div>
+                                    <p className="mt-3 text-sm font-semibold text-white">
+                                      Repeatability {workflow.repeatability}/5 · Judgement {workflow.judgement}/5
+                                    </p>
+                                    <p className="mt-2 text-sm font-medium leading-relaxed text-white/72">
+                                      Start here if the workflow already follows consistent steps, the data is accessible, and the team can review the output reliably.
+                                    </p>
+                                  </div>
+                                  <div className={`flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl border-2 transition-colors ${
+                                    isSelected
+                                      ? 'border-[#00DC51] bg-[#00DC51] text-black'
+                                      : 'border-white/18 bg-transparent text-transparent'
+                                  }`}>
+                                    <Check size={18} strokeWidth={3.2} />
+                                  </div>
+                                </div>
                               </button>
                             );
                           })}
                         </div>
-                      </div>
-                    </div>
-
-                    <div className="rounded-[24px] border border-white/10 bg-[#0E0E0E] p-5 sm:p-6">
-                      <div className="flex items-start justify-between gap-4">
-                        <div>
-                          <h5 className="text-lg font-black text-white">Copyable workflow summary</h5>
-                          <p className="mt-1 text-sm font-medium text-white/55">Use this output to decide which workflows to test first.</p>
+                      ) : (
+                        <div className="rounded-2xl border border-dashed border-white/12 bg-black/20 p-4 text-sm font-medium leading-relaxed text-white/72">
+                          No strong agent candidates are available yet. Go back to the scoring step and increase repeatability or lower judgement on one or two workflows to create a starting shortlist.
                         </div>
-                        <button
-                          type="button"
-                          onClick={() => handlePromptCopy(workflowMapSummary.copyText, 'workflow-map-summary')}
-                          className="inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/5 px-4 py-2 text-xs font-bold text-white/80 transition-colors hover:border-[#00DC51]/40 hover:text-white"
-                        >
-                          {copiedPromptId === 'workflow-map-summary' ? <Check size={14} strokeWidth={3} /> : <Copy size={14} strokeWidth={2.5} />}
-                          <span>{copiedPromptId === 'workflow-map-summary' ? 'Copied' : 'Copy summary'}</span>
-                        </button>
-                      </div>
+                      )}
+                      {workflowCandidates.length > 0 && (
+                        <p className="mt-4 text-sm font-medium text-white/62">
+                          {hasReachedWorkflowPriorityLimit
+                            ? 'You have selected the maximum of 2 workflows. Deselect one to choose a different starting point.'
+                            : 'Select up to 2 workflows. Your starting point appears below once you choose one.'}
+                        </p>
+                      )}
 
-                      <pre className="mt-4 whitespace-pre-wrap rounded-2xl border border-white/10 bg-[#050805] p-4 text-xs font-medium leading-relaxed text-white/72">
-                        {workflowMapSummary.copyText}
-                      </pre>
+                      {selectedPriorityWorkflows.length > 0 && (
+                        <div className="mt-6 rounded-[22px] border border-[#00DC51]/20 bg-[#102016] p-5 sm:p-6">
+                          <p className="text-lg font-black text-[#00DC51]">Your starting point</p>
+                          <div className="mt-4 flex flex-wrap gap-2">
+                            {selectedPriorityWorkflows.map((workflow) => (
+                              <span
+                                key={workflow.id}
+                                className="rounded-full border border-[#00DC51]/18 bg-white/[0.03] px-3 py-1.5 text-xs font-bold uppercase tracking-[0.14em] text-white"
+                              >
+                                {workflow.name}
+                              </span>
+                            ))}
+                          </div>
+                          <p className="mt-4 text-base font-medium leading-relaxed text-white/88">
+                            Start with {selectedPriorityWorkflowNames}. Map the end-to-end steps, identify the data inputs, and run a small test with one team member before scaling.
+                          </p>
+                        </div>
+                      )}
+
+                      <details className="group mt-6 rounded-[20px] border border-white/10 bg-black/20">
+                        <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-4 py-4 text-left">
+                          <div>
+                            <p className="text-sm font-black text-white">Copy summary</p>
+                            <p className="mt-1 text-sm font-medium text-white/62">Keep this secondary and use it when you want a portable page 24 summary.</p>
+                          </div>
+                          <ChevronDown className="transition-transform group-open:rotate-180" size={18} strokeWidth={2.8} />
+                        </summary>
+
+                        <div className="border-t border-white/8 px-4 pb-4 pt-4">
+                          <div className="flex justify-end">
+                            <button
+                              type="button"
+                              onClick={() => handlePromptCopy(workflowMapSummary.copyText, 'workflow-map-summary')}
+                              className="inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/5 px-4 py-2 text-xs font-bold text-white transition-colors hover:border-[#00DC51]/40"
+                            >
+                              {copiedPromptId === 'workflow-map-summary' ? <Check size={14} strokeWidth={3} /> : <Copy size={14} strokeWidth={2.5} />}
+                              <span>{copiedPromptId === 'workflow-map-summary' ? 'Copied' : 'Copy summary'}</span>
+                            </button>
+                          </div>
+
+                          <pre className="mt-4 whitespace-pre-wrap rounded-2xl border border-white/10 bg-[#050805] p-4 text-xs font-medium leading-relaxed text-white/88">
+                            {workflowMapSummary.copyText}
+                          </pre>
+                        </div>
+                      </details>
                     </div>
                   </motion.div>
                 )}
@@ -4355,7 +4503,14 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
               <div className="mt-6 flex flex-col gap-3 border-t border-white/8 pt-5 sm:flex-row sm:items-center sm:justify-between">
                 <button
                   type="button"
-                  onClick={() => updateWorkflowMapState((current) => ({ ...current, currentStep: Math.max(current.currentStep - 1, 0) }))}
+                  onClick={() => {
+                    if (workflowWizardStep === 1 && workflowScoringIndex > 0) {
+                      updateWorkflowMapState((current) => ({ ...current, scoringIndex: Math.max(current.scoringIndex - 1, 0) }));
+                      return;
+                    }
+
+                    updateWorkflowMapState((current) => ({ ...current, currentStep: Math.max(current.currentStep - 1, 0) }));
+                  }}
                   disabled={workflowWizardStep === 0}
                   className="inline-flex items-center justify-center rounded-full border border-white/12 bg-white/[0.03] px-4 py-2 text-sm font-bold text-white/72 transition-colors hover:border-white/20 hover:text-white disabled:cursor-not-allowed disabled:opacity-35"
                 >
@@ -4380,7 +4535,13 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
                       }
 
                       if (workflowWizardStep === 1) {
-                        updateWorkflowMapState((current) => ({ ...current, currentStep: 2 }));
+                        updateWorkflowMapState((current) => {
+                          if (current.scoringIndex < current.workflows.length - 1) {
+                            return { ...current, scoringIndex: current.scoringIndex + 1 };
+                          }
+
+                          return { ...current, currentStep: 2 };
+                        });
                         return;
                       }
 
@@ -4395,7 +4556,11 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
                     }
                     className="inline-flex items-center justify-center rounded-full bg-[#00DC51] px-5 py-2.5 text-sm font-black text-black transition-all hover:bg-[#00F25B] disabled:cursor-not-allowed disabled:bg-white/10 disabled:text-white/35"
                   >
-                    {workflowWizardStep < 3 ? 'Continue' : 'Ready to use'}
+                    {workflowWizardStep === 1
+                      ? (isLastWorkflowScoringStep ? 'See results' : 'Next')
+                      : workflowWizardStep < 3
+                        ? 'Next'
+                        : 'Ready to use'}
                   </button>
                   {workflowWizardStep === 0 && !canAdvanceWorkflowListStep && (
                     <p className="text-xs font-medium text-white/45">Continue unlocks once you have 3 workflows.</p>
@@ -4711,16 +4876,16 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.25 }}
-          className="rounded-[28px] border-2 border-[#00DC51] bg-gradient-to-br from-[#00DC51]/14 via-[#071109] to-black p-6 shadow-2xl shadow-[#00DC51]/10 md:p-8"
+          className="rounded-[28px] border border-white/12 bg-[#131313] p-6 shadow-[0_24px_80px_rgba(0,0,0,0.28)] md:p-8"
         >
           <div className="mb-6 flex items-start gap-4">
-            <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-2xl bg-[#00DC51] shadow-lg shadow-[#00DC51]/35">
-              <Bot className="text-black" size={24} strokeWidth={2.5} />
+            <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-2xl border border-white/10 bg-[#0E0E0E]">
+              <Bot className="text-[#00DC51]" size={24} strokeWidth={2.5} />
             </div>
             <div className="flex-1">
               <div className="mb-2 flex items-center gap-2">
                 <span className="text-xs font-black uppercase tracking-[0.22em] text-[#00DC51]">Activity</span>
-                <div className="h-px flex-1 bg-[#00DC51]/30" />
+                <div className="h-px flex-1 bg-white/10" />
               </div>
               <h4 className="text-xl font-black text-white">{page.activity.title}</h4>
               <p className="mt-2 max-w-3xl text-sm font-medium leading-relaxed text-white/72">{page.activity.prompt}</p>
@@ -4742,7 +4907,7 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
 
           {!agentSpecReviewMode ? (
             <div className="grid gap-6 xl:grid-cols-[0.8fr_1.2fr]">
-              <div className="rounded-3xl border border-white/12 bg-black/30 p-5">
+              <div className="rounded-[24px] border border-white/10 bg-[#101010] p-5">
                 <p className="text-xs font-black uppercase tracking-[0.18em] text-[#00DC51]">
                   {agentSpecFields[agentSpecCurrentStep]?.label}
                 </p>
@@ -4760,8 +4925,8 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
                       onClick={() => updateAgentSpecState((current) => ({ ...current, currentStep: index, reviewMode: false }))}
                       className={`flex items-center justify-between rounded-2xl border px-3 py-3 text-left text-sm font-semibold transition-colors ${
                         index === agentSpecCurrentStep
-                          ? 'border-[#00DC51] bg-[#00DC51]/10 text-white'
-                          : 'border-white/10 bg-white/5 text-white/60 hover:border-white/20 hover:text-white/80'
+                          ? 'border-white/14 bg-white/[0.04] text-white'
+                          : 'border-white/10 bg-black/15 text-white/60 hover:border-white/15 hover:text-white/80'
                       }`}
                     >
                       <span>{field.label}</span>
@@ -4775,7 +4940,7 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
                 </div>
               </div>
 
-              <div className="rounded-3xl border border-white/12 bg-[#050805] p-5">
+              <div className="rounded-[24px] border border-white/10 bg-[#101010] p-5">
                 <label className="mb-2 block text-sm font-bold text-white/90">
                   {agentSpecFields[agentSpecCurrentStep]?.label}
                 </label>
@@ -4789,31 +4954,34 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
                     }));
                   }}
                   placeholder={agentSpecFields[agentSpecCurrentStep]?.placeholder}
-                  className="min-h-[240px] w-full rounded-3xl border-2 border-white/15 bg-black/40 p-4 text-sm font-medium leading-relaxed text-white placeholder-white/35 outline-none transition-colors focus:border-[#00DC51]"
+                  className="min-h-[240px] w-full rounded-3xl border border-white/12 bg-black/25 p-4 text-sm font-medium leading-relaxed text-white placeholder-white/35 outline-none transition-colors focus:border-[#00DC51]"
                 />
 
-                <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:justify-between">
-                  <button
-                    onClick={() => updateAgentSpecState((current) => ({
-                      ...current,
-                      currentStep: Math.max(agentSpecCurrentStep - 1, 0),
-                      reviewMode: false,
-                    }))}
-                    disabled={agentSpecCurrentStep === 0}
-                    className="inline-flex items-center justify-center gap-2 rounded-full border border-white/12 bg-white/5 px-4 py-3 text-sm font-bold text-white/75 transition-colors hover:border-white/25 hover:text-white disabled:cursor-not-allowed disabled:opacity-40"
-                  >
-                    <RotateCcw size={16} strokeWidth={2.5} />
-                    Back
-                  </button>
+                <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                  <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+                    <button
+                      onClick={() => updateAgentSpecState((current) => ({
+                        ...current,
+                        currentStep: Math.max(agentSpecCurrentStep - 1, 0),
+                        reviewMode: false,
+                      }))}
+                      disabled={agentSpecCurrentStep === 0}
+                      className="inline-flex items-center justify-center gap-2 rounded-full border border-white/12 bg-white/5 px-4 py-3 text-sm font-bold text-white/75 transition-colors hover:border-white/25 hover:text-white disabled:cursor-not-allowed disabled:opacity-40"
+                    >
+                      <RotateCcw size={16} strokeWidth={2.5} />
+                      Back
+                    </button>
+
+                    <button
+                      onClick={clearAgentSpecAnswers}
+                      disabled={!hasUsefulAgentSpecContent}
+                      className="inline-flex items-center justify-center rounded-full border border-white/10 bg-transparent px-3 py-2 text-xs font-bold uppercase tracking-[0.12em] text-white/55 transition-colors hover:border-white/20 hover:text-white disabled:cursor-not-allowed disabled:opacity-40"
+                    >
+                      Clear answers
+                    </button>
+                  </div>
 
                   <div className="flex flex-col gap-3 sm:flex-row">
-                    <button
-                      onClick={() => handlePromptCopy(agentSpecCopyText, 'agent-spec-copy')}
-                      className="inline-flex items-center justify-center gap-2 rounded-full border border-white/12 bg-white/5 px-4 py-3 text-sm font-bold text-white/80 transition-colors hover:border-[#00DC51]/40 hover:text-white"
-                    >
-                      {copiedPromptId === 'agent-spec-copy' ? <Check size={16} strokeWidth={3} /> : <Copy size={16} strokeWidth={2.5} />}
-                      <span>{copiedPromptId === 'agent-spec-copy' ? 'Copied' : 'Copy spec'}</span>
-                    </button>
                     <button
                       onClick={() => updateAgentSpecState((current) => ({
                         ...current,
@@ -4830,10 +4998,10 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
               </div>
             </div>
           ) : (
-            <div className="space-y-5">
-              <div className="rounded-3xl border border-[#00DC51]/25 bg-[#00DC51]/10 p-4">
+            <div className="space-y-6">
+              <div className="rounded-[24px] border border-white/10 bg-[#101010] p-4">
                 <p className="text-sm font-semibold leading-relaxed text-white/78">
-                  Review the full specification below. Every field stays editable, and the final output is copyable for use in a brief, SOP, or implementation handover.
+                  Review the final specification, then copy it into a brief, SOP, or implementation handover.
                 </p>
               </div>
 
@@ -4845,7 +5013,7 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
                     <button
                       key={field.label}
                       onClick={() => updateAgentSpecState((current) => ({ ...current, currentStep: index, reviewMode: false }))}
-                      className="rounded-3xl border border-white/12 bg-black/30 p-5 text-left transition-colors hover:border-[#00DC51]/35"
+                      className="rounded-[24px] border border-white/10 bg-[#101010] p-5 text-left transition-colors hover:border-white/20"
                     >
                       <div className="mb-2 flex items-center justify-between gap-3">
                         <p className="text-xs font-black uppercase tracking-[0.16em] text-[#00DC51]">{field.label}</p>
@@ -4863,11 +5031,12 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
                 })}
               </div>
 
-              <div className="rounded-3xl border border-white/12 bg-[#050805] p-5">
+              <div className="rounded-[24px] border border-white/10 bg-[#101010] p-5">
                 <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                   <div>
-                    <h5 className="text-lg font-black text-white">Copyable agent specification</h5>
-                    <p className="mt-1 text-sm font-medium text-white/55">Use this output when briefing the workflow, review point, and escalation rules.</p>
+                    <p className="text-xs font-black uppercase tracking-[0.16em] text-[#00DC51]">Preview & copy</p>
+                    <h5 className="text-lg font-black text-white">Agent specification preview</h5>
+                    <p className="mt-1 text-sm font-medium text-white/55">Review the final specification, then copy it into a brief, SOP, or implementation handover.</p>
                   </div>
                   <button
                     onClick={() => handlePromptCopy(agentSpecCopyText, 'agent-spec-review-copy')}
@@ -4878,7 +5047,7 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
                   </button>
                 </div>
 
-                <pre className="whitespace-pre-wrap rounded-2xl border border-white/10 bg-black/35 p-4 text-xs font-medium leading-relaxed text-white/72">
+                <pre className="whitespace-pre-wrap rounded-2xl border border-white/10 bg-black/20 p-4 text-xs font-medium leading-relaxed text-white/72">
                   {agentSpecCopyText}
                 </pre>
               </div>
@@ -4890,6 +5059,13 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
                 >
                   <RotateCcw size={16} strokeWidth={2.5} />
                   Edit answers
+                </button>
+                <button
+                  onClick={clearAgentSpecAnswers}
+                  disabled={!hasUsefulAgentSpecContent}
+                  className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-transparent px-4 py-3 text-sm font-bold text-white/55 transition-colors hover:border-white/20 hover:text-white disabled:cursor-not-allowed disabled:opacity-40"
+                >
+                  Clear answers
                 </button>
               </div>
             </div>
@@ -4913,16 +5089,16 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.25 }}
-          className="rounded-[28px] border-2 border-[#00DC51] bg-gradient-to-br from-[#00DC51]/14 via-[#071109] to-black p-6 shadow-2xl shadow-[#00DC51]/10 md:p-8"
+          className="rounded-[28px] border border-white/12 bg-[#131313] p-6 shadow-[0_24px_80px_rgba(0,0,0,0.28)] md:p-8"
         >
           <div className="mb-6 flex items-start gap-4">
-            <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-2xl bg-[#00DC51] shadow-lg shadow-[#00DC51]/35">
-              <Shield className="text-black" size={24} strokeWidth={2.5} />
+            <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-2xl border border-white/10 bg-[#0E0E0E]">
+              <Shield className="text-[#00DC51]" size={24} strokeWidth={2.5} />
             </div>
             <div className="flex-1">
               <div className="mb-2 flex items-center gap-2">
                 <span className="text-xs font-black uppercase tracking-[0.22em] text-[#00DC51]">Activity</span>
-                <div className="h-px flex-1 bg-[#00DC51]/30" />
+                <div className="h-px flex-1 bg-white/10" />
               </div>
               <h4 className="text-xl font-black text-white">{page.activity.title}</h4>
               <p className="mt-2 max-w-3xl text-sm font-medium leading-relaxed text-white/72">{page.activity.prompt}</p>
@@ -4930,7 +5106,7 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
           </div>
 
           <div className="grid gap-6 xl:grid-cols-[0.72fr_1.28fr]">
-            <aside className="space-y-3 rounded-3xl border border-white/12 bg-black/30 p-4">
+            <aside className="space-y-3 rounded-[24px] border border-white/10 bg-[#101010] p-4 sm:p-5">
               <div>
                 <h5 className="text-lg font-black text-white">Tool boundaries</h5>
                 <p className="mt-1 text-sm font-medium text-white/55">Select a row to define tasks, data boundaries, and review requirements.</p>
@@ -4943,16 +5119,18 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
 
                   return (
                     <button
-                      key={row.id}
-                      onClick={() => updateToolMatrixState((current) => ({ ...current, activeRowId: row.id }))}
-                      className={`w-full rounded-2xl border p-4 text-left transition-colors ${
-                        activeToolMatrixRow?.id === row.id
-                          ? 'border-[#00DC51] bg-[#00DC51]/10'
-                          : 'border-white/10 bg-white/5 hover:border-white/20'
-                      }`}
-                    >
-                      <div className="flex items-start gap-3">
-                        <div className="mt-0.5 flex h-10 w-10 items-center justify-center rounded-2xl bg-black/40 text-[#00DC51]">
+                    key={row.id}
+                    onClick={() => updateToolMatrixState((current) => ({ ...current, activeRowId: row.id }))}
+                    className={`w-full rounded-2xl border p-4 text-left transition-colors ${
+                      activeToolMatrixRow?.id === row.id
+                          ? 'border-white/14 bg-white/[0.04]'
+                          : 'border-white/10 bg-black/20 hover:border-white/15'
+                    }`}
+                  >
+                    <div className="flex items-start gap-3">
+                        <div className={`mt-0.5 flex h-10 w-10 items-center justify-center rounded-2xl ${
+                          activeToolMatrixRow?.id === row.id ? 'bg-[#00DC51]/10 text-[#00DC51]' : 'bg-black/35 text-white/60'
+                        }`}>
                           <Icon size={18} strokeWidth={2.5} />
                         </div>
                         <div>
@@ -4970,25 +5148,18 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
 
             <div className="space-y-5">
               {activeToolMatrixRow && (
-                <div className="rounded-3xl border border-white/12 bg-[#050805] p-5">
+                <div className="rounded-[24px] border border-white/10 bg-[#101010] p-5 sm:p-6">
                   <div className="mb-5 flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between">
                     <div>
                       <p className="text-xs font-black uppercase tracking-[0.18em] text-[#00DC51]">Matrix row</p>
                       <h5 className="mt-2 text-2xl font-black text-white">{activeToolMatrixRow.toolName}</h5>
                       <p className="mt-2 text-sm font-medium text-white/55">Define exactly what this tool can do, what data it can use, and where review stays mandatory.</p>
                     </div>
-                    <button
-                      onClick={() => handlePromptCopy(toolMatrixSummary.copyText, 'tool-matrix-summary')}
-                      className="inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/5 px-4 py-2 text-xs font-bold text-white/80 transition-colors hover:border-[#00DC51]/40 hover:text-white"
-                    >
-                      {copiedPromptId === 'tool-matrix-summary' ? <Check size={14} strokeWidth={3} /> : <Copy size={14} strokeWidth={2.5} />}
-                      <span>{copiedPromptId === 'tool-matrix-summary' ? 'Copied' : 'Copy matrix'}</span>
-                    </button>
                   </div>
 
                   <div className="grid gap-4">
                     <div className="space-y-2">
-                      <label className="text-sm font-bold text-white/90">Tool or category name</label>
+                      <label className="text-sm font-bold text-white">Tool or category name</label>
                       <input
                         type="text"
                         value={activeToolMatrixRow.toolName}
@@ -4999,12 +5170,12 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
                             rows: current.rows.map((row) => row.id === activeToolMatrixRow.id ? { ...row, toolName: value } : row),
                           }));
                         }}
-                        className="w-full rounded-2xl border-2 border-white/15 bg-black/40 px-4 py-3 text-sm font-medium text-white placeholder-white/35 outline-none transition-colors focus:border-[#00DC51]"
+                        className="w-full rounded-2xl border border-white/12 bg-black/25 px-4 py-3 text-sm font-medium text-white placeholder-white/35 outline-none transition-colors focus:border-[#00DC51]"
                       />
                     </div>
 
                     <div className="space-y-2">
-                      <label className="text-sm font-bold text-white/90">Allowed tasks</label>
+                      <label className="text-sm font-bold text-white">Allowed tasks</label>
                       <textarea
                         value={activeToolMatrixRow.allowedTasks}
                         onChange={(e) => {
@@ -5015,13 +5186,13 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
                           }));
                         }}
                         placeholder="Define the tasks this tool is allowed to support."
-                        className="min-h-[110px] w-full rounded-2xl border-2 border-white/15 bg-black/40 p-4 text-sm font-medium text-white placeholder-white/35 outline-none transition-colors focus:border-[#00DC51]"
+                        className="min-h-[110px] w-full rounded-2xl border border-white/12 bg-black/25 p-4 text-sm font-medium text-white placeholder-white/35 outline-none transition-colors focus:border-[#00DC51]"
                       />
                     </div>
 
                     <div className="grid gap-4 md:grid-cols-2">
                       <div className="space-y-2">
-                        <label className="text-sm font-bold text-white/90">Data boundaries</label>
+                        <label className="text-sm font-bold text-white">Data boundaries</label>
                         <textarea
                           value={activeToolMatrixRow.dataBoundaries}
                           onChange={(e) => {
@@ -5032,12 +5203,12 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
                             }));
                           }}
                           placeholder="What data can this tool use?"
-                          className="min-h-[110px] w-full rounded-2xl border-2 border-white/15 bg-black/40 p-4 text-sm font-medium text-white placeholder-white/35 outline-none transition-colors focus:border-[#00DC51]"
+                          className="min-h-[110px] w-full rounded-2xl border border-white/12 bg-black/25 p-4 text-sm font-medium text-white placeholder-white/35 outline-none transition-colors focus:border-[#00DC51]"
                         />
                       </div>
 
                       <div className="space-y-2">
-                        <label className="text-sm font-bold text-white/90">Review required</label>
+                        <label className="text-sm font-bold text-white">Review required</label>
                         <textarea
                           value={activeToolMatrixRow.reviewRequired}
                           onChange={(e) => {
@@ -5048,7 +5219,7 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
                             }));
                           }}
                           placeholder="Explain where review or approval is mandatory."
-                          className="min-h-[110px] w-full rounded-2xl border-2 border-white/15 bg-black/40 p-4 text-sm font-medium text-white placeholder-white/35 outline-none transition-colors focus:border-[#00DC51]"
+                          className="min-h-[110px] w-full rounded-2xl border border-white/12 bg-black/25 p-4 text-sm font-medium text-white placeholder-white/35 outline-none transition-colors focus:border-[#00DC51]"
                         />
                       </div>
                     </div>
@@ -5056,13 +5227,33 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
                 </div>
               )}
 
-              <div className="rounded-3xl border border-white/12 bg-black/30 p-5">
-                <h5 className="text-lg font-black text-white">Copyable matrix output</h5>
-                <p className="mt-1 text-sm font-medium text-white/55">This output can be copied into internal guidance, policy notes, or staff training material.</p>
-                <pre className="mt-4 whitespace-pre-wrap rounded-2xl border border-white/10 bg-[#050805] p-4 text-xs font-medium leading-relaxed text-white/72">
-                  {toolMatrixSummary.copyText}
-                </pre>
-              </div>
+              <details className="group rounded-[24px] border border-white/10 bg-[#101010] p-5 sm:p-6">
+                <summary className="flex cursor-pointer list-none items-start justify-between gap-4">
+                  <div>
+                    <h5 className="text-lg font-black text-white">Preview & copy</h5>
+                    <p className="mt-1 text-sm font-medium text-white/55">Use this output for internal guidance, policy notes, or staff training material.</p>
+                  </div>
+                  <div className="inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/[0.03] px-3 py-2 text-xs font-bold text-white/72 transition-colors group-hover:border-white/20">
+                    <span>Show preview</span>
+                    <ChevronDown className="transition-transform group-open:rotate-180" size={14} strokeWidth={2.8} />
+                  </div>
+                </summary>
+
+                <div className="mt-4 border-t border-white/8 pt-4">
+                  <div className="mb-4 flex justify-end">
+                    <button
+                      onClick={() => handlePromptCopy(toolMatrixSummary.copyText, 'tool-matrix-summary')}
+                      className="inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/[0.03] px-4 py-2 text-xs font-bold text-white/80 transition-colors hover:border-[#00DC51]/40 hover:text-white"
+                    >
+                      {copiedPromptId === 'tool-matrix-summary' ? <Check size={14} strokeWidth={3} /> : <Copy size={14} strokeWidth={2.5} />}
+                      <span>{copiedPromptId === 'tool-matrix-summary' ? 'Copied' : 'Copy matrix'}</span>
+                    </button>
+                  </div>
+                  <pre className="whitespace-pre-wrap rounded-2xl border border-white/10 bg-black/25 p-4 text-xs font-medium leading-relaxed text-white/72">
+                    {toolMatrixSummary.copyText}
+                  </pre>
+                </div>
+              </details>
             </div>
           </div>
 

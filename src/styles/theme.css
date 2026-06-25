@@ -206,12 +206,39 @@
   @media print {
     @page {
       size: A4;
-      margin: 1.5cm;
+      margin: 1.2cm;
     }
 
+    html,
     body {
       background: white !important;
       color: black !important;
+    }
+
+    .playbook-app-shell {
+      display: block !important;
+      min-height: auto !important;
+      background: white !important;
+      color: black !important;
+    }
+
+    .playbook-sidebar,
+    .playbook-sidebar-toggle,
+    .playbook-page-nav {
+      display: none !important;
+    }
+
+    .playbook-main {
+      margin-left: 0 !important;
+      width: 100% !important;
+      min-height: auto !important;
+    }
+
+    .playbook-main-inner {
+      max-width: none !important;
+      width: 100% !important;
+      padding: 0 !important;
+      margin: 0 !important;
     }
 
     .print\:hidden {
@@ -260,6 +287,64 @@
 
     .print\:shadow-none {
       box-shadow: none !important;
+    }
+
+    .activity-summary-page,
+    .activity-summary-page * {
+      color: #111111 !important;
+      text-shadow: none !important;
+      box-shadow: none !important;
+      filter: none !important;
+    }
+
+    .activity-summary-page {
+      width: 100% !important;
+      max-width: none !important;
+      background: white !important;
+    }
+
+    .activity-summary-stat,
+    .activity-summary-card,
+    .summary-group-card,
+    .summary-kv-row {
+      background: white !important;
+      border-color: rgba(0, 0, 0, 0.14) !important;
+      break-inside: avoid !important;
+      page-break-inside: avoid !important;
+    }
+
+    .activity-summary-section-header {
+      border-color: rgba(0, 0, 0, 0.18) !important;
+    }
+
+    .activity-summary-response-shell {
+      margin-left: 0 !important;
+      padding-left: 0 !important;
+      border-left: 0 !important;
+    }
+
+    .summary-response-text,
+    .summary-group-title,
+    .summary-kv-label {
+      color: #111111 !important;
+    }
+
+    .summary-kv-label {
+      opacity: 0.7 !important;
+    }
+
+    .summary-empty-state {
+      color: rgba(0, 0, 0, 0.45) !important;
+    }
+
+    .summary-inline-chip {
+      color: #111111 !important;
+      background: rgba(0, 0, 0, 0.04) !important;
+      border-color: rgba(0, 0, 0, 0.14) !important;
+    }
+
+    .summary-bullet {
+      background: #111111 !important;
     }
   }
 }
