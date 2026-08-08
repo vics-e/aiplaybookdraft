@@ -322,7 +322,7 @@ export default function SageAIPlaybook() {
                                   <CheckCircle size={16} strokeWidth={2.5} className="fill-[#00DC51]/20" />
                                 ) : (
                                   <span className="text-xs font-black tabular-nums">
-                                    {isCover ? '🏠' : isContents ? '📋' : String(index).padStart(2, '0')}
+                                    {isCover ? '🏠' : isContents ? '📋' : String(index + 1).padStart(2, '0')}
                                   </span>
                                 )}
                               </div>
