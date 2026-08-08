@@ -1,0 +1,756 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI Playbook Project Tracker</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #07110c;
+      --surface: #0d1a13;
+      --surface-2: #12231a;
+      --line: #294034;
+      --text: #f4f7f5;
+      --muted: #9fb0a6;
+      --green: #00dc51;
+      --green-dark: #003d1b;
+      --amber: #f6bf55;
+      --red: #ff7d7d;
+      --blue: #7eb8ff;
+      --radius: 14px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at 15% 0%, rgba(0, 220, 81, 0.09), transparent 34rem),
+        var(--bg);
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    button, select, textarea, input { font: inherit; }
+
+    a { color: var(--green); }
+
+    .shell {
+      width: min(1460px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 32px 0 56px;
+    }
+
+    .topbar {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 24px;
+    }
+
+    .eyebrow {
+      margin: 0 0 8px;
+      color: var(--green);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(28px, 5vw, 48px);
+      line-height: 1.05;
+    }
+
+    .intro {
+      max-width: 760px;
+      margin: 12px 0 0;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .actions { display: flex; gap: 10px; flex-wrap: wrap; }
+
+    .button {
+      min-height: 42px;
+      padding: 10px 14px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+      color: var(--text);
+      cursor: pointer;
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    .button:hover { border-color: var(--green); }
+    .button.primary { background: var(--green); color: #001c0b; border-color: var(--green); }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .stat {
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(13, 26, 19, .86);
+    }
+
+    .stat-label { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: .08em; }
+    .stat-value { margin-top: 6px; font-size: 24px; font-weight: 800; }
+
+    .progress-track {
+      height: 8px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: #1a2c21;
+      margin-top: 10px;
+    }
+
+    .progress-fill {
+      width: 0;
+      height: 100%;
+      border-radius: inherit;
+      background: var(--green);
+      transition: width .2s ease;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 8px;
+      padding: 6px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--surface);
+      margin-bottom: 18px;
+    }
+
+    .tab {
+      flex: 1;
+      padding: 12px 16px;
+      border: 0;
+      border-radius: 8px;
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      font-weight: 800;
+    }
+
+    .tab[aria-selected="true"] { background: var(--green); color: #001c0b; }
+    .view[hidden] { display: none; }
+
+    .section-heading {
+      display: flex;
+      gap: 16px;
+      align-items: end;
+      justify-content: space-between;
+      margin: 24px 0 14px;
+    }
+
+    h2 { margin: 0; font-size: 24px; }
+    .section-heading p { margin: 6px 0 0; color: var(--muted); }
+
+    .facts {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .fact {
+      padding: 14px;
+      border-left: 3px solid var(--green);
+      background: var(--surface);
+      border-radius: 0 10px 10px 0;
+    }
+
+    .fact strong { display: block; margin-bottom: 4px; }
+    .fact span { color: var(--muted); font-size: 14px; word-break: break-word; }
+
+    .question-list { display: grid; gap: 12px; }
+
+    .question-card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
+      overflow: hidden;
+    }
+
+    .question-main {
+      display: grid;
+      grid-template-columns: 44px minmax(0, 1fr) 210px;
+      gap: 14px;
+      align-items: start;
+      padding: 18px;
+    }
+
+    .number {
+      display: grid;
+      place-items: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--green-dark);
+      color: var(--green);
+      font-weight: 800;
+    }
+
+    .question-title { margin: 3px 0 10px; font-size: 17px; line-height: 1.4; }
+    .evidence { margin: 0; padding-left: 18px; color: var(--muted); line-height: 1.55; }
+
+    .field-label {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+
+    select, textarea, input[type="search"] {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      background: #08130d;
+      color: var(--text);
+    }
+
+    select, input[type="search"] { min-height: 40px; padding: 8px 10px; }
+    textarea { min-height: 74px; padding: 10px; resize: vertical; }
+
+    .question-notes {
+      padding: 0 18px 18px 76px;
+    }
+
+    .controls {
+      display: grid;
+      grid-template-columns: minmax(220px, 1fr) repeat(3, minmax(150px, 210px));
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
+    }
+
+    table { width: 100%; border-collapse: collapse; min-width: 1400px; }
+    th, td { padding: 13px 12px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+    th { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: .06em; background: #0a160f; }
+    tr:last-child td { border-bottom: 0; }
+    tbody tr:hover { background: rgba(0, 220, 81, .035); }
+    tr.is-complete td { color: #91a399; }
+    tr.is-complete .task-name { text-decoration: line-through; }
+
+    .complete-box { width: 19px; height: 19px; accent-color: var(--green); }
+    .task-name { display: block; color: var(--text); font-weight: 800; margin-bottom: 5px; }
+    .task-why { color: var(--muted); line-height: 1.45; }
+    .question-links { color: var(--muted); font-weight: 700; white-space: nowrap; }
+    .roadmap-outcome { min-width: 280px; }
+    .roadmap-outcome textarea { min-height: 92px; }
+
+    .badge {
+      display: inline-block;
+      padding: 4px 8px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    .badge.high { color: var(--green); border-color: #176837; background: #082b17; }
+    .badge.medium { color: var(--amber); border-color: #70521d; background: #2b210c; }
+    .badge.low { color: var(--blue); border-color: #214d78; background: #0b2237; }
+
+    .empty { display: none; padding: 32px; text-align: center; color: var(--muted); }
+
+    .local-note {
+      margin-top: 16px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    @media (max-width: 960px) {
+      .summary-grid, .facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .controls { grid-template-columns: 1fr 1fr; }
+      .question-main { grid-template-columns: 44px minmax(0, 1fr); }
+      .question-main .status-field { grid-column: 2; }
+    }
+
+    @media (max-width: 640px) {
+      .shell { width: min(100% - 20px, 1460px); padding-top: 20px; }
+      .topbar, .section-heading { display: block; }
+      .actions { margin-top: 16px; }
+      .actions .button { flex: 1 1 100%; text-align: center; }
+      .summary-grid, .facts, .controls { grid-template-columns: 1fr; }
+      .tabs { display: grid; }
+      .question-main { grid-template-columns: 36px minmax(0, 1fr); padding: 14px; }
+      .question-notes { padding: 0 14px 14px; }
+
+      .table-wrap { overflow: visible; border: 0; background: transparent; }
+      table, thead, tbody, tr, th, td { display: block; }
+      table { min-width: 0; }
+      thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+      tbody { display: grid; gap: 12px; }
+      tbody tr {
+        padding: 14px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--surface);
+      }
+      tbody tr:hover { background: var(--surface); }
+      td {
+        display: grid;
+        grid-template-columns: 94px minmax(0, 1fr);
+        gap: 10px;
+        padding: 9px 0;
+        border: 0;
+      }
+      td::before {
+        content: attr(data-label);
+        color: var(--muted);
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: .06em;
+        text-transform: uppercase;
+      }
+      td[data-label="Improvement"] { display: block; padding: 12px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+      td[data-label="Improvement"]::before { display: block; margin-bottom: 8px; }
+      td[data-label="Outcome / evidence"] { display: block; padding: 12px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+      td[data-label="Outcome / evidence"]::before { display: block; margin-bottom: 8px; }
+      .roadmap-outcome { min-width: 0; }
+      td select { min-width: 0; }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Local working dashboard</p>
+        <h1>AI Playbook Project Tracker</h1>
+        <p class="intro">Track the team questions, evidence gaps, ownership decisions and improvement roadmap in one place. Progress is saved only in this browser.</p>
+      </div>
+      <div class="actions">
+        <a class="button" href="https://aiplaybook-ve.vercel.app/" target="_blank" rel="noreferrer">Open live playbook</a>
+        <button class="button" id="export-progress" type="button">Export progress</button>
+        <button class="button" id="reset-progress" type="button">Reset</button>
+      </div>
+    </header>
+
+    <section class="summary-grid" aria-label="Project progress summary">
+      <div class="stat">
+        <div class="stat-label">Questions answered</div>
+        <div class="stat-value" id="questions-count">0 / 10</div>
+        <div class="progress-track"><div class="progress-fill" id="questions-progress"></div></div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Roadmap completed</div>
+        <div class="stat-value" id="roadmap-count">0 / 17</div>
+        <div class="progress-track"><div class="progress-fill" id="roadmap-progress"></div></div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Current production</div>
+        <div class="stat-value">Ready</div>
+        <div class="local-note">main · 2b9431f · aiplaybook-ve.vercel.app</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Local working branch</div>
+        <div class="stat-value" style="font-size:16px">codex/ai-playbook-foundations</div>
+        <div class="local-note">From main · local and unpushed</div>
+      </div>
+    </section>
+
+    <nav class="tabs" role="tablist" aria-label="Tracker views">
+      <button class="tab" id="questions-tab" type="button" role="tab" aria-controls="questions-view" aria-selected="true" tabindex="0">Team questions</button>
+      <button class="tab" id="roadmap-tab" type="button" role="tab" aria-controls="roadmap-view" aria-selected="false" tabindex="-1">Improvement roadmap</button>
+    </nav>
+
+    <section class="view" id="questions-view" role="tabpanel" aria-labelledby="questions-tab">
+      <div class="facts" aria-label="Verified project facts">
+        <div class="fact"><strong>Production</strong><span>aiplaybook-ve.vercel.app · Ready</span></div>
+        <div class="fact"><strong>Repository</strong><span>github.com/vics-e/aiplaybookdraft · Public</span></div>
+        <div class="fact"><strong>Hosting</strong><span>Vercel Hobby · vicxrx-4736's projects</span></div>
+        <div class="fact"><strong>GitHub ownership</strong><span>vics-e is Victor's confirmed repository account</span></div>
+        <div class="fact"><strong>Verified mapping</strong><span>vics-e/aiplaybookdraft main → aiplaybook-ve.vercel.app</span></div>
+        <div class="fact"><strong>Working branch</strong><span>codex/ai-playbook-foundations · local and unpushed</span></div>
+        <div class="fact"><strong>Application</strong><span>Static Vite/React site · answers saved to localStorage</span></div>
+      </div>
+
+      <div class="section-heading">
+        <div>
+          <h2>Questions to resolve</h2>
+          <p>Update each status and add evidence or decisions as they become available.</p>
+        </div>
+      </div>
+      <div class="question-list" id="question-list"></div>
+    </section>
+
+    <section class="view" id="roadmap-view" role="tabpanel" aria-labelledby="roadmap-tab" hidden>
+      <div class="section-heading">
+        <div>
+          <h2>Improvement roadmap</h2>
+          <p>Work through quick wins first, then shared patterns, product improvements and longer-term documentation.</p>
+        </div>
+      </div>
+
+      <div class="controls" aria-label="Roadmap filters">
+        <label><span class="field-label">Search</span><input type="search" id="roadmap-search" placeholder="Search improvements"></label>
+        <label><span class="field-label">Phase</span><select id="phase-filter"><option value="all">All phases</option></select></label>
+        <label><span class="field-label">Priority</span><select id="priority-filter"><option value="all">All priorities</option><option>High</option><option>Medium</option><option>Low–Medium</option></select></label>
+        <label><span class="field-label">Status</span><select id="status-filter"><option value="all">All statuses</option><option>Not started</option><option>In progress</option><option>Blocked</option><option>Complete</option></select></label>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Done</th>
+              <th>#</th>
+              <th>Phase</th>
+              <th>Improvement</th>
+              <th>Priority</th>
+              <th>Effort</th>
+              <th>Helps answer</th>
+              <th>Outcome / evidence</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="roadmap-body"></tbody>
+        </table>
+        <div class="empty" id="roadmap-empty">No roadmap items match the current filters.</div>
+      </div>
+    </section>
+
+    <p class="local-note">This is a local planning file. It does not update GitHub, Vercel or the live playbook, and it will not be uploaded unless deliberately committed.</p>
+  </main>
+
+  <script>
+    const STORAGE_KEY = 'ai-playbook-project-tracker-v1';
+    const questionStatuses = ['Not reviewed', 'Answerable now', 'Partially answerable', 'Needs Sage input', 'Not currently known', 'Answered'];
+    const roadmapStatuses = ['Not started', 'In progress', 'Blocked', 'Complete'];
+
+    const questions = [
+      {
+        id: 'production-ready',
+        text: 'Is it production-ready, or more of a prototype at the moment?',
+        status: 'Partially answerable',
+        evidence: ['A production deployment is live and marked Ready.', 'Formal production-readiness, security, accessibility and support sign-off have not been evidenced.']
+      },
+      {
+        id: 'user-limits',
+        text: 'Are there limits on the number of users it can support, or is it effectively unrestricted?',
+        status: 'Partially answerable',
+        evidence: ['It is a static Vite site with no application backend or function invocations.', 'Hosting still has Vercel Hobby usage limits; it should not be described as unrestricted.']
+      },
+      {
+        id: 'costs',
+        text: 'Are there usage limits or ongoing costs Sage should know about if traffic increases significantly?',
+        status: 'Partially answerable',
+        evidence: ['Current workspace usage is very low.', 'Plan limits and the intended Sage hosting arrangement must be confirmed before forecasting costs.']
+      },
+      {
+        id: 'embedding',
+        text: 'Is it designed to be embedded within another website via an iframe, or launched standalone?',
+        status: 'Partially answerable',
+        evidence: ['The current product is deployed and navigated as a standalone experience.', 'No formal iframe compatibility, responsive container or host-page integration assessment has been completed.']
+      },
+      {
+        id: 'security-compliance',
+        text: 'Are there security or compliance considerations before embedding it on sage.com?',
+        status: 'Needs Sage input',
+        evidence: ['The app uses browser storage and Vercel Web Analytics.', 'Sage security, privacy, legal, accessibility and hosting approvals are still required.']
+      },
+      {
+        id: 'user-data',
+        text: 'Does it store or process user data, or is everything handled in-session?',
+        status: 'Answerable now',
+        evidence: ['Answers and progress persist in the user\'s browser using localStorage.', 'Vercel Web Analytics records page-view/event data; the app has no custom database or backend.']
+      },
+      {
+        id: 'security-testing',
+        text: 'Has it been through any security or penetration testing already?',
+        status: 'Not currently known',
+        evidence: ['No evidence of a completed penetration test or formal security assessment was found in the repository or deployment review.']
+      },
+      {
+        id: 'accessibility-browsers',
+        text: 'Are there any accessibility or browser limitations that you are aware of?',
+        status: 'Partially answerable',
+        evidence: ['The application is responsive and has received manual build checks.', 'No formal WCAG audit or documented browser/device compatibility matrix has been found.']
+      },
+      {
+        id: 'ownership-support',
+        text: 'Who owns and supports the application going forward if Sage adopts it?',
+        status: 'Needs Sage input',
+        evidence: ['Vercel is currently under the vicxrx-4736 workspace; GitHub is owned by vics-e.', 'A Sage product owner, technical owner, support route and release approver have not been agreed.']
+      },
+      {
+        id: 'documentation',
+        text: 'Is there any technical documentation or architecture overview available?',
+        status: 'Partially answerable',
+        evidence: ['The repository contains audits, design references and planning notes.', 'The README is minimal and no formal architecture, deployment or operational support document exists yet.']
+      }
+    ];
+
+    const roadmap = [
+      { id:'deployment-docs', phase:'Quick wins', name:'Deployment documentation', why:'Record the live URL, repository, production branch, hosting setup and a short repeatable release checklist.', priority:'High', effort:'Low', answers:'Q1, Q9, Q10', status:'In progress' },
+      { id:'design-audit', phase:'Quick wins', name:'Pattern-based design consistency audit', why:'Use recurring data and renderer patterns plus a representative visual sample to identify reusable consistency improvements.', priority:'High', effort:'Medium', answers:'Q1, Q8', outcome:'Completed 8 Aug 2026. Evidence: docs/design-consistency-audit.md; statistical inspection of all 63 pages and render branches; visual review of 14 representative pages; no production wording or application files changed.', status:'Complete' },
+      { id:'design-system', phase:'Shared foundations', name:'Create a small design system', why:'Standardise tokens, page shells, cards, buttons, activity containers and interaction states.', priority:'High', effort:'Medium', answers:'—', status:'Not started' },
+      { id:'activity-patterns', phase:'Shared foundations', name:'Standardise activity patterns', why:'Define reusable reflection, checklist, wizard, comparison and output-builder treatments.', priority:'High', effort:'Medium', answers:'—', status:'Not started' },
+      { id:'refactor-page-content', phase:'Shared foundations', name:'Refactor PageContent', why:'Split PageContent.tsx into focused components and reduce page-specific conditional complexity before broader feature work.', priority:'High', effort:'High', answers:'—', status:'Not started' },
+      { id:'v1-pages', phase:'Core experience', name:'Finish V1 pages 22, 30 and 43', why:'Complete the original V1 shortlist with useful interactive outputs built on the shared patterns.', priority:'High', effort:'Medium–High', answers:'—', status:'Not started' },
+      { id:'text-heavy-pages', phase:'Core experience', name:'Improve text-heavy pages', why:'Use progressive disclosure, examples and selective diagrams to make dense learning pages easier to scan.', priority:'Medium', effort:'Medium', answers:'—', status:'Not started' },
+      { id:'mobile-accessibility', phase:'Quality', name:'Mobile and accessibility improvements', why:'Address responsive behavior, keyboard use, semantics, contrast and documented browser/device coverage.', priority:'High', effort:'Medium–High', answers:'Q4, Q8', status:'Not started' },
+      { id:'automated-testing', phase:'Quality', name:'Automated testing', why:'Protect navigation, saved answers, interactive builders, summaries, completion and printing with a focused test suite.', priority:'High', effort:'Medium–High', answers:'Q1, Q7, Q8', status:'Not started' },
+      { id:'dependency-security', phase:'Quality', name:'Dependency and security review', why:'Audit packages, vulnerabilities, unused dependencies and the need for formal security or penetration testing.', priority:'High', effort:'Medium', answers:'Q1, Q5, Q7', status:'Not started' },
+      { id:'shared-roadmap', phase:'Planning', name:'Shared 30/60/90 roadmap', why:'Agree a practical delivery sequence, owners and review points with the wider team.', priority:'High', effort:'Low–Medium', answers:'Q9', status:'Not started' },
+      { id:'policy-template-builders', phase:'Product depth', name:'Policy and template builders', why:'Turn selected guidance into structured, reusable outputs once the shared activity patterns are stable.', priority:'Medium', effort:'High', answers:'—', status:'Not started' },
+      { id:'completion-experience', phase:'Product depth', name:'Progress and completion experience', why:'Make progress, saved work, next steps and completion feel clearer and more rewarding.', priority:'Medium', effort:'Medium', answers:'—', status:'Not started' },
+      { id:'performance', phase:'Optimisation', name:'Performance and bundle review', why:'Address the large JavaScript bundle warning and continue asset and loading optimisation.', priority:'Medium', effort:'Medium', answers:'Q1, Q2, Q3', status:'Not started' },
+      { id:'analytics-feedback', phase:'Learning loop', name:'Analytics and user feedback', why:'Define proportionate measures and feedback routes so adoption and friction can be understood without collecting unnecessary data.', priority:'Medium', effort:'Medium', answers:'Q2, Q3, Q6', status:'Not started' },
+      { id:'content-management', phase:'Longer term', name:'Content management strategy', why:'Decide how content changes are authored, reviewed, versioned and supported as the playbook grows.', priority:'Medium', effort:'Medium–High', answers:'Q9', status:'Not started' },
+      { id:'technical-docs', phase:'Longer term', name:'Technical documentation and architecture', why:'Create simple documentation with clear Mermaid architecture, data-flow and deployment diagrams after the implementation direction is stable.', priority:'Medium', effort:'Medium', answers:'Q1, Q4, Q6, Q10', status:'Not started' }
+    ];
+
+    const implementationUpdates = {
+      'design-system': {
+        status: 'In progress',
+        outcome: 'In progress: added restrained shared title/subtitle, responsive padding, focus and navigation-control foundations while retaining Sage Header, Sage Text and the existing green treatment. Broader card and colour-role work remains.'
+      },
+      'activity-patterns': {
+        status: 'In progress',
+        outcome: 'In progress: shared activity frames now associate titles, instructions and fields; essential control alignment, focus and mobile behavior were corrected. Specialist internals and the parked shared output system were not changed.'
+      },
+      'mobile-accessibility': {
+        status: 'In progress',
+        outcome: 'In progress: immediate mobile drawer/overflow and essential accessibility package completed locally. Browser evidence covers desktop/mobile shell plus pages 24, 35, 55, 57, 60, 62 and 63; a broader formal WCAG/browser audit remains out of scope.'
+      },
+      'automated-testing': {
+        status: 'In progress',
+        outcome: 'In progress: added four focused source-level regression checks for the responsive drawer, named/touch-sized navigation controls, activity field associations and Sage font preservation. All 4 pass; wider interaction/print coverage remains.'
+      }
+    };
+
+    for (const item of roadmap) {
+      if (implementationUpdates[item.id]) Object.assign(item, implementationUpdates[item.id]);
+    }
+
+    const defaults = {
+      activeTab: 'questions',
+      questions: Object.fromEntries(questions.map(q => [q.id, { status: q.status, notes: '' }])),
+      roadmap: Object.fromEntries(roadmap.map(item => [item.id, { status: item.status, outcome: item.outcome || '' }]))
+    };
+
+    function cloneDefaults() { return JSON.parse(JSON.stringify(defaults)); }
+
+    function loadState() {
+      try {
+        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
+        if (!saved || typeof saved !== 'object') return cloneDefaults();
+        const next = cloneDefaults();
+        next.activeTab = saved.activeTab === 'roadmap' ? 'roadmap' : 'questions';
+        for (const q of questions) if (saved.questions?.[q.id]) next.questions[q.id] = { ...next.questions[q.id], ...saved.questions[q.id] };
+        for (const item of roadmap) {
+          if (saved.roadmap?.[item.id]) {
+            next.roadmap[item.id] = { ...next.roadmap[item.id], ...saved.roadmap[item.id] };
+            if (item.outcome && !saved.roadmap[item.id].outcome) {
+              next.roadmap[item.id].status = item.status;
+              next.roadmap[item.id].outcome = item.outcome;
+            }
+          }
+        }
+        return next;
+      } catch { return cloneDefaults(); }
+    }
+
+    let state = loadState();
+
+    function saveState() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      updateSummary();
+    }
+
+    function escapeHTML(value) {
+      return String(value).replace(/[&<>'"]/g, char => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', "'":'&#39;', '"':'&quot;' }[char]));
+    }
+
+    function statusOptions(options, current) {
+      return options.map(option => `<option${option === current ? ' selected' : ''}>${escapeHTML(option)}</option>`).join('');
+    }
+
+    function renderQuestions() {
+      const list = document.getElementById('question-list');
+      list.innerHTML = questions.map((question, index) => {
+        const current = state.questions[question.id];
+        return `
+          <article class="question-card">
+            <div class="question-main">
+              <div class="number">${index + 1}</div>
+              <div>
+                <h3 class="question-title">${escapeHTML(question.text)}</h3>
+                <ul class="evidence">${question.evidence.map(item => `<li>${escapeHTML(item)}</li>`).join('')}</ul>
+              </div>
+              <label class="status-field"><span class="field-label">Answer status</span><select data-question-status="${question.id}">${statusOptions(questionStatuses, current.status)}</select></label>
+            </div>
+            <div class="question-notes">
+              <label><span class="field-label">Evidence, answer or next action</span><textarea data-question-notes="${question.id}" placeholder="Add confirmed evidence or the next person/check needed…">${escapeHTML(current.notes)}</textarea></label>
+            </div>
+          </article>`;
+      }).join('');
+
+      list.querySelectorAll('[data-question-status]').forEach(select => select.addEventListener('change', event => {
+        state.questions[event.target.dataset.questionStatus].status = event.target.value;
+        saveState();
+      }));
+
+      list.querySelectorAll('[data-question-notes]').forEach(textarea => textarea.addEventListener('input', event => {
+        state.questions[event.target.dataset.questionNotes].notes = event.target.value;
+        saveState();
+      }));
+    }
+
+    function priorityClass(priority) {
+      if (priority === 'High') return 'high';
+      if (priority === 'Medium') return 'medium';
+      return 'low';
+    }
+
+    function renderRoadmap() {
+      const search = document.getElementById('roadmap-search').value.trim().toLowerCase();
+      const phase = document.getElementById('phase-filter').value;
+      const priority = document.getElementById('priority-filter').value;
+      const status = document.getElementById('status-filter').value;
+      const filtered = roadmap.filter(item => {
+        const currentStatus = state.roadmap[item.id].status;
+        const matchesSearch = !search || `${item.name} ${item.why} ${item.phase} ${item.answers}`.toLowerCase().includes(search);
+        return matchesSearch && (phase === 'all' || item.phase === phase) && (priority === 'all' || item.priority === priority) && (status === 'all' || currentStatus === status);
+      });
+
+      const body = document.getElementById('roadmap-body');
+      body.innerHTML = filtered.map(item => {
+        const index = roadmap.findIndex(candidate => candidate.id === item.id) + 1;
+        const currentStatus = state.roadmap[item.id].status;
+        const currentOutcome = state.roadmap[item.id].outcome || '';
+        const complete = currentStatus === 'Complete';
+        return `
+          <tr class="${complete ? 'is-complete' : ''}">
+            <td data-label="Done"><input class="complete-box" type="checkbox" data-roadmap-complete="${item.id}" aria-label="Mark ${escapeHTML(item.name)} complete" ${complete ? 'checked' : ''}></td>
+            <td data-label="Order">${index}</td>
+            <td data-label="Phase"><span class="badge">${escapeHTML(item.phase)}</span></td>
+            <td data-label="Improvement"><span class="task-name">${escapeHTML(item.name)}</span><span class="task-why">${escapeHTML(item.why)}</span></td>
+            <td data-label="Priority"><span class="badge ${priorityClass(item.priority)}">${escapeHTML(item.priority)}</span></td>
+            <td data-label="Effort">${escapeHTML(item.effort)}</td>
+            <td data-label="Helps answer"><span class="question-links">${escapeHTML(item.answers)}</span></td>
+            <td class="roadmap-outcome" data-label="Outcome / evidence"><textarea aria-label="Outcome or evidence for ${escapeHTML(item.name)}" data-roadmap-outcome="${item.id}" placeholder="Record the result, evidence link or decision…">${escapeHTML(currentOutcome)}</textarea></td>
+            <td data-label="Status"><select aria-label="Status for ${escapeHTML(item.name)}" data-roadmap-status="${item.id}">${statusOptions(roadmapStatuses, currentStatus)}</select></td>
+          </tr>`;
+      }).join('');
+
+      document.getElementById('roadmap-empty').style.display = filtered.length ? 'none' : 'block';
+
+      body.querySelectorAll('[data-roadmap-status]').forEach(select => select.addEventListener('change', event => {
+        state.roadmap[event.target.dataset.roadmapStatus].status = event.target.value;
+        saveState();
+        renderRoadmap();
+      }));
+
+      body.querySelectorAll('[data-roadmap-complete]').forEach(checkbox => checkbox.addEventListener('change', event => {
+        state.roadmap[event.target.dataset.roadmapComplete].status = event.target.checked ? 'Complete' : 'Not started';
+        saveState();
+        renderRoadmap();
+      }));
+
+      body.querySelectorAll('[data-roadmap-outcome]').forEach(textarea => textarea.addEventListener('input', event => {
+        state.roadmap[event.target.dataset.roadmapOutcome].outcome = event.target.value;
+        saveState();
+      }));
+    }
+
+    function updateSummary() {
+      const questionsAnswered = questions.filter(q => state.questions[q.id].status === 'Answered').length;
+      const roadmapComplete = roadmap.filter(item => state.roadmap[item.id].status === 'Complete').length;
+      document.getElementById('questions-count').textContent = `${questionsAnswered} / ${questions.length}`;
+      document.getElementById('roadmap-count').textContent = `${roadmapComplete} / ${roadmap.length}`;
+      document.getElementById('questions-progress').style.width = `${(questionsAnswered / questions.length) * 100}%`;
+      document.getElementById('roadmap-progress').style.width = `${(roadmapComplete / roadmap.length) * 100}%`;
+    }
+
+    function setTab(tabName) {
+      state.activeTab = tabName;
+      document.getElementById('questions-tab').setAttribute('aria-selected', String(tabName === 'questions'));
+      document.getElementById('roadmap-tab').setAttribute('aria-selected', String(tabName === 'roadmap'));
+      document.getElementById('questions-tab').tabIndex = tabName === 'questions' ? 0 : -1;
+      document.getElementById('roadmap-tab').tabIndex = tabName === 'roadmap' ? 0 : -1;
+      document.getElementById('questions-view').hidden = tabName !== 'questions';
+      document.getElementById('roadmap-view').hidden = tabName !== 'roadmap';
+      saveState();
+    }
+
+    function handleTabKeydown(event) {
+      if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
+      event.preventDefault();
+      const nextTab = event.key === 'ArrowLeft' || event.key === 'Home' ? 'questions' : 'roadmap';
+      setTab(nextTab);
+      document.getElementById(`${nextTab}-tab`).focus();
+    }
+
+    const phaseFilter = document.getElementById('phase-filter');
+    [...new Set(roadmap.map(item => item.phase))].forEach(phase => {
+      const option = document.createElement('option');
+      option.value = phase;
+      option.textContent = phase;
+      phaseFilter.appendChild(option);
+    });
+
+    document.getElementById('questions-tab').addEventListener('click', () => setTab('questions'));
+    document.getElementById('roadmap-tab').addEventListener('click', () => setTab('roadmap'));
+    document.getElementById('questions-tab').addEventListener('keydown', handleTabKeydown);
+    document.getElementById('roadmap-tab').addEventListener('keydown', handleTabKeydown);
+    document.getElementById('roadmap-search').addEventListener('input', renderRoadmap);
+    document.getElementById('phase-filter').addEventListener('change', renderRoadmap);
+    document.getElementById('priority-filter').addEventListener('change', renderRoadmap);
+    document.getElementById('status-filter').addEventListener('change', renderRoadmap);
+
+    document.getElementById('reset-progress').addEventListener('click', () => {
+      if (!confirm('Reset every saved question note and roadmap status in this local tracker?')) return;
+      state = cloneDefaults();
+      renderQuestions();
+      renderRoadmap();
+      setTab('questions');
+    });
+
+    document.getElementById('export-progress').addEventListener('click', () => {
+      const payload = {
+        exportedAt: new Date().toISOString(),
+        questions: questions.map(q => ({ question: q.text, ...state.questions[q.id] })),
+        roadmap: roadmap.map(item => ({ item: item.name, phase: item.phase, priority: item.priority, effort: item.effort, helpsAnswer: item.answers, outcomeEvidence: state.roadmap[item.id].outcome, status: state.roadmap[item.id].status }))
+      };
+      const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'ai-playbook-project-progress.json';
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+    });
+
+    renderQuestions();
+    renderRoadmap();
+    setTab(state.activeTab);
+  </script>
+</body>
+</html>

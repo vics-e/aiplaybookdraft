@@ -182,6 +182,67 @@
     line-height: 1.5;
   }
 
+  :where(button, a, input, textarea, select, summary, [tabindex]):focus-visible {
+    outline: 3px solid var(--sage-green);
+    outline-offset: 3px;
+  }
+
+  label:has(input.sr-only:focus-visible) > div {
+    outline: 3px solid var(--sage-green);
+    outline-offset: 3px;
+  }
+
+  .playbook-page-title {
+    font-family: var(--font-family-header);
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 900;
+    letter-spacing: -0.025em;
+    line-height: 1.05;
+  }
+
+  .playbook-page-subtitle {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: clamp(1rem, 2.5vw, 1.125rem);
+    font-weight: 500;
+    line-height: 1.625;
+  }
+
+  .playbook-sidebar-toggle {
+    left: 0;
+  }
+
+  .playbook-sidebar-toggle.sidebar-is-open {
+    left: 20rem;
+  }
+
+  .playbook-main {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  @media (min-width: 1024px) {
+    .playbook-main.sidebar-is-open {
+      margin-left: 20rem;
+      width: calc(100% - 20rem);
+    }
+  }
+
+  @media (max-width: 1023px) {
+    .playbook-sidebar {
+      width: min(20rem, calc(100vw - 3.5rem));
+    }
+
+    .playbook-sidebar-toggle.sidebar-is-open {
+      left: min(20rem, calc(100vw - 3.5rem));
+    }
+
+    .playbook-main,
+    .playbook-main.sidebar-is-open {
+      margin-left: 0;
+      width: 100%;
+    }
+  }
+
   /* Custom Scrollbar */
   .custom-scrollbar::-webkit-scrollbar {
     width: 8px;

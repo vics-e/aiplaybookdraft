@@ -927,18 +927,18 @@ export function ActivitySummary({ pageInputs, onInputChange }: ActivitySummaryPr
           <span className="text-[#00DC51] font-bold text-xs tracking-wide uppercase">Activity Summary</span>
         </motion.div>
 
-        <h2 className="text-3xl md:text-4xl lg:text-5xl font-black mb-4 leading-[1.05] tracking-tight" style={{ fontFamily: 'var(--font-family-header)' }}>
+        <h2 className="playbook-page-title mb-4" style={{ fontFamily: 'var(--font-family-header)' }}>
           Your AI Journey <span className="relative inline-block">
             <span className="relative z-10">Responses</span>
             <span className="absolute bottom-1 left-0 right-0 h-3 bg-[#00DC51] -z-10 opacity-30" />
           </span>
         </h2>
-        <p className="text-base md:text-lg text-white/70 font-medium leading-relaxed mb-8">
+        <p className="playbook-page-subtitle mb-8">
           Review all your activity responses in one place
         </p>
       </div>
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -1012,7 +1012,7 @@ export function ActivitySummary({ pageInputs, onInputChange }: ActivitySummaryPr
                         </div>
                         <div className="flex-1">
                           <h4 className="font-bold text-base mb-1.5">{activity.title}</h4>
-                          <p className="text-xs text-white/60 font-medium leading-relaxed print:text-black/60">{activity.prompt}</p>
+                          <p id={`summary-${activity.id}-prompt`} className="text-xs text-white/60 font-medium leading-relaxed print:text-black/60">{activity.prompt}</p>
                         </div>
                       </div>
 
@@ -1024,10 +1024,11 @@ export function ActivitySummary({ pageInputs, onInputChange }: ActivitySummaryPr
                               <div className="space-y-4">
                                 {activity.questions.map((question, index) => (
                                   <div key={index} className="space-y-2">
-                                    <label className="text-xs font-bold text-white/90 block">
+                                    <label htmlFor={`summary-${activity.id}-question-${index}`} className="text-xs font-bold text-white/90 block">
                                       {index + 1}. {question}
                                     </label>
                                     <textarea
+                                      id={`summary-${activity.id}-question-${index}`}
                                       value={editListValues[`question-${index}`] || ''}
                                       onChange={(event) => setEditListValues((current) => ({ ...current, [`question-${index}`]: event.target.value }))}
                                       className="w-full bg-black/40 border-2 border-white/20 focus:border-[#00DC51] rounded-lg p-3 text-sm font-medium leading-relaxed text-white placeholder-white/40 focus:outline-none resize-none min-h-[80px]"
@@ -1044,6 +1045,7 @@ export function ActivitySummary({ pageInputs, onInputChange }: ActivitySummaryPr
                                       {index + 1}
                                     </div>
                                     <input
+                                      aria-label={`${activity.placeholderPrefix || 'Item'} ${index + 1}`}
                                       type="text"
                                       value={editListValues[`item-${index}`] || ''}
                                       onChange={(event) => setEditListValues((current) => ({ ...current, [`item-${index}`]: event.target.value }))}
@@ -1054,24 +1056,29 @@ export function ActivitySummary({ pageInputs, onInputChange }: ActivitySummaryPr
                                 ))}
                               </div>
                             ) : (
-                              <textarea
-                                value={editValue}
-                                onChange={(event) => setEditValue(event.target.value)}
-                                className="w-full h-32 bg-black/40 border-2 border-white/20 focus:border-[#00DC51] rounded-lg p-3 text-sm font-medium leading-relaxed text-white placeholder-white/40 focus:outline-none resize-none"
-                                placeholder="Type your answer here..."
-                              />
+                              <>
+                                <label htmlFor={`summary-${activity.id}-response`} className="sr-only">{activity.title}</label>
+                                <textarea
+                                  id={`summary-${activity.id}-response`}
+                                  aria-describedby={`summary-${activity.id}-prompt`}
+                                  value={editValue}
+                                  onChange={(event) => setEditValue(event.target.value)}
+                                  className="w-full h-32 bg-black/40 border-2 border-white/20 focus:border-[#00DC51] rounded-lg p-3 text-sm font-medium leading-relaxed text-white placeholder-white/40 focus:outline-none resize-none"
+                                  placeholder="Type your answer here..."
+                                />
+                              </>
                             )}
                             <div className="flex items-center gap-3">
                               <button
                                 onClick={() => handleSave(activity)}
-                                className="group flex items-center gap-2 px-4 py-2 bg-[#00DC51] text-black font-bold rounded-lg hover:bg-[#00FF5F] transition-all shadow-lg shadow-[#00DC51]/30 hover:shadow-[#00DC51]/50 hover:scale-105"
+                                className="group flex min-h-11 items-center gap-2 px-4 py-2 bg-[#00DC51] text-black font-bold rounded-lg hover:bg-[#00FF5F] transition-all shadow-lg shadow-[#00DC51]/30 hover:shadow-[#00DC51]/50 hover:scale-105"
                               >
                                 <Save size={16} strokeWidth={2.5} />
                                 <span>Save</span>
                               </button>
                               <button
                                 onClick={handleCancel}
-                                className="group flex items-center gap-2 px-4 py-2 bg-white/10 border-2 border-white/20 text-white font-bold rounded-lg hover:bg-white/20 transition-all"
+                                className="group flex min-h-11 items-center gap-2 px-4 py-2 bg-white/10 border-2 border-white/20 text-white font-bold rounded-lg hover:bg-white/20 transition-all"
                               >
                                 <X size={16} strokeWidth={2.5} />
                                 <span>Cancel</span>
@@ -1084,7 +1091,7 @@ export function ActivitySummary({ pageInputs, onInputChange }: ActivitySummaryPr
                             {editable && (
                               <button
                                 onClick={() => handleEditStart(activity)}
-                                className="group flex items-center gap-2 px-3 py-1.5 bg-white/5 border border-white/20 text-white/70 hover:text-white font-medium rounded-lg hover:bg-white/10 transition-all text-xs print:hidden"
+                                className="group flex min-h-11 items-center gap-2 px-3 py-1.5 bg-white/5 border border-white/20 text-white/70 hover:text-white font-medium rounded-lg hover:bg-white/10 transition-all text-xs print:hidden"
                               >
                                 <Edit3 size={14} strokeWidth={2.5} />
                                 <span>Edit Response</span>
