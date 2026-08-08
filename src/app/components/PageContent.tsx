@@ -43,6 +43,23 @@ const SECTION_IMAGE_BY_PAGE_ID: Record<string, string> = {
 
 const CERTIFICATE_NAME_PLACEHOLDER = '[Name / Practice Name]';
 
+// Rules, controls, and client-facing guidance use the stronger message band.
+// Explanatory pages use the quieter top-rule treatment so takeaways vary by intent, not at random.
+const TAKEAWAY_BAND_PAGE_IDS = new Set([
+  's2-ethics-responsibility',
+  's2-data-confidentiality',
+  's2-legal-responsibility',
+  's2-risk',
+  's2-policy',
+  's2-failure-modes',
+  's2-over-reliance',
+  's2-checks',
+  's2-evidence-trail',
+  's2-red-team',
+  's3-controls',
+  's5-client-talk',
+]);
+
 interface PromptVariable {
   id: string;
   key: string;
@@ -1202,6 +1219,15 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
   const ninetyDayWorkflowAnswer = page.id === 's6-days61-90'
     ? (structuredInputs['workflow-name'] || structuredInputs['task-0']?.label || '').trim()
     : '';
+  const resolvedTakeaway = page.takeaway
+    ? page.id === 's6-days61-90' && page.takeaway.includes('[your answer from the activity above]')
+      ? page.takeaway.replace(
+          '[your answer from the activity above]',
+          ninetyDayWorkflowAnswer || '[your answer from the activity above]'
+        )
+      : page.takeaway
+    : '';
+  const usesTakeawayBand = TAKEAWAY_BAND_PAGE_IDS.has(page.id);
 
   const updateGlossaryState = (updater: (current: GlossaryPageState) => GlossaryPageState) => {
     if (!isGlossaryPage) {
@@ -1298,16 +1324,9 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
     return icons[iconName] || BookOpen;
   };
 
-  // Helper to render title with green highlights
+  // Approved page titles are rendered without automatic word-level colour emphasis.
   const renderTitle = (title: string) => {
-    return title.split('**').map((part, i) => 
-      i % 2 === 1 ? (
-        <span key={i} className="relative inline-block">
-          <span className="relative z-10">{part}</span>
-          <span className="absolute bottom-1 left-0 right-0 h-3 bg-[#00DC51] -z-10 opacity-30" />
-        </span>
-      ) : part
-    );
+    return title.replace(/\*\*/g, '');
   };
 
   const handleCertificatePrint = () => {
@@ -1485,33 +1504,29 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
   }
 
   return (
-    <div className={`space-y-8 ${isWorkflowMapPage ? 'mx-auto max-w-[860px] space-y-7' : ''} ${isCertificatePage ? 'certificate-page-root' : ''}`}>
+    <div className={`playbook-page-content space-y-8 ${isWorkflowMapPage ? 'mx-auto max-w-[860px] space-y-7' : ''} ${isCertificatePage ? 'certificate-page-root' : ''}`}>
       {/* Section Badge */}
       {page.section && (
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
-          className={`inline-block ${
-            isWorkflowMapPage
-              ? 'rounded-md border border-[#00DC51]/35 bg-[#00DC51] px-3 py-1.5'
-              : 'rounded-full border-2 border-[#00DC51]/40 bg-[#00DC51]/15 px-4 py-2 backdrop-blur-sm'
-          } ${
+          className={`playbook-page-eyebrow inline-block ${
             isCertificatePage ? 'certificate-screen-only' : ''
           }`}
         >
-          <span className={`${isWorkflowMapPage ? 'text-black' : 'text-[#00DC51]'} font-bold text-xs tracking-wide uppercase`}>{page.section}</span>
+          <span>{page.section}</span>
         </motion.div>
       )}
 
       {/* Title */}
       <div className={`${isWorkflowMapPage ? 'max-w-4xl space-y-3' : ''} ${isCertificatePage ? 'certificate-screen-only' : ''}`}>
-        <h2 className={`${isWorkflowMapPage ? 'mb-2 text-[2.45rem] leading-[1.08] md:text-[3.2rem]' : 'playbook-page-title mb-4'} font-black tracking-tight`} style={{ fontFamily: 'var(--font-family-header)' }}>
+        <h2 className="playbook-page-title mb-4" style={{ fontFamily: 'var(--font-family-header)' }}>
           {renderTitle(page.title)}
         </h2>
 
         {/* Subtitle */}
         {page.subtitle && (
-          <p className={`${isWorkflowMapPage ? 'text-[1.05rem] italic text-white/58 md:text-[1.15rem]' : 'playbook-page-subtitle'} font-medium leading-relaxed`}>{page.subtitle}</p>
+          <p className="playbook-page-subtitle">{page.subtitle}</p>
         )}
       </div>
 
@@ -5499,26 +5514,25 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
           aria-labelledby={activityTitleId}
           aria-describedby={activityPromptId}
           className={`${isFinishPage
-            ? 'rounded-[28px] border border-[#00DC51] bg-gradient-to-br from-[#00DC51]/14 to-[#00DC51]/5 p-6 md:p-7'
-            : 'bg-gradient-to-br from-[#00DC51]/15 to-[#00DC51]/5 border-2 border-[#00DC51] rounded-2xl p-6 backdrop-blur-sm'} ${
+            ? 'overflow-hidden rounded-[28px] border accent-border bg-[var(--color-surface-1)]'
+            : 'overflow-hidden rounded-2xl border accent-border bg-[var(--color-surface-1)]'} ${
             isCertificatePage ? 'certificate-activity-shell' : ''
           }`}
         >
-          <div className={`flex items-start gap-4 mb-5 ${isCertificatePage ? 'certificate-screen-only' : ''}`}>
+          <div className={`flex items-center gap-4 border-b border-[var(--color-rule)] p-5 sm:p-6 ${isCertificatePage ? 'certificate-screen-only' : ''}`}>
             <div className={`${isFinishPage
-              ? 'flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl bg-[#00DC51] shadow-lg shadow-[#00DC51]/35'
-              : 'w-11 h-11 bg-[#00DC51] rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-[#00DC51]/40'}`}>
-              <Lightbulb className={isFinishPage ? 'text-black' : 'text-black'} size={20} strokeWidth={2.5} />
+              ? 'accent-bg flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl'
+              : 'accent-bg w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0'}`}>
+              <Lightbulb className="text-black" size={20} strokeWidth={2.5} />
             </div>
             <div className="flex-1">
-              <div className="flex items-center gap-2 mb-2">
-                <span className="text-xs font-black text-[#00DC51] uppercase tracking-wider">Activity</span>
-                <div className={`h-px flex-1 ${isFinishPage ? 'bg-[#00DC51]/30' : 'bg-[#00DC51]/30'}`} />
-              </div>
-              <h4 id={activityTitleId} className={`font-black mb-2 ${isFinishPage ? 'text-xl text-white' : 'text-lg'}`}>{page.activity.title}</h4>
-              <p id={activityPromptId} className={`${isFinishPage ? 'max-w-3xl text-base text-white/72' : 'text-sm text-white/70'} font-medium leading-relaxed`}>{page.activity.prompt}</p>
+              <div className="playbook-page-eyebrow mb-1">Activity</div>
+              <h4 id={activityTitleId} className="playbook-component-title">{page.activity.title}</h4>
             </div>
           </div>
+
+          <div className="p-5 sm:p-6">
+            <p id={activityPromptId} className="mb-5 text-base font-medium leading-relaxed text-white">{page.activity.prompt}</p>
 
           {page.id === 's3-where-agents' && (
             <AgentCandidateActivity activity={page.activity} userInput={userInput} onInputChange={onInputChange} />
@@ -6207,6 +6221,7 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
               )}
             </div>
           )}
+          </div>
         </motion.section>
       )}
 
@@ -6232,37 +6247,32 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
       )}
 
       {/* Key Takeaway */}
-      {page.takeaway && (
+      {page.takeaway && (usesTakeawayBand ? (
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
-          className={`${isFinishPage
-            ? 'rounded-[24px] border border-[#00DC51] bg-gradient-to-br from-[#00DC51]/14 to-[#00DC51]/5 p-5 sm:p-6'
-            : 'bg-[#00DC51]/10 border-2 border-[#00DC51] rounded-2xl p-6 backdrop-blur-sm'} ${
-            isCertificatePage ? 'certificate-screen-only' : ''
-          }`}
+          className={`grid overflow-hidden rounded-2xl border accent-border bg-[var(--color-surface-1)] sm:grid-cols-[76px_1fr] ${isCertificatePage ? 'certificate-screen-only' : ''}`}
         >
-          <div className="flex items-start gap-4">
-            <div className={`${isFinishPage
-              ? 'flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full bg-[#00DC51] shadow-lg shadow-[#00DC51]/35'
-              : 'w-11 h-11 bg-[#00DC51] rounded-full flex items-center justify-center flex-shrink-0 shadow-lg shadow-[#00DC51]/40'}`}>
-              <Zap className={isFinishPage ? 'text-black' : 'text-black'} size={22} strokeWidth={2.5} />
-            </div>
-            <div className="flex-1">
-              <div className={`mb-2 text-xs font-black uppercase tracking-wider ${isFinishPage ? 'text-[#00DC51]' : 'text-[#00DC51]'}`}>Key Takeaway</div>
-              <p className={`font-bold leading-relaxed ${isFinishPage ? 'text-white text-[15px] sm:text-base' : 'text-base'}`}>
-                {page.id === 's6-days61-90' && page.takeaway.includes('[your answer from the activity above]')
-                  ? page.takeaway.replace(
-                      '[your answer from the activity above]',
-                      ninetyDayWorkflowAnswer || '[your answer from the activity above]'
-                    )
-                  : page.takeaway}
-              </p>
-            </div>
+          <div className="accent-bg flex min-h-16 items-center justify-center p-4 sm:min-h-full">
+            <Zap className="text-black" size={24} strokeWidth={2.6} aria-hidden="true" />
+          </div>
+          <div className="p-5 sm:p-6">
+            <div className="playbook-page-eyebrow mb-2">Key Takeaway</div>
+            <p className="text-base font-bold leading-relaxed text-white sm:text-lg">{resolvedTakeaway}</p>
           </div>
         </motion.div>
-      )}
+      ) : (
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4 }}
+          className={`border-b border-b-[var(--color-rule)] border-t-[3px] border-t-[var(--color-accent)] py-6 sm:py-7 ${isCertificatePage ? 'certificate-screen-only' : ''}`}
+        >
+          <div className="playbook-page-eyebrow mb-3">Key Takeaway</div>
+          <p className="playbook-component-title max-w-4xl text-white">{resolvedTakeaway}</p>
+        </motion.div>
+      ))}
     </div>
   );
 }
