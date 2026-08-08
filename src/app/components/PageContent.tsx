@@ -1,9 +1,17 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { BookOpen, Shield, Bot, MessageSquare, DollarSign, Calendar, FileText, CheckCircle, Lightbulb, Target, Zap, X, TrendingUp, Users, Download, ClipboardList, AlertCircle, ArrowRight, Database, Eye, Sparkles, ChevronDown, Lock, UserX, FileWarning, Users as UsersIcon, HelpCircle, Ban, XCircle, Search, Copy, RotateCcw, Check } from 'lucide-react';
+import { BookOpen, Shield, Bot, MessageSquare, DollarSign, Calendar, FileText, CheckCircle, Lightbulb, Target, Zap, X, TrendingUp, Users, Download, ClipboardList, AlertCircle, ArrowRight, Database, Eye, Sparkles, ChevronDown, Lock, UserX, FileWarning, Users as UsersIcon, HelpCircle, Ban, XCircle, Search, Copy, RotateCcw, Check, Plus, Minus } from 'lucide-react';
 import type { PlaybookPage } from '../data/playbookData';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 import { ActivitySummary } from './ActivitySummary';
+import {
+  AgentCandidateActivity,
+  AiEnabledWorkflowActivity,
+  ClientMessageActivity,
+  ImpactPricingActivity,
+  PromptFrameworkActivity,
+  StartingWorkflowActivity,
+} from './FocusedPageActivities';
 import coverBackground from 'figma:asset/7d10c58b13d65e57e14197ae9cce3c931f5cc649.png';
 import sageLogo from 'figma:asset/85dce1db2c171f8d15f5e966d3ca5f37099a8078.png';
 import aiAssistedFirmsImage from '../../assets/images/optimised/ai-assisted-firms.jpg';
@@ -1033,6 +1041,8 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
   const [checkedItems, setCheckedItems] = useState<Set<number>>(new Set());
   const [workflowMapExplainerStep, setWorkflowMapExplainerStep] = useState(0);
   const [toolMatrixGuideIndex, setToolMatrixGuideIndex] = useState(0);
+  const [agentCapabilityIndex, setAgentCapabilityIndex] = useState(0);
+  const [agentCandidateIndex, setAgentCandidateIndex] = useState(0);
   const sectionImageSrc = SECTION_IMAGE_BY_PAGE_ID[page.id];
   const usesSectionImageTreatment = Boolean(sectionImageSrc);
   const isCertificatePage = page.id === 'certificate';
@@ -1060,6 +1070,16 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
   const isAgentSpecWizardPage = page.id === 's7-agent-spec';
   const isToolMatrixPage = page.id === 's7-tool-matrix';
   const isFinishPage = page.id === 's7-finish';
+  const usesFocusedPageActivity = [
+    's3-where-agents',
+    's3-workflows',
+    's3-ai-workflow',
+    's4-framework',
+    's5-impact-exercise',
+    's5-client-talk',
+  ].includes(page.id);
+  const activityTitleId = `${page.id}-activity-title`;
+  const activityPromptId = `${page.id}-activity-prompt`;
   const [copiedPromptId, setCopiedPromptId] = useState<string | null>(null);
   const promptLibraryState = isPromptLibraryPage
     ? parsePromptLibraryState(userInput)
@@ -1344,7 +1364,7 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
         </div>
 
         {/* Content Container - Flexbox Layout */}
-        <div className="relative z-10 flex flex-col h-full px-16 pt-24">
+        <div className="relative z-10 flex flex-col h-full px-5 pt-20 sm:px-10 sm:pt-24 lg:px-16">
           {/* Title Section - Top */}
           <div className="flex-shrink-0 mb-12">
             <motion.h1
@@ -1354,10 +1374,10 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
               className="leading-[0.9] tracking-tight"
               style={{ fontFamily: 'var(--font-family-header)', fontWeight: 900 }}
             >
-              <div className="text-6xl lg:text-7xl font-black text-white mb-3">
+              <div className="text-4xl sm:text-5xl lg:text-7xl font-black text-white mb-3">
                 THE AI PLAYBOOK
               </div>
-              <div className="text-6xl lg:text-7xl font-black text-[#00DC51] leading-[0.9]">
+              <div className="text-4xl sm:text-5xl lg:text-7xl font-black text-[#00DC51] leading-[0.9]">
                 For Accountants &<br />
                 Bookkeepers
               </div>
@@ -1385,7 +1405,7 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.8 }}
-            className="flex-shrink-0 pb-24"
+            className="flex-shrink-0 pb-12 sm:pb-24"
           >
             <button
               onClick={() => goToPage(1)}
@@ -1422,7 +1442,7 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
           </p>
         </div>
 
-        <div className="grid grid-cols-2 gap-4 max-w-6xl mx-auto overflow-y-auto max-h-[60vh] pr-4 custom-scrollbar">
+        <div className="grid grid-cols-1 gap-4 max-w-6xl mx-auto overflow-y-auto max-h-[60vh] pr-2 sm:grid-cols-2 sm:pr-4 custom-scrollbar">
           {page.sections?.map((section, index) => {
             const Icon = getIcon(section.icon);
             return (
@@ -1485,13 +1505,13 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
 
       {/* Title */}
       <div className={`${isWorkflowMapPage ? 'max-w-4xl space-y-3' : ''} ${isCertificatePage ? 'certificate-screen-only' : ''}`}>
-        <h2 className={`${isWorkflowMapPage ? 'mb-2 text-[2.45rem] leading-[1.08] md:text-[3.2rem]' : 'mb-4 text-3xl md:text-4xl lg:text-5xl leading-[1.05]'} font-black tracking-tight`} style={{ fontFamily: 'var(--font-family-header)' }}>
+        <h2 className={`${isWorkflowMapPage ? 'mb-2 text-[2.45rem] leading-[1.08] md:text-[3.2rem]' : 'playbook-page-title mb-4'} font-black tracking-tight`} style={{ fontFamily: 'var(--font-family-header)' }}>
           {renderTitle(page.title)}
         </h2>
 
         {/* Subtitle */}
         {page.subtitle && (
-          <p className={`${isWorkflowMapPage ? 'text-[1.05rem] italic text-white/58 md:text-[1.15rem]' : 'text-base md:text-lg text-white/70'} font-medium leading-relaxed`}>{page.subtitle}</p>
+          <p className={`${isWorkflowMapPage ? 'text-[1.05rem] italic text-white/58 md:text-[1.15rem]' : 'playbook-page-subtitle'} font-medium leading-relaxed`}>{page.subtitle}</p>
         )}
       </div>
 
@@ -2059,6 +2079,16 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
                         : 'border-white/20 hover:border-[#00DC51]/50 hover:shadow-lg hover:shadow-[#00DC51]/10'
                     }`}
                     onClick={() => setIsExpanded(!isExpanded)}
+                    onKeyDown={(event) => {
+                      if (event.key === 'Enter' || event.key === ' ') {
+                        event.preventDefault();
+                        setIsExpanded(!isExpanded);
+                      }
+                    }}
+                    role="button"
+                    tabIndex={0}
+                    aria-expanded={isExpanded}
+                    aria-label={`${workflow.title}: ${isExpanded ? 'collapse details' : 'expand details'}`}
                   >
                     {/* Header */}
                     <div className="flex items-start gap-4 mb-4">
@@ -2438,6 +2468,7 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
                 <div className="relative">
                   <Search className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-[#00DC51]" size={18} strokeWidth={2.5} />
                   <input
+                    aria-label="Search glossary terms"
                     value={glossaryState.searchQuery}
                     onChange={(e) => {
                       const nextSearchQuery = e.target.value;
@@ -2700,6 +2731,7 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
                 <div className="relative">
                   <Search className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-[#00DC51]" size={18} strokeWidth={2.5} />
                   <input
+                    aria-label="Filter prompts"
                     value={promptLibraryState.searchQuery}
                     onChange={(e) => {
                       const nextSearchQuery = e.target.value;
@@ -2829,6 +2861,7 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
                                     {variable.label}
                                   </label>
                                   <input
+                                    aria-label={variable.label}
                                     value={variableValues[variable.id] || ''}
                                     onChange={(e) => {
                                       const value = e.target.value;
@@ -3153,6 +3186,66 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
                     })()
                   )
 
+                  /* INTERACTIVE FRAMEWORK SELECTORS - for Where Agents Transform Work */
+                  : page.id === 's3-where-agents' && (
+                    block.boxTitle === 'The Four Agent Capabilities:'
+                    || block.boxTitle === 'What Makes a Strong Agent Candidate:'
+                  ) ? (
+                    (() => {
+                      const isCapabilities = block.boxTitle === 'The Four Agent Capabilities:';
+                      const frameworkItems = (block.items || []).filter((item): item is { title: string; desc: string } => typeof item !== 'string');
+                      const selectedIndex = isCapabilities ? agentCapabilityIndex : agentCandidateIndex;
+                      const setSelectedIndex = isCapabilities ? setAgentCapabilityIndex : setAgentCandidateIndex;
+                      const activeItem = frameworkItems[selectedIndex] || frameworkItems[0];
+                      const capabilityIcons = [Database, CheckCircle, TrendingUp, FileText];
+                      const candidateIcons = [Target, Database, Calendar, Shield, Eye];
+                      const frameworkIcons = isCapabilities ? capabilityIcons : candidateIcons;
+                      return (
+                        <div className="rounded-[24px] border border-[#00DC51]/45 bg-[#00DC51]/7 p-5 sm:p-6">
+                          <h4 className="mb-4 text-base font-black text-white">{block.boxTitle}</h4>
+                          <div className="-mx-1 flex gap-2 overflow-x-auto px-1 pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden" role="tablist" aria-label={block.boxTitle}>
+                            {frameworkItems.map((item, i) => {
+                                const FrameworkIcon = frameworkIcons[i] || Sparkles;
+                                const isSelected = i === selectedIndex;
+                                return (
+                                  <button
+                                    key={item.title}
+                                    type="button"
+                                    role="tab"
+                                    id={`${isCapabilities ? 'capability' : 'candidate'}-tab-${i}`}
+                                    aria-selected={isSelected}
+                                    aria-controls={`${isCapabilities ? 'capability' : 'candidate'}-panel`}
+                                    onClick={() => setSelectedIndex(i)}
+                                    className={`flex min-w-[150px] flex-1 items-center gap-2.5 rounded-xl border px-3 py-3 text-left transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#00DC51] ${isSelected ? 'border-[#00DC51] bg-[#00DC51] text-black' : 'border-white/12 bg-[#071109] text-white/65 hover:border-[#00DC51]/45 hover:text-white'}`}
+                                  >
+                                    <FrameworkIcon size={18} strokeWidth={2.4} aria-hidden="true" className="shrink-0" />
+                                    <span className="text-xs font-black leading-snug sm:text-sm">{item.title}</span>
+                                  </button>
+                                );
+                              })}
+                          </div>
+                          {activeItem && (
+                            <motion.div
+                              key={`${isCapabilities ? 'capability' : 'candidate'}-${selectedIndex}`}
+                              id={`${isCapabilities ? 'capability' : 'candidate'}-panel`}
+                              role="tabpanel"
+                              aria-labelledby={`${isCapabilities ? 'capability' : 'candidate'}-tab-${selectedIndex}`}
+                              initial={{ opacity: 0, y: 6 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              className="mt-3 flex min-h-[112px] items-start gap-4 rounded-2xl border border-white/10 bg-[#071109] p-4 sm:items-center sm:p-5"
+                            >
+                              {React.createElement(frameworkIcons[selectedIndex] || Sparkles, { size: 24, strokeWidth: 2.3, 'aria-hidden': true, className: 'mt-0.5 shrink-0 text-[#00DC51] sm:mt-0' })}
+                              <div>
+                                <h5 className="text-base font-black text-white">{activeItem.title}</h5>
+                                <p className="mt-1.5 text-sm font-medium leading-relaxed text-white/65">{activeItem.desc}</p>
+                              </div>
+                            </motion.div>
+                          )}
+                        </div>
+                      );
+                    })()
+                  )
+
                   /* STEP CARDS - for Section 4 Prompt Framework */
                   : page.section?.includes('Section 4') && block.boxTitle === 'Every Effective Prompt Has 4 Parts:' ? (
                     <div className="space-y-3">
@@ -3216,6 +3309,81 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
                           </motion.div>
                         );
                       })}
+                    </div>
+                  )
+
+                  /* EQUAL OUTCOME CARDS - for the AI-enabled workflow */
+                  : page.id === 's3-ai-workflow' && block.boxTitle === 'What Changes in AI-Enabled Workflows:' ? (
+                    <div className="rounded-[24px] border border-[#00DC51]/45 bg-[#00DC51]/7 p-5 sm:p-6">
+                      <h4 className="mb-4 text-base font-black text-[#00DC51]">{block.boxTitle}</h4>
+                      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-4">
+                        {block.items?.map((item, i) => {
+                          if (typeof item === 'string') return null;
+                          const icons = [Zap, CheckCircle, Users, TrendingUp];
+                          const MetricIcon = icons[i] || Sparkles;
+                          return (
+                            <motion.article
+                              key={i}
+                              initial={{ opacity: 0, y: 12 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              transition={{ delay: i * 0.08 }}
+                              className="rounded-2xl border border-white/12 bg-black/30 p-4"
+                            >
+                              <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-xl bg-[#00DC51] text-black shadow-lg shadow-[#00DC51]/25">
+                                <MetricIcon size={19} strokeWidth={2.7} aria-hidden="true" />
+                              </div>
+                              <h5 className="text-base font-black text-white">{item.title}</h5>
+                              <p className="mt-2 text-sm font-medium leading-relaxed text-white/65">{item.desc}</p>
+                            </motion.article>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  )
+
+                  /* COMPACT GUIDANCE ACCORDION - for Talking to Clients About AI */
+                  : page.id === 's5-client-talk' && block.boxTitle === 'Client Messaging Guidance:' ? (
+                    <div className="rounded-[24px] border border-[#00DC51]/35 bg-[#00DC51]/6 p-4 sm:p-5">
+                      <h4 className="mb-3 text-base font-black text-white">{block.boxTitle}</h4>
+                      <div className="divide-y divide-white/10">
+                        {block.items?.map((item, i) => {
+                          if (typeof item === 'string') return null;
+                          const expansionKey = i + 700;
+                          const isExpanded = expandedItems.has(expansionKey);
+                          const panelId = `client-guidance-${i}`;
+                          return (
+                            <div key={i}>
+                              <button
+                                type="button"
+                                onClick={() => toggleExpanded(expansionKey)}
+                                aria-expanded={isExpanded}
+                                aria-controls={panelId}
+                                className="flex min-h-16 w-full items-center gap-3 py-3 text-left sm:gap-4"
+                              >
+                                <span className={`flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-xl text-sm font-black transition-colors ${isExpanded ? 'bg-[#00DC51] text-black' : 'border border-[#00DC51]/35 bg-[#00DC51]/10 text-[#00DC51]'}`}>{i + 1}</span>
+                                <span className="flex-1 text-sm font-black leading-snug text-white sm:text-base">{item.title}</span>
+                                <span className={`flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full border transition-colors ${isExpanded ? 'border-[#00DC51] bg-[#00DC51] text-black' : 'border-white/15 bg-black/20 text-white/55'}`} aria-hidden="true">
+                                  {isExpanded ? <Minus size={15} strokeWidth={3} /> : <Plus size={15} strokeWidth={3} />}
+                                </span>
+                              </button>
+                              <AnimatePresence initial={false}>
+                                {isExpanded && (
+                                  <motion.div
+                                    id={panelId}
+                                    initial={{ height: 0, opacity: 0 }}
+                                    animate={{ height: 'auto', opacity: 1 }}
+                                    exit={{ height: 0, opacity: 0 }}
+                                    transition={{ duration: 0.2 }}
+                                    className="overflow-hidden"
+                                  >
+                                    <p className="pb-4 pl-12 pr-10 text-sm font-medium leading-relaxed text-white/68 sm:pl-[52px]">{item.desc}</p>
+                                  </motion.div>
+                                )}
+                              </AnimatePresence>
+                            </div>
+                          );
+                        })}
+                      </div>
                     </div>
                   )
 
@@ -3968,10 +4136,11 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
                     <div className="grid h-8 w-8 place-items-center rounded-full border-2 border-[#00DC51] text-xs font-black text-[#00DC51]">
                       {index + 1}
                     </div>
-                    <p className="text-sm font-bold leading-relaxed text-white">{question}</p>
+                    <p id={`prompt-activity-${questionKey}`} className="text-sm font-bold leading-relaxed text-white">{question}</p>
                   </div>
 
                   <textarea
+                    aria-labelledby={`prompt-activity-${questionKey}`}
                     value={promptLibraryState.activityAnswers[questionKey] || ''}
                     onChange={(e) => {
                       const value = e.target.value;
@@ -4107,6 +4276,7 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
                     <div className="rounded-[24px] border border-white/10 bg-[#0E0E0E] p-5 sm:p-6">
                       <div className="flex flex-col gap-3 sm:flex-row">
                         <input
+                          aria-label="Workflow or process name"
                           type="text"
                           value={workflowMapState.draftName}
                           onChange={(e) => updateWorkflowMapState((current) => ({ ...current, draftName: e.target.value }))}
@@ -4619,6 +4789,7 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
               <div className="rounded-3xl border border-white/12 bg-black/30 p-5">
                 <div className="flex flex-col gap-3 sm:flex-row">
                   <input
+                    aria-label="Workflow or process name"
                     type="text"
                     value={workflowMapState.draftName}
                     onChange={(e) => updateWorkflowMapState((current) => ({ ...current, draftName: e.target.value }))}
@@ -4749,6 +4920,7 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
                             <span className="text-sm font-black text-[#00DC51]">{workflow.repeatability}/5</span>
                           </div>
                           <input
+                            aria-label={`${workflow.name}: repeatability`}
                             type="range"
                             min={1}
                             max={5}
@@ -4772,6 +4944,7 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
                             <span className="text-sm font-black text-[#00DC51]">{workflow.judgement}/5</span>
                           </div>
                           <input
+                            aria-label={`${workflow.name}: judgement required`}
                             type="range"
                             min={1}
                             max={5}
@@ -4983,10 +5156,11 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
               </div>
 
               <div className="rounded-[24px] border border-white/10 bg-[#101010] p-5">
-                <label className="mb-2 block text-sm font-bold text-white/90">
+                <label htmlFor={`agent-spec-field-${agentSpecCurrentStep}`} className="mb-2 block text-sm font-bold text-white/90">
                   {agentSpecFields[agentSpecCurrentStep]?.label}
                 </label>
                 <textarea
+                  id={`agent-spec-field-${agentSpecCurrentStep}`}
                   value={agentSpecFieldValues[`field-${agentSpecCurrentStep}`] || ''}
                   onChange={(e) => {
                     const fieldKey = `field-${agentSpecCurrentStep}`;
@@ -5201,8 +5375,9 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
 
                   <div className="grid gap-4">
                     <div className="space-y-2">
-                      <label className="text-sm font-bold text-white">Tool or category name</label>
+                      <label htmlFor="tool-matrix-name" className="text-sm font-bold text-white">Tool or category name</label>
                       <input
+                        id="tool-matrix-name"
                         type="text"
                         value={activeToolMatrixRow.toolName}
                         onChange={(e) => {
@@ -5217,8 +5392,9 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
                     </div>
 
                     <div className="space-y-2">
-                      <label className="text-sm font-bold text-white">Allowed tasks</label>
+                      <label htmlFor="tool-matrix-allowed-tasks" className="text-sm font-bold text-white">Allowed tasks</label>
                       <textarea
+                        id="tool-matrix-allowed-tasks"
                         value={activeToolMatrixRow.allowedTasks}
                         onChange={(e) => {
                           const value = e.target.value;
@@ -5234,8 +5410,9 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
 
                     <div className="grid gap-4 md:grid-cols-2">
                       <div className="space-y-2">
-                        <label className="text-sm font-bold text-white">Data boundaries</label>
+                        <label htmlFor="tool-matrix-data-boundaries" className="text-sm font-bold text-white">Data boundaries</label>
                         <textarea
+                          id="tool-matrix-data-boundaries"
                           value={activeToolMatrixRow.dataBoundaries}
                           onChange={(e) => {
                             const value = e.target.value;
@@ -5250,8 +5427,9 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
                       </div>
 
                       <div className="space-y-2">
-                        <label className="text-sm font-bold text-white">Review required</label>
+                        <label htmlFor="tool-matrix-review-required" className="text-sm font-bold text-white">Review required</label>
                         <textarea
+                          id="tool-matrix-review-required"
                           value={activeToolMatrixRow.reviewRequired}
                           onChange={(e) => {
                             const value = e.target.value;
@@ -5314,10 +5492,12 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
 
       {/* Interactive Activity */}
       {page.activity && !isPromptLibraryPage && !isWorkflowMapPage && !isAgentSpecWizardPage && !isToolMatrixPage && (
-        <motion.div
+        <motion.section
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
+          aria-labelledby={activityTitleId}
+          aria-describedby={activityPromptId}
           className={`${isFinishPage
             ? 'rounded-[28px] border border-[#00DC51] bg-gradient-to-br from-[#00DC51]/14 to-[#00DC51]/5 p-6 md:p-7'
             : 'bg-gradient-to-br from-[#00DC51]/15 to-[#00DC51]/5 border-2 border-[#00DC51] rounded-2xl p-6 backdrop-blur-sm'} ${
@@ -5335,15 +5515,36 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
                 <span className="text-xs font-black text-[#00DC51] uppercase tracking-wider">Activity</span>
                 <div className={`h-px flex-1 ${isFinishPage ? 'bg-[#00DC51]/30' : 'bg-[#00DC51]/30'}`} />
               </div>
-              <h4 className={`font-black mb-2 ${isFinishPage ? 'text-xl text-white' : 'text-lg'}`}>{page.activity.title}</h4>
-              <p className={`${isFinishPage ? 'max-w-3xl text-base text-white/72' : 'text-sm text-white/70'} font-medium leading-relaxed`}>{page.activity.prompt}</p>
+              <h4 id={activityTitleId} className={`font-black mb-2 ${isFinishPage ? 'text-xl text-white' : 'text-lg'}`}>{page.activity.title}</h4>
+              <p id={activityPromptId} className={`${isFinishPage ? 'max-w-3xl text-base text-white/72' : 'text-sm text-white/70'} font-medium leading-relaxed`}>{page.activity.prompt}</p>
             </div>
           </div>
+
+          {page.id === 's3-where-agents' && (
+            <AgentCandidateActivity activity={page.activity} userInput={userInput} onInputChange={onInputChange} />
+          )}
+          {page.id === 's3-workflows' && (
+            <StartingWorkflowActivity activity={page.activity} userInput={userInput} onInputChange={onInputChange} />
+          )}
+          {page.id === 's3-ai-workflow' && (
+            <AiEnabledWorkflowActivity activity={page.activity} userInput={userInput} onInputChange={onInputChange} />
+          )}
+          {page.id === 's4-framework' && (
+            <PromptFrameworkActivity activity={page.activity} userInput={userInput} onInputChange={onInputChange} />
+          )}
+          {page.id === 's5-impact-exercise' && (
+            <ImpactPricingActivity activity={page.activity} userInput={userInput} onInputChange={onInputChange} />
+          )}
+          {page.id === 's5-client-talk' && (
+            <ClientMessageActivity activity={page.activity} userInput={userInput} onInputChange={onInputChange} />
+          )}
           
           {/* Text Area for regular activities */}
           {(!page.activity.type || page.activity.type === 'text') && (
             <>
               <textarea
+                aria-labelledby={activityTitleId}
+                aria-describedby={activityPromptId}
                 value={userInput}
                 onChange={(e) => onInputChange(e.target.value)}
                 placeholder="Type your answer here..."
@@ -5366,7 +5567,7 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
           )}
 
           {/* Multi-Question Input */}
-          {page.activity.type === 'multi-question' && page.activity.questions && (
+          {!usesFocusedPageActivity && page.activity.type === 'multi-question' && page.activity.questions && (
             <div className="space-y-5">
               {isCertificatePage && (
                 <div className="certificate-print-area">
@@ -5444,12 +5645,13 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
 
                 return (
                   <div key={index} className={`space-y-2 ${isCertificatePage ? 'certificate-screen-only' : ''}`}>
-                    <label className="text-sm font-bold text-white/90 block">
+                    <label htmlFor={`${page.id}-${questionKey}`} className="text-sm font-bold text-white/90 block">
                       {index + 1}. {question}
                     </label>
 
                     {isFirstQuestionWithDropdown ? (
                       <select
+                        id={`${page.id}-${questionKey}`}
                         value={questionValue}
                         onChange={(e) => {
                           const newInputs = { ...savedInputs, [questionKey]: e.target.value };
@@ -5484,6 +5686,8 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
                                 {itemIndex + 1}
                               </div>
                               <input
+                                id={`${page.id}-${itemKey}`}
+                                aria-label={`${question} — item ${itemIndex + 1}`}
                                 type="text"
                                 value={itemValue}
                                 onChange={(e) => {
@@ -5499,6 +5703,7 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
                       </div>
                     ) : (
                       <textarea
+                        id={`${page.id}-${questionKey}`}
                         value={questionValue}
                         onChange={(e) => {
                           const newInputs = { ...savedInputs, [questionKey]: e.target.value };
@@ -5546,6 +5751,7 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
                       {index + 1}
                     </div>
                     <input
+                      aria-label={`${placeholderPrefix} ${index + 1}`}
                       type="text"
                       value={itemValue}
                       onChange={(e) => {
@@ -5576,6 +5782,8 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
           {page.activity.type === 'dropdown' && page.activity.dropdownOptions && (
             <>
               <select
+                aria-labelledby={activityTitleId}
+                aria-describedby={activityPromptId}
                 value={userInput}
                 onChange={(e) => onInputChange(e.target.value)}
                 className="w-full bg-black/40 border-2 border-white/20 focus:border-[#00DC51] rounded-xl p-4 text-white focus:outline-none font-medium transition-colors text-sm appearance-none cursor-pointer"
@@ -5611,7 +5819,7 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
           {/* Yes/No Radio Buttons */}
           {page.activity.type === 'yes-no' && (
             <>
-              <div className="flex items-center gap-6">
+              <div className="flex flex-wrap items-center gap-6" role="group" aria-labelledby={activityTitleId} aria-describedby={activityPromptId}>
                 <label className="flex items-center gap-3 cursor-pointer group">
                   <div className={`w-12 h-12 rounded-full border-3 flex items-center justify-center transition-all ${
                     userInput === 'yes' 
@@ -5689,6 +5897,7 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
                       <span key={index}>
                         {part}
                         <input
+                          aria-label={`${page.activity.title}, blank ${index + 1}`}
                           type="text"
                           value={gapValue}
                           onChange={(e) => {
@@ -5718,14 +5927,15 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
           )}
 
           {/* Checkbox Tasks */}
-          {page.activity.type === 'checkbox-tasks' && page.activity.checkboxTasks && (
+          {!usesFocusedPageActivity && page.activity.type === 'checkbox-tasks' && page.activity.checkboxTasks && (
             <div className="space-y-4">
               {page.id === 's6-days61-90' && (
                 <div className="space-y-2">
-                  <label className="text-sm font-bold text-white/90 block">
+                  <label htmlFor={`${page.id}-workflow-name`} className="text-sm font-bold text-white/90 block">
                     Define your first agent workflow:
                   </label>
                   <input
+                    id={`${page.id}-workflow-name`}
                     type="text"
                     value={structuredInputs['workflow-name'] || ''}
                     onChange={(e) => {
@@ -5751,6 +5961,7 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
                   <div key={taskIndex} className="bg-white/5 border-2 border-white/10 rounded-xl p-4 space-y-3">
                     {/* Task Name Input */}
                     <input
+                      aria-label={`Task ${taskIndex + 1} name`}
                       type="text"
                       value={taskData.label || ''}
                       onChange={(e) => {
@@ -5845,9 +6056,9 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
                     />
                     
                     {/* Classification and Top Candidate - Side by Side */}
-                    <div className="flex items-center gap-3">
+                    <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
                       {/* Left: Radio buttons for classification */}
-                      <div className="flex-1 flex items-center gap-4">
+                      <div className="flex flex-1 flex-wrap items-center gap-4">
                         <label className="flex items-center gap-2 cursor-pointer group">
                           <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center transition-all ${
                             taskData.classification === 'ai-ready'
@@ -5858,7 +6069,8 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
                               <div className="w-2 h-2 bg-black rounded-full" />
                             )}
                           </div>
-                          <input
+                    <input
+                      aria-label={`Task ${taskIndex + 1}`}
                             type="radio"
                             name={`classification-${taskIndex}`}
                             checked={taskData.classification === 'ai-ready'}
@@ -5948,7 +6160,7 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
           )}
 
           {/* Spec Form */}
-          {page.activity.type === 'spec-form' && page.activity.specFields && (
+          {!usesFocusedPageActivity && page.activity.type === 'spec-form' && page.activity.specFields && (
             <div className="space-y-5">
               {page.activity.specFields.map((field, index) => {
                 const fieldKey = `field-${index}`;
@@ -5962,13 +6174,15 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
 
                 return (
                   <div key={index} className="space-y-2">
-                    <label className="text-sm font-bold text-white/90 block">
+                    <label htmlFor={`${page.id}-${fieldKey}`} className="text-sm font-bold text-white/90 block">
                       {field.label}:
                     </label>
                     {field.helper && (
-                      <p className="text-xs text-white/60 -mt-1 mb-2">{field.helper}</p>
+                      <p id={`${page.id}-${fieldKey}-helper`} className="text-xs text-white/60 -mt-1 mb-2">{field.helper}</p>
                     )}
                     <textarea
+                      id={`${page.id}-${fieldKey}`}
+                      aria-describedby={field.helper ? `${page.id}-${fieldKey}-helper` : undefined}
                       value={fieldValue}
                       onChange={(e) => {
                         const newInputs = { ...savedInputs, [fieldKey]: e.target.value };
@@ -5993,7 +6207,7 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
               )}
             </div>
           )}
-        </motion.div>
+        </motion.section>
       )}
 
       {/* Certificate Download Button */}

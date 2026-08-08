@@ -7,6 +7,7 @@ import { ProgressBar } from './components/ProgressBar';
 import sageLogo from 'figma:asset/85dce1db2c171f8d15f5e966d3ca5f37099a8078.png';
 
 const PLAYBOOK_STORAGE_KEY = 'sage-ai-playbook-progress';
+const DESKTOP_NAVIGATION_QUERY = '(min-width: 1024px)';
 
 interface PersistedPlaybookState {
   currentPage?: unknown;
@@ -16,6 +17,10 @@ interface PersistedPlaybookState {
 
 function canUseLocalStorage() {
   return typeof window !== 'undefined' && typeof window.localStorage !== 'undefined';
+}
+
+function getInitialDesktopState() {
+  return typeof window === 'undefined' || window.matchMedia(DESKTOP_NAVIGATION_QUERY).matches;
 }
 
 function getValidatedCurrentPage(value: unknown, totalPages: number) {
@@ -83,7 +88,8 @@ export default function SageAIPlaybook() {
   const [persistedState] = useState(() => getInitialPlaybookState(playbook.length));
   const [currentPage, setCurrentPage] = useState(persistedState.currentPage);
   const [userInputs, setUserInputs] = useState<Record<string, string>>(persistedState.userInputs);
-  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [isDesktop, setIsDesktop] = useState(getInitialDesktopState);
+  const [sidebarOpen, setSidebarOpen] = useState(getInitialDesktopState);
   const [visitedPages, setVisitedPages] = useState<Set<number>>(persistedState.visitedPages);
   const [expandedSections, setExpandedSections] = useState<Set<string>>(new Set(['Introduction']));
 
@@ -108,6 +114,41 @@ export default function SageAIPlaybook() {
     }
   }, [currentPage, userInputs, visitedPages]);
 
+  useEffect(() => {
+    const desktopQuery = window.matchMedia(DESKTOP_NAVIGATION_QUERY);
+    const handleViewportChange = (event: MediaQueryListEvent) => {
+      setIsDesktop(event.matches);
+      setSidebarOpen(event.matches);
+    };
+
+    setIsDesktop(desktopQuery.matches);
+    setSidebarOpen(desktopQuery.matches);
+    desktopQuery.addEventListener('change', handleViewportChange);
+
+    return () => desktopQuery.removeEventListener('change', handleViewportChange);
+  }, []);
+
+  useEffect(() => {
+    if (!sidebarOpen || isDesktop) {
+      return;
+    }
+
+    const previousOverflow = document.body.style.overflow;
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setSidebarOpen(false);
+      }
+    };
+
+    document.body.style.overflow = 'hidden';
+    document.addEventListener('keydown', handleEscape);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      document.removeEventListener('keydown', handleEscape);
+    };
+  }, [isDesktop, sidebarOpen]);
+
   const goToPage = (page: number) => {
     if (page >= 0 && page < totalPages) {
       setCurrentPage(page);
@@ -116,6 +157,9 @@ export default function SageAIPlaybook() {
         newSet.add(page);
         return newSet;
       });
+      if (!isDesktop) {
+        setSidebarOpen(false);
+      }
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
@@ -203,9 +247,24 @@ export default function SageAIPlaybook() {
   };
 
   return (
-    <div className="playbook-app-shell bg-black text-white min-h-screen flex" style={{ fontFamily: 'var(--font-family-body)' }}>
+    <div className="playbook-app-shell min-h-screen overflow-x-hidden bg-black text-white flex" style={{ fontFamily: 'var(--font-family-body)' }}>
+      {sidebarOpen && !isDesktop && (
+        <button
+          type="button"
+          className="playbook-sidebar-backdrop fixed inset-0 z-40 bg-black/70 backdrop-blur-[2px]"
+          aria-label="Close navigation menu"
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
+
       {/* Sidebar Navigation */}
-      <aside className={`playbook-sidebar fixed left-0 top-0 h-screen bg-black/95 backdrop-blur-xl border-r border-[#00DC51]/20 z-50 transition-transform duration-300 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} w-80`}>
+      <aside
+        id="playbook-sidebar"
+        aria-label="Playbook navigation"
+        aria-hidden={!sidebarOpen}
+        inert={!sidebarOpen ? true : undefined}
+        className={`playbook-sidebar fixed left-0 top-0 h-screen w-80 bg-black/95 backdrop-blur-xl border-r border-[#00DC51]/20 z-50 transition-transform duration-300 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}
+      >
         <div className="flex flex-col h-full">
           {/* Sidebar Header */}
           <div className="p-6 border-b border-[#00DC51]/20">
@@ -259,6 +318,8 @@ export default function SageAIPlaybook() {
                     {/* Section Header */}
                     <button
                       onClick={() => toggleSection(sectionName)}
+                      aria-expanded={isExpanded}
+                      aria-controls={`playbook-section-${sectionName.replace(/[^a-z0-9]+/gi, '-').toLowerCase()}`}
                       className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-white/5 transition-all group"
                     >
                       <div className="w-8 h-8 bg-[#00DC51]/15 rounded-lg flex items-center justify-center flex-shrink-0 border border-[#00DC51]/30">
@@ -297,7 +358,7 @@ export default function SageAIPlaybook() {
 
                     {/* Section Pages */}
                     {isExpanded && (
-                      <div className="mt-1 space-y-1 ml-2">
+                      <div id={`playbook-section-${sectionName.replace(/[^a-z0-9]+/gi, '-').toLowerCase()}`} className="mt-1 space-y-1 ml-2">
                         {sectionData.pages.map(({ index, page }) => {
                           const isActive = currentPage === index;
                           const isVisited = visitedPages.has(index);
@@ -308,7 +369,8 @@ export default function SageAIPlaybook() {
                             <button
                               key={index}
                               onClick={() => goToPage(index)}
-                              className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg transition-all group text-left ${
+                              aria-current={isActive ? 'page' : undefined}
+                              className={`min-h-11 w-full flex items-center gap-3 px-3 py-2 rounded-lg transition-all group text-left ${
                                 isActive 
                                   ? 'bg-[#00DC51]/15 border-l-4 border-[#00DC51]' 
                                   : 'hover:bg-white/5 border-l-4 border-transparent'
@@ -322,7 +384,7 @@ export default function SageAIPlaybook() {
                                   <CheckCircle size={16} strokeWidth={2.5} className="fill-[#00DC51]/20" />
                                 ) : (
                                   <span className="text-xs font-black tabular-nums">
-                                    {isCover ? '🏠' : isContents ? '📋' : String(index).padStart(2, '0')}
+                                    {isCover ? '🏠' : isContents ? '📋' : String(index + 1).padStart(2, '0')}
                                   </span>
                                 )}
                               </div>
@@ -369,17 +431,19 @@ export default function SageAIPlaybook() {
 
       {/* Sidebar Toggle Button */}
       <button
+        type="button"
         onClick={() => setSidebarOpen(!sidebarOpen)}
-        className={`playbook-sidebar-toggle fixed top-6 z-50 bg-[#00DC51] text-black p-2.5 rounded-r-xl shadow-lg transition-all hover:bg-[#00FF5F] ${
-          sidebarOpen ? 'left-80' : 'left-0'
-        }`}
+        aria-label={sidebarOpen ? 'Close navigation menu' : 'Open navigation menu'}
+        aria-controls="playbook-sidebar"
+        aria-expanded={sidebarOpen}
+        className={`playbook-sidebar-toggle fixed top-6 z-[60] min-h-11 min-w-11 bg-[#00DC51] text-black p-2.5 rounded-r-xl shadow-lg transition-all hover:bg-[#00FF5F] ${sidebarOpen ? 'sidebar-is-open' : ''}`}
       >
         {sidebarOpen ? <ChevronLeft size={20} strokeWidth={2.5} /> : <ChevronRight size={20} strokeWidth={2.5} />}
       </button>
 
       {/* Main Content Area */}
-      <main className={`playbook-main flex-1 transition-all duration-300 ${sidebarOpen ? 'ml-80' : 'ml-0'}`}>
-        <div className="playbook-main-inner max-w-5xl mx-auto px-12 py-12">
+      <main className={`playbook-main min-w-0 flex-1 transition-all duration-300 ${sidebarOpen ? 'sidebar-is-open' : ''}`}>
+        <div className="playbook-main-inner max-w-5xl mx-auto px-4 py-6 sm:px-6 sm:py-8 lg:px-12 lg:py-12">
           <AnimatePresence mode="wait">
             <motion.div
               key={currentPage}
@@ -404,44 +468,53 @@ export default function SageAIPlaybook() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2 }}
-            className="playbook-page-nav flex items-center justify-between gap-4 mt-12 pt-8 border-t border-white/10"
+            className="playbook-page-nav mt-10 grid grid-cols-2 items-center gap-3 border-t border-white/10 pt-6 sm:mt-12 sm:grid-cols-[1fr_auto_1fr] sm:gap-4 sm:pt-8"
           >
             <button
+              type="button"
               onClick={() => goToPage(currentPage - 1)}
               disabled={currentPage === 0}
-              className="flex items-center gap-2 px-6 py-3 bg-white/5 hover:bg-white/10 disabled:opacity-20 disabled:cursor-not-allowed rounded-xl transition-all font-semibold text-sm border border-white/10 hover:border-white/20 disabled:hover:bg-white/5"
+              aria-label="Go to previous page"
+              className="order-2 flex min-h-11 items-center gap-2 justify-self-start rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-sm font-semibold transition-all hover:border-white/20 hover:bg-white/10 disabled:cursor-not-allowed disabled:opacity-20 disabled:hover:bg-white/5 sm:order-1 sm:px-6 sm:py-3"
             >
               <ChevronLeft size={18} strokeWidth={2.5} />
               <span>Previous</span>
             </button>
 
-            <div className="text-center">
+            <div className="order-1 col-span-2 text-center sm:order-2 sm:col-span-1">
               <div className="text-xs font-semibold text-white/50 mb-1">Page {currentPage + 1} of {totalPages}</div>
-              <div className="flex gap-1">
+              <div className="flex justify-center">
                 {playbook.slice(Math.max(0, currentPage - 2), Math.min(totalPages, currentPage + 3)).map((_, idx) => {
                   const pageIdx = Math.max(0, currentPage - 2) + idx;
                   const isVisited = visitedPages.has(pageIdx);
                   return (
                     <button
+                      type="button"
                       key={pageIdx}
                       onClick={() => goToPage(pageIdx)}
-                      className={`h-2 rounded-full transition-all ${
-                        pageIdx === currentPage 
-                          ? 'bg-[#00DC51] w-6' 
-                          : isVisited
-                          ? 'bg-[#00DC51]/50 w-2'
-                          : 'bg-white/20 hover:bg-white/40 w-2'
-                      }`}
-                    />
+                      aria-label={`Go to page ${pageIdx + 1}`}
+                      aria-current={pageIdx === currentPage ? 'page' : undefined}
+                      className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-lg"
+                    >
+                      <span className={`h-2 rounded-full transition-all ${
+                          pageIdx === currentPage
+                            ? 'bg-[#00DC51] w-6'
+                            : isVisited
+                            ? 'bg-[#00DC51]/50 w-2'
+                            : 'bg-white/20 w-2'
+                        }`} />
+                    </button>
                   );
                 })}
               </div>
             </div>
 
             <button
+              type="button"
               onClick={() => goToPage(currentPage + 1)}
               disabled={currentPage === totalPages - 1}
-              className="flex items-center gap-2 px-6 py-3 bg-[#00DC51] hover:bg-[#00DC51]/90 text-black font-black disabled:opacity-20 disabled:cursor-not-allowed rounded-xl transition-all shadow-lg shadow-[#00DC51]/30 hover:shadow-[#00DC51]/50 hover:scale-105 text-sm border border-[#00DC51] disabled:shadow-none disabled:scale-100"
+              aria-label={currentPage === totalPages - 1 ? 'Finish playbook' : 'Go to next page'}
+              className="order-3 flex min-h-11 items-center gap-2 justify-self-end rounded-xl border border-[#00DC51] bg-[#00DC51] px-4 py-2.5 text-sm font-black text-black shadow-lg shadow-[#00DC51]/30 transition-all hover:scale-105 hover:bg-[#00DC51]/90 hover:shadow-[#00DC51]/50 disabled:cursor-not-allowed disabled:scale-100 disabled:opacity-20 disabled:shadow-none sm:px-6 sm:py-3"
             >
               <span>{currentPage === totalPages - 1 ? 'Finish' : 'Next'}</span>
               <ChevronRight size={18} strokeWidth={2.5} />

@@ -1,0 +1,467 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>AI Playbook Pattern Explorer</title>
+  <style>
+    :root {
+      --bg: #080a09;
+      --surface: #101311;
+      --surface-2: #151a17;
+      --line: #29302c;
+      --line-soft: #1e2421;
+      --text: #f5f7f5;
+      --muted: #a9b2ac;
+      --green: #00dc51;
+      --green-soft: rgba(0, 220, 81, .11);
+      --green-line: rgba(0, 220, 81, .42);
+      --max: 1180px;
+      --radius: 16px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 85% 4%, rgba(0, 220, 81, .08), transparent 28rem),
+        var(--bg);
+      font-family: Inter, "Segoe UI", Arial, sans-serif;
+      line-height: 1.55;
+    }
+    button, summary { font: inherit; }
+    button { color: inherit; }
+    :where(button, a, summary):focus-visible {
+      outline: 3px solid var(--green);
+      outline-offset: 3px;
+    }
+    a { color: inherit; }
+    .skip-link {
+      position: fixed;
+      z-index: 10;
+      top: 12px;
+      left: 12px;
+      padding: 10px 14px;
+      color: #001b0a;
+      background: var(--green);
+      border-radius: 8px;
+      transform: translateY(-150%);
+    }
+    .skip-link:focus { transform: translateY(0); }
+    .shell { width: min(calc(100% - 40px), var(--max)); margin-inline: auto; }
+    .eyebrow {
+      margin: 0 0 12px;
+      color: var(--green);
+      font-size: .75rem;
+      font-weight: 800;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+    }
+    .hero { padding: 88px 0 58px; border-bottom: 1px solid var(--line-soft); }
+    .hero h1 {
+      max-width: 800px;
+      margin: 0;
+      font-size: clamp(2.5rem, 7vw, 5.4rem);
+      line-height: .96;
+      letter-spacing: -.055em;
+    }
+    .hero h1 span { color: var(--green); }
+    .lede { max-width: 720px; margin: 26px 0 0; color: var(--muted); font-size: 1.12rem; }
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      margin-top: 28px;
+      padding: 8px 12px;
+      border: 1px solid var(--green-line);
+      border-radius: 999px;
+      color: #cbf8da;
+      background: var(--green-soft);
+      font-size: .82rem;
+      font-weight: 700;
+    }
+    .status::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--green); }
+    .jump-nav {
+      position: sticky;
+      z-index: 5;
+      top: 0;
+      background: rgba(8, 10, 9, .92);
+      border-bottom: 1px solid var(--line-soft);
+      backdrop-filter: blur(12px);
+    }
+    .jump-nav .shell { display: flex; gap: 8px; overflow-x: auto; padding-block: 12px; scrollbar-width: thin; }
+    .jump-nav a { flex: 0 0 auto; padding: 7px 11px; color: var(--muted); text-decoration: none; border-radius: 6px; font-size: .78rem; font-weight: 700; }
+    .jump-nav a:hover { color: var(--text); background: var(--surface-2); }
+    main { padding-bottom: 88px; }
+    .pattern { padding: 78px 0; border-bottom: 1px solid var(--line-soft); scroll-margin-top: 58px; }
+    .pattern-head { display: grid; grid-template-columns: 1fr auto; gap: 20px; align-items: end; margin-bottom: 28px; }
+    .pattern-index { color: var(--green); font-size: .78rem; font-weight: 800; letter-spacing: .12em; }
+    h2 { margin: 5px 0 0; font-size: clamp(1.8rem, 4vw, 3rem); line-height: 1.05; letter-spacing: -.035em; }
+    .intent { max-width: 510px; margin: 0; color: var(--muted); }
+    .pattern-layout { display: grid; grid-template-columns: minmax(0, 1fr) 280px; gap: 22px; align-items: start; }
+    .demo {
+      min-width: 0;
+      padding: clamp(20px, 4vw, 34px);
+      background: linear-gradient(145deg, var(--surface-2), var(--surface));
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: 0 24px 70px rgba(0, 0, 0, .24);
+    }
+    .demo-kicker { color: var(--green); font-size: .72rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+    .demo h3 { margin: 8px 0 6px; font-size: clamp(1.25rem, 3vw, 1.75rem); letter-spacing: -.02em; }
+    .demo-intro { margin: 0 0 26px; color: var(--muted); }
+    .guidance { padding: 22px; border: 1px solid var(--line); border-radius: var(--radius); background: rgba(16, 19, 17, .72); }
+    .guidance h3 { margin: 0 0 16px; font-size: .88rem; letter-spacing: .02em; }
+    .guidance dl { margin: 0; }
+    .guidance div + div { margin-top: 15px; padding-top: 15px; border-top: 1px solid var(--line-soft); }
+    .guidance dt { margin-bottom: 3px; color: var(--green); font-size: .7rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+    .guidance dd { margin: 0; color: var(--muted); font-size: .83rem; line-height: 1.5; }
+
+    /* 1. Horizontal steps */
+    .step-tabs { display: grid; grid-template-columns: repeat(4, 1fr); position: relative; margin-top: 25px; }
+    .step-tabs::before { content: ""; position: absolute; top: 18px; left: 12%; right: 12%; height: 1px; background: var(--line); }
+    .step-tab { position: relative; z-index: 1; padding: 0 4px 13px; border: 0; background: transparent; cursor: pointer; text-align: center; }
+    .step-dot { display: grid; place-items: center; width: 37px; height: 37px; margin: 0 auto 10px; border: 1px solid var(--line); border-radius: 50%; background: var(--surface); color: var(--muted); font-size: .78rem; font-weight: 800; }
+    .step-label { color: var(--muted); font-size: .76rem; font-weight: 750; }
+    .step-tab[aria-selected="true"] .step-dot { color: #001b09; background: var(--green); border-color: var(--green); box-shadow: 0 0 0 6px rgba(0, 220, 81, .08); }
+    .step-tab[aria-selected="true"] .step-label { color: var(--text); }
+    .step-panel { min-height: 155px; margin-top: 12px; padding: 24px; background: #0c0f0d; border: 1px solid var(--green-line); border-left: 4px solid var(--green); border-radius: 10px; }
+    .step-panel h4 { margin: 0 0 7px; font-size: 1.13rem; }
+    .step-panel p { margin: 0; color: var(--muted); }
+    .example { margin-top: 15px !important; color: #dce2de !important; font-size: .9rem; }
+
+    /* 2. Selector */
+    .selector { display: grid; grid-template-columns: 210px 1fr; gap: 18px; }
+    .selector-list { display: flex; flex-direction: column; gap: 7px; }
+    .selector-button { width: 100%; padding: 12px 14px; border: 1px solid var(--line); border-radius: 8px; color: var(--muted); background: transparent; cursor: pointer; text-align: left; font-size: .84rem; font-weight: 750; }
+    .selector-button:hover { color: var(--text); border-color: #46514b; }
+    .selector-button[aria-selected="true"] { color: var(--green); background: var(--green-soft); border-color: var(--green-line); }
+    .selector-panel { min-height: 285px; padding: 24px; background: #0c0f0d; border: 1px solid var(--line); border-radius: 10px; }
+    .selector-panel h4 { margin: 0 0 7px; font-size: 1.25rem; }
+    .selector-panel .use { color: var(--muted); }
+    .selector-panel blockquote { margin: 22px 0 0; padding: 16px 18px; border-left: 3px solid var(--green); background: var(--green-soft); color: #dce3de; font-size: .9rem; }
+
+    /* 3. Accordion */
+    .accordion { border-top: 1px solid var(--line); }
+    .accordion details { border-bottom: 1px solid var(--line); }
+    .accordion summary { display: flex; align-items: center; gap: 14px; padding: 18px 4px; cursor: pointer; list-style: none; font-weight: 760; }
+    .accordion summary::-webkit-details-marker { display: none; }
+    .accordion summary::before { content: "+"; display: grid; place-items: center; width: 28px; height: 28px; flex: 0 0 28px; border: 1px solid var(--green-line); border-radius: 50%; color: var(--green); }
+    .accordion details[open] summary::before { content: "−"; color: #001b09; background: var(--green); border-color: var(--green); }
+    .accordion details p { margin: -4px 0 20px 46px; color: var(--muted); }
+
+    /* 4. Comparison grid */
+    .comparison { display: grid; grid-template-columns: repeat(2, 1fr); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+    .comparison section { padding: 25px; }
+    .comparison section + section { border-left: 1px solid var(--line); }
+    .comparison h4 { display: flex; align-items: center; gap: 9px; margin: 0 0 16px; font-size: 1.08rem; }
+    .comparison h4::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--green); }
+    .comparison .restricted h4::before { background: #96a09a; }
+    .comparison p { margin: 0 0 12px; color: var(--muted); font-size: .86rem; }
+    .comparison ul { margin: 0; padding: 0; list-style: none; }
+    .comparison li { position: relative; padding: 8px 0 8px 20px; border-top: 1px solid var(--line-soft); color: #dde2df; font-size: .86rem; }
+    .comparison li::before { content: "→"; position: absolute; left: 0; color: var(--green); }
+    .comparison .restricted li::before { content: "×"; color: #aeb7b1; }
+
+    /* 5. Timeline */
+    .timeline { display: grid; grid-template-columns: repeat(3, 1fr); position: relative; gap: 18px; }
+    .timeline::before { content: ""; position: absolute; top: 18px; left: 10%; right: 10%; height: 2px; background: linear-gradient(90deg, var(--green), var(--green-line)); }
+    .phase { position: relative; z-index: 1; padding-top: 48px; }
+    .phase::before { content: ""; position: absolute; top: 9px; left: 0; width: 18px; height: 18px; border: 5px solid var(--surface-2); border-radius: 50%; background: var(--green); box-shadow: 0 0 0 1px var(--green); }
+    .phase time { color: var(--green); font-size: .7rem; font-weight: 850; letter-spacing: .1em; text-transform: uppercase; }
+    .phase h4 { margin: 6px 0 6px; font-size: .98rem; line-height: 1.35; }
+    .phase p { margin: 0; color: var(--muted); font-size: .82rem; }
+    .phase .goal { margin-top: 13px; padding-top: 13px; border-top: 1px solid var(--line); color: #dfe5e1; }
+
+    .recommendation { padding: 78px 0 0; scroll-margin-top: 58px; }
+    .recommendation header { max-width: 720px; margin-bottom: 28px; }
+    .recommendation header p { color: var(--muted); }
+    .table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--radius); }
+    table { width: 100%; min-width: 720px; border-collapse: collapse; background: var(--surface); }
+    th, td { padding: 16px 18px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+    th { color: var(--muted); background: #0c0f0d; font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; }
+    td { font-size: .86rem; }
+    td:nth-child(2) { color: var(--green); font-weight: 800; }
+    tbody tr:last-child td { border-bottom: 0; }
+    footer { padding: 36px 0 55px; color: #7f8982; font-size: .78rem; }
+
+    @media (max-width: 850px) {
+      .pattern-head, .pattern-layout { grid-template-columns: 1fr; }
+      .pattern-head { align-items: start; }
+      .guidance dl { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; }
+      .guidance div + div { margin: 0; padding: 0; border: 0; }
+      .timeline { grid-template-columns: 1fr; gap: 0; }
+      .timeline::before { top: 8px; bottom: 8px; left: 9px; right: auto; width: 2px; height: auto; }
+      .phase { padding: 0 0 30px 42px; }
+      .phase::before { top: 2px; left: 0; }
+    }
+    @media (max-width: 620px) {
+      .shell { width: min(calc(100% - 28px), var(--max)); }
+      .hero { padding-top: 58px; }
+      .pattern { padding: 58px 0; }
+      .intent { font-size: .9rem; }
+      .guidance dl { grid-template-columns: 1fr; }
+      .guidance div + div { margin-top: 13px; padding-top: 13px; border-top: 1px solid var(--line-soft); }
+      .step-tabs { grid-template-columns: repeat(4, minmax(62px, 1fr)); overflow-x: auto; }
+      .step-label { font-size: .67rem; }
+      .selector { grid-template-columns: 1fr; }
+      .selector-list { display: grid; grid-template-columns: repeat(2, 1fr); }
+      .selector-button:last-child { grid-column: 1 / -1; }
+      .selector-panel { min-height: 0; }
+      .comparison { grid-template-columns: 1fr; }
+      .comparison section + section { border-left: 0; border-top: 1px solid var(--line); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to patterns</a>
+
+  <header class="hero">
+    <div class="shell">
+      <p class="eyebrow">AI Playbook · Design decision aid</p>
+      <h1>Pattern <span>explorer</span></h1>
+      <p class="lede">Five restrained presentation treatments for replacing repetitive numbered squares and card stacks. Each example uses approved wording already present in the AI Playbook repository.</p>
+      <span class="status">Standalone reference · not production UI</span>
+    </div>
+  </header>
+
+  <nav class="jump-nav" aria-label="Pattern explorer sections">
+    <div class="shell">
+      <a href="#horizontal-steps">Horizontal steps</a>
+      <a href="#selector">Selector + detail</a>
+      <a href="#accordion">Accordion</a>
+      <a href="#comparison">Comparison grid</a>
+      <a href="#timeline">Timeline</a>
+      <a href="#mapping">Recommendation</a>
+    </div>
+  </nav>
+
+  <main id="main" class="shell">
+    <section class="pattern" id="horizontal-steps" aria-labelledby="horizontal-title">
+      <header class="pattern-head">
+        <div><span class="pattern-index">01 / 05</span><h2 id="horizontal-title">Horizontal steps</h2></div>
+        <p class="intent">A compact sequence for a small framework whose parts build toward a complete result.</p>
+      </header>
+      <div class="pattern-layout">
+        <div class="demo">
+          <span class="demo-kicker">The Accountant's Prompt Framework</span>
+          <h3>Every Effective Prompt Has 4 Parts:</h3>
+          <p class="demo-intro">Select a part to inspect its purpose and an approved example.</p>
+          <div class="step-tabs" role="tablist" aria-label="Parts of an effective prompt">
+            <button class="step-tab" id="step-tab-0" role="tab" aria-selected="true" aria-controls="step-panel" data-step="0"><span class="step-dot">01</span><span class="step-label">Role</span></button>
+            <button class="step-tab" id="step-tab-1" role="tab" aria-selected="false" aria-controls="step-panel" tabindex="-1" data-step="1"><span class="step-dot">02</span><span class="step-label">Task</span></button>
+            <button class="step-tab" id="step-tab-2" role="tab" aria-selected="false" aria-controls="step-panel" tabindex="-1" data-step="2"><span class="step-dot">03</span><span class="step-label">Context</span></button>
+            <button class="step-tab" id="step-tab-3" role="tab" aria-selected="false" aria-controls="step-panel" tabindex="-1" data-step="3"><span class="step-dot">04</span><span class="step-label">Constraints</span></button>
+          </div>
+          <div class="step-panel" id="step-panel" role="tabpanel" aria-live="polite" aria-labelledby="step-tab-0"></div>
+        </div>
+        <aside class="guidance" aria-label="Horizontal steps usage guidance">
+          <h3>Pattern guidance</h3>
+          <dl>
+            <div><dt>Best used for</dt><dd>Short ordered frameworks with three to five distinct parts.</dd></div>
+            <div><dt>Avoid when</dt><dd>Readers must compare every detail at once or the order is not meaningful.</dd></div>
+            <div><dt>Responsive</dt><dd>Step labels remain in one compact row; the detail panel moves below.</dd></div>
+          </dl>
+        </aside>
+      </div>
+    </section>
+
+    <section class="pattern" id="selector" aria-labelledby="selector-title">
+      <header class="pattern-head">
+        <div><span class="pattern-index">02 / 05</span><h2 id="selector-title">Selector with one detail panel</h2></div>
+        <p class="intent">A browseable menu when the reader needs to inspect one option without carrying five full examples down the page.</p>
+      </header>
+      <div class="pattern-layout">
+        <div class="demo">
+          <span class="demo-kicker">Prompting Skills</span>
+          <h3>The Five Prompt Types</h3>
+          <p class="demo-intro">Choose a prompt type to see when it is useful and one source example.</p>
+          <div class="selector">
+            <div class="selector-list" role="tablist" aria-orientation="vertical" aria-label="Prompt types">
+              <button class="selector-button" id="prompt-tab-0" role="tab" aria-selected="true" aria-controls="prompt-panel" data-prompt="0">Draft Prompts</button>
+              <button class="selector-button" id="prompt-tab-1" role="tab" aria-selected="false" aria-controls="prompt-panel" tabindex="-1" data-prompt="1">Summary Prompts</button>
+              <button class="selector-button" id="prompt-tab-2" role="tab" aria-selected="false" aria-controls="prompt-panel" tabindex="-1" data-prompt="2">Explanation Prompts</button>
+              <button class="selector-button" id="prompt-tab-3" role="tab" aria-selected="false" aria-controls="prompt-panel" tabindex="-1" data-prompt="3">Check Prompts</button>
+              <button class="selector-button" id="prompt-tab-4" role="tab" aria-selected="false" aria-controls="prompt-panel" tabindex="-1" data-prompt="4">Question Prompts</button>
+            </div>
+            <div class="selector-panel" id="prompt-panel" role="tabpanel" aria-live="polite" aria-labelledby="prompt-tab-0"></div>
+          </div>
+        </div>
+        <aside class="guidance" aria-label="Selector usage guidance">
+          <h3>Pattern guidance</h3>
+          <dl>
+            <div><dt>Best used for</dt><dd>Peer options with richer examples where only one needs attention at a time.</dd></div>
+            <div><dt>Avoid when</dt><dd>Comparison between options is the main learning goal.</dd></div>
+            <div><dt>Responsive</dt><dd>The selector becomes a two-column button set above the detail panel.</dd></div>
+          </dl>
+        </aside>
+      </div>
+    </section>
+
+    <section class="pattern" id="accordion" aria-labelledby="accordion-title">
+      <header class="pattern-head">
+        <div><span class="pattern-index">03 / 05</span><h2 id="accordion-title">Accordion</h2></div>
+        <p class="intent">Progressive disclosure for a practical checklist: labels stay scannable while the questions open only when needed.</p>
+      </header>
+      <div class="pattern-layout">
+        <div class="demo">
+          <span class="demo-kicker">AI Output Review Checklist</span>
+          <h3>The four output checks:</h3>
+          <p class="demo-intro">Every AI output should follow a simple review process.</p>
+          <div class="accordion">
+            <details open><summary>1. Accuracy</summary><p>Are the facts and figures correct?</p></details>
+            <details><summary>2. Completeness</summary><p>Is anything missing?</p></details>
+            <details><summary>3. Professional tone</summary><p>Is the wording appropriate and clear?</p></details>
+            <details><summary>4. Compliance and ethics</summary><p>Does the output align with professional standards, firm policies, and confidentiality rules?</p></details>
+          </div>
+        </div>
+        <aside class="guidance" aria-label="Accordion usage guidance">
+          <h3>Pattern guidance</h3>
+          <dl>
+            <div><dt>Best used for</dt><dd>Independent checklist items, FAQs, definitions, or optional supporting detail.</dd></div>
+            <div><dt>Avoid when</dt><dd>Every answer is essential to understand the whole or must remain visible.</dd></div>
+            <div><dt>Responsive</dt><dd>Native disclosure rows use the full width at every breakpoint.</dd></div>
+          </dl>
+        </aside>
+      </div>
+    </section>
+
+    <section class="pattern" id="comparison" aria-labelledby="comparison-title">
+      <header class="pattern-head">
+        <div><span class="pattern-index">04 / 05</span><h2 id="comparison-title">Comparison grid</h2></div>
+        <p class="intent">A direct side-by-side boundary that makes policy distinctions visible without serial cards.</p>
+      </header>
+      <div class="pattern-layout">
+        <div class="demo">
+          <span class="demo-kicker">The Minimum AI Policy</span>
+          <h3>Approved and restricted uses</h3>
+          <p class="demo-intro">Every firm should have a simple, clear policy for AI use.</p>
+          <div class="comparison">
+            <section aria-labelledby="approved-title">
+              <h4 id="approved-title">Approved uses</h4>
+              <p>AI may be used for:</p>
+              <ul><li>Drafting communications</li><li>Summarising notes</li><li>Preparing explanations</li><li>Internal checklists</li><li>And other low-risk tasks</li></ul>
+            </section>
+            <section class="restricted" aria-labelledby="restricted-title">
+              <h4 id="restricted-title">Restricted uses</h4>
+              <p>AI must not be used for:</p>
+              <ul><li>Final client outputs without review</li><li>High-judgement decisions</li><li>Unapproved workflows</li></ul>
+            </section>
+          </div>
+        </div>
+        <aside class="guidance" aria-label="Comparison grid usage guidance">
+          <h3>Pattern guidance</h3>
+          <dl>
+            <div><dt>Best used for</dt><dd>Two to four categories with parallel criteria, contrasts, or boundaries.</dd></div>
+            <div><dt>Avoid when</dt><dd>Cells contain long narratives or categories have little in common.</dd></div>
+            <div><dt>Responsive</dt><dd>Columns stack in reading order with their relationship retained by shared framing.</dd></div>
+          </dl>
+        </aside>
+      </div>
+    </section>
+
+    <section class="pattern" id="timeline" aria-labelledby="timeline-title">
+      <header class="pattern-head">
+        <div><span class="pattern-index">05 / 05</span><h2 id="timeline-title">Timeline / process strip</h2></div>
+        <p class="intent">A time-bound journey where cadence, progression, and a goal at each phase matter more than equal-sized cards.</p>
+      </header>
+      <div class="pattern-layout">
+        <div class="demo">
+          <span class="demo-kicker">The 90-Day AI Adoption Plan</span>
+          <h3>Your roadmap from foundations to your first agent</h3>
+          <p class="demo-intro">Three phases clarify the progression without turning every action into a separate tile.</p>
+          <div class="timeline" aria-label="90-day AI adoption timeline">
+            <section class="phase"><time>Days 1–30</time><h4>Build the Foundations</h4><p>Establish policy, tools, and team understanding.</p><p class="goal"><strong>Goal:</strong> Every team member understands what AI is allowed, what's prohibited, and how to use it safely.</p></section>
+            <section class="phase"><time>Days 31–60</time><h4>Move from Prompts to Workflows</h4><p>Standardise AI use and build repeatable processes.</p><p class="goal"><strong>Goal:</strong> AI use is consistent across the team, embedded into defined workflows, and creating measurable capacity.</p></section>
+            <section class="phase"><time>Days 61–90</time><h4>Introduce Your First Agent</h4><p>Deploy your first goal-driven AI workflow.</p><p class="goal"><strong>Goal:</strong> Your first agent is live, monitored, and delivering measurable results with full professional oversight.</p></section>
+          </div>
+        </div>
+        <aside class="guidance" aria-label="Timeline usage guidance">
+          <h3>Pattern guidance</h3>
+          <dl>
+            <div><dt>Best used for</dt><dd>Roadmaps, maturity progressions, milestones, and time-based processes.</dd></div>
+            <div><dt>Avoid when</dt><dd>Items have no chronological or causal relationship.</dd></div>
+            <div><dt>Responsive</dt><dd>The horizontal strip becomes a vertical path with a clear top-to-bottom sequence.</dd></div>
+          </dl>
+        </aside>
+      </div>
+    </section>
+
+    <section class="recommendation" id="mapping" aria-labelledby="mapping-title">
+      <header><p class="eyebrow">Decision summary</p><h2 id="mapping-title">Recommended mapping</h2><p>Choose by content intent, not by the number of items available. This keeps patterns distinct and prevents another visual monoculture.</p></header>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th scope="col">Content intent</th><th scope="col">Recommended treatment</th><th scope="col">Why it fits</th></tr></thead>
+          <tbody>
+            <tr><td>Teach a short ordered framework</td><td>Horizontal steps</td><td>Preserves sequence while giving each part focused space.</td></tr>
+            <tr><td>Browse several peer examples</td><td>Selector + detail</td><td>Keeps one rich example visible without a long repeated stack.</td></tr>
+            <tr><td>Scan optional or independent detail</td><td>Accordion</td><td>Front-loads labels and lets readers open only what they need.</td></tr>
+            <tr><td>Distinguish categories or boundaries</td><td>Comparison grid</td><td>Supports direct visual comparison across parallel criteria.</td></tr>
+            <tr><td>Explain progression over time</td><td>Timeline / process strip</td><td>Makes direction, cadence, and milestones explicit.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <footer class="shell">Exploratory design reference only. No production components, routes, or application behaviour are represented here.</footer>
+
+  <script>
+    const stepData = [
+      { title: '1. Role', body: 'Tell AI who it should act as. This sets the professional context and tone.', example: 'Examples: “You are a bookkeeper...” · “You are a tax accountant...”' },
+      { title: '2. Task', body: 'State clearly what you want AI to do. Be specific.', example: 'Examples: “Draft an email explaining...” · “Create a checklist for...”' },
+      { title: '3. Context', body: 'Provide the situation, background, or data AI needs to understand the request.', example: 'Examples: “For a retail client whose revenue has dropped 20% this quarter...” · “The client is a sole trader with no employees...”' },
+      { title: '4. Constraints', body: 'Set rules, limits, or format requirements. This keeps outputs professional and appropriate.', example: 'Examples: “Keep it under 100 words” · “Use a reassuring, professional tone”' }
+    ];
+    const promptData = [
+      { title: '1. Draft Prompts', use: 'Use AI to create client communications, reports, letters, or explanations.', example: 'You are an accountant. Draft a professional email to a retail client explaining that their quarterly profit has decreased due to higher supplier costs. Keep it under 100 words and use a supportive tone.' },
+      { title: '2. Summary Prompts', use: 'Use AI to condense long documents, meeting notes, reports, or data into key points.', example: 'You are an accountant. Summarise this 12-page board report into 5 key points for the finance committee. Focus on financial performance and major risks.' },
+      { title: '3. Explanation Prompts', use: 'Use AI to simplify complex concepts, regulations, or technical information for clients.', example: 'You are a tax accountant. Explain what R&D tax credits are to a small manufacturing client who has never claimed them before. Use simple language and avoid jargon.' },
+      { title: '4. Check Prompts', use: 'Use AI to review work for errors, completeness, consistency, or compliance.', example: 'You are a bookkeeper. Review this expense claim for completeness. Check that all receipts are dated, amounts match the claim form, and expense categories are appropriate.' },
+      { title: '5. Question Prompts', use: 'Use AI to answer technical questions, look up information, or provide guidance.', example: 'You are a tax accountant. What are the current VAT registration thresholds in the UK? When must a business register?' }
+    ];
+
+    function activateTabs(buttons, index, panel, data, render) {
+      buttons.forEach((button, buttonIndex) => {
+        const active = buttonIndex === index;
+        button.setAttribute('aria-selected', String(active));
+        button.tabIndex = active ? 0 : -1;
+      });
+      panel.setAttribute('aria-labelledby', buttons[index].id);
+      render(panel, data[index]);
+    }
+
+    function setupTabs(selector, panelId, data, render) {
+      const buttons = Array.from(document.querySelectorAll(selector));
+      const panel = document.getElementById(panelId);
+      buttons.forEach((button, index) => {
+        button.addEventListener('click', () => activateTabs(buttons, index, panel, data, render));
+        button.addEventListener('keydown', event => {
+          const current = buttons.indexOf(document.activeElement);
+          let next = current;
+          if (event.key === 'ArrowRight' || event.key === 'ArrowDown') next = (current + 1) % buttons.length;
+          if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') next = (current - 1 + buttons.length) % buttons.length;
+          if (event.key === 'Home') next = 0;
+          if (event.key === 'End') next = buttons.length - 1;
+          if (next !== current) { event.preventDefault(); activateTabs(buttons, next, panel, data, render); buttons[next].focus(); }
+        });
+      });
+      activateTabs(buttons, 0, panel, data, render);
+    }
+
+    setupTabs('.step-tab', 'step-panel', stepData, (panel, item) => {
+      panel.innerHTML = `<h4>${item.title}</h4><p>${item.body}</p><p class="example">${item.example}</p>`;
+    });
+    setupTabs('.selector-button', 'prompt-panel', promptData, (panel, item) => {
+      panel.innerHTML = `<h4>${item.title}</h4><p class="use">${item.use}</p><blockquote>${item.example}</blockquote>`;
+    });
+  </script>
+</body>
+</html>
