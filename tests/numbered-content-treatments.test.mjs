@@ -6,16 +6,19 @@ const treatmentSource = readFileSync(new URL('../src/app/components/NumberedCont
 const pageContent = readFileSync(new URL('../src/app/components/PageContent.tsx', import.meta.url), 'utf8');
 const mappingDocument = readFileSync(new URL('../docs/wave-2-numbered-treatment-map.md', import.meta.url), 'utf8');
 
-const mappingEntries = [...treatmentSource.matchAll(/^\s+'([^']+)': '(filled-marker|accordion|horizontal)',$/gm)]
+const mappingEntries = [...treatmentSource.matchAll(/^\s+'([^']+)': '(filled-marker|accordion|editorial|handoff|selector|metric-strip)',$/gm)]
   .map(([, pageId, treatment]) => ({ pageId, treatment }));
 
 test('approved numbered-content mapping has the reviewed treatment counts', () => {
   const count = (treatment) => mappingEntries.filter((entry) => entry.treatment === treatment).length;
 
-  assert.equal(mappingEntries.length, 33);
-  assert.equal(count('filled-marker'), 6);
-  assert.equal(count('accordion'), 19);
-  assert.equal(count('horizontal'), 8);
+  assert.equal(mappingEntries.length, 35);
+  assert.equal(count('filled-marker'), 3);
+  assert.equal(count('accordion'), 16);
+  assert.equal(count('editorial'), 6);
+  assert.equal(count('handoff'), 1);
+  assert.equal(count('selector'), 8);
+  assert.equal(count('metric-strip'), 1);
 });
 
 test('specialist numbered pages stay outside the shared treatment mapping', () => {
@@ -24,9 +27,7 @@ test('specialist numbered pages stay outside the shared treatment mapping', () =
     's2-policy',
     's3-difference',
     's3-where-agents',
-    's3-controls',
     's3-ai-workflow',
-    's7-checklist',
     's7-tool-matrix',
     's7-glossary',
   ]) {
@@ -34,23 +35,37 @@ test('specialist numbered pages stay outside the shared treatment mapping', () =
   }
 });
 
-test('accordion and horizontal treatments expose accessible interaction and overflow cues', () => {
+test('accordion and selector treatments expose accessible interaction and mobile overflow handling', () => {
   assert.match(treatmentSource, /aria-expanded=\{isExpanded\}/);
   assert.match(treatmentSource, /aria-controls=\{panelId\}/);
   assert.match(treatmentSource, /role="region"/);
   assert.match(treatmentSource, /aria-labelledby=\{triggerId\}/);
-  assert.match(treatmentSource, /snap-x snap-mandatory/);
+  assert.match(treatmentSource, /role="tablist"/);
+  assert.match(treatmentSource, /role="tabpanel"/);
+  assert.match(treatmentSource, /aria-selected=\{isSelected\}/);
   assert.match(treatmentSource, /overflow-x-auto/);
-  assert.match(treatmentSource, /Swipe to follow the full sequence/);
-  assert.doesNotMatch(treatmentSource, /new Set\(\[0\]\)/);
+  assert.match(treatmentSource, /Select a principle to explore\./);
 });
 
-test('horizontal connectors are limited to genuine paths', () => {
-  const connectorMap = treatmentSource.match(/const CONNECTED_HORIZONTAL_PAGE_IDS = new Set\(\[([\s\S]*?)\]\);/)?.[1] || '';
-  assert.match(connectorMap, /'s1-stages'/);
-  assert.match(connectorMap, /'s3-maturity'/);
-  assert.match(connectorMap, /'s6-four-stages'/);
-  assert.doesNotMatch(connectorMap, /'s4-framework'/);
+test('line-based horizontal treatment has been retired', () => {
+  assert.doesNotMatch(treatmentSource, /CONNECTED_HORIZONTAL_PAGE_IDS/);
+  assert.doesNotMatch(treatmentSource, /data-numbered-treatment="horizontal"/);
+  assert.match(treatmentSource, /'s1-stages': 'editorial'/);
+  assert.match(treatmentSource, /'s1-human-loop': 'handoff'/);
+  assert.match(treatmentSource, /'s4-framework': 'selector'/);
+});
+
+test('numbered hierarchy and highlight variants stay restrained and reusable', () => {
+  assert.match(treatmentSource, /splitTitleAndDetail/);
+  assert.match(treatmentSource, /motion-safe:hover:translate-x-1/);
+  assert.match(treatmentSource, /text-\[var\(--color-muted-text\)\]/);
+  assert.match(treatmentSource, /items\.length === 4[\s\S]*md:grid-cols-4/);
+  assert.match(treatmentSource, /text-3xl font-black/);
+  assert.match(treatmentSource, /md:min-h-\[14rem\]/);
+  assert.match(pageContent, /HIGHLIGHT_BAND_PAGE_IDS/);
+  assert.match(pageContent, /function HighlightMessage/);
+  assert.match(pageContent, /Connection to Agent Spec Template/);
+  assert.match(pageContent, /<HighlightMessage pageId=\{page\.id\}/);
 });
 
 test('PageContent delegates only mapped numbered blocks to the shared renderer', () => {
@@ -60,8 +75,11 @@ test('PageContent delegates only mapped numbered blocks to the shared renderer',
 });
 
 test('review document records the approved counts and activity boundary', () => {
-  assert.match(mappingDocument, /Filled white marker \| 6/);
-  assert.match(mappingDocument, /Numbered accordion \| 19/);
-  assert.match(mappingDocument, /Horizontal 1–5 \| 8/);
+  assert.match(mappingDocument, /Filled white marker \| 3/);
+  assert.match(mappingDocument, /Numbered accordion \| 16/);
+  assert.match(mappingDocument, /Editorial numbers \| 6/);
+  assert.match(mappingDocument, /Joined handoff \| 1/);
+  assert.match(mappingDocument, /Selector \+ canvas \| 8/);
+  assert.match(mappingDocument, /Metric strip \| 1/);
   assert.match(mappingDocument, /does not authorise changes to activities/);
 });

@@ -4,10 +4,27 @@ import { ChevronLeft, ChevronRight, Home, BookOpen, Shield, Bot, MessageSquare, 
 import { playbook } from './data/playbookData';
 import { PageContent } from './components/PageContent';
 import { ProgressBar } from './components/ProgressBar';
+import { SECTION_OPENERS, SectionOpener, type SectionOpenerId } from './components/SectionOpener';
 import sageLogo from 'figma:asset/85dce1db2c171f8d15f5e966d3ca5f37099a8078.png';
 
 const PLAYBOOK_STORAGE_KEY = 'sage-ai-playbook-progress';
 const DESKTOP_NAVIGATION_QUERY = '(min-width: 1024px)';
+const SECTION_OPENER_NAVIGATION = (Object.keys(SECTION_OPENERS) as SectionOpenerId[]).map(openerId => {
+  const startPageIndex = playbook.findIndex(page => page.id === SECTION_OPENERS[openerId].startPageId);
+  return {
+    openerId,
+    startPageIndex,
+    sectionName: startPageIndex >= 0 ? playbook[startPageIndex].section : undefined
+  };
+});
+
+function getSectionOpenerByStartPage(page: number) {
+  return SECTION_OPENER_NAVIGATION.find(entry => entry.startPageIndex === page);
+}
+
+function getSectionOpenerByName(sectionName: string) {
+  return SECTION_OPENER_NAVIGATION.find(entry => entry.sectionName === sectionName);
+}
 
 interface PersistedPlaybookState {
   currentPage?: unknown;
@@ -92,6 +109,7 @@ export default function SageAIPlaybook() {
   const [sidebarOpen, setSidebarOpen] = useState(getInitialDesktopState);
   const [visitedPages, setVisitedPages] = useState<Set<number>>(persistedState.visitedPages);
   const [expandedSections, setExpandedSections] = useState<Set<string>>(new Set(['Introduction']));
+  const [activeSectionOpener, setActiveSectionOpener] = useState<SectionOpenerId | null>(null);
 
   const totalPages = playbook.length;
 
@@ -151,6 +169,7 @@ export default function SageAIPlaybook() {
 
   const goToPage = (page: number) => {
     if (page >= 0 && page < totalPages) {
+      setActiveSectionOpener(null);
       setCurrentPage(page);
       setVisitedPages(prev => {
         const newSet = new Set(prev);
@@ -164,6 +183,67 @@ export default function SageAIPlaybook() {
     }
   };
 
+  const openSectionOpener = (openerId: SectionOpenerId) => {
+    const opener = SECTION_OPENER_NAVIGATION.find(entry => entry.openerId === openerId);
+    if (!opener || opener.startPageIndex < 0 || !opener.sectionName) {
+      return;
+    }
+
+    setCurrentPage(opener.startPageIndex);
+    setActiveSectionOpener(opener.openerId);
+    setExpandedSections(prev => new Set(prev).add(opener.sectionName!));
+    if (!isDesktop) {
+      setSidebarOpen(false);
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const goToNextExperience = () => {
+    if (activeSectionOpener) {
+      const opener = SECTION_OPENER_NAVIGATION.find(entry => entry.openerId === activeSectionOpener);
+      if (opener) {
+        goToPage(opener.startPageIndex);
+      }
+      return;
+    }
+
+    const nextOpener = getSectionOpenerByStartPage(currentPage + 1);
+    if (nextOpener) {
+      openSectionOpener(nextOpener.openerId);
+      return;
+    }
+
+    goToPage(currentPage + 1);
+  };
+
+  const goToPreviousExperience = () => {
+    if (activeSectionOpener) {
+      const opener = SECTION_OPENER_NAVIGATION.find(entry => entry.openerId === activeSectionOpener);
+      if (opener) {
+        goToPage(opener.startPageIndex - 1);
+      }
+      return;
+    }
+
+    const currentOpener = getSectionOpenerByStartPage(currentPage);
+    if (currentOpener) {
+      openSectionOpener(currentOpener.openerId);
+      return;
+    }
+
+    goToPage(currentPage - 1);
+  };
+
+  const goToPageFromContent = (page: number) => {
+    const opener = getSectionOpenerByStartPage(page);
+    if (opener) {
+      openSectionOpener(opener.openerId);
+      return;
+    }
+
+    goToPage(page);
+  };
+
   const toggleSection = (sectionName: string) => {
     setExpandedSections(prev => {
       const newSet = new Set(prev);
@@ -174,6 +254,19 @@ export default function SageAIPlaybook() {
       }
       return newSet;
     });
+  };
+
+  const handleSectionHeaderClick = (
+    sectionName: string,
+    isExpanded: boolean,
+    sectionOpener?: (typeof SECTION_OPENER_NAVIGATION)[number]
+  ) => {
+    if (!sectionOpener || isExpanded) {
+      toggleSection(sectionName);
+      return;
+    }
+
+    openSectionOpener(sectionOpener.openerId);
   };
 
   const handleInputChange = (pageId: string, value: string) => {
@@ -304,6 +397,7 @@ export default function SageAIPlaybook() {
               {Object.entries(groupedPages).map(([sectionName, sectionData]) => {
                 const isExpanded = expandedSections.has(sectionName);
                 const completion = getSectionCompletion(sectionName);
+                const sectionOpener = getSectionOpenerByName(sectionName);
                 const getIcon = (iconName?: string) => {
                   const icons: Record<string, any> = {
                     BookOpen, Shield, Bot, MessageSquare, DollarSign, Calendar, FileText,
@@ -317,7 +411,7 @@ export default function SageAIPlaybook() {
                   <div key={sectionName} className="border-b border-white/5 pb-2">
                     {/* Section Header */}
                     <button
-                      onClick={() => toggleSection(sectionName)}
+                      onClick={() => handleSectionHeaderClick(sectionName, isExpanded, sectionOpener)}
                       aria-expanded={isExpanded}
                       aria-controls={`playbook-section-${sectionName.replace(/[^a-z0-9]+/gi, '-').toLowerCase()}`}
                       className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-white/5 transition-all group"
@@ -446,20 +540,24 @@ export default function SageAIPlaybook() {
         <div className="playbook-main-inner max-w-5xl mx-auto px-4 py-6 sm:px-6 sm:py-8 lg:px-12 lg:py-12">
           <AnimatePresence mode="wait">
             <motion.div
-              key={currentPage}
+              key={activeSectionOpener || currentPage}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
             >
-              <PageContent
-                page={currentPageData}
-                userInput={userInputs[currentPageData.id] || ''}
-                onInputChange={(value) => handleInputChange(currentPageData.id, value)}
-                goToPage={goToPage}
-                pageInputs={userInputs}
-                onUpdatePageInput={handleInputChange}
-              />
+              {activeSectionOpener ? (
+                <SectionOpener openerId={activeSectionOpener} />
+              ) : (
+                <PageContent
+                  page={currentPageData}
+                  userInput={userInputs[currentPageData.id] || ''}
+                  onInputChange={(value) => handleInputChange(currentPageData.id, value)}
+                  goToPage={goToPageFromContent}
+                  pageInputs={userInputs}
+                  onUpdatePageInput={handleInputChange}
+                />
+              )}
             </motion.div>
           </AnimatePresence>
 
@@ -472,7 +570,7 @@ export default function SageAIPlaybook() {
           >
             <button
               type="button"
-              onClick={() => goToPage(currentPage - 1)}
+              onClick={goToPreviousExperience}
               disabled={currentPage === 0}
               aria-label="Go to previous page"
               className="order-2 flex min-h-11 items-center gap-2 justify-self-start rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-sm font-semibold transition-all hover:border-white/20 hover:bg-white/10 disabled:cursor-not-allowed disabled:opacity-20 disabled:hover:bg-white/5 sm:order-1 sm:px-6 sm:py-3"
@@ -482,7 +580,9 @@ export default function SageAIPlaybook() {
             </button>
 
             <div className="order-1 col-span-2 text-center sm:order-2 sm:col-span-1">
-              <div className="text-xs font-semibold text-white/50 mb-1">Page {currentPage + 1} of {totalPages}</div>
+              {!activeSectionOpener && (
+                <div className="text-xs font-semibold text-white/50 mb-1">Page {currentPage + 1} of {totalPages}</div>
+              )}
               <div className="flex justify-center">
                 {playbook.slice(Math.max(0, currentPage - 2), Math.min(totalPages, currentPage + 3)).map((_, idx) => {
                   const pageIdx = Math.max(0, currentPage - 2) + idx;
@@ -511,12 +611,12 @@ export default function SageAIPlaybook() {
 
             <button
               type="button"
-              onClick={() => goToPage(currentPage + 1)}
+              onClick={goToNextExperience}
               disabled={currentPage === totalPages - 1}
-              aria-label={currentPage === totalPages - 1 ? 'Finish playbook' : 'Go to next page'}
+              aria-label={activeSectionOpener ? 'Start section' : currentPage === totalPages - 1 ? 'Finish playbook' : 'Go to next page'}
               className="accent-action-shadow order-3 flex min-h-11 items-center gap-2 justify-self-end rounded-xl border accent-border accent-bg px-4 py-2.5 text-sm font-black text-black transition-all hover:scale-105 accent-hover disabled:cursor-not-allowed disabled:scale-100 disabled:opacity-20 disabled:shadow-none sm:px-6 sm:py-3"
             >
-              <span>{currentPage === totalPages - 1 ? 'Finish' : 'Next'}</span>
+              <span>{activeSectionOpener ? 'Start section' : currentPage === totalPages - 1 ? 'Finish' : 'Next'}</span>
               <ChevronRight size={18} strokeWidth={2.5} />
             </button>
           </motion.div>

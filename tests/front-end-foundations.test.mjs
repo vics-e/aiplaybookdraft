@@ -21,7 +21,7 @@ test('mobile navigation starts from the viewport state and exposes drawer contro
 
 test('essential page navigation controls have names and touch targets', () => {
   assert.match(appShell, /aria-label="Go to previous page"/);
-  assert.match(appShell, /aria-label=\{currentPage === totalPages - 1 \? 'Finish playbook' : 'Go to next page'\}/);
+  assert.match(appShell, /aria-label=\{activeSectionOpener \? 'Start section' : currentPage === totalPages - 1 \? 'Finish playbook' : 'Go to next page'\}/);
   assert.match(appShell, /aria-label=\{`Go to page \$\{pageIdx \+ 1\}`\}/);
   assert.match(appShell, /className="inline-flex min-h-11 min-w-11/);
   assert.match(theme, /:where\(button, a, input, textarea, select, summary, \[tabindex\]\):focus-visible/);
@@ -121,7 +121,13 @@ test('Wave 1 composition inventory covers the four approved intent patterns', ()
 
 test('shared activity, takeaway, and footer treatments retain purposeful emphasis', () => {
   assert.match(pageContent, /overflow-hidden rounded-2xl border-\[1\.5px\] accent-border bg-\[var\(--color-surface-1\)\]/);
-  assert.match(pageContent, /rounded-2xl p-5 border-\[1\.5px\]/);
+  assert.match(pageContent, /function MessageBand/);
+  assert.match(pageContent, /messageKindForBox/);
+  assert.match(pageContent, /grid-cols-\[48px_minmax\(0,1fr\)\]/);
+  assert.match(pageContent, /sm:grid-cols-\[64px_minmax\(0,1fr\)_auto\]/);
+  assert.doesNotMatch(pageContent, /border-l-\[4px\] border-l-\[var\(--color-accent\)\]/);
+  assert.match(pageContent, /const \[checkedItems, setCheckedItems\]/);
+  assert.match(pageContent, /type="checkbox"[\s\S]*checked=\{isChecked\}/);
   assert.match(pageContent, /TAKEAWAY_BAND_PAGE_IDS/);
   assert.match(pageContent, /border-t-\[var\(--color-accent\)\]/);
   assert.match(pageContent, /grid-cols-\[48px_1fr\]/);
