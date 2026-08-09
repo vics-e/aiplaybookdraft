@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { BookOpen, Shield, Bot, MessageSquare, DollarSign, Calendar, FileText, CheckCircle, Lightbulb, Target, Zap, X, TrendingUp, Users, Download, ClipboardList, AlertCircle, ArrowRight, Database, Eye, Sparkles, ChevronDown, Lock, UserX, FileWarning, Users as UsersIcon, HelpCircle, Ban, XCircle, Search, Copy, RotateCcw, Check, Plus, Minus } from 'lucide-react';
 import type { PlaybookPage } from '../data/playbookData';
+import { NUMBERED_TREATMENT_BY_PAGE_ID, NumberedContentTreatment } from './NumberedContentTreatments';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 import { ActivitySummary } from './ActivitySummary';
 import {
@@ -1061,6 +1062,7 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
   const [agentCapabilityIndex, setAgentCapabilityIndex] = useState(0);
   const [agentCandidateIndex, setAgentCandidateIndex] = useState(0);
   const sectionImageSrc = SECTION_IMAGE_BY_PAGE_ID[page.id];
+  const numberedTreatment = NUMBERED_TREATMENT_BY_PAGE_ID[page.id];
   const usesSectionImageTreatment = Boolean(sectionImageSrc);
   const isCertificatePage = page.id === 'certificate';
   let parsedCertificateInputs: Record<string, string> = {};
@@ -1776,7 +1778,7 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
       )}
 
       {/* Custom Graphic for Three Stages */}
-      {page.id === 's1-stages' && (
+      {page.id === 's1-stages' && !numberedTreatment && (
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -2211,7 +2213,7 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
       )}
 
       {/* Custom Interactive Graphic for Agent Maturity Ladder - Timeline Scrubber */}
-      {page.id === 's3-maturity' && (() => {
+      {page.id === 's3-maturity' && !numberedTreatment && (() => {
         const stages = [
           {
             stage: 'Stage 1',
@@ -2964,7 +2966,7 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
       <div className={`space-y-5 ${isCertificatePage ? 'certificate-screen-only' : ''}`}>
         {page.content.map((block, index) => {
           // Skip the numbered-list and quote on s1-stages page since they're in the custom graphic
-          if (page.id === 's1-stages' && (block.type === 'numbered-list' || block.type === 'quote')) {
+          if (page.id === 's1-stages' && (block.type === 'quote' || (!numberedTreatment && block.type === 'numbered-list'))) {
             return null;
           }
           // Skip the columns, box, and quote on s3-difference page since they're in the custom graphic
@@ -2980,7 +2982,11 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
             return null;
           }
           // Skip content on s3-maturity page since it's in the custom graphic
-          if (page.id === 's3-maturity' && (block.type === 'numbered-list' || block.type === 'highlight' || block.type === 'box')) {
+          if (page.id === 's3-maturity' && (
+            block.type === 'highlight'
+            || block.type === 'box'
+            || (!numberedTreatment && block.type === 'numbered-list')
+          )) {
             return null;
           }
           return (
@@ -3052,6 +3058,14 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
 
               {block.type === 'numbered-list' && (
                 <>
+                  {numberedTreatment ? (
+                    <NumberedContentTreatment
+                      block={block}
+                      pageId={page.id}
+                      treatment={numberedTreatment}
+                    />
+                  ) : (
+                  <>
                   {/* TABS/COMPARISON - for Section 3 Assistant vs Agent */}
                   {(page.id === 's3-difference' && (block.boxTitle === 'Assistant-Led Work:' || block.boxTitle === 'Agent-Led Work:')) ? null :
 
@@ -3866,6 +3880,8 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
                       })}
                       </div>
                     </div>
+                  )}
+                  </>
                   )}
                 </>
               )}
