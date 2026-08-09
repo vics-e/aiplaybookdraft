@@ -27,6 +27,13 @@ test('essential page navigation controls have names and touch targets', () => {
   assert.match(theme, /:where\(button, a, input, textarea, select, summary, \[tabindex\]\):focus-visible/);
 });
 
+test('contents opens in its final layout without a nested loading-like scrollbar', () => {
+  assert.match(pageContent, /if \(page\.type === 'contents'\)/);
+  assert.match(pageContent, /<div className="grid grid-cols-1 gap-4 max-w-6xl mx-auto sm:grid-cols-2">/);
+  assert.match(pageContent, /key=\{index\}[\s\S]*?initial=\{false\}/);
+  assert.doesNotMatch(pageContent, /max-h-\[60vh\][\s\S]*custom-scrollbar/);
+});
+
 test('sidebar and footer use the same one-based page numbering', () => {
   const sidebarPageNumber = (index) => String(index + 1).padStart(2, '0');
   const footerPageNumber = (index) => index + 1;

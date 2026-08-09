@@ -1720,16 +1720,14 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
           </p>
         </div>
 
-        <div className="grid grid-cols-1 gap-4 max-w-6xl mx-auto overflow-y-auto max-h-[60vh] pr-2 sm:grid-cols-2 sm:pr-4 custom-scrollbar">
+        <div className="grid grid-cols-1 gap-4 max-w-6xl mx-auto sm:grid-cols-2">
           {page.sections?.map((section, index) => {
             const Icon = getIcon(section.icon);
             return (
               <motion.button
                 type="button"
                 key={index}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.05, duration: 0.4 }}
+                initial={false}
                 className="group w-full rounded-xl border-2 border-white/10 bg-white/[0.03] p-5 text-left transition-all hover:border-[var(--color-accent)] hover:bg-white/[0.06] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]"
                 onClick={() => goToPage(section.startPageIndex)}
               >
