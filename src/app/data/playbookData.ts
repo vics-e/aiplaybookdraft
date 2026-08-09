@@ -74,7 +74,7 @@ export const playbook: PlaybookPage[] = [
       { title: 'Pricing & Economics', sectionLabel: 'Section 5', pages: '10 pages', icon: 'DollarSign', pageNumber: '36', startPageIndex: 35 },
       { title: '90-Day Adoption Plan', sectionLabel: 'Section 6', pages: '8 pages', icon: 'Calendar', pageNumber: '46', startPageIndex: 45 },
       { title: 'Templates & Tools', sectionLabel: 'Section 7', pages: '7 pages', icon: 'FileText', pageNumber: '54', startPageIndex: 53 },
-      { title: 'Completion & Certificate', sectionLabel: 'Conclusion', pages: '2 pages', icon: 'Award', pageNumber: '61', startPageIndex: 60 }
+      { title: 'Completion & Certificate', sectionLabel: 'Conclusion', pages: '3 pages', icon: 'Award', pageNumber: '61', startPageIndex: 60 }
     ]
   },
 

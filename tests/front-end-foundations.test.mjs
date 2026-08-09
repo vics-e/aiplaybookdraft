@@ -8,6 +8,7 @@ const focusedPageActivities = readFileSync(new URL('../src/app/components/Focuse
 const theme = readFileSync(new URL('../src/styles/theme.css', import.meta.url), 'utf8');
 const fonts = readFileSync(new URL('../src/styles/fonts.css', import.meta.url), 'utf8');
 const tracker = readFileSync(new URL('../ai-playbook-project-tracker.html', import.meta.url), 'utf8');
+const compositionMap = readFileSync(new URL('../docs/wave-1-composition-map.md', import.meta.url), 'utf8');
 
 test('mobile navigation starts from the viewport state and exposes drawer controls', () => {
   assert.match(appShell, /const DESKTOP_NAVIGATION_QUERY = '\(min-width: 1024px\)'/);
@@ -20,7 +21,7 @@ test('mobile navigation starts from the viewport state and exposes drawer contro
 
 test('essential page navigation controls have names and touch targets', () => {
   assert.match(appShell, /aria-label="Go to previous page"/);
-  assert.match(appShell, /aria-label=\{currentPage === totalPages - 1 \? 'Finish playbook' : 'Go to next page'\}/);
+  assert.match(appShell, /aria-label=\{activeSectionOpener \? 'Start section' : currentPage === totalPages - 1 \? 'Finish playbook' : 'Go to next page'\}/);
   assert.match(appShell, /aria-label=\{`Go to page \$\{pageIdx \+ 1\}`\}/);
   assert.match(appShell, /className="inline-flex min-h-11 min-w-11/);
   assert.match(theme, /:where\(button, a, input, textarea, select, summary, \[tabindex\]\):focus-visible/);
@@ -85,6 +86,57 @@ test('brand font families remain Sage Header and Sage Text', () => {
   assert.match(fonts, /font-family: 'Sage Text'/);
   assert.match(theme, /--font-family-header: 'Sage Header'/);
   assert.match(theme, /--font-family-body: 'Sage Text'/);
+});
+
+test('Wave 1 uses semantic colour roles and restrained shared titles', () => {
+  for (const token of [
+    '--color-accent: #00D639',
+    '--color-page-background: #000000',
+    '--color-text-primary: #FFFFFF',
+    '--color-text-muted: #C6C6C6',
+    '--color-surface-1: #1B1B1B',
+    '--color-surface-2: #303030',
+    '--color-rule: #474747',
+    '--color-light-background: #FFFFFF',
+    '--color-light-background-soft: #FAFAFA',
+    '--color-light-text-primary: #000000',
+    '--color-light-green: #008A21',
+    '--color-light-link: #006716',
+  ]) {
+    assert.match(theme, new RegExp(token.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')));
+  }
+
+  assert.match(theme, /\.playbook-page-title[\s\S]*font-size: clamp\(2\.25rem, 4\.5vw, 3\.75rem\)/);
+  assert.match(pageContent, /return title\.replace\(\/\\\*\\\*\/g, ''\)/);
+  assert.doesNotMatch(appShell, /#00DC51|#00FF5F|rgba\(0,220,81/);
+  assert.match(appShell, /rgba\(0,214,57,0\.5\)/);
+});
+
+test('Wave 1 composition inventory covers the four approved intent patterns', () => {
+  for (const pattern of ['Editorial Split', 'Process Lane', 'Joined Comparison', 'Selector + Canvas']) {
+    assert.match(compositionMap, new RegExp(pattern.replace('+', '\\+')));
+  }
+  assert.match(compositionMap, /does not authorise page conversion/);
+});
+
+test('shared activity, takeaway, and footer treatments retain purposeful emphasis', () => {
+  assert.match(pageContent, /overflow-hidden rounded-2xl border-\[1\.5px\] accent-border bg-\[var\(--color-surface-1\)\]/);
+  assert.match(pageContent, /function MessageBand/);
+  assert.match(pageContent, /messageKindForBox/);
+  assert.match(pageContent, /grid-cols-\[48px_minmax\(0,1fr\)\]/);
+  assert.match(pageContent, /sm:grid-cols-\[64px_minmax\(0,1fr\)_auto\]/);
+  assert.doesNotMatch(pageContent, /border-l-\[4px\] border-l-\[var\(--color-accent\)\]/);
+  assert.match(pageContent, /const \[checkedItems, setCheckedItems\]/);
+  assert.match(pageContent, /type="checkbox"[\s\S]*checked=\{isChecked\}/);
+  assert.match(pageContent, /TAKEAWAY_BAND_PAGE_IDS/);
+  assert.match(pageContent, /border-t-\[var\(--color-accent\)\]/);
+  assert.match(pageContent, /grid-cols-\[48px_1fr\]/);
+  assert.match(pageContent, /sm:grid-cols-\[64px_1fr\]/);
+  assert.doesNotMatch(pageContent, /sm:grid-cols-\[76px_1fr\]/);
+  assert.doesNotMatch(pageContent, /hover:shadow-\[#00DC51\]\/20/);
+  assert.match(appShell, /accent-bg-medium w-2/);
+  assert.match(appShell, /accent-action-shadow/);
+  assert.doesNotMatch(pageContent, /accent-surface/);
 });
 
 test('local tracker script remains valid and retains its saved-progress features', () => {

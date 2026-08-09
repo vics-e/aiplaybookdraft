@@ -2,7 +2,19 @@
 
 :root {
   --font-size: 16px;
-  --sage-green: #00DC51;
+  --color-accent: #00D639;
+  --color-page-background: #000000;
+  --color-text-primary: #FFFFFF;
+  --color-text-muted: #C6C6C6;
+  --color-surface-1: #1B1B1B;
+  --color-surface-2: #303030;
+  --color-rule: #474747;
+  --color-light-background: #FFFFFF;
+  --color-light-background-soft: #FAFAFA;
+  --color-light-text-primary: #000000;
+  --color-light-green: #008A21;
+  --color-light-link: #006716;
+  --sage-green: var(--color-accent);
   --font-family-header: 'Sage Header', 'Inter', sans-serif;
   --font-family-body: 'Sage Text', 'Inter', sans-serif;
   --background: #ffffff;
@@ -193,19 +205,84 @@
   }
 
   .playbook-page-title {
+    color: var(--color-text-primary);
     font-family: var(--font-family-header);
-    font-size: clamp(2rem, 5vw, 3rem);
+    font-size: clamp(2.25rem, 4.5vw, 3.75rem);
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    line-height: 1;
+  }
+
+  .playbook-page-subtitle {
+    color: var(--color-text-primary);
+    font-size: clamp(1rem, 2.5vw, 1.125rem);
+    font-weight: 500;
+    line-height: 1.625;
+  }
+
+  .playbook-page-content {
+    color: var(--color-text-primary);
+  }
+
+  .playbook-page-content :where(h2, h3, h4, h5, h6) {
+    color: var(--color-text-primary) !important;
+  }
+
+  .playbook-page-eyebrow {
+    color: var(--color-accent);
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    line-height: 1.2;
+    text-transform: uppercase;
+  }
+
+  .playbook-section-title {
+    color: var(--color-text-primary);
+    font-family: var(--font-family-header);
+    font-size: clamp(1.5rem, 3vw, 2.25rem);
     font-weight: 900;
     letter-spacing: -0.025em;
     line-height: 1.05;
   }
 
-  .playbook-page-subtitle {
-    color: rgba(255, 255, 255, 0.7);
-    font-size: clamp(1rem, 2.5vw, 1.125rem);
-    font-weight: 500;
-    line-height: 1.625;
+  .playbook-component-title {
+    color: var(--color-text-primary);
+    font-family: var(--font-family-header);
+    font-size: clamp(1.125rem, 2vw, 1.375rem);
+    font-weight: 900;
+    line-height: 1.15;
   }
+
+  .playbook-light-surface {
+    color: var(--color-light-text-primary);
+    background: var(--color-light-background);
+  }
+
+  .playbook-light-surface :where(h1, h2, h3, h4, h5, h6) {
+    color: var(--color-light-text-primary) !important;
+  }
+
+  .playbook-light-surface .playbook-page-eyebrow {
+    color: var(--color-light-green);
+  }
+
+  .playbook-light-surface a {
+    color: var(--color-light-link);
+  }
+
+  .accent-bg { background-color: var(--color-accent); }
+  .accent-bg-soft { background-color: color-mix(in srgb, var(--color-accent) 15%, transparent); }
+  .accent-bg-medium { background-color: color-mix(in srgb, var(--color-accent) 50%, transparent); }
+  .accent-bg-faint { background-color: color-mix(in srgb, var(--color-accent) 10%, transparent); }
+  .accent-text { color: var(--color-accent); }
+  .accent-border { border-color: var(--color-accent); }
+  .accent-border-soft { border-color: color-mix(in srgb, var(--color-accent) 30%, transparent); }
+  .accent-border-faint { border-color: color-mix(in srgb, var(--color-accent) 20%, transparent); }
+  .accent-fill-soft { fill: color-mix(in srgb, var(--color-accent) 20%, transparent); }
+  .accent-hover:hover { background-color: var(--color-accent); }
+  .accent-action-shadow { box-shadow: 0 10px 26px rgba(0, 214, 57, 0.3); }
+  .accent-action-shadow:hover { box-shadow: 0 12px 32px rgba(0, 214, 57, 0.5); }
 
   .playbook-sidebar-toggle {
     left: 0;
@@ -255,12 +332,12 @@
   }
 
   .custom-scrollbar::-webkit-scrollbar-thumb {
-    background: #00DC51;
+    background: var(--color-accent);
     border-radius: 4px;
   }
 
   .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-    background: #00FF5F;
+    background: var(--color-accent);
   }
 
   /* Print Styles for Activity Summary */

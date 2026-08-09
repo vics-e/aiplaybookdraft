@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { BookOpen, Shield, Bot, MessageSquare, DollarSign, Calendar, FileText, CheckCircle, Lightbulb, Target, Zap, X, TrendingUp, Users, Download, ClipboardList, AlertCircle, ArrowRight, Database, Eye, Sparkles, ChevronDown, Lock, UserX, FileWarning, Users as UsersIcon, HelpCircle, Ban, XCircle, Search, Copy, RotateCcw, Check, Plus, Minus } from 'lucide-react';
 import type { PlaybookPage } from '../data/playbookData';
+import { NUMBERED_TREATMENT_BY_PAGE_ID, NumberedContentTreatment } from './NumberedContentTreatments';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 import { ActivitySummary } from './ActivitySummary';
 import {
@@ -42,6 +43,280 @@ const SECTION_IMAGE_BY_PAGE_ID: Record<string, string> = {
 };
 
 const CERTIFICATE_NAME_PLACEHOLDER = '[Name / Practice Name]';
+
+// Rules, controls, and client-facing guidance use the stronger message band.
+// Explanatory pages use the quieter top-rule treatment so takeaways vary by intent, not at random.
+const TAKEAWAY_BAND_PAGE_IDS = new Set([
+  's2-ethics-responsibility',
+  's2-data-confidentiality',
+  's2-legal-responsibility',
+  's2-risk',
+  's2-policy',
+  's2-failure-modes',
+  's2-over-reliance',
+  's2-checks',
+  's2-evidence-trail',
+  's2-red-team',
+  's3-controls',
+  's5-client-talk',
+]);
+
+// Repeated highlight copy uses two restrained treatments. Critical rules and
+// warnings receive a compact message band; explanatory statements use a quiet
+// editorial rule. This keeps consecutive pages varied without changing copy.
+const HIGHLIGHT_BAND_PAGE_IDS = new Set([
+  's1-human-loop',
+  's2-ethics-responsibility',
+  's2-data-confidentiality',
+  's2-legal-responsibility',
+  's2-failure-modes',
+  's2-checks',
+  's2-red-team',
+  's3-controls',
+  's3-spec',
+  's5-time-pricing',
+  's7-agent-spec',
+  's7-tool-matrix',
+]);
+
+const WARNING_HIGHLIGHT_PAGE_IDS = new Set([
+  's2-legal-responsibility',
+  's2-failure-modes',
+  's2-red-team',
+  's5-time-pricing',
+]);
+
+type MessageKind = 'Learning' | 'Control' | 'Principle' | 'Warning';
+
+const CONTROL_MESSAGE_TITLES = new Set([
+  'The Practical Rule',
+  'The Data Boundary Principle',
+  'The Safeguard',
+  'Review rule',
+]);
+
+const PRINCIPLE_MESSAGE_TITLES = new Set([
+  'The Bottom Line',
+  'The Core Messaging Principle',
+  'Responsibility',
+]);
+
+const LEARNING_MESSAGE_TITLES = new Set([
+  'The Real Question',
+  'The Shift',
+  'Why This Matters',
+  'Why Structured Workflows Matter',
+  'Connection to Section 7',
+  'The Key Distinction',
+  'The Key Shift',
+  'Connection to Agent Spec Template',
+  'What Builds Trust Fastest',
+  'Why This Works',
+  'Core Message',
+  'The Strategic Response',
+  'The Direction of Travel',
+  'The Three Vs',
+  'Where should you be after 90 days?',
+  'Purpose',
+]);
+
+function normaliseMessageTitle(title?: string) {
+  return (title || '').replace(/:\s*$/, '').trim();
+}
+
+function messageKindForBox(title?: string): MessageKind | null {
+  const normalisedTitle = normaliseMessageTitle(title);
+  if (CONTROL_MESSAGE_TITLES.has(normalisedTitle)) return 'Control';
+  if (PRINCIPLE_MESSAGE_TITLES.has(normalisedTitle)) return 'Principle';
+  if (LEARNING_MESSAGE_TITLES.has(normalisedTitle)) return 'Learning';
+  return null;
+}
+
+function MessageBand({ title, text, kind }: { title: string; text: string; kind: MessageKind }) {
+  const isWarning = kind === 'Warning' || kind === 'Control';
+  const Icon = kind === 'Learning' ? ArrowRight : kind === 'Principle' ? Check : AlertCircle;
+
+  return (
+    <motion.aside
+      className="grid min-h-24 grid-cols-[48px_minmax(0,1fr)] overflow-hidden rounded-2xl border border-[var(--color-rule)] bg-[var(--color-surface-1)] transition-transform duration-200 motion-safe:hover:-translate-y-0.5 motion-reduce:transition-none sm:grid-cols-[64px_minmax(0,1fr)_auto]"
+      aria-label={title}
+    >
+      <span className={`row-span-2 flex items-center justify-center text-black sm:row-span-1 ${isWarning ? 'bg-[#F39200]' : 'bg-[var(--color-accent)]'}`}>
+        <Icon size={21} strokeWidth={2.5} aria-hidden="true" />
+      </span>
+      <div className="self-center px-5 py-4 sm:px-7 sm:py-5">
+        <h4 className="text-base font-black leading-snug text-white">{title}</h4>
+        <p className="mt-1 whitespace-pre-line text-sm font-normal leading-relaxed text-[var(--color-muted-text)]">{text}</p>
+      </div>
+      <span className="col-start-2 mb-4 px-5 text-[10px] font-black uppercase tracking-[0.14em] text-[var(--color-muted-text)] sm:col-start-auto sm:mb-0 sm:mr-6 sm:self-center sm:px-0">
+        {kind}
+      </span>
+    </motion.aside>
+  );
+}
+
+function highlightKind(pageId: string, section?: string) {
+  if (WARNING_HIGHLIGHT_PAGE_IDS.has(pageId)) return 'Warning';
+  if (section?.includes('Section 2') || pageId === 's3-controls') return 'Control';
+  if (['s1-human-loop', 's3-spec', 's7-agent-spec', 's7-tool-matrix'].includes(pageId)) return 'Principle';
+  return 'Learning';
+}
+
+function HighlightMessage({ pageId, section, text }: { pageId: string; section?: string; text: string }) {
+  const usesBand = HIGHLIGHT_BAND_PAGE_IDS.has(pageId);
+  const isWarning = WARNING_HIGHLIGHT_PAGE_IDS.has(pageId);
+  const kind = highlightKind(pageId, section) as MessageKind;
+
+  if (usesBand) {
+    const title = isWarning ? 'Important warning' : kind === 'Control' ? 'Control' : kind === 'Principle' ? 'Principle' : 'Key takeaway';
+    return <MessageBand title={title} text={text} kind={kind} />;
+  }
+
+  return (
+    <motion.aside
+      className="group flex items-start gap-3 border-y border-[var(--color-rule)] py-5 transition-transform duration-200 motion-safe:hover:translate-x-0.5 motion-reduce:transition-none"
+      aria-label={highlightKind(pageId, section)}
+    >
+      <ArrowRight className="mt-0.5 shrink-0 text-[var(--color-accent)] transition-transform duration-200 motion-safe:group-hover:translate-x-0.5 motion-reduce:transition-none" size={19} strokeWidth={2.4} aria-hidden="true" />
+      <p className="flex-1 text-base font-semibold leading-relaxed text-white">{text}</p>
+    </motion.aside>
+  );
+}
+
+function cleanTemplateLine(line: string) {
+  return line
+    .replace(/^(?:[\u2022\u25aa\u25e6\u25a1\u2610\u2611\u2713\u2714]\s*)+/u, '')
+    .replace(/^(?:â€¢|Ã¢â‚¬Â¢|□|â˜)\s*/, '')
+    .trim();
+}
+
+function PolicyUsesComparison({ approvedText, restrictedText }: { approvedText: string; restrictedText: string }) {
+  const approvedLines = approvedText.split('\n').map(cleanTemplateLine).filter(Boolean);
+  const restrictedLines = restrictedText.split('\n').map(cleanTemplateLine).filter(Boolean);
+
+  const renderColumn = (title: string, lines: string[], restricted = false) => (
+    <article className="p-6 sm:p-7">
+      <div className="mb-5 flex items-center gap-3">
+        <span className={`flex h-9 w-9 items-center justify-center rounded-xl ${restricted ? 'bg-[#F39200]' : 'bg-[var(--color-accent)]'} text-black`}>
+          {restricted ? <X size={18} strokeWidth={2.8} aria-hidden="true" /> : <Check size={18} strokeWidth={2.8} aria-hidden="true" />}
+        </span>
+        <h4 className="text-lg font-black text-white">{title}</h4>
+      </div>
+      {lines[0] && <p className="mb-3 text-sm font-semibold text-white">{lines[0]}</p>}
+      <ul className="space-y-2.5">
+        {lines.slice(1).map((line) => (
+          <li key={line} className="flex items-start gap-2.5 text-sm font-normal leading-relaxed text-[var(--color-muted-text)]">
+            <span className={`mt-2 h-1.5 w-1.5 shrink-0 rounded-full ${restricted ? 'bg-[#F39200]' : 'bg-[var(--color-accent)]'}`} aria-hidden="true" />
+            {line}
+          </li>
+        ))}
+      </ul>
+    </article>
+  );
+
+  return (
+    <section className="grid overflow-hidden rounded-2xl border border-[var(--color-rule)] bg-[var(--color-surface-1)] md:grid-cols-2" aria-label="Approved and restricted AI uses">
+      {renderColumn('Approved uses', approvedLines)}
+      <div className="border-t border-[var(--color-rule)] md:border-l md:border-t-0">{renderColumn('Restricted uses', restrictedLines, true)}</div>
+    </section>
+  );
+}
+
+function ReviewChecklistPanel({ title, text }: { title: string; text: string }) {
+  const items = text.split('\n').map(cleanTemplateLine).filter(Boolean);
+  const [checkedItems, setCheckedItems] = useState<Set<string>>(new Set());
+  return (
+    <section className="overflow-hidden rounded-2xl border border-[var(--color-rule)] bg-[var(--color-surface-1)]" aria-label={title}>
+      <div className="flex items-center gap-3 border-b border-[var(--color-rule)] px-5 py-4 sm:px-6">
+        <ClipboardList className="text-[var(--color-accent)]" size={20} strokeWidth={2.4} aria-hidden="true" />
+        <h4 className="text-base font-black text-white">{title}</h4>
+      </div>
+      <ul className="grid gap-px bg-[var(--color-rule)] sm:grid-cols-2">
+        {items.map((item) => {
+          const isChecked = checkedItems.has(item);
+          return (
+          <li key={item} className="bg-[var(--color-surface-1)]">
+            <label className="group flex cursor-pointer items-center gap-3 px-5 py-4 text-sm font-semibold text-white transition-colors duration-200 hover:bg-[var(--color-surface-2)] motion-reduce:transition-none sm:px-6">
+              <input
+                type="checkbox"
+                checked={isChecked}
+                onChange={() => setCheckedItems((current) => {
+                  const next = new Set(current);
+                  if (next.has(item)) next.delete(item);
+                  else next.add(item);
+                  return next;
+                })}
+                className="peer sr-only"
+              />
+              <span className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-[5px] border-2 transition-colors peer-focus-visible:ring-2 peer-focus-visible:ring-[var(--color-accent)] peer-focus-visible:ring-offset-2 peer-focus-visible:ring-offset-[var(--color-surface-1)] ${isChecked ? 'border-[var(--color-accent)] bg-[var(--color-accent)]' : 'border-[var(--color-accent)] bg-transparent'}`} aria-hidden="true">
+                {isChecked && <Check size={13} strokeWidth={3} className="text-black" />}
+              </span>
+              <span>{item}</span>
+            </label>
+          </li>
+          );
+        })}
+      </ul>
+    </section>
+  );
+}
+
+function FileNoteTemplatePanel({ text }: { text: string }) {
+  const lines = text.split('\n').map((line) => line.trim()).filter(Boolean);
+  const checksIndex = lines.findIndex((line) => line.startsWith('Key checks performed'));
+  const changesIndex = lines.findIndex((line) => line.startsWith('Changes made'));
+  const fields = lines.slice(0, checksIndex);
+  const checks = lines.slice(checksIndex + 1, changesIndex).map(cleanTemplateLine);
+  const closingFields = lines.slice(changesIndex);
+
+  return (
+    <section className="overflow-hidden rounded-2xl border border-[var(--color-rule)] bg-[var(--color-surface-1)]">
+      <div className="flex items-center gap-3 border-b border-[var(--color-rule)] px-5 py-4 sm:px-6">
+        <FileText className="text-[var(--color-accent)]" size={20} strokeWidth={2.4} aria-hidden="true" />
+        <h4 className="text-base font-black text-white">AI File Note Template</h4>
+      </div>
+      <div className="grid md:grid-cols-[1.05fr_.95fr]">
+        <div className="grid gap-px bg-[var(--color-rule)]">
+          {fields.concat(closingFields).map((field) => (
+            <div key={field} className="bg-[var(--color-surface-1)] px-5 py-4 sm:px-6">
+              <span className="block text-[11px] font-black uppercase tracking-[0.12em] text-[var(--color-muted-text)]">{field.replace(/:$/, '')}</span>
+              <span className="mt-3 block h-px w-full bg-[var(--color-rule)]" aria-hidden="true" />
+            </div>
+          ))}
+        </div>
+        <div className="border-t border-[var(--color-rule)] p-5 sm:p-6 md:border-l md:border-t-0">
+          <h5 className="mb-4 text-sm font-black text-white">Key checks performed</h5>
+          <ul className="space-y-3">
+            {checks.map((check) => (
+              <li key={check} className="flex items-center gap-3 text-sm font-semibold text-white">
+                <span className="h-4 w-4 rounded-[4px] border-2 border-[var(--color-accent)]" aria-hidden="true" />
+                {check}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function StopDoingPanel({ title, text }: { title: string; text: string }) {
+  const lines = text.split('\n').map(cleanTemplateLine).filter(Boolean);
+  return (
+    <section className="rounded-2xl border border-[var(--color-rule)] bg-[var(--color-surface-1)] p-5 sm:p-6">
+      <h4 className="text-base font-black text-white">{title}</h4>
+      {lines[0] && <p className="mt-2 text-sm font-normal text-[var(--color-muted-text)]">{lines[0]}</p>}
+      <ul className="mt-5 grid gap-2.5 sm:grid-cols-2">
+        {lines.slice(1).map((line) => (
+          <li key={line} className="group flex items-center gap-3 rounded-xl border border-[var(--color-rule)] bg-black px-4 py-3 text-sm font-semibold text-white transition-transform duration-200 motion-safe:hover:-translate-y-0.5 motion-reduce:transition-none">
+            <XCircle className="shrink-0 text-[var(--color-accent)]" size={17} strokeWidth={2.3} aria-hidden="true" />
+            {line}
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+}
 
 interface PromptVariable {
   id: string;
@@ -1044,6 +1319,7 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
   const [agentCapabilityIndex, setAgentCapabilityIndex] = useState(0);
   const [agentCandidateIndex, setAgentCandidateIndex] = useState(0);
   const sectionImageSrc = SECTION_IMAGE_BY_PAGE_ID[page.id];
+  const numberedTreatment = NUMBERED_TREATMENT_BY_PAGE_ID[page.id];
   const usesSectionImageTreatment = Boolean(sectionImageSrc);
   const isCertificatePage = page.id === 'certificate';
   let parsedCertificateInputs: Record<string, string> = {};
@@ -1202,6 +1478,15 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
   const ninetyDayWorkflowAnswer = page.id === 's6-days61-90'
     ? (structuredInputs['workflow-name'] || structuredInputs['task-0']?.label || '').trim()
     : '';
+  const resolvedTakeaway = page.takeaway
+    ? page.id === 's6-days61-90' && page.takeaway.includes('[your answer from the activity above]')
+      ? page.takeaway.replace(
+          '[your answer from the activity above]',
+          ninetyDayWorkflowAnswer || '[your answer from the activity above]'
+        )
+      : page.takeaway
+    : '';
+  const usesTakeawayBand = TAKEAWAY_BAND_PAGE_IDS.has(page.id);
 
   const updateGlossaryState = (updater: (current: GlossaryPageState) => GlossaryPageState) => {
     if (!isGlossaryPage) {
@@ -1298,16 +1583,9 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
     return icons[iconName] || BookOpen;
   };
 
-  // Helper to render title with green highlights
+  // Approved page titles are rendered without automatic word-level colour emphasis.
   const renderTitle = (title: string) => {
-    return title.split('**').map((part, i) => 
-      i % 2 === 1 ? (
-        <span key={i} className="relative inline-block">
-          <span className="relative z-10">{part}</span>
-          <span className="absolute bottom-1 left-0 right-0 h-3 bg-[#00DC51] -z-10 opacity-30" />
-        </span>
-      ) : part
-    );
+    return title.replace(/\*\*/g, '');
   };
 
   const handleCertificatePrint = () => {
@@ -1446,28 +1724,29 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
           {page.sections?.map((section, index) => {
             const Icon = getIcon(section.icon);
             return (
-              <motion.div
+              <motion.button
+                type="button"
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.05, duration: 0.4 }}
-                className="group bg-white/[0.03] border-2 border-white/10 rounded-xl p-5 hover:bg-white/[0.06] hover:border-[#00DC51]/50 transition-all cursor-pointer"
+                className="group w-full rounded-xl border-2 border-white/10 bg-white/[0.03] p-5 text-left transition-all hover:border-[var(--color-accent)] hover:bg-white/[0.06] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]"
                 onClick={() => goToPage(section.startPageIndex)}
               >
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 bg-[#00DC51]/15 rounded-xl flex items-center justify-center flex-shrink-0 border border-[#00DC51]/30 group-hover:bg-[#00DC51]/25 group-hover:scale-110 transition-all">
-                    <Icon className="text-[#00DC51]" size={22} strokeWidth={2.5} />
+                  <div className="accent-bg-soft accent-border-soft flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl border transition-transform group-hover:scale-105">
+                    <Icon className="accent-text" size={22} strokeWidth={2.5} />
                   </div>
                   <div className="flex-1">
                     {section.sectionLabel && (
-                      <p className="text-[#00DC51] font-black text-xs uppercase tracking-wider mb-1">{section.sectionLabel}</p>
+                      <p className="accent-text mb-1 text-xs font-black uppercase tracking-wider">{section.sectionLabel}</p>
                     )}
-                    <h3 className="font-bold text-base mb-0.5 group-hover:text-[#00DC51] transition-colors">{section.title}</h3>
+                    <h3 className="mb-0.5 text-base font-bold transition-colors group-hover:text-[var(--color-accent)]">{section.title}</h3>
                     <p className="text-xs text-white/50 font-medium">{section.pages}</p>
                   </div>
-                  <div className="text-[#00DC51] font-black text-sm tabular-nums">{section.pageNumber}</div>
+                  <div className="accent-text text-sm font-black tabular-nums">{section.pageNumber}</div>
                 </div>
-              </motion.div>
+              </motion.button>
             );
           })}
         </div>
@@ -1485,33 +1764,29 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
   }
 
   return (
-    <div className={`space-y-8 ${isWorkflowMapPage ? 'mx-auto max-w-[860px] space-y-7' : ''} ${isCertificatePage ? 'certificate-page-root' : ''}`}>
+    <div className={`playbook-page-content space-y-8 ${isWorkflowMapPage ? 'mx-auto max-w-[860px] space-y-7' : ''} ${isCertificatePage ? 'certificate-page-root' : ''}`}>
       {/* Section Badge */}
       {page.section && (
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
-          className={`inline-block ${
-            isWorkflowMapPage
-              ? 'rounded-md border border-[#00DC51]/35 bg-[#00DC51] px-3 py-1.5'
-              : 'rounded-full border-2 border-[#00DC51]/40 bg-[#00DC51]/15 px-4 py-2 backdrop-blur-sm'
-          } ${
+          className={`playbook-page-eyebrow inline-block ${
             isCertificatePage ? 'certificate-screen-only' : ''
           }`}
         >
-          <span className={`${isWorkflowMapPage ? 'text-black' : 'text-[#00DC51]'} font-bold text-xs tracking-wide uppercase`}>{page.section}</span>
+          <span>{page.section}</span>
         </motion.div>
       )}
 
       {/* Title */}
       <div className={`${isWorkflowMapPage ? 'max-w-4xl space-y-3' : ''} ${isCertificatePage ? 'certificate-screen-only' : ''}`}>
-        <h2 className={`${isWorkflowMapPage ? 'mb-2 text-[2.45rem] leading-[1.08] md:text-[3.2rem]' : 'playbook-page-title mb-4'} font-black tracking-tight`} style={{ fontFamily: 'var(--font-family-header)' }}>
+        <h2 className="playbook-page-title mb-4" style={{ fontFamily: 'var(--font-family-header)' }}>
           {renderTitle(page.title)}
         </h2>
 
         {/* Subtitle */}
         {page.subtitle && (
-          <p className={`${isWorkflowMapPage ? 'text-[1.05rem] italic text-white/58 md:text-[1.15rem]' : 'playbook-page-subtitle'} font-medium leading-relaxed`}>{page.subtitle}</p>
+          <p className="playbook-page-subtitle">{page.subtitle}</p>
         )}
       </div>
 
@@ -1761,7 +2036,7 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
       )}
 
       {/* Custom Graphic for Three Stages */}
-      {page.id === 's1-stages' && (
+      {page.id === 's1-stages' && !numberedTreatment && (
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -2196,7 +2471,7 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
       )}
 
       {/* Custom Interactive Graphic for Agent Maturity Ladder - Timeline Scrubber */}
-      {page.id === 's3-maturity' && (() => {
+      {page.id === 's3-maturity' && !numberedTreatment && (() => {
         const stages = [
           {
             stage: 'Stage 1',
@@ -2949,7 +3224,7 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
       <div className={`space-y-5 ${isCertificatePage ? 'certificate-screen-only' : ''}`}>
         {page.content.map((block, index) => {
           // Skip the numbered-list and quote on s1-stages page since they're in the custom graphic
-          if (page.id === 's1-stages' && (block.type === 'numbered-list' || block.type === 'quote')) {
+          if (page.id === 's1-stages' && (block.type === 'quote' || (!numberedTreatment && block.type === 'numbered-list'))) {
             return null;
           }
           // Skip the columns, box, and quote on s3-difference page since they're in the custom graphic
@@ -2965,7 +3240,14 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
             return null;
           }
           // Skip content on s3-maturity page since it's in the custom graphic
-          if (page.id === 's3-maturity' && (block.type === 'numbered-list' || block.type === 'highlight' || block.type === 'box')) {
+          if (page.id === 's3-maturity' && (
+            block.type === 'highlight'
+            || block.type === 'box'
+            || (!numberedTreatment && block.type === 'numbered-list')
+          )) {
+            return null;
+          }
+          if (page.id === 's7-policy' && block.type === 'box' && block.title === 'Restricted uses') {
             return null;
           }
           return (
@@ -2980,37 +3262,7 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
               )}
 
               {block.type === 'highlight' && (
-                isFinishPage ? (
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.35 }}
-                    className="rounded-r-xl border-l-[4px] border-[#00DC51] bg-gradient-to-r from-[#00DC51]/16 to-transparent px-5 py-5"
-                  >
-                    <div className="flex items-start gap-3">
-                      <Lightbulb className="mt-0.5 flex-shrink-0 text-[#00DC51]" size={18} strokeWidth={2.5} />
-                      <div className="flex-1">
-                        <p className="text-base font-bold leading-relaxed text-white">{block.text}</p>
-                      </div>
-                    </div>
-                  </motion.div>
-                ) : (
-                  <motion.div
-                    whileHover={page.section?.includes('Section 2') ? { x: 4 } : {}}
-                    transition={{ type: "spring", stiffness: 300 }}
-                    className="relative bg-gradient-to-r from-[#00DC51]/15 to-transparent border-l-4 border-[#00DC51] rounded-r-xl p-5 backdrop-blur-sm group"
-                  >
-                    {page.section?.includes('Section 2') && (
-                      <div className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 bg-[#00DC51]/20 rounded-full blur-xl group-hover:bg-[#00DC51]/30 transition-all" />
-                    )}
-                    <div className="relative flex items-start gap-3">
-                      {page.section?.includes('Section 2') && (
-                        <Lightbulb className="text-[#00DC51] flex-shrink-0 mt-0.5" size={20} strokeWidth={2.5} />
-                      )}
-                      <p className="font-bold text-base leading-relaxed flex-1">{block.text}</p>
-                    </div>
-                  </motion.div>
-                )
+                <HighlightMessage pageId={page.id} section={page.section} text={block.text || ''} />
               )}
 
               {block.type === 'list' && (
@@ -3037,6 +3289,14 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
 
               {block.type === 'numbered-list' && (
                 <>
+                  {numberedTreatment ? (
+                    <NumberedContentTreatment
+                      block={block}
+                      pageId={page.id}
+                      treatment={numberedTreatment}
+                    />
+                  ) : (
+                  <>
                   {/* TABS/COMPARISON - for Section 3 Assistant vs Agent */}
                   {(page.id === 's3-difference' && (block.boxTitle === 'Assistant-Led Work:' || block.boxTitle === 'Agent-Led Work:')) ? null :
 
@@ -3852,40 +4112,44 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
                       </div>
                     </div>
                   )}
+                  </>
+                  )}
                 </>
               )}
 
               {block.type === 'box' && (
+                page.id === 's7-policy' && block.title === 'Approved uses' ? (
+                  <PolicyUsesComparison
+                    approvedText={block.text || ''}
+                    restrictedText={page.content.find((candidate) => candidate.type === 'box' && candidate.title === 'Restricted uses')?.text || ''}
+                  />
+                ) : page.id === 's7-checklist' && block.title?.startsWith('Quick review checklist') ? (
+                  <ReviewChecklistPanel title={block.title || ''} text={block.text || ''} />
+                ) : page.id === 's7-file-note' && block.title === 'AI File Note Template:' ? (
+                  <FileNoteTemplatePanel text={block.text || ''} />
+                ) : page.id === 's6-stop-doing' && block.title === 'Common tasks firms stop doing:' ? (
+                  <StopDoingPanel title={block.title} text={block.text || ''} />
+                ) : messageKindForBox(block.title) ? (
+                  <MessageBand title={block.title || ''} text={block.text || ''} kind={messageKindForBox(block.title) as MessageKind} />
+                ) : (
                 <motion.div
-                  whileHover={page.section?.includes('Section 2') ? { scale: 1.01 } : {}}
-                  transition={{ type: "spring", stiffness: 300 }}
-                  className={`rounded-xl p-5 border-2 transition-all ${
+                  className={`p-5 transition-colors duration-200 motion-reduce:transition-none ${
                     page.id === 's3-workflow-map' && block.title === 'Common High-Impact Agent Candidates:'
-                      ? 'bg-white/[0.03] border-white/12 hover:border-white/20'
+                      ? 'rounded-2xl border border-[var(--color-rule)] bg-[var(--color-surface-1)] hover:border-white/30'
                       : page.id === 's7-tool-matrix'
                       ? block.style === 'green'
-                        ? 'bg-white/[0.03] border-white/12 text-white hover:border-white/20'
+                        ? 'border-y border-[var(--color-rule)] bg-transparent text-white'
                         : block.style === 'dark'
-                        ? 'bg-black/35 border-white/12 hover:border-white/20'
-                        : 'bg-white/[0.04] border-white/12 hover:border-white/20'
+                        ? 'rounded-2xl border border-[var(--color-rule)] bg-black hover:border-white/30'
+                        : 'rounded-2xl border border-[var(--color-rule)] bg-[var(--color-surface-1)] hover:border-white/30'
                       : block.style === 'green'
-                      ? 'bg-[#00DC51]/10 border-[#00DC51] hover:shadow-lg hover:shadow-[#00DC51]/20'
+                      ? 'border-y border-[var(--color-rule)] bg-transparent'
                       : block.style === 'dark'
-                      ? 'bg-black/40 border-white/20 hover:border-white/30'
-                      : 'bg-white/5 border-white/20 hover:border-white/30'
+                      ? 'rounded-2xl border border-[var(--color-rule)] bg-black hover:border-white/30'
+                      : 'rounded-2xl border border-[var(--color-rule)] bg-[var(--color-surface-1)] hover:border-white/30'
                   }`}>
                   {block.title && !(page.id === 's3-workflow-map' && block.title === 'Common High-Impact Agent Candidates:') && (
                     <div className="flex items-start gap-3 mb-2.5">
-                      {page.section?.includes('Section 2') && block.style === 'green' && (
-                        <div className="w-8 h-8 bg-[#00DC51] rounded-lg flex items-center justify-center flex-shrink-0">
-                          <CheckCircle className="text-black" size={16} strokeWidth={3} />
-                        </div>
-                      )}
-                      {page.section?.includes('Section 2') && block.style === 'dark' && (
-                        <div className="w-8 h-8 bg-white/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                          <AlertCircle className="text-white/60" size={16} strokeWidth={3} />
-                        </div>
-                      )}
                       <h4 className="font-black text-base flex-1">{block.title}</h4>
                     </div>
                   )}
@@ -3931,6 +4195,7 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
                     }`}>{block.text}</p>
                   )}
                 </motion.div>
+                )
               )}
 
               {block.type === 'quote' && (
@@ -5499,26 +5764,25 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
           aria-labelledby={activityTitleId}
           aria-describedby={activityPromptId}
           className={`${isFinishPage
-            ? 'rounded-[28px] border border-[#00DC51] bg-gradient-to-br from-[#00DC51]/14 to-[#00DC51]/5 p-6 md:p-7'
-            : 'bg-gradient-to-br from-[#00DC51]/15 to-[#00DC51]/5 border-2 border-[#00DC51] rounded-2xl p-6 backdrop-blur-sm'} ${
+            ? 'overflow-hidden rounded-[28px] border-[1.5px] accent-border bg-[var(--color-surface-1)]'
+            : 'overflow-hidden rounded-2xl border-[1.5px] accent-border bg-[var(--color-surface-1)]'} ${
             isCertificatePage ? 'certificate-activity-shell' : ''
           }`}
         >
-          <div className={`flex items-start gap-4 mb-5 ${isCertificatePage ? 'certificate-screen-only' : ''}`}>
+          <div className={`flex items-center gap-4 border-b border-[var(--color-rule)] p-5 sm:p-6 ${isCertificatePage ? 'certificate-screen-only' : ''}`}>
             <div className={`${isFinishPage
-              ? 'flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl bg-[#00DC51] shadow-lg shadow-[#00DC51]/35'
-              : 'w-11 h-11 bg-[#00DC51] rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-[#00DC51]/40'}`}>
-              <Lightbulb className={isFinishPage ? 'text-black' : 'text-black'} size={20} strokeWidth={2.5} />
+              ? 'accent-bg flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl'
+              : 'accent-bg w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0'}`}>
+              <Lightbulb className="text-black" size={20} strokeWidth={2.5} />
             </div>
             <div className="flex-1">
-              <div className="flex items-center gap-2 mb-2">
-                <span className="text-xs font-black text-[#00DC51] uppercase tracking-wider">Activity</span>
-                <div className={`h-px flex-1 ${isFinishPage ? 'bg-[#00DC51]/30' : 'bg-[#00DC51]/30'}`} />
-              </div>
-              <h4 id={activityTitleId} className={`font-black mb-2 ${isFinishPage ? 'text-xl text-white' : 'text-lg'}`}>{page.activity.title}</h4>
-              <p id={activityPromptId} className={`${isFinishPage ? 'max-w-3xl text-base text-white/72' : 'text-sm text-white/70'} font-medium leading-relaxed`}>{page.activity.prompt}</p>
+              <div className="playbook-page-eyebrow mb-1">Activity</div>
+              <h4 id={activityTitleId} className="playbook-component-title">{page.activity.title}</h4>
             </div>
           </div>
+
+          <div className="p-5 sm:p-6">
+            <p id={activityPromptId} className="mb-5 text-base font-medium leading-relaxed text-white">{page.activity.prompt}</p>
 
           {page.id === 's3-where-agents' && (
             <AgentCandidateActivity activity={page.activity} userInput={userInput} onInputChange={onInputChange} />
@@ -5956,30 +6220,35 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
                   savedInputs = {};
                 }
                 const taskData = savedInputs[taskKey] || { label: '', checks: [] };
+                const isControlsChecklist = page.id === 's3-controls';
 
                 return (
-                  <div key={taskIndex} className="bg-white/5 border-2 border-white/10 rounded-xl p-4 space-y-3">
+                  <div key={taskIndex} className={isControlsChecklist ? 'space-y-3' : 'space-y-3 rounded-xl border border-[var(--color-rule)] bg-[var(--color-surface-1)] p-4'}>
                     {/* Task Name Input */}
-                    <input
-                      aria-label={`Task ${taskIndex + 1} name`}
-                      type="text"
-                      value={taskData.label || ''}
-                      onChange={(e) => {
-                        const newTaskData = { ...taskData, label: e.target.value };
-                        const newInputs = { ...savedInputs, [taskKey]: newTaskData };
-                        onInputChange(JSON.stringify(newInputs));
-                      }}
-                      placeholder={page.id === 's6-days61-90' ? 'Optional: add a short name for this checklist' : task.label}
-                      className="w-full bg-black/40 border-2 border-white/20 focus:border-[#00DC51] rounded-lg px-4 py-2.5 text-white placeholder-white/40 focus:outline-none font-bold transition-colors text-sm"
-                    />
+                    {isControlsChecklist ? (
+                      <h5 className="text-sm font-black text-white">{task.label}</h5>
+                    ) : (
+                      <input
+                        aria-label={`Task ${taskIndex + 1} name`}
+                        type="text"
+                        value={taskData.label || ''}
+                        onChange={(e) => {
+                          const newTaskData = { ...taskData, label: e.target.value };
+                          const newInputs = { ...savedInputs, [taskKey]: newTaskData };
+                          onInputChange(JSON.stringify(newInputs));
+                        }}
+                        placeholder={page.id === 's6-days61-90' ? 'Optional: add a short name for this checklist' : task.label}
+                        className="w-full rounded-lg border border-[var(--color-rule)] bg-black px-4 py-2.5 text-sm font-bold text-white placeholder-white/40 transition-colors focus:border-[var(--color-accent)] focus:outline-none"
+                      />
+                    )}
                     
                     {/* Checkboxes */}
-                    <div className="space-y-2 pl-2">
+                    <div className={isControlsChecklist ? 'grid gap-px overflow-hidden rounded-xl border border-[var(--color-rule)] bg-[var(--color-rule)] sm:grid-cols-2' : 'space-y-2 pl-2'}>
                       {task.criteria.map((criterion, criterionIndex) => {
                         const isChecked = taskData.checks?.includes(criterion) || false;
                         
                         return (
-                          <label key={criterionIndex} className="flex items-center gap-3 cursor-pointer group">
+                          <label key={criterionIndex} className={`group flex cursor-pointer items-center gap-3 ${isControlsChecklist ? 'bg-[var(--color-surface-1)] px-4 py-3' : ''}`}>
                             <div className={`w-5 h-5 rounded border-2 flex items-center justify-center transition-all ${
                               isChecked
                                 ? 'bg-[#00DC51] border-[#00DC51]'
@@ -6003,7 +6272,7 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
                               }}
                               className="sr-only"
                             />
-                            <span className="text-xs font-medium text-white/70 group-hover:text-white/90 transition-colors">
+                            <span className="text-xs font-medium text-[var(--color-muted-text)] transition-colors group-hover:text-white">
                               {criterion}
                             </span>
                           </label>
@@ -6207,6 +6476,7 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
               )}
             </div>
           )}
+          </div>
         </motion.section>
       )}
 
@@ -6232,37 +6502,32 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
       )}
 
       {/* Key Takeaway */}
-      {page.takeaway && (
+      {page.takeaway && (usesTakeawayBand ? (
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
-          className={`${isFinishPage
-            ? 'rounded-[24px] border border-[#00DC51] bg-gradient-to-br from-[#00DC51]/14 to-[#00DC51]/5 p-5 sm:p-6'
-            : 'bg-[#00DC51]/10 border-2 border-[#00DC51] rounded-2xl p-6 backdrop-blur-sm'} ${
-            isCertificatePage ? 'certificate-screen-only' : ''
-          }`}
+          className={`grid grid-cols-[48px_1fr] overflow-hidden rounded-2xl border-[1.5px] accent-border bg-[var(--color-surface-1)] sm:grid-cols-[64px_1fr] ${isCertificatePage ? 'certificate-screen-only' : ''}`}
         >
-          <div className="flex items-start gap-4">
-            <div className={`${isFinishPage
-              ? 'flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full bg-[#00DC51] shadow-lg shadow-[#00DC51]/35'
-              : 'w-11 h-11 bg-[#00DC51] rounded-full flex items-center justify-center flex-shrink-0 shadow-lg shadow-[#00DC51]/40'}`}>
-              <Zap className={isFinishPage ? 'text-black' : 'text-black'} size={22} strokeWidth={2.5} />
-            </div>
-            <div className="flex-1">
-              <div className={`mb-2 text-xs font-black uppercase tracking-wider ${isFinishPage ? 'text-[#00DC51]' : 'text-[#00DC51]'}`}>Key Takeaway</div>
-              <p className={`font-bold leading-relaxed ${isFinishPage ? 'text-white text-[15px] sm:text-base' : 'text-base'}`}>
-                {page.id === 's6-days61-90' && page.takeaway.includes('[your answer from the activity above]')
-                  ? page.takeaway.replace(
-                      '[your answer from the activity above]',
-                      ninetyDayWorkflowAnswer || '[your answer from the activity above]'
-                    )
-                  : page.takeaway}
-              </p>
-            </div>
+          <div className="accent-bg flex min-h-full items-center justify-center">
+            <Zap className="text-black" size={24} strokeWidth={2.6} aria-hidden="true" />
+          </div>
+          <div className="p-5 sm:p-6">
+            <div className="playbook-page-eyebrow mb-2">Key Takeaway</div>
+            <p className="text-base font-bold leading-relaxed text-white sm:text-lg">{resolvedTakeaway}</p>
           </div>
         </motion.div>
-      )}
+      ) : (
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4 }}
+          className={`border-b border-b-[var(--color-rule)] border-t-[3px] border-t-[var(--color-accent)] py-6 sm:py-7 ${isCertificatePage ? 'certificate-screen-only' : ''}`}
+        >
+          <div className="playbook-page-eyebrow mb-3">Key Takeaway</div>
+          <p className="playbook-component-title max-w-4xl text-white">{resolvedTakeaway}</p>
+        </motion.div>
+      ))}
     </div>
   );
 }
