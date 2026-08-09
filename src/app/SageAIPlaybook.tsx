@@ -261,6 +261,16 @@ export default function SageAIPlaybook() {
     isExpanded: boolean,
     sectionOpener?: (typeof SECTION_OPENER_NAVIGATION)[number]
   ) => {
+    if (sectionName === 'Introduction') {
+      if (isExpanded) {
+        toggleSection(sectionName);
+      } else {
+        setExpandedSections(prev => new Set(prev).add(sectionName));
+        goToPage(0);
+      }
+      return;
+    }
+
     if (!sectionOpener || isExpanded) {
       toggleSection(sectionName);
       return;
@@ -453,7 +463,9 @@ export default function SageAIPlaybook() {
                     {/* Section Pages */}
                     {isExpanded && (
                       <div id={`playbook-section-${sectionName.replace(/[^a-z0-9]+/gi, '-').toLowerCase()}`} className="mt-1 space-y-1 ml-2">
-                        {sectionData.pages.map(({ index, page }) => {
+                        {sectionData.pages
+                          .filter(({ page }) => !(sectionName === 'Introduction' && page.type === 'cover'))
+                          .map(({ index, page }) => {
                           const isActive = currentPage === index;
                           const isVisited = visitedPages.has(index);
                           const isCover = page.type === 'cover';
@@ -493,7 +505,7 @@ export default function SageAIPlaybook() {
                               </div>
                             </button>
                           );
-                        })}
+                          })}
                       </div>
                     )}
                   </div>

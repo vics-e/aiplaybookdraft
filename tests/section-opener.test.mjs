@@ -21,6 +21,9 @@ test('all eight section and conclusion openers are unnumbered entrances to their
   assert.match(appShell, /const handleSectionHeaderClick/);
   assert.match(appShell, /if \(!sectionOpener \|\| isExpanded\)[\s\S]*toggleSection\(sectionName\)/);
   assert.match(appShell, /handleSectionHeaderClick\(sectionName, isExpanded, sectionOpener\)/);
+  assert.match(appShell, /sectionName === 'Introduction'/);
+  assert.match(appShell, /setExpandedSections\(prev => new Set\(prev\)\.add\(sectionName\)\)[\s\S]*goToPage\(0\)/);
+  assert.match(appShell, /sectionName === 'Introduction' && page\.type === 'cover'/);
   assert.match(pageContent, /<motion\.button[\s\S]*onClick=\{\(\) => goToPage\(section\.startPageIndex\)\}/);
   assert.doesNotMatch(appShell, /Section [1-7] opener/);
   assert.match(appShell, /activeSectionOpener \? 'Start section'/);
