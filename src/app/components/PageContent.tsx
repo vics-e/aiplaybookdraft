@@ -3874,7 +3874,7 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
                 <motion.div
                   whileHover={page.section?.includes('Section 2') ? { scale: 1.01 } : {}}
                   transition={{ type: "spring", stiffness: 300 }}
-                  className={`rounded-xl p-5 border-2 transition-all ${
+                  className={`rounded-2xl p-5 border-[1.5px] transition-all ${
                     page.id === 's3-workflow-map' && block.title === 'Common High-Impact Agent Candidates:'
                       ? 'bg-white/[0.03] border-white/12 hover:border-white/20'
                       : page.id === 's7-tool-matrix'
@@ -3884,7 +3884,7 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
                         ? 'bg-black/35 border-white/12 hover:border-white/20'
                         : 'bg-white/[0.04] border-white/12 hover:border-white/20'
                       : block.style === 'green'
-                      ? 'bg-[#00DC51]/10 border-[#00DC51] hover:shadow-lg hover:shadow-[#00DC51]/20'
+                      ? 'bg-[var(--color-surface-1)] accent-border'
                       : block.style === 'dark'
                       ? 'bg-black/40 border-white/20 hover:border-white/30'
                       : 'bg-white/5 border-white/20 hover:border-white/30'
@@ -3892,7 +3892,7 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
                   {block.title && !(page.id === 's3-workflow-map' && block.title === 'Common High-Impact Agent Candidates:') && (
                     <div className="flex items-start gap-3 mb-2.5">
                       {page.section?.includes('Section 2') && block.style === 'green' && (
-                        <div className="w-8 h-8 bg-[#00DC51] rounded-lg flex items-center justify-center flex-shrink-0">
+                        <div className="accent-bg w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0">
                           <CheckCircle className="text-black" size={16} strokeWidth={3} />
                         </div>
                       )}
@@ -5514,8 +5514,8 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
           aria-labelledby={activityTitleId}
           aria-describedby={activityPromptId}
           className={`${isFinishPage
-            ? 'overflow-hidden rounded-[28px] border accent-border bg-[var(--color-surface-1)]'
-            : 'overflow-hidden rounded-2xl border accent-border bg-[var(--color-surface-1)]'} ${
+            ? 'overflow-hidden rounded-[28px] border-[1.5px] accent-border bg-[var(--color-surface-1)]'
+            : 'overflow-hidden rounded-2xl border-[1.5px] accent-border bg-[var(--color-surface-1)]'} ${
             isCertificatePage ? 'certificate-activity-shell' : ''
           }`}
         >
@@ -6252,9 +6252,9 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
-          className={`grid overflow-hidden rounded-2xl border accent-border bg-[var(--color-surface-1)] sm:grid-cols-[76px_1fr] ${isCertificatePage ? 'certificate-screen-only' : ''}`}
+          className={`grid grid-cols-[48px_1fr] overflow-hidden rounded-2xl border-[1.5px] accent-border bg-[var(--color-surface-1)] sm:grid-cols-[64px_1fr] ${isCertificatePage ? 'certificate-screen-only' : ''}`}
         >
-          <div className="accent-bg flex min-h-16 items-center justify-center p-4 sm:min-h-full">
+          <div className="accent-bg flex min-h-full items-center justify-center">
             <Zap className="text-black" size={24} strokeWidth={2.6} aria-hidden="true" />
           </div>
           <div className="p-5 sm:p-6">

@@ -120,10 +120,14 @@ test('Wave 1 composition inventory covers the four approved intent patterns', ()
 });
 
 test('shared activity, takeaway, and footer treatments retain purposeful emphasis', () => {
-  assert.match(pageContent, /overflow-hidden rounded-2xl border accent-border bg-\[var\(--color-surface-1\)\]/);
+  assert.match(pageContent, /overflow-hidden rounded-2xl border-\[1\.5px\] accent-border bg-\[var\(--color-surface-1\)\]/);
+  assert.match(pageContent, /rounded-2xl p-5 border-\[1\.5px\]/);
   assert.match(pageContent, /TAKEAWAY_BAND_PAGE_IDS/);
   assert.match(pageContent, /border-t-\[var\(--color-accent\)\]/);
-  assert.match(pageContent, /sm:grid-cols-\[76px_1fr\]/);
+  assert.match(pageContent, /grid-cols-\[48px_1fr\]/);
+  assert.match(pageContent, /sm:grid-cols-\[64px_1fr\]/);
+  assert.doesNotMatch(pageContent, /sm:grid-cols-\[76px_1fr\]/);
+  assert.doesNotMatch(pageContent, /hover:shadow-\[#00DC51\]\/20/);
   assert.match(appShell, /accent-bg-medium w-2/);
   assert.match(appShell, /accent-action-shadow/);
   assert.doesNotMatch(pageContent, /accent-surface/);
