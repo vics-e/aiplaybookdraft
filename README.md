@@ -1,11 +1,12 @@
 
-  # AI Interactive Playbook Figma File 12.05 V2
+# Sage AI Playbook
 
-  This is a code bundle for AI Interactive Playbook Figma File 12.05 V2. The original project is available at https://www.figma.com/design/SUbnU9u3BEFX8FWfnC3tjT/AI-Interactive-Playbook-Figma-File-12.05-V2.
+Interactive AI Playbook for accountants and bookkeepers.
 
-  ## Running the code
+The application originated from the [AI Interactive Playbook Figma design](https://www.figma.com/design/SUbnU9u3BEFX8FWfnC3tjT/AI-Interactive-Playbook-Figma-File-12.05-V2); the production code no longer depends on Figma-specific asset resolution.
 
-  Run `npm i` to install the dependencies.
+## Local development
 
-  Run `npm run dev` to start the development server.
-  
+Run `npm install` to install dependencies, then `npm run dev` to start the development server.
+
+Use `npm test` for the automated checks and `npm run build` for the production build.

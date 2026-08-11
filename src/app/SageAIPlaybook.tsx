@@ -5,7 +5,7 @@ import { playbook } from './data/playbookData';
 import { PageContent } from './components/PageContent';
 import { ProgressBar } from './components/ProgressBar';
 import { SECTION_OPENERS, SectionOpener, type SectionOpenerId } from './components/SectionOpener';
-import sageLogo from 'figma:asset/85dce1db2c171f8d15f5e966d3ca5f37099a8078.png';
+import sageLogo from '../assets/85dce1db2c171f8d15f5e966d3ca5f37099a8078.png';
 
 const PLAYBOOK_STORAGE_KEY = 'sage-ai-playbook-progress';
 const DESKTOP_NAVIGATION_QUERY = '(min-width: 1024px)';

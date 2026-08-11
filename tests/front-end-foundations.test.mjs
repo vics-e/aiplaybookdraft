@@ -4,6 +4,11 @@ import test from 'node:test';
 
 const appShell = readFileSync(new URL('../src/app/SageAIPlaybook.tsx', import.meta.url), 'utf8');
 const pageContent = readFileSync(new URL('../src/app/components/PageContent.tsx', import.meta.url), 'utf8');
+const genericContent = readFileSync(new URL('../src/app/components/content/GenericContentRenderer.tsx', import.meta.url), 'utf8');
+const genericActivity = readFileSync(new URL('../src/app/components/content/GenericActivityRenderer.tsx', import.meta.url), 'utf8');
+const toolMatrixExperience = readFileSync(new URL('../src/app/components/content/ToolMatrixExperience.tsx', import.meta.url), 'utf8');
+const contentPanels = readFileSync(new URL('../src/app/components/content/ContentPanels.tsx', import.meta.url), 'utf8');
+const pageShells = readFileSync(new URL('../src/app/components/content/PageShells.tsx', import.meta.url), 'utf8');
 const focusedPageActivities = readFileSync(new URL('../src/app/components/FocusedPageActivities.tsx', import.meta.url), 'utf8');
 const theme = readFileSync(new URL('../src/styles/theme.css', import.meta.url), 'utf8');
 const fonts = readFileSync(new URL('../src/styles/fonts.css', import.meta.url), 'utf8');
@@ -29,9 +34,9 @@ test('essential page navigation controls have names and touch targets', () => {
 
 test('contents opens in its final layout without a nested loading-like scrollbar', () => {
   assert.match(pageContent, /if \(page\.type === 'contents'\)/);
-  assert.match(pageContent, /<div className="grid grid-cols-1 gap-4 max-w-6xl mx-auto sm:grid-cols-2">/);
-  assert.match(pageContent, /key=\{index\}[\s\S]*?initial=\{false\}/);
-  assert.doesNotMatch(pageContent, /max-h-\[60vh\][\s\S]*custom-scrollbar/);
+  assert.match(pageShells, /grid max-w-6xl grid-cols-1 gap-4 sm:grid-cols-2/);
+  assert.match(pageShells, /key=\{index\}[\s\S]*?initial=\{false\}/);
+  assert.doesNotMatch(pageShells, /max-h-\[60vh\][\s\S]*custom-scrollbar/);
 });
 
 test('sidebar and footer use the same one-based page numbering', () => {
@@ -50,11 +55,11 @@ test('sidebar and footer use the same one-based page numbering', () => {
 });
 
 test('shared activity frames associate prompts, labels, and fields', () => {
-  assert.match(pageContent, /aria-labelledby=\{activityTitleId\}/);
-  assert.match(pageContent, /aria-describedby=\{activityPromptId\}/);
-  assert.match(pageContent, /htmlFor=\{`\$\{page\.id\}-\$\{questionKey\}`\}/);
-  assert.match(pageContent, /aria-label=\{`\$\{placeholderPrefix\} \$\{index \+ 1\}`\}/);
-  assert.match(pageContent, /htmlFor=\{`\$\{page\.id\}-\$\{fieldKey\}`\}/);
+  assert.match(genericActivity, /aria-labelledby=\{activityTitleId\}/);
+  assert.match(genericActivity, /aria-describedby=\{activityPromptId\}/);
+  assert.match(genericActivity, /htmlFor=\{`\$\{page\.id\}-\$\{questionKey\}`\}/);
+  assert.match(genericActivity, /aria-label=\{`\$\{placeholderPrefix\} \$\{index \+ 1\}`\}/);
+  assert.match(genericActivity, /htmlFor=\{`\$\{page\.id\}-\$\{fieldKey\}`\}/);
 });
 
 test('priority activity pages use the focused interactive treatments', () => {
@@ -66,7 +71,7 @@ test('priority activity pages use the focused interactive treatments', () => {
     's5-impact-exercise',
     's5-client-talk',
   ]) {
-    assert.match(pageContent, new RegExp(`page\\.id === '${pageId}'`));
+    assert.match(genericActivity, new RegExp(`'${pageId}'`));
   }
 
   assert.match(focusedPageActivities, /Strongest candidate/);
@@ -81,10 +86,10 @@ test('priority activity pages use the focused interactive treatments', () => {
   assert.match(focusedPageActivities, /role="tablist"/);
   assert.match(focusedPageActivities, /aria-live="polite"/);
   assert.match(focusedPageActivities, /sm:grid-cols-2/);
-  assert.match(pageContent, /xl:grid-cols-4/);
-  assert.match(pageContent, /INTERACTIVE FRAMEWORK SELECTORS/);
+  assert.match(genericContent, /xl:grid-cols-4/);
+  assert.match(genericContent, /INTERACTIVE FRAMEWORK SELECTORS/);
   assert.match(focusedPageActivities, /\.join\(' '\)/);
-  assert.match(pageContent, /COMPACT GUIDANCE ACCORDION/);
+  assert.match(genericContent, /COMPACT GUIDANCE ACCORDION/);
   assert.doesNotMatch(focusedPageActivities, /Download|window\.print/);
 });
 
@@ -127,15 +132,15 @@ test('Wave 1 composition inventory covers the four approved intent patterns', ()
 });
 
 test('shared activity, takeaway, and footer treatments retain purposeful emphasis', () => {
-  assert.match(pageContent, /overflow-hidden rounded-2xl border-\[1\.5px\] accent-border bg-\[var\(--color-surface-1\)\]/);
-  assert.match(pageContent, /function MessageBand/);
-  assert.match(pageContent, /messageKindForBox/);
-  assert.match(pageContent, /grid-cols-\[48px_minmax\(0,1fr\)\]/);
-  assert.match(pageContent, /sm:grid-cols-\[64px_minmax\(0,1fr\)_auto\]/);
+  assert.match(genericActivity, /overflow-hidden rounded-2xl border-\[1\.5px\] accent-border bg-\[var\(--color-surface-1\)\]/);
+  assert.match(contentPanels, /function MessageBand/);
+  assert.match(contentPanels, /messageKindForBox/);
+  assert.match(contentPanels, /grid-cols-\[48px_minmax\(0,1fr\)\]/);
+  assert.match(contentPanels, /sm:grid-cols-\[64px_minmax\(0,1fr\)_auto\]/);
   assert.doesNotMatch(pageContent, /border-l-\[4px\] border-l-\[var\(--color-accent\)\]/);
-  assert.match(pageContent, /const \[checkedItems, setCheckedItems\]/);
-  assert.match(pageContent, /type="checkbox"[\s\S]*checked=\{isChecked\}/);
-  assert.match(pageContent, /TAKEAWAY_BAND_PAGE_IDS/);
+  assert.match(contentPanels, /const \[checkedItems, setCheckedItems\]/);
+  assert.match(contentPanels, /type="checkbox"[\s\S]*checked=\{isChecked\}/);
+  assert.match(contentPanels, /TAKEAWAY_BAND_PAGE_IDS/);
   assert.match(pageContent, /border-t-\[var\(--color-accent\)\]/);
   assert.match(pageContent, /grid-cols-\[48px_1fr\]/);
   assert.match(pageContent, /sm:grid-cols-\[64px_1fr\]/);
@@ -144,6 +149,13 @@ test('shared activity, takeaway, and footer treatments retain purposeful emphasi
   assert.match(appShell, /accent-bg-medium w-2/);
   assert.match(appShell, /accent-action-shadow/);
   assert.doesNotMatch(pageContent, /accent-surface/);
+});
+
+test('tool matrix keeps every icon dependency explicit', () => {
+  const lucideImport = toolMatrixExperience.match(/import \{([\s\S]*?)\} from 'lucide-react'/)?.[1] || '';
+  for (const icon of ['Bot', 'Database', 'Lock', 'MessageSquare']) {
+    assert.match(lucideImport, new RegExp(`\\b${icon}\\b`));
+  }
 });
 
 test('local tracker script remains valid and retains its saved-progress features', () => {

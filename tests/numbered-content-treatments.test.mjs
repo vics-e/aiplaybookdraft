@@ -4,6 +4,8 @@ import test from 'node:test';
 
 const treatmentSource = readFileSync(new URL('../src/app/components/NumberedContentTreatments.tsx', import.meta.url), 'utf8');
 const pageContent = readFileSync(new URL('../src/app/components/PageContent.tsx', import.meta.url), 'utf8');
+const genericContent = readFileSync(new URL('../src/app/components/content/GenericContentRenderer.tsx', import.meta.url), 'utf8');
+const contentPanels = readFileSync(new URL('../src/app/components/content/ContentPanels.tsx', import.meta.url), 'utf8');
 const mappingDocument = readFileSync(new URL('../docs/wave-2-numbered-treatment-map.md', import.meta.url), 'utf8');
 
 const mappingEntries = [...treatmentSource.matchAll(/^\s+'([^']+)': '(filled-marker|accordion|editorial|handoff|selector|metric-strip)',$/gm)]
@@ -62,16 +64,16 @@ test('numbered hierarchy and highlight variants stay restrained and reusable', (
   assert.match(treatmentSource, /items\.length === 4[\s\S]*md:grid-cols-4/);
   assert.match(treatmentSource, /text-3xl font-black/);
   assert.match(treatmentSource, /md:min-h-\[14rem\]/);
-  assert.match(pageContent, /HIGHLIGHT_BAND_PAGE_IDS/);
-  assert.match(pageContent, /function HighlightMessage/);
-  assert.match(pageContent, /Connection to Agent Spec Template/);
-  assert.match(pageContent, /<HighlightMessage pageId=\{page\.id\}/);
+  assert.match(contentPanels, /HIGHLIGHT_BAND_PAGE_IDS/);
+  assert.match(contentPanels, /function HighlightMessage/);
+  assert.match(contentPanels, /Connection to Agent Spec Template/);
+  assert.match(genericContent, /<HighlightMessage pageId=\{page\.id\}/);
 });
 
 test('PageContent delegates only mapped numbered blocks to the shared renderer', () => {
   assert.match(pageContent, /const numberedTreatment = NUMBERED_TREATMENT_BY_PAGE_ID\[page\.id\]/);
-  assert.match(pageContent, /<NumberedContentTreatment/);
-  assert.match(pageContent, /treatment=\{numberedTreatment\}/);
+  assert.match(genericContent, /<NumberedContentTreatment/);
+  assert.match(genericContent, /treatment=\{numberedTreatment\}/);
 });
 
 test('review document records the approved counts and activity boundary', () => {
