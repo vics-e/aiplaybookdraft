@@ -10,7 +10,7 @@ interface CoverPageProps {
 
 export function CoverPage({ goToPage }: CoverPageProps) {
   return (
-    <div className="relative flex h-full flex-col overflow-hidden bg-black">
+    <div className="playbook-cover relative flex h-full flex-col overflow-hidden bg-black">
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <img src={coverBackground} alt="" className="absolute h-full w-full object-cover" />
       </div>

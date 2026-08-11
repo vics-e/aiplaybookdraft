@@ -62,7 +62,7 @@
  * choice before styles load, preventing a light/dark flash during hydration. */
 :root[data-theme='light'] {
   color-scheme: light;
-  --color-accent: #007F2D;
+  --color-accent: #008A21;
   --color-page-background: #FAFAFA;
   --color-text-primary: #000000;
   --color-text-muted: #5E5E5E;
@@ -72,7 +72,7 @@
   --color-light-background: #FFFFFF;
   --color-light-background-soft: #F7F9F6;
   --color-light-text-primary: #000000;
-  --color-light-green: #007F2D;
+  --color-light-green: #008A21;
   --color-light-link: #006716;
   --shadow: 0 24px 70px rgba(27, 27, 27, .12);
   --background: var(--color-page-background);
@@ -371,6 +371,7 @@
 
   :root[data-theme='light'] .playbook-sidebar { background: color-mix(in srgb, var(--color-surface-1) 96%, transparent) !important; }
   :root[data-theme='light'] .playbook-sidebar-backdrop { background: rgb(18 32 25 / 42%) !important; }
+  :root[data-theme='light'] .playbook-sidebar [class*='text-white'] { color: var(--color-text-primary) !important; }
   :root[data-theme='light'] .text-white\/90 { color: var(--color-text-primary) !important; }
   :root[data-theme='light'] main [class*='text-white'] { color: var(--color-text-primary) !important; }
   :root[data-theme='light'] .text-white\/60,
@@ -381,10 +382,32 @@
   :root[data-theme='light'] .bg-white\/20 { background-color: rgb(18 32 25 / 12%) !important; }
   :root[data-theme='light'] .border-white\/5,
   :root[data-theme='light'] .border-white\/10 { border-color: var(--color-rule) !important; }
+  :root[data-theme='light'] main [class*='border-white\/'] { border-color: var(--color-rule) !important; }
+  :root[data-theme='light'] main [class*='placeholder-white']::placeholder { color: var(--color-text-muted) !important; opacity: 1; }
+  :root[data-theme='light'] main [class*='bg-white\/'] { background-color: color-mix(in srgb, var(--color-surface-2) 45%, transparent) !important; }
   :root[data-theme='light'] .hover\:bg-white\/5:hover { background-color: rgb(18 32 25 / 5%) !important; }
   :root[data-theme='light'] .hover\:bg-white\/10:hover { background-color: rgb(18 32 25 / 10%) !important; }
   :root[data-theme='light'] .hover\:border-white\/20:hover { border-color: var(--color-text-muted) !important; }
-  :root[data-theme='light'] .text-black { color: #FFFFFF !important; }
+  :root[data-theme='light'] .accent-bg.text-black { color: #FFFFFF !important; }
+
+  /* Older content treatments use literal dark utilities. In Orbit light they
+   * become semantic light surfaces so inherited light-theme text stays legible. */
+  :root[data-theme='light'] main [class~='bg-black']:not(.playbook-cover),
+  :root[data-theme='light'] main [class*='bg-black\/'],
+  :root[data-theme='light'] main [class*='bg-[#03'],
+  :root[data-theme='light'] main [class*='bg-[#05'],
+  :root[data-theme='light'] main [class*='bg-[#07'],
+  :root[data-theme='light'] main [class*='bg-[#08'],
+  :root[data-theme='light'] main [class*='bg-[#0E'],
+  :root[data-theme='light'] main [class*='bg-[#0F'],
+  :root[data-theme='light'] main [class*='bg-[#10'],
+  :root[data-theme='light'] main [class*='bg-[#11'],
+  :root[data-theme='light'] main [class*='bg-[#13'],
+  :root[data-theme='light'] main [class*='bg-[#1A'] { background-color: var(--color-surface-1) !important; }
+  :root[data-theme='light'] main [class*='text-[#00DC51]'] { color: var(--color-light-green) !important; }
+
+  /* The cover artwork is an intentional dark composition in both modes. */
+  :root[data-theme='light'] .playbook-cover [class*='text-white'] { color: #FFFFFF !important; }
 
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { scroll-behavior: auto !important; transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
