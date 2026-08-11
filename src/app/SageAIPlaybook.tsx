@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { ChevronLeft, ChevronRight, Home, BookOpen, Shield, Bot, MessageSquare, DollarSign, Calendar, FileText, CheckCircle, Lightbulb, Target, Zap } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Home, BookOpen, Shield, Bot, MessageSquare, DollarSign, Calendar, FileText, CheckCircle, Lightbulb, Target, Zap, Moon, Sun } from 'lucide-react';
 import { playbook } from './data/playbookData';
 import { PageContent } from './components/PageContent';
 import { ProgressBar } from './components/ProgressBar';
@@ -8,6 +8,7 @@ import { SECTION_OPENERS, SectionOpener, type SectionOpenerId } from './componen
 import sageLogo from '../assets/85dce1db2c171f8d15f5e966d3ca5f37099a8078.png';
 
 const PLAYBOOK_STORAGE_KEY = 'sage-ai-playbook-progress';
+const THEME_STORAGE_KEY = 'sage-ai-playbook-theme';
 const DESKTOP_NAVIGATION_QUERY = '(min-width: 1024px)';
 const SECTION_OPENER_NAVIGATION = (Object.keys(SECTION_OPENERS) as SectionOpenerId[]).map(openerId => {
   const startPageIndex = playbook.findIndex(page => page.id === SECTION_OPENERS[openerId].startPageId);
@@ -34,6 +35,13 @@ interface PersistedPlaybookState {
 
 function canUseLocalStorage() {
   return typeof window !== 'undefined' && typeof window.localStorage !== 'undefined';
+}
+
+type PlaybookTheme = 'dark' | 'light';
+
+function getInitialTheme(): PlaybookTheme {
+  if (typeof document === 'undefined') return 'dark';
+  return document.documentElement.dataset.theme === 'light' ? 'light' : 'dark';
 }
 
 function getInitialDesktopState() {
@@ -110,6 +118,7 @@ export default function SageAIPlaybook() {
   const [visitedPages, setVisitedPages] = useState<Set<number>>(persistedState.visitedPages);
   const [expandedSections, setExpandedSections] = useState<Set<string>>(new Set(['Introduction']));
   const [activeSectionOpener, setActiveSectionOpener] = useState<SectionOpenerId | null>(null);
+  const [theme, setTheme] = useState<PlaybookTheme>(getInitialTheme);
 
   const totalPages = playbook.length;
 
@@ -131,6 +140,15 @@ export default function SageAIPlaybook() {
       // Ignore storage write failures so the app keeps working normally.
     }
   }, [currentPage, userInputs, visitedPages]);
+
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme;
+    try {
+      window.localStorage.setItem(THEME_STORAGE_KEY, theme);
+    } catch {
+      // Theme preference is optional; a private or restricted browser still gets the default.
+    }
+  }, [theme]);
 
   useEffect(() => {
     const desktopQuery = window.matchMedia(DESKTOP_NAVIGATION_QUERY);
@@ -545,6 +563,19 @@ export default function SageAIPlaybook() {
         className={`playbook-sidebar-toggle fixed top-6 z-[60] min-h-11 min-w-11 accent-bg text-black p-2.5 rounded-r-xl shadow-lg transition-all accent-hover ${sidebarOpen ? 'sidebar-is-open' : ''}`}
       >
         {sidebarOpen ? <ChevronLeft size={20} strokeWidth={2.5} /> : <ChevronRight size={20} strokeWidth={2.5} />}
+      </button>
+
+      <button
+        type="button"
+        className="orbit-theme-toggle fixed right-4 top-4 z-[70]"
+        onClick={() => setTheme(currentTheme => currentTheme === 'dark' ? 'light' : 'dark')}
+        aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+        aria-pressed={theme === 'light'}
+        title={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+      >
+        <span className="orbit-theme-toggle__tooltip" role="tooltip">{theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}</span>
+        <Sun className="orbit-theme-toggle__sun" size={20} strokeWidth={1.8} aria-hidden="true" />
+        <Moon className="orbit-theme-toggle__moon" size={20} strokeWidth={1.8} aria-hidden="true" />
       </button>
 
       {/* Main Content Area */}
