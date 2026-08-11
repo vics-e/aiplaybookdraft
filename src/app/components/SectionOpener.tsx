@@ -202,7 +202,7 @@ export function SectionOpener({ openerId }: SectionOpenerProps) {
 
   return (
     <div className="section-opener" data-section-opener={openerId}>
-      <section className="overflow-hidden rounded-[24px] border border-[var(--color-rule)] bg-[#0D0D0D] max-[700px]:rounded-[19px]" aria-labelledby={`${openerId}-opener-title`}>
+      <section className="overflow-hidden rounded-[24px] border border-[var(--color-rule)] bg-[var(--color-surface-1)] max-[700px]:rounded-[19px]" aria-labelledby={`${openerId}-opener-title`}>
         <div className="grid min-h-[520px] min-[1101px]:grid-cols-[minmax(0,1.08fr)_minmax(300px,.92fr)]">
           <div className="flex flex-col justify-center bg-[var(--color-page-background)] px-[clamp(2.25rem,5vw,3.875rem)] py-[clamp(2.25rem,5vw,3.875rem)] max-[700px]:px-[25px] max-[700px]:py-[42px]">
             <p className="mb-[22px] text-[0.77rem] font-black uppercase tracking-[0.13em] text-[var(--color-accent)]">
@@ -222,7 +222,7 @@ export function SectionOpener({ openerId }: SectionOpenerProps) {
             </p>
           </div>
 
-          <div className="grid min-h-[370px] place-items-center overflow-hidden border-t border-[var(--color-rule)] bg-[#0D0D0D] min-[1101px]:min-h-[440px] min-[1101px]:border-l min-[1101px]:border-t-0">
+          <div className="grid min-h-[370px] place-items-center overflow-hidden border-t border-[var(--color-rule)] bg-[var(--color-surface-1)] min-[1101px]:min-h-[440px] min-[1101px]:border-l min-[1101px]:border-t-0">
             <video
               key={videoSource}
               ref={videoRef}
@@ -240,7 +240,7 @@ export function SectionOpener({ openerId }: SectionOpenerProps) {
         </div>
       </section>
 
-      <section className="mt-4 rounded-[20px] border border-[var(--color-rule)] bg-[#0D0D0D] p-[22px]" aria-labelledby={`${openerId}-learning-title`}>
+      <section className="mt-4 rounded-[20px] border border-[var(--color-rule)] bg-[var(--color-surface-1)] p-[22px]" aria-labelledby={`${openerId}-learning-title`}>
         <h2
           id={`${openerId}-learning-title`}
           className="mb-[15px] text-[1.3rem] font-black text-[var(--color-text-primary)]"

@@ -32,6 +32,26 @@ test('essential page navigation controls have names and touch targets', () => {
   assert.match(theme, /:where\(button, a, input, textarea, select, summary, \[tabindex\]\):focus-visible/);
 });
 
+test('Orbit theme toggle persists an accessible dark or light preference without flash', () => {
+  const index = readFileSync(new URL('../index.html', import.meta.url), 'utf8');
+  assert.match(appShell, /const THEME_STORAGE_KEY = 'sage-ai-playbook-theme'/);
+  assert.match(appShell, /aria-label=\{theme === 'dark' \? 'Switch to light mode' : 'Switch to dark mode'\}/);
+  assert.match(appShell, /aria-pressed=\{theme === 'light'\}/);
+  assert.match(appShell, /orbit-theme-toggle__tooltip/);
+  assert.match(index, /localStorage\.getItem\('sage-ai-playbook-theme'\)/);
+  assert.match(index, /document\.documentElement\.dataset\.theme = theme === 'light' \? 'light' : 'dark'/);
+  assert.match(theme, /:root\[data-theme='light'\]/);
+  assert.match(theme, /--color-accent: #008A21/);
+  assert.match(theme, /\.playbook-sidebar \[class\*='text-white'\]/);
+  assert.match(theme, /\.playbook-cover \[class\*='text-white'\]/);
+  assert.match(theme, /main \[class\*='bg-black\\\/'\]/);
+  assert.match(theme, /main \[class\*='border-white\\\/'\]/);
+  assert.match(theme, /main \[class\*='placeholder-white'\]::placeholder/);
+  assert.match(theme, /\.accent-bg\.text-black \{ color: #FFFFFF/);
+  assert.doesNotMatch(theme, /data-theme='light'\] \.text-black \{/);
+  assert.match(theme, /prefers-reduced-motion: reduce/);
+});
+
 test('contents opens in its final layout without a nested loading-like scrollbar', () => {
   assert.match(pageContent, /if \(page\.type === 'contents'\)/);
   assert.match(pageShells, /grid max-w-6xl grid-cols-1 gap-4 sm:grid-cols-2/);
