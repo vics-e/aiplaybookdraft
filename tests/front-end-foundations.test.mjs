@@ -49,6 +49,10 @@ test('Orbit theme toggle persists an accessible dark or light preference without
   assert.match(theme, /main \[class\*='placeholder-white'\]::placeholder/);
   assert.match(theme, /\.accent-bg\.text-black \{ color: #FFFFFF/);
   assert.doesNotMatch(theme, /data-theme='light'\] \.text-black \{/);
+  assert.match(theme, /\.orbit-theme-toggle \{[\s\S]*position: fixed !important/);
+  assert.match(theme, /top: max\(1rem, env\(safe-area-inset-top, 0px\)\)/);
+  assert.match(theme, /right: max\(1rem, env\(safe-area-inset-right, 0px\)\)/);
+  assert.match(theme, /-webkit-transform: translate3d\(0, 0, 0\)/);
   assert.match(theme, /prefers-reduced-motion: reduce/);
 });
 

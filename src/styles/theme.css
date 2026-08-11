@@ -316,6 +316,13 @@
 
   /* Orbit is the approved compact theme control. */
   .orbit-theme-toggle {
+    /* Keep the control attached to the visual viewport on mobile Safari.
+     * The composited layer prevents the fixed element from repainting as part
+     * of the scrolling document when Safari collapses its browser chrome. */
+    position: fixed !important;
+    top: max(1rem, env(safe-area-inset-top, 0px));
+    right: max(1rem, env(safe-area-inset-right, 0px));
+    z-index: 70;
     display: inline-flex;
     min-width: 48px;
     min-height: 48px;
@@ -328,6 +335,11 @@
     outline: none;
     background: var(--color-surface-1);
     box-shadow: inset 0 0 0 5px color-mix(in srgb, var(--color-surface-2) 70%, transparent), var(--shadow);
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    will-change: transform;
   }
 
   .orbit-theme-toggle::after {
