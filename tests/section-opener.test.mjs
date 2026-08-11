@@ -5,6 +5,7 @@ import test from 'node:test';
 const appShell = readFileSync(new URL('../src/app/SageAIPlaybook.tsx', import.meta.url), 'utf8');
 const sectionOpener = readFileSync(new URL('../src/app/components/SectionOpener.tsx', import.meta.url), 'utf8');
 const pageContent = readFileSync(new URL('../src/app/components/PageContent.tsx', import.meta.url), 'utf8');
+const pageShells = readFileSync(new URL('../src/app/components/content/PageShells.tsx', import.meta.url), 'utf8');
 
 test('all eight section and conclusion openers are unnumbered entrances to their existing first lessons', () => {
   for (const sectionNumber of [1, 2, 3, 4, 5, 6, 7]) {
@@ -24,7 +25,8 @@ test('all eight section and conclusion openers are unnumbered entrances to their
   assert.match(appShell, /sectionName === 'Introduction'/);
   assert.match(appShell, /setExpandedSections\(prev => new Set\(prev\)\.add\(sectionName\)\)[\s\S]*goToPage\(0\)/);
   assert.match(appShell, /sectionName === 'Introduction' && page\.type === 'cover'/);
-  assert.match(pageContent, /<motion\.button[\s\S]*onClick=\{\(\) => goToPage\(section\.startPageIndex\)\}/);
+  assert.match(pageContent, /<ContentsPage page=\{page\} goToPage=\{goToPage\}/);
+  assert.match(pageShells, /<motion\.button[\s\S]*onClick=\{\(\) => goToPage\(section\.startPageIndex\)\}/);
   assert.doesNotMatch(appShell, /Section [1-7] opener/);
   assert.match(appShell, /activeSectionOpener \? 'Start section'/);
   assert.doesNotMatch(appShell, /totalPages\s*\+\s*1/);
