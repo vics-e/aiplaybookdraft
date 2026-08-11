@@ -181,7 +181,7 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
 
       {/* Title */}
       <div className={`${isWorkflowMapPage ? 'max-w-4xl space-y-3' : ''} ${isCertificatePage ? 'certificate-screen-only' : ''}`}>
-        <h2 className="playbook-page-title mb-4" style={{ fontFamily: 'var(--font-family-header)' }}>
+        <h2 tabIndex={-1} className="playbook-page-title mb-4" style={{ fontFamily: 'var(--font-family-header)' }}>
           {renderTitle(page.title)}
         </h2>
 

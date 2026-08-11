@@ -244,7 +244,7 @@ export function ToolMatrixExperience({ page, userInput, onInputChange }: ToolMat
               className="mt-4 flex items-center gap-2 text-xs font-bold text-[#00DC51]"
             >
               <CheckCircle size={16} strokeWidth={2.5} />
-              <span>Tool usage matrix saved locally</span>
+              <span role="status" aria-live="polite" aria-atomic="true">Tool usage matrix saved locally</span>
             </motion.div>
           )}
         </motion.div>

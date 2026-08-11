@@ -210,6 +210,7 @@ export function SectionOpener({ openerId }: SectionOpenerProps) {
             </p>
             <h1
               id={`${openerId}-opener-title`}
+              tabIndex={-1}
               className="m-0 text-balance text-[clamp(2.25rem,4.5vw,3.75rem)] font-black leading-none tracking-[-0.03em] text-[var(--color-text-primary)]"
               style={{ fontFamily: 'var(--font-family-header)' }}
             >

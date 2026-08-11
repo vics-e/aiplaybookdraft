@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import { useEffect, useRef, useState } from 'react';
+import { motion, AnimatePresence, MotionConfig } from 'motion/react';
 import { ChevronLeft, ChevronRight, Home, BookOpen, Shield, Bot, MessageSquare, DollarSign, Calendar, FileText, CheckCircle, Lightbulb, Target, Zap, Moon, Sun } from 'lucide-react';
 import { playbook } from './data/playbookData';
 import { PageContent } from './components/PageContent';
@@ -119,6 +119,8 @@ export default function SageAIPlaybook() {
   const [expandedSections, setExpandedSections] = useState<Set<string>>(new Set(['Introduction']));
   const [activeSectionOpener, setActiveSectionOpener] = useState<SectionOpenerId | null>(null);
   const [theme, setTheme] = useState<PlaybookTheme>(getInitialTheme);
+  const contentRegionRef = useRef<HTMLDivElement>(null);
+  const shouldFocusContentRef = useRef(false);
 
   const totalPages = playbook.length;
 
@@ -165,6 +167,20 @@ export default function SageAIPlaybook() {
   }, []);
 
   useEffect(() => {
+    if (!shouldFocusContentRef.current) {
+      return;
+    }
+
+    const focusTimer = window.setTimeout(() => {
+      shouldFocusContentRef.current = false;
+      const heading = contentRegionRef.current?.querySelector<HTMLElement>('h1, h2');
+      heading?.focus();
+    }, 450);
+
+    return () => window.clearTimeout(focusTimer);
+  }, [activeSectionOpener, currentPage]);
+
+  useEffect(() => {
     if (!sidebarOpen || isDesktop) {
       return;
     }
@@ -187,6 +203,7 @@ export default function SageAIPlaybook() {
 
   const goToPage = (page: number) => {
     if (page >= 0 && page < totalPages) {
+      shouldFocusContentRef.current = true;
       setActiveSectionOpener(null);
       setCurrentPage(page);
       setVisitedPages(prev => {
@@ -207,6 +224,7 @@ export default function SageAIPlaybook() {
       return;
     }
 
+    shouldFocusContentRef.current = true;
     setCurrentPage(opener.startPageIndex);
     setActiveSectionOpener(opener.openerId);
     setExpandedSections(prev => new Set(prev).add(opener.sectionName!));
@@ -368,6 +386,7 @@ export default function SageAIPlaybook() {
   };
 
   return (
+    <MotionConfig reducedMotion="user">
     <div className="playbook-app-shell min-h-screen overflow-x-hidden bg-[var(--color-page-background)] text-[var(--color-text-primary)] flex" style={{ fontFamily: 'var(--font-family-body)' }}>
       {sidebarOpen && !isDesktop && (
         <button
@@ -580,7 +599,7 @@ export default function SageAIPlaybook() {
 
       {/* Main Content Area */}
       <main className={`playbook-main min-w-0 flex-1 transition-all duration-300 ${sidebarOpen ? 'sidebar-is-open' : ''}`}>
-        <div className="playbook-main-inner max-w-5xl mx-auto px-4 py-6 sm:px-6 sm:py-8 lg:px-12 lg:py-12">
+        <div ref={contentRegionRef} className="playbook-main-inner max-w-5xl mx-auto px-4 py-6 sm:px-6 sm:py-8 lg:px-12 lg:py-12">
           <AnimatePresence mode="wait">
             <motion.div
               key={activeSectionOpener || currentPage}
@@ -666,5 +685,6 @@ export default function SageAIPlaybook() {
         </div>
       </main>
     </div>
+    </MotionConfig>
   );
 }

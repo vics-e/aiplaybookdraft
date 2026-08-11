@@ -47,7 +47,7 @@ function SavedStatus({ visible, label = 'Answers saved locally' }: { visible: bo
   if (!visible) return null;
 
   return (
-    <div className="flex items-center gap-2 text-xs font-bold text-[#00DC51]" role="status">
+    <div className="flex items-center gap-2 text-xs font-bold text-[#00DC51]" role="status" aria-live="polite" aria-atomic="true">
       <CheckCircle size={16} strokeWidth={2.5} aria-hidden="true" />
       <span>{label}</span>
     </div>
