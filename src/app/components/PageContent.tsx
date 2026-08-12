@@ -64,10 +64,25 @@ const SECTION_IMAGE_BY_PAGE_ID: Record<string, string> = {
   's7-policy': acceptableUsePolicyImage,
 };
 
+// These editorial photos set the tone for their sections but do not contain
+// information needed to complete or understand the lesson. Keeping them out
+// of the accessibility tree avoids repeating the page title for every image.
+const DECORATIVE_PAGE_IMAGE_IDS = new Set([
+  's1-intro',
+  's1-role',
+  's2-ethics-responsibility',
+  's3-where-assistants',
+  's4-framework',
+  's5-dividend',
+  's6-days1-30',
+  's7-policy',
+]);
+
 const CERTIFICATE_NAME_PLACEHOLDER = '[Name / Practice Name]';
 
 export function PageContent({ page, userInput, onInputChange, goToPage, pageInputs, onUpdatePageInput }: PageContentProps) {
   const sectionImageSrc = SECTION_IMAGE_BY_PAGE_ID[page.id];
+  const isDecorativePageImage = DECORATIVE_PAGE_IMAGE_IDS.has(page.id);
   const numberedTreatment = NUMBERED_TREATMENT_BY_PAGE_ID[page.id];
   const usesSectionImageTreatment = Boolean(sectionImageSrc);
   const isCertificatePage = page.id === 'certificate';
@@ -202,7 +217,7 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
         >
           <ImageWithFallback
             src={sectionImageSrc ?? page.image}
-            alt={page.title}
+            alt={isDecorativePageImage ? '' : page.title}
             className={
               usesSectionImageTreatment ? 'w-full h-full object-cover object-center' :
               'w-full h-56 object-cover'
