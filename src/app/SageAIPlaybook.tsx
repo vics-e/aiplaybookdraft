@@ -5,9 +5,24 @@ import { playbook } from './data/playbookData';
 import { PageContent } from './components/PageContent';
 import { ProgressBar } from './components/ProgressBar';
 import { SECTION_OPENERS, SectionOpener, type SectionOpenerId } from './components/SectionOpener';
+import {
+  getSectionOpenerByName as findSectionOpenerByName,
+  getSectionOpenerByStartPage as findSectionOpenerByStartPage,
+  isValidPage,
+  resolveContentsDestination,
+  resolveNextExperience,
+  resolvePreviousExperience,
+} from './models/playbookNavigationModel';
+import {
+  addVisitedPage,
+  getSectionVisitProgress,
+  getVisitedPageProgress,
+  loadPlaybookState,
+  savePlaybookState,
+  type PlaybookStorage,
+} from './models/playbookStateModel';
 import sageLogo from '../assets/85dce1db2c171f8d15f5e966d3ca5f37099a8078.png';
 
-const PLAYBOOK_STORAGE_KEY = 'sage-ai-playbook-progress';
 const THEME_STORAGE_KEY = 'sage-ai-playbook-theme';
 const DESKTOP_NAVIGATION_QUERY = '(min-width: 1024px)';
 const SECTION_OPENER_NAVIGATION = (Object.keys(SECTION_OPENERS) as SectionOpenerId[]).map(openerId => {
@@ -20,21 +35,23 @@ const SECTION_OPENER_NAVIGATION = (Object.keys(SECTION_OPENERS) as SectionOpener
 });
 
 function getSectionOpenerByStartPage(page: number) {
-  return SECTION_OPENER_NAVIGATION.find(entry => entry.startPageIndex === page);
+  return findSectionOpenerByStartPage(SECTION_OPENER_NAVIGATION, page);
 }
 
 function getSectionOpenerByName(sectionName: string) {
-  return SECTION_OPENER_NAVIGATION.find(entry => entry.sectionName === sectionName);
+  return findSectionOpenerByName(SECTION_OPENER_NAVIGATION, sectionName);
 }
 
-interface PersistedPlaybookState {
-  currentPage?: unknown;
-  userInputs?: unknown;
-  visitedPages?: unknown;
-}
+function getBrowserPlaybookStorage(): PlaybookStorage | null {
+  if (typeof window === 'undefined') {
+    return null;
+  }
 
-function canUseLocalStorage() {
-  return typeof window !== 'undefined' && typeof window.localStorage !== 'undefined';
+  try {
+    return window.localStorage;
+  } catch {
+    return null;
+  }
 }
 
 type PlaybookTheme = 'dark' | 'light';
@@ -48,65 +65,8 @@ function getInitialDesktopState() {
   return typeof window === 'undefined' || window.matchMedia(DESKTOP_NAVIGATION_QUERY).matches;
 }
 
-function getValidatedCurrentPage(value: unknown, totalPages: number) {
-  return typeof value === 'number' && Number.isInteger(value) && value >= 0 && value < totalPages
-    ? value
-    : 0;
-}
-
-function getValidatedUserInputs(value: unknown): Record<string, string> {
-  if (!value || typeof value !== 'object' || Array.isArray(value)) {
-    return {};
-  }
-
-  return Object.entries(value as Record<string, unknown>).reduce<Record<string, string>>((acc, [key, entryValue]) => {
-    if (typeof entryValue === 'string') {
-      acc[key] = entryValue;
-    }
-    return acc;
-  }, {});
-}
-
-function getValidatedVisitedPages(value: unknown, totalPages: number, currentPage: number) {
-  const defaultPages = new Set<number>([0, currentPage]);
-
-  if (!Array.isArray(value)) {
-    return defaultPages;
-  }
-
-  const validPages = value.filter(
-    (page): page is number => typeof page === 'number' && Number.isInteger(page) && page >= 0 && page < totalPages
-  );
-
-  return new Set<number>([...validPages, 0, currentPage]);
-}
-
 function getInitialPlaybookState(totalPages: number) {
-  const defaults = {
-    currentPage: 0,
-    userInputs: {} as Record<string, string>,
-    visitedPages: new Set<number>([0])
-  };
-
-  if (!canUseLocalStorage()) {
-    return defaults;
-  }
-
-  try {
-    const storedValue = window.localStorage.getItem(PLAYBOOK_STORAGE_KEY);
-    if (!storedValue) {
-      return defaults;
-    }
-
-    const parsed = JSON.parse(storedValue) as PersistedPlaybookState;
-    const currentPage = getValidatedCurrentPage(parsed.currentPage, totalPages);
-    const userInputs = getValidatedUserInputs(parsed.userInputs);
-    const visitedPages = getValidatedVisitedPages(parsed.visitedPages, totalPages, currentPage);
-
-    return { currentPage, userInputs, visitedPages };
-  } catch {
-    return defaults;
-  }
+  return loadPlaybookState(getBrowserPlaybookStorage(), totalPages);
 }
 
 export default function SageAIPlaybook() {
@@ -125,22 +85,7 @@ export default function SageAIPlaybook() {
   const totalPages = playbook.length;
 
   useEffect(() => {
-    if (!canUseLocalStorage()) {
-      return;
-    }
-
-    try {
-      window.localStorage.setItem(
-        PLAYBOOK_STORAGE_KEY,
-        JSON.stringify({
-          currentPage,
-          userInputs,
-          visitedPages: Array.from(visitedPages)
-        })
-      );
-    } catch {
-      // Ignore storage write failures so the app keeps working normally.
-    }
+    savePlaybookState(getBrowserPlaybookStorage(), { currentPage, userInputs, visitedPages });
   }, [currentPage, userInputs, visitedPages]);
 
   useEffect(() => {
@@ -202,15 +147,11 @@ export default function SageAIPlaybook() {
   }, [isDesktop, sidebarOpen]);
 
   const goToPage = (page: number) => {
-    if (page >= 0 && page < totalPages) {
+    if (isValidPage(page, totalPages)) {
       shouldFocusContentRef.current = true;
       setActiveSectionOpener(null);
       setCurrentPage(page);
-      setVisitedPages(prev => {
-        const newSet = new Set(prev);
-        newSet.add(page);
-        return newSet;
-      });
+      setVisitedPages(prev => addVisitedPage(prev, page));
       if (!isDesktop) {
         setSidebarOpen(false);
       }
@@ -235,49 +176,42 @@ export default function SageAIPlaybook() {
   };
 
   const goToNextExperience = () => {
-    if (activeSectionOpener) {
-      const opener = SECTION_OPENER_NAVIGATION.find(entry => entry.openerId === activeSectionOpener);
-      if (opener) {
-        goToPage(opener.startPageIndex);
-      }
-      return;
-    }
-
     const nextOpener = getSectionOpenerByStartPage(currentPage + 1);
-    if (nextOpener) {
-      openSectionOpener(nextOpener.openerId);
+    const destination = resolveNextExperience(currentPage, activeSectionOpener, totalPages, SECTION_OPENER_NAVIGATION);
+    if (destination.kind === 'opener' && nextOpener) {
+      openSectionOpener(destination.openerId);
       return;
     }
 
-    goToPage(currentPage + 1);
+    if (destination.kind === 'page') {
+      goToPage(destination.page);
+    }
   };
 
   const goToPreviousExperience = () => {
-    if (activeSectionOpener) {
-      const opener = SECTION_OPENER_NAVIGATION.find(entry => entry.openerId === activeSectionOpener);
-      if (opener) {
-        goToPage(opener.startPageIndex - 1);
-      }
-      return;
-    }
-
     const currentOpener = getSectionOpenerByStartPage(currentPage);
-    if (currentOpener) {
-      openSectionOpener(currentOpener.openerId);
+    const destination = resolvePreviousExperience(currentPage, activeSectionOpener, totalPages, SECTION_OPENER_NAVIGATION);
+    if (destination.kind === 'opener' && currentOpener) {
+      openSectionOpener(destination.openerId);
       return;
     }
 
-    goToPage(currentPage - 1);
+    if (destination.kind === 'page') {
+      goToPage(destination.page);
+    }
   };
 
   const goToPageFromContent = (page: number) => {
     const opener = getSectionOpenerByStartPage(page);
-    if (opener) {
-      openSectionOpener(opener.openerId);
+    const destination = resolveContentsDestination(page, totalPages, SECTION_OPENER_NAVIGATION);
+    if (destination.kind === 'opener' && opener) {
+      openSectionOpener(destination.openerId);
       return;
     }
 
-    goToPage(page);
+    if (destination.kind === 'page') {
+      goToPage(destination.page);
+    }
   };
 
   const toggleSection = (sectionName: string) => {
@@ -376,13 +310,13 @@ export default function SageAIPlaybook() {
 
   const groupedPages = groupPagesBySection();
   const currentSection = getCurrentSection();
+  const visitedPageProgress = getVisitedPageProgress(visitedPages, totalPages);
 
   // Calculate section completion
   const getSectionCompletion = (sectionName: string) => {
     const section = groupedPages[sectionName];
     if (!section) return 0;
-    const visitedInSection = section.pages.filter(p => visitedPages.has(p.index)).length;
-    return (visitedInSection / section.pages.length) * 100;
+    return getSectionVisitProgress(section.pages.map(page => page.index), visitedPages);
   };
 
   return (
@@ -556,13 +490,13 @@ export default function SageAIPlaybook() {
             <div className="flex items-center justify-between mb-2">
               <span className="text-xs font-bold text-white/50">OVERALL PROGRESS</span>
               <span className="text-xs font-black accent-text">
-                {Math.round((visitedPages.size / totalPages) * 100)}%
+                {Math.round(visitedPageProgress)}%
               </span>
             </div>
             <div className="w-full bg-white/10 rounded-full h-2 overflow-hidden">
               <div 
                 className="h-full accent-bg transition-all duration-300 shadow-[0_0_10px_rgba(0,214,57,0.5)]"
-                style={{ width: `${(visitedPages.size / totalPages) * 100}%` }}
+                style={{ width: `${visitedPageProgress}%` }}
               />
             </div>
             <div className="text-center mt-2 text-xs font-semibold text-white/60">

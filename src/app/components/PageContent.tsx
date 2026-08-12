@@ -23,6 +23,7 @@ import { ImageWithFallback } from './media/ImageWithFallback';
 import { ActivitySummary } from './ActivitySummary';
 import { TAKEAWAY_BAND_PAGE_IDS } from './content/ContentPanels';
 import { buildCertificatePrintMarkup } from './certificate/certificateMarkup';
+import { openCertificatePrintDocument } from './certificate/certificatePrintController';
 import { parseStructuredInputs } from './content/promptLibraryModel';
 import { ContentsPage, CoverPage } from './content/PageShells';
 import { GlossaryExperience } from './content/GlossaryExperience';
@@ -142,12 +143,7 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
       return;
     }
 
-    const printWindow = window.open('', '_blank', 'width=1280,height=900');
-    if (!printWindow) {
-      return;
-    }
-
-    const printDocument = buildCertificatePrintMarkup({
+    openCertificatePrintDocument(window, () => buildCertificatePrintMarkup({
       title: certificateTitleBlock?.title || 'The AI Playbook for Accountants & Bookkeepers',
       subtitle: certificateTitleBlock?.text || 'Certificate of Completion',
       displayName: certificateDisplayName,
@@ -155,19 +151,7 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
       poweredByTitle: poweredBySageBlock?.title || 'Powered by Sage',
       poweredByText: poweredBySageBlock?.text || '',
       completionDate: certificateCompletionDate,
-    });
-
-    printWindow.document.open();
-    printWindow.document.write(printDocument);
-    printWindow.document.close();
-
-    printWindow.addEventListener('afterprint', () => printWindow.close(), { once: true });
-    window.setTimeout(() => {
-      if (!printWindow.closed) {
-        printWindow.focus();
-        printWindow.print();
-      }
-    }, 150);
+    }));
   };
 
   if (page.type === 'cover') {

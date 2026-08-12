@@ -104,10 +104,11 @@ export function parseToolMatrixState(userInput: string, fallbackRows: ToolMatrix
   try {
     const parsed = JSON.parse(userInput) as Record<string, unknown>;
     const rows = sanitiseToolMatrixRows(parsed.rows, fallbackRows);
+    const savedActiveRowId = typeof parsed.activeRowId === 'string' ? parsed.activeRowId : '';
     return {
       rows,
-      activeRowId: typeof parsed.activeRowId === 'string' && parsed.activeRowId
-        ? parsed.activeRowId
+      activeRowId: savedActiveRowId && rows.some((row) => row.id === savedActiveRowId)
+        ? savedActiveRowId
         : rows[0]?.id || '',
     };
   } catch {

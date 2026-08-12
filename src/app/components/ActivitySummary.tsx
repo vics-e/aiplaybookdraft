@@ -2,28 +2,20 @@ import { motion } from 'motion/react';
 import { Download, ClipboardList, CheckCircle, Calendar, Edit3, Save, X } from 'lucide-react';
 import { useState } from 'react';
 import { playbook } from '../data/playbookData';
+import {
+  buildActivitySummaryEdit,
+  calculateActivitySummaryCompletion,
+  collectActivitySummaryActivities,
+  hasMeaningfulValue,
+  isInternalSummaryKey,
+  isPlainObject,
+  tryParseResponse,
+  type ActivitySummaryActivity,
+} from './activitySummaryModel';
 
 interface ActivitySummaryProps {
   pageInputs: Record<string, string>;
   onInputChange?: (pageId: string, value: string) => void;
-}
-
-interface ActivitySummaryActivity {
-  id: string;
-  section: string;
-  title: string;
-  prompt: string;
-  type: string;
-  listCount?: number;
-  placeholderPrefix?: string;
-  questions?: string[];
-  specFields?: { label: string; placeholder: string; helper?: string }[];
-  checkboxTasks?: { label: string; criteria: string[] }[];
-  dropdownOptions?: string[];
-  gapSentence?: string;
-  taskCount?: number;
-  response: string;
-  activityNumber: number;
 }
 
 interface QuestionBlock {
@@ -32,46 +24,12 @@ interface QuestionBlock {
   items: string[];
 }
 
-const INTERNAL_SUMMARY_KEYS = new Set([
-  'id',
-  'searchQuery',
-  'expandedPromptIds',
-  'activityCompleted',
-  'currentStep',
-  'reviewMode',
-  'scoringIndex',
-  'activeRowId',
-  'draftName',
-  'mode',
-  'selectedTerm',
-  'currentFlashcardIndex',
-  'learnedTerms',
-  'flippedTerms',
-]);
-
 const ITEM_KEY_PATTERN = /^item-(\d+)$/;
 const QUESTION_KEY_PATTERN = /^question-(\d+)$/;
 const QUESTION_ITEM_KEY_PATTERN = /^question-(\d+)-item-(\d+)$/;
 const FIELD_KEY_PATTERN = /^field-(\d+)$/;
 const GAP_KEY_PATTERN = /^gap-(\d+)$/;
 const TASK_KEY_PATTERN = /^task-(\d+)$/;
-
-function tryParseResponse(response: string): unknown {
-  const trimmed = response.trim();
-  if (!trimmed) {
-    return '';
-  }
-
-  try {
-    return JSON.parse(trimmed);
-  } catch {
-    return response;
-  }
-}
-
-function isPlainObject(value: unknown): value is Record<string, unknown> {
-  return typeof value === 'object' && value !== null && !Array.isArray(value);
-}
 
 function normaliseText(value: string) {
   return value.replace(/\r\n/g, '\n').trim();
@@ -158,41 +116,6 @@ function sortKeysByTrailingNumber(keys: string[]) {
 
     return Number(leftMatch[1]) - Number(rightMatch[1]);
   });
-}
-
-function hasMeaningfulValue(value: unknown): boolean {
-  if (value === null || value === undefined) {
-    return false;
-  }
-
-  if (typeof value === 'string') {
-    const trimmed = normaliseText(value);
-    return trimmed !== '' && trimmed !== '{}' && trimmed !== '[]' && trimmed !== 'null';
-  }
-
-  if (typeof value === 'number') {
-    return Number.isFinite(value);
-  }
-
-  if (typeof value === 'boolean') {
-    return value;
-  }
-
-  if (Array.isArray(value)) {
-    return value.some((item) => hasMeaningfulValue(item));
-  }
-
-  if (isPlainObject(value)) {
-    return Object.entries(value).some(([key, entryValue]) => {
-      if (INTERNAL_SUMMARY_KEYS.has(key)) {
-        return false;
-      }
-
-      return hasMeaningfulValue(entryValue);
-    });
-  }
-
-  return false;
 }
 
 function getWorkflowCategory(repeatability: unknown, judgement: unknown) {
@@ -397,7 +320,7 @@ function getFieldEntries(record: Record<string, unknown>, activity: ActivitySumm
 
 function getRemainingEntries(record: Record<string, unknown>, consumedKeys: Set<string>) {
   return Object.entries(record).filter(([key, value]) => {
-    if (consumedKeys.has(key) || INTERNAL_SUMMARY_KEYS.has(key)) {
+    if (consumedKeys.has(key) || isInternalSummaryKey(key)) {
       return false;
     }
 
@@ -844,29 +767,8 @@ export function ActivitySummary({ pageInputs, onInputChange }: ActivitySummaryPr
   const [editValue, setEditValue] = useState<string>('');
   const [editListValues, setEditListValues] = useState<Record<string, string>>({});
 
-  const activitiesWithResponses: ActivitySummaryActivity[] = playbook
-    .filter((page) => page.activity)
-    .map((page, index) => ({
-      id: page.id,
-      section: page.section || 'Introduction',
-      title: page.activity!.title,
-      prompt: page.activity!.prompt,
-      type: page.activity!.type || 'text',
-      listCount: page.activity!.listCount,
-      placeholderPrefix: page.activity!.placeholderPrefix,
-      questions: page.activity!.questions,
-      specFields: page.activity!.specFields,
-      checkboxTasks: page.activity!.checkboxTasks,
-      dropdownOptions: page.activity!.dropdownOptions,
-      gapSentence: page.activity!.gapSentence,
-      taskCount: page.activity!.taskCount,
-      response: pageInputs[page.id] || '',
-      activityNumber: index + 1,
-    }));
-
-  const completedCount = activitiesWithResponses.filter((activity) => hasMeaningfulValue(tryParseResponse(activity.response))).length;
-  const totalCount = activitiesWithResponses.length;
-  const completionPercentage = Math.round((completedCount / totalCount) * 100);
+  const activitiesWithResponses = collectActivitySummaryActivities(playbook, pageInputs);
+  const { completedCount, totalCount, completionPercentage } = calculateActivitySummaryCompletion(activitiesWithResponses);
 
   const handleEditStart = (activity: ActivitySummaryActivity) => {
     setEditingId(activity.id);
@@ -893,11 +795,8 @@ export function ActivitySummary({ pageInputs, onInputChange }: ActivitySummaryPr
       return;
     }
 
-    if (activity.type === 'numbered-list' || activity.type === 'list' || activity.type === 'multi-question') {
-      onInputChange(activity.id, JSON.stringify(editListValues));
-    } else {
-      onInputChange(activity.id, editValue);
-    }
+    const edit = buildActivitySummaryEdit(activity, editValue, editListValues);
+    onInputChange(edit.pageId, edit.value);
 
     setEditingId(null);
     setEditValue('');
