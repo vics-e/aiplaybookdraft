@@ -182,17 +182,6 @@ export function buildCertificatePrintMarkup({
     </head>
     <body>
       <div class="certificate-sheet">${svg}</div>
-      <script>
-        window.addEventListener('load', () => {
-          window.setTimeout(() => {
-            window.focus();
-            window.print();
-          }, 150);
-        });
-        window.addEventListener('afterprint', () => {
-          window.close();
-        });
-      </script>
     </body>
   </html>`;
 }

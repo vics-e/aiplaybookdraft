@@ -23,6 +23,7 @@ import { ImageWithFallback } from './media/ImageWithFallback';
 import { ActivitySummary } from './ActivitySummary';
 import { TAKEAWAY_BAND_PAGE_IDS } from './content/ContentPanels';
 import { buildCertificatePrintMarkup } from './certificate/certificateMarkup';
+import { openCertificatePrintDocument } from './certificate/certificatePrintController';
 import { parseStructuredInputs } from './content/promptLibraryModel';
 import { ContentsPage, CoverPage } from './content/PageShells';
 import { GlossaryExperience } from './content/GlossaryExperience';
@@ -64,10 +65,25 @@ const SECTION_IMAGE_BY_PAGE_ID: Record<string, string> = {
   's7-policy': acceptableUsePolicyImage,
 };
 
+// These editorial photos set the tone for their sections but do not contain
+// information needed to complete or understand the lesson. Keeping them out
+// of the accessibility tree avoids repeating the page title for every image.
+const DECORATIVE_PAGE_IMAGE_IDS = new Set([
+  's1-intro',
+  's1-role',
+  's2-ethics-responsibility',
+  's3-where-assistants',
+  's4-framework',
+  's5-dividend',
+  's6-days1-30',
+  's7-policy',
+]);
+
 const CERTIFICATE_NAME_PLACEHOLDER = '[Name / Practice Name]';
 
 export function PageContent({ page, userInput, onInputChange, goToPage, pageInputs, onUpdatePageInput }: PageContentProps) {
   const sectionImageSrc = SECTION_IMAGE_BY_PAGE_ID[page.id];
+  const isDecorativePageImage = DECORATIVE_PAGE_IMAGE_IDS.has(page.id);
   const numberedTreatment = NUMBERED_TREATMENT_BY_PAGE_ID[page.id];
   const usesSectionImageTreatment = Boolean(sectionImageSrc);
   const isCertificatePage = page.id === 'certificate';
@@ -127,12 +143,7 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
       return;
     }
 
-    const printWindow = window.open('', '_blank', 'width=1280,height=900');
-    if (!printWindow) {
-      return;
-    }
-
-    const printDocument = buildCertificatePrintMarkup({
+    openCertificatePrintDocument(window, () => buildCertificatePrintMarkup({
       title: certificateTitleBlock?.title || 'The AI Playbook for Accountants & Bookkeepers',
       subtitle: certificateTitleBlock?.text || 'Certificate of Completion',
       displayName: certificateDisplayName,
@@ -140,11 +151,7 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
       poweredByTitle: poweredBySageBlock?.title || 'Powered by Sage',
       poweredByText: poweredBySageBlock?.text || '',
       completionDate: certificateCompletionDate,
-    });
-
-    printWindow.document.open();
-    printWindow.document.write(printDocument);
-    printWindow.document.close();
+    }));
   };
 
   if (page.type === 'cover') {
@@ -181,7 +188,7 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
 
       {/* Title */}
       <div className={`${isWorkflowMapPage ? 'max-w-4xl space-y-3' : ''} ${isCertificatePage ? 'certificate-screen-only' : ''}`}>
-        <h2 className="playbook-page-title mb-4" style={{ fontFamily: 'var(--font-family-header)' }}>
+        <h2 tabIndex={-1} className="playbook-page-title mb-4" style={{ fontFamily: 'var(--font-family-header)' }}>
           {renderTitle(page.title)}
         </h2>
 
@@ -202,7 +209,7 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
         >
           <ImageWithFallback
             src={sectionImageSrc ?? page.image}
-            alt={page.title}
+            alt={isDecorativePageImage ? '' : page.title}
             className={
               usesSectionImageTreatment ? 'w-full h-full object-cover object-center' :
               'w-full h-56 object-cover'

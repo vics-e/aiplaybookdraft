@@ -197,8 +197,12 @@ export function parseWorkflowMapState(userInput: string) {
   try {
     const parsed = JSON.parse(userInput) as Record<string, unknown>;
     const workflows = sanitiseWorkflowEntries(parsed.workflows);
+    const workflowIds = new Set(workflows.map((workflow) => workflow.id));
     const selectedWorkflowIds = Array.isArray(parsed.selectedWorkflowIds)
-      ? parsed.selectedWorkflowIds.filter((value): value is string => typeof value === 'string')
+      ? parsed.selectedWorkflowIds
+          .filter((value): value is string => typeof value === 'string' && workflowIds.has(value))
+          .filter((value, index, values) => values.indexOf(value) === index)
+          .slice(0, 2)
       : [];
 
     return {

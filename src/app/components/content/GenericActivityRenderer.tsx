@@ -112,7 +112,7 @@ export function GenericActivityRenderer({ page, userInput, onInputChange }: Gene
                   className="mt-3 flex items-center gap-2 text-[#00DC51] font-bold text-xs"
                 >
                   <CheckCircle size={16} strokeWidth={2.5} />
-                  <span>Answer saved locally</span>
+                  <span role="status" aria-live="polite" aria-atomic="true">Answer saved locally</span>
                 </motion.div>
               )}
             </>
@@ -276,7 +276,7 @@ export function GenericActivityRenderer({ page, userInput, onInputChange }: Gene
                   className={`mt-3 flex items-center gap-2 text-[#00DC51] font-bold text-xs ${isCertificatePage ? 'certificate-screen-only' : ''}`}
                 >
                   <CheckCircle size={16} strokeWidth={2.5} />
-                  <span>Answers saved locally</span>
+                  <span role="status" aria-live="polite" aria-atomic="true">Answers saved locally</span>
                 </motion.div>
               )}
             </div>
@@ -324,7 +324,7 @@ export function GenericActivityRenderer({ page, userInput, onInputChange }: Gene
                   className="mt-3 flex items-center gap-2 text-[#00DC51] font-bold text-xs"
                 >
                   <CheckCircle size={16} strokeWidth={2.5} />
-                  <span>List saved locally</span>
+                  <span role="status" aria-live="polite" aria-atomic="true">List saved locally</span>
                 </motion.div>
               )}
             </div>
@@ -362,7 +362,7 @@ export function GenericActivityRenderer({ page, userInput, onInputChange }: Gene
                   className="mt-3 flex items-center gap-2 text-[#00DC51] font-bold text-xs"
                 >
                   <CheckCircle size={16} strokeWidth={2.5} />
-                  <span>Selection saved locally</span>
+                  <span role="status" aria-live="polite" aria-atomic="true">Selection saved locally</span>
                 </motion.div>
               )}
             </>
@@ -422,7 +422,7 @@ export function GenericActivityRenderer({ page, userInput, onInputChange }: Gene
                   className="mt-3 flex items-center gap-2 text-[#00DC51] font-bold text-xs"
                 >
                   <CheckCircle size={16} strokeWidth={2.5} />
-                  <span>Answer saved locally</span>
+                  <span role="status" aria-live="polite" aria-atomic="true">Answer saved locally</span>
                 </motion.div>
               )}
             </>
@@ -472,7 +472,7 @@ export function GenericActivityRenderer({ page, userInput, onInputChange }: Gene
                   className="mt-3 flex items-center gap-2 text-[#00DC51] font-bold text-xs"
                 >
                   <CheckCircle size={16} strokeWidth={2.5} />
-                  <span>Answers saved locally</span>
+                  <span role="status" aria-live="polite" aria-atomic="true">Answers saved locally</span>
                 </motion.div>
               )}
             </>
@@ -578,7 +578,7 @@ export function GenericActivityRenderer({ page, userInput, onInputChange }: Gene
                   className="mt-3 flex items-center gap-2 text-[#00DC51] font-bold text-xs"
                 >
                   <CheckCircle size={16} strokeWidth={2.5} />
-                  <span>Tasks saved locally</span>
+                  <span role="status" aria-live="polite" aria-atomic="true">Tasks saved locally</span>
                 </motion.div>
               )}
             </div>
@@ -710,7 +710,7 @@ export function GenericActivityRenderer({ page, userInput, onInputChange }: Gene
                   className="mt-3 flex items-center gap-2 text-[#00DC51] font-bold text-xs"
                 >
                   <CheckCircle size={16} strokeWidth={2.5} />
-                  <span>Tasks saved locally</span>
+                  <span role="status" aria-live="polite" aria-atomic="true">Tasks saved locally</span>
                 </motion.div>
               )}
             </div>
@@ -759,7 +759,7 @@ export function GenericActivityRenderer({ page, userInput, onInputChange }: Gene
                   className="mt-3 flex items-center gap-2 text-[#00DC51] font-bold text-xs"
                 >
                   <CheckCircle size={16} strokeWidth={2.5} />
-                  <span>Spec saved locally</span>
+                  <span role="status" aria-live="polite" aria-atomic="true">Spec saved locally</span>
                 </motion.div>
               )}
             </div>
