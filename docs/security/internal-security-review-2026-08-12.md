@@ -138,6 +138,22 @@ Testing was intentionally limited to low-volume, non-destructive requests and br
 - Unknown or malformed saved-state values fall back to safe defaults. A user can still self-disrupt their own browser by manually placing extremely large data in site storage; browser quotas limit this and there is no cross-user/server impact.
 - URL/route manipulation produced no privilege or data boundary because there is no authenticated or server-side boundary.
 
+### Screenshot evidence
+
+The screenshots below were captured from the authorised production origin using harmless test strings. The test inputs were cleared after capture.
+
+**Textarea injection:** The `<img ... onerror=...>` payload is displayed as ordinary text. Browser inspection found no injected image and no JavaScript dialog.
+
+![Textarea injection displayed as text](./evidence/injection-textarea-production.png)
+
+**Certificate injection:** The `<script>...</script>` payload is visibly rendered as certificate text. Browser inspection found no script containing the payload, no executable event-handler element, and no JavaScript dialog.
+
+![Certificate injection displayed as text](./evidence/injection-certificate-production.png)
+
+**Sensitive-file exposure:** A direct request for the representative `/.env` path returns Vercel's `404 NOT_FOUND` response rather than file contents.
+
+![Sensitive environment file path returns 404](./evidence/sensitive-path-env-404-production.png)
+
 ## Harmless manual checks for Victor
 
 Use fake data only. These checks should not create a popup or execute markup.
