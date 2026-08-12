@@ -10,9 +10,9 @@
 
 ## Executive summary
 
-The reviewed application is a static React/Vite playbook. The repository and deployed surface support the stated architecture: there are no user accounts, authentication flows, database connections, server functions, backend API routes, payment flows, or administrative endpoints. The browser stores playbook answers, visited-page progress, the current page, and the theme preference locally. Vercel Web Analytics is the only observed runtime service.
+The reviewed application is a static React/Vite playbook. The repository and deployed surface support the stated architecture: there are no user accounts, authentication flows, database connections, server functions, backend API routes, payment flows, or administrative endpoints. The browser stores playbook answers, visited-page progress, the current page, and the theme preference locally. Runtime network dependencies are Vercel hosting and Web Analytics plus Google Fonts and CDNFonts for the approved Inter and Sage font files.
 
-No critical or high-severity issues were found. Safe production testing did not identify exploitable reflected or DOM XSS, unsafe rendering of typed answers, sensitive-file exposure, or a hidden backend. Dependency audit reported zero known vulnerabilities. The certificate markup already escaped user-controlled text correctly.
+No critical or high-severity application vulnerability remains in the reviewed release. Safe production testing did not identify exploitable reflected or DOM XSS, unsafe rendering of typed answers, sensitive-file exposure, or a hidden backend. The final release gate surfaced newly reported dependency advisories; React Router, Vite and compatible transitive packages were updated, after which the dependency audit reported zero known vulnerabilities. The certificate markup already escaped user-controlled text correctly.
 
 One medium browser-hardening gap and two low privacy/defence-in-depth gaps were addressed in the worktree:
 
@@ -34,7 +34,8 @@ The header fixes are **pending deployment** and therefore are not yet present on
   - `sage-ai-playbook-progress`: current page, answers, and visited pages;
   - `sage-ai-playbook-theme`: dark/light preference.
 - Vercel static hosting and Vercel Web Analytics.
-- Static, same-origin images, video, fonts, CSS, and JavaScript.
+- Same-origin application JavaScript, CSS, images, and video.
+- Third-party font delivery from Google Fonts (`fonts.googleapis.com` and `fonts.gstatic.com`) and CDNFonts (`fonts.cdnfonts.com`).
 
 ### Not present
 
@@ -57,7 +58,7 @@ This was verified through dependency/configuration review; searches for server, 
 
 **Fix:** Added `vercel.json` headers for all paths:
 
-- CSP with same-origin scripts/connections/resources, `object-src 'none'`, `base-uri 'none'`, `frame-src 'none'`, and `frame-ancestors 'none'`;
+- CSP with same-origin scripts, connections, images and media; an explicit allow-list for the existing Google Fonts and CDNFonts sources; `object-src 'none'`, `base-uri 'none'`, `frame-src 'none'`, and `frame-ancestors 'none'`;
 - `X-Frame-Options: DENY`;
 - `X-Content-Type-Options: nosniff`;
 - `Referrer-Policy: strict-origin-when-cross-origin`;
@@ -106,9 +107,9 @@ The CSP retains `style-src 'unsafe-inline'` because the approved UI currently us
 
 **Status:** No known vulnerable package; improvements noted
 
-**Evidence:** `npm audit --json` reported 0 vulnerabilities across 165 dependency records. Every resolved lockfile package uses `registry.npmjs.org` and has integrity metadata. No repository install/build hook exists. The lockfile flags expected install scripts for Tailwind Oxide, esbuild, and optional fsevents. The repository has no dependency-update automation or CI security workflow.
+**Evidence:** The final `npm audit --json` reported 0 vulnerabilities across 165 dependency records after updating React Router to `7.18.2`, Vite to `6.4.3`, and applying compatible transitive fixes. Every resolved lockfile package uses `registry.npmjs.org` and has integrity metadata. No repository install/build hook exists. The lockfile flags expected install scripts for Tailwind Oxide, esbuild, and optional fsevents. The repository has no dependency-update automation or CI security workflow.
 
-**Fix:** Pinned `@vercel/analytics` from `^2.0.1` to exact `2.0.1`; all other direct dependencies were already exact. Installation for this review used `npm ci --ignore-scripts` and the production build still completed successfully.
+**Fix:** Pinned `@vercel/analytics` from `^2.0.1` to exact `2.0.1`; updated React Router and Vite to patched compatible releases; aligned the pnpm Vite override; and refreshed compatible transitive dependencies. Installation for the original review used `npm ci --ignore-scripts`, and the final updated tree passed the production build and audit.
 
 **Recommendation:** Keep lockfile review mandatory, use `npm ci` in CI, add Dependabot/Renovate on an approved schedule, and re-run audit/build/tests before releases. Registry signature verification was attempted with `npm audit signatures` but did not complete within 60 seconds; this remains a limitation, not a successful control.
 
@@ -120,9 +121,10 @@ The CSP retains `style-src 'unsafe-inline'` because the approved UI currently us
 | Page/progress state | Browser `localStorage` only | Indefinite unless cleared/evicted | Validated on load for page ranges and string answer values |
 | Theme preference | Browser `localStorage` only | Indefinite unless cleared/evicted | Restricted to light/dark before use |
 | Page-view analytics | Vercel Web Analytics | Per Vercel account/configuration; visitor session hash discarded after 24 hours per Vercel | Query strings/fragments now redacted; no custom answer events |
-| Static assets | Vercel/same origin | Normal CDN/browser caching | No third-party image, font, video, or API host found |
+| Application assets | Vercel/same origin | Normal CDN/browser caching | JavaScript, CSS, images and video remain same-origin |
+| Web fonts | Google Fonts and CDNFonts | Provider/browser caching policies | Browser requests disclose ordinary network and request metadata to these providers; no playbook answers are included |
 
-The production browser loaded the app bundle and `/_vercel/insights/script.js` from the authorised origin. No application account cookie or form submission endpoint exists. The root response includes `Access-Control-Allow-Origin: *`; for public, non-sensitive static HTML/assets with no credentialed API this is not an exploitable data-access issue.
+The production browser loaded the app bundle and `/_vercel/insights/script.js` from the authorised origin. Source review also identified the declared Google Fonts stylesheet and Google/CDNFonts font-file requests recorded above. No application account cookie or form submission endpoint exists. The root response includes `Access-Control-Allow-Origin: *`; for public, non-sensitive static HTML/assets with no credentialed API this is not an exploitable data-access issue.
 
 ## Safe production testing performed
 
@@ -212,8 +214,8 @@ interactive browser DOM/input/URL checks against the authorised production origi
 
 Results:
 
-- Tests: **36 passed, 0 failed**.
-- Production build: **passed**, 2,061 modules transformed.
+- Tests: **60 passed, 0 failed**.
+- Production build: **passed**, 2,066 modules transformed.
 - Dependency audit: **0 known vulnerabilities**.
 - Secret pattern review: **no credential/private-key pattern found** in the current tree or 41 reachable commits.
 - Build warning: main JavaScript chunk is approximately 795 kB minified; this is a performance/maintainability observation, not a security finding.
@@ -222,6 +224,7 @@ Results:
 
 - This is an internal review, **not an independent accredited penetration test**, certification, assurance opinion, or guarantee that the application is vulnerability-free.
 - The review had no Vercel dashboard access, so project members, environment variables, deployment protection, log access, Analytics retention settings, DNS/custom-domain settings, and organisation controls were not inspected.
+- The application depends on Google Fonts and CDNFonts for remote font delivery. Their availability and privacy handling are external dependencies; self-hosting approved font files would remove those runtime requests.
 - No source repository hosting settings, branch protection, CI runner configuration, or secret-scanning dashboard was available in this worktree.
 - Registry signature verification timed out; package integrity hashes and the vulnerability audit were verified separately.
 - This Windows review environment could not reach its certificate-revocation service (`CRYPT_E_NO_REVOCATION_CHECK`); TLS chain validation succeeded with `curl --ssl-no-revoke`, and browser navigation succeeded normally.

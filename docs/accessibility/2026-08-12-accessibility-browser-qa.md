@@ -51,7 +51,7 @@ If a future photo, screenshot, chart, or diagram adds information not repeated i
 
 ## Verification
 
-- `npm test` — 35 passing tests, including the new accessibility regression tests.
+- `npm test` — 60 passing tests in the final integration branch, including accessibility and wider journey regression coverage.
 - `npm run build` — production build succeeded.
 - The build reports an existing Vite advisory for a JavaScript chunk over 500kB; it is performance-related, not an accessibility failure.
 

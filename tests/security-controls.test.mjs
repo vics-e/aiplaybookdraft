@@ -8,6 +8,7 @@ const index = read('../index.html');
 const themeInit = read('../public/theme-init.js');
 const main = read('../src/main.tsx');
 const pageContent = read('../src/app/components/PageContent.tsx');
+const certificatePrintController = read('../src/app/components/certificate/certificatePrintController.ts');
 
 test('Vercel applies the browser security headers to every response', () => {
   const wildcard = vercelConfig.headers.find((entry) => entry.source === '/(.*)');
@@ -18,6 +19,8 @@ test('Vercel applies the browser security headers to every response', () => {
   assert.match(headers['content-security-policy'], /script-src 'self'/);
   assert.match(headers['content-security-policy'], /frame-ancestors 'none'/);
   assert.match(headers['content-security-policy'], /object-src 'none'/);
+  assert.match(headers['content-security-policy'], /style-src[^;]*https:\/\/fonts\.googleapis\.com/);
+  assert.match(headers['content-security-policy'], /font-src[^;]*https:\/\/fonts\.cdnfonts\.com[^;]*https:\/\/fonts\.gstatic\.com/);
   assert.equal(headers['x-content-type-options'], 'nosniff');
   assert.equal(headers['x-frame-options'], 'DENY');
   assert.equal(headers['referrer-policy'], 'strict-origin-when-cross-origin');
@@ -37,6 +40,7 @@ test('analytics removes query strings and fragments before sending a page view',
 });
 
 test('certificate printing executes from trusted application code, not generated markup', () => {
-  assert.match(pageContent, /printWindow\.addEventListener\('afterprint'/);
-  assert.match(pageContent, /printWindow\.print\(\)/);
+  assert.match(pageContent, /openCertificatePrintDocument\(window, \(\) => buildCertificatePrintMarkup/);
+  assert.match(certificatePrintController, /printWindow\.addEventListener\('afterprint'/);
+  assert.match(certificatePrintController, /printWindow\.print\(\)/);
 });
