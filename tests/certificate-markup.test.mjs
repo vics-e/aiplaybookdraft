@@ -20,21 +20,20 @@ test('certificate markup preserves the print contract', () => {
   assert.match(markup, /@page \{ size: A4 landscape; margin: 10mm; \}/);
   assert.match(markup, /Certificate of Completion/);
   assert.match(markup, /Example Practice/);
-  assert.match(markup, /window\.print\(\)/);
-  assert.match(markup, /afterprint/);
-  assert.match(markup, /window\.close\(\)/);
+  assert.doesNotMatch(markup, /<script\b/i);
 });
 
 test('certificate markup escapes user-controlled text for HTML and SVG', () => {
   const markup = buildCertificatePrintMarkup({
     ...certificateInput,
     subtitle: 'Completion <Approved>',
-    displayName: 'A & B <script>',
+    displayName: 'A & B <script>alert("test")</script>',
   });
 
   assert.match(markup, /<title>Completion &lt;Approved&gt;<\/title>/);
-  assert.match(markup, /A &amp; B &lt;script&gt;/);
-  assert.doesNotMatch(markup, /<script>\s*<\/script>/);
+  assert.match(markup, /A &amp; B/);
+  assert.match(markup, /&lt;script&gt;alert\(&quot;test&quot;\)&lt;\/script&gt;/);
+  assert.doesNotMatch(markup, /<script\b/i);
 });
 
 test('certificate markup wraps long names without dropping the certificate structure', () => {

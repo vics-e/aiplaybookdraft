@@ -160,6 +160,14 @@ export function PageContent({ page, userInput, onInputChange, goToPage, pageInpu
     printWindow.document.open();
     printWindow.document.write(printDocument);
     printWindow.document.close();
+
+    printWindow.addEventListener('afterprint', () => printWindow.close(), { once: true });
+    window.setTimeout(() => {
+      if (!printWindow.closed) {
+        printWindow.focus();
+        printWindow.print();
+      }
+    }, 150);
   };
 
   if (page.type === 'cover') {

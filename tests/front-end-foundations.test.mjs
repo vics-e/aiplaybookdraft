@@ -34,12 +34,14 @@ test('essential page navigation controls have names and touch targets', () => {
 
 test('Orbit theme toggle persists an accessible dark or light preference without flash', () => {
   const index = readFileSync(new URL('../index.html', import.meta.url), 'utf8');
+  const themeInit = readFileSync(new URL('../public/theme-init.js', import.meta.url), 'utf8');
   assert.match(appShell, /const THEME_STORAGE_KEY = 'sage-ai-playbook-theme'/);
   assert.match(appShell, /aria-label=\{theme === 'dark' \? 'Switch to light mode' : 'Switch to dark mode'\}/);
   assert.match(appShell, /aria-pressed=\{theme === 'light'\}/);
   assert.match(appShell, /orbit-theme-toggle__tooltip/);
-  assert.match(index, /localStorage\.getItem\('sage-ai-playbook-theme'\)/);
-  assert.match(index, /document\.documentElement\.dataset\.theme = theme === 'light' \? 'light' : 'dark'/);
+  assert.match(index, /<script src="\/theme-init\.js"><\/script>/);
+  assert.match(themeInit, /localStorage\.getItem\('sage-ai-playbook-theme'\)/);
+  assert.match(themeInit, /document\.documentElement\.dataset\.theme = theme === 'light' \? 'light' : 'dark'/);
   assert.match(theme, /:root\[data-theme='light'\]/);
   assert.match(theme, /--color-accent: #008A21/);
   assert.match(theme, /\.playbook-sidebar \[class\*='text-white'\]/);
