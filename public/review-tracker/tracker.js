@@ -882,13 +882,17 @@ const manualChecks = [
       function renderChecklistSplit() {
         const body = document.getElementById('checklist-split-rows'); if (!body) return;
         body.replaceChildren();
-        [['Manual Testing', manualChecks], ['QA Release Checklist', releaseChecks]].forEach(([label, checks]) => {
+        [['Manual Testing', manualChecks], ['QA Release Checklist', releaseChecks], ['Overall', [...manualChecks, ...releaseChecks]]].forEach(([label, checks]) => {
           const counts = { Passed: 0, Failed: 0, 'Needs Sage or QA': 0, 'Not applicable': 0 };
-          checks.forEach(check => { const status = getAssessment(check.id).status; if (counts[status] !== undefined) counts[status]++; });
+          checks.forEach(check => {
+            const status = getAssessment(check.id).status;
+            if (status === 'Already evidenced') counts.Passed++;
+            else if (counts[status] !== undefined) counts[status]++;
+          });
           const row = document.createElement('tr');
-          addCell(row, label); addCell(row, checks.length); addCell(row, counts.Passed, 'passed'); addCell(row, counts.Failed, 'failed');
+          addCell(row, label); addCell(row, counts.Passed, 'passed'); addCell(row, counts.Failed, 'failed');
           addCell(row, counts['Needs Sage or QA'], 'status-needs-sage'); addCell(row, counts['Not applicable'], 'status-not-applicable');
-          addCell(row, counts.Passed + counts.Failed); body.appendChild(row);
+          addCell(row, checks.length); body.appendChild(row);
         });
       }
       function renderReview() {
@@ -912,17 +916,18 @@ const manualChecks = [
       function updateSummary() {
         const ids = [...manualChecks, ...releaseChecks].map((check) => check.id);
         const values = ids.map((id) => getAssessment(id).status);
-        const cards = document.querySelectorAll('.summary-card strong');
-        cards[0].textContent = String(ids.length);
-        cards[1].textContent = String(values.filter((status) => ['Already evidenced', 'Passed'].includes(status)).length);
-        cards[2].textContent = String(values.filter((status) => status === 'Failed').length);
-        cards[3].textContent = String(values.filter((status) => status === 'Needs Sage or QA').length);
         const completedCount = values.filter((status) => ['Already evidenced', 'Passed'].includes(status)).length;
         const failedCount = values.filter((status) => status === 'Failed').length;
         const checkedCount = completedCount + failedCount;
-        document.getElementById('current-assessment-counts').textContent = `${checkedCount} of ${ids.length} checked · ${completedCount} completed with evidence · ${failedCount} failed · ${values.filter(s => s === 'Needs Sage or QA').length} need Sage or QA · ${values.filter(s => s === 'Not applicable').length} not applicable`;
+        const needsCount = values.filter(s => s === 'Needs Sage or QA').length;
+        const notApplicableCount = values.filter(s => s === 'Not applicable').length;
+        document.getElementById('current-assessment-counts').textContent = `${completedCount} passed · ${failedCount} failed · ${needsCount} need Sage or QA · ${notApplicableCount} not applicable`;
         renderChecklistSplit();
         renderReview();
+        const manualStatuses = manualChecks.map(check => getAssessment(check.id).status);
+        const releaseStatuses = releaseChecks.map(check => getAssessment(check.id).status);
+        document.getElementById('manual-tab-summary').textContent = `· ${manualStatuses.filter(s => ['Passed', 'Already evidenced'].includes(s)).length} passed / ${manualStatuses.filter(s => s === 'Needs Sage or QA').length} need QA`;
+        document.getElementById('release-tab-summary').textContent = `· ${releaseStatuses.filter(s => ['Passed', 'Already evidenced'].includes(s)).length} passed / ${releaseStatuses.filter(s => s === 'Needs Sage or QA').length} need QA`;
         document.getElementById('summary-indicator').textContent = checkedCount
           ? `${checkedCount} of ${ids.length} checked · ${completedCount} completed · ${failedCount} failed`
           : `0 of ${ids.length} checked`;
@@ -1063,8 +1068,16 @@ const manualChecks = [
         });
       });
 
-      document.getElementById('review-search').addEventListener('input', renderReview);
-      document.getElementById('review-status').addEventListener('change', renderReview);
+      document.querySelectorAll('[data-open-tab]').forEach((button) => {
+        button.addEventListener('click', () => {
+          const tab = document.getElementById(button.dataset.openTab);
+          if (!tab) return;
+          selectTab(tab);
+          tab.focus();
+          document.querySelector('.workspace').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+      });
+
       document.getElementById('manual-search').addEventListener('input', renderManualChecks);
       document.getElementById('manual-priority-filter').addEventListener('change', renderManualChecks);
       document.getElementById('manual-status-filter').addEventListener('change', renderManualChecks);
