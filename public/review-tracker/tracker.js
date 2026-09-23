@@ -943,7 +943,7 @@ const manualChecks = [
       function downloadMarkdown() {
         const allStatuses = [...manualChecks, ...releaseChecks].map((check) => getAssessment(check.id).status);
         const lines = [
-          '# AI Playbook Review Tracker',
+          '# AI Playbook QA Review Tracker',
           '',
           `Exported: ${new Date().toLocaleString()}`,
           '',

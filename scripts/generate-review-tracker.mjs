@@ -14,14 +14,13 @@ fs.mkdirSync(outputDir, { recursive: true });
 
 const hostedHtml = sourceHtml
   .replace(scriptMatch[0], '\n    <script src="/review-tracker/tracker.js"></script>\n  </body>')
-  .replaceAll('AI Playbook QA Testing Tracker', 'AI Playbook Review Tracker')
   .replace('<p class="eyebrow">Testing workspace</p>', '<p class="eyebrow">Review workspace</p>')
   .replace('<h1 id="page-title">QA testing overview</h1>', '<h1 id="page-title">Review overview</h1>');
 
 fs.writeFileSync(path.join(outputDir, 'index.html'), hostedHtml);
 fs.writeFileSync(
   path.join(outputDir, 'tracker.js'),
-  scriptMatch[1].trimStart().replaceAll('AI Playbook QA Testing Tracker', 'AI Playbook Review Tracker') + '\n'
+  scriptMatch[1].trimStart() + '\n'
 );
 
 const evidencePaths = new Set();
@@ -40,4 +39,4 @@ for (const relativePath of evidencePaths) {
   fs.copyFileSync(sourcePath, destinationPath);
 }
 
-console.log(`Generated AI Playbook Review Tracker with ${evidencePaths.size} evidence references.`);
+console.log(`Generated AI Playbook QA Review Tracker with ${evidencePaths.size} evidence references.`);
