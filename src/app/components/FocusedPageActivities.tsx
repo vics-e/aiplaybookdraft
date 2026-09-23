@@ -43,7 +43,7 @@ function saveInputs(onInputChange: (value: string) => void, current: SavedInputs
   onInputChange(JSON.stringify({ ...current, ...patch }));
 }
 
-function SavedStatus({ visible, label = 'Answers saved locally' }: { visible: boolean; label?: string }) {
+function SavedStatus({ visible, label = 'Answer updated' }: { visible: boolean; label?: string }) {
   if (!visible) return null;
 
   return (
@@ -157,7 +157,7 @@ export function AgentCandidateActivity({ activity, userInput, onInputChange }: F
           <p className="text-sm font-medium leading-relaxed text-white/60">Name a workflow and complete its four criteria to see the strongest candidate.</p>
         )}
       </div>
-      <SavedStatus visible={namedCandidates.length > 0 || candidates.some((candidate) => candidate.score > 0)} label="Candidate assessment saved locally" />
+      <SavedStatus visible={namedCandidates.length > 0 || candidates.some((candidate) => candidate.score > 0)} label="Candidate assessment updated" />
     </div>
   );
 }
@@ -313,6 +313,7 @@ const PROMPT_PARTS = [
 
 export function PromptFrameworkActivity({ activity, userInput, onInputChange }: FocusedPageActivityProps) {
   const [copied, setCopied] = React.useState(false);
+  const [cleared, setCleared] = React.useState(false);
   const saved = parseInputs(userInput);
   const values = PROMPT_PARTS.map((part) => typeof saved[part.key] === 'string' ? saved[part.key] : '');
   const completed = values.filter((value) => value.trim()).length;
@@ -342,6 +343,7 @@ export function PromptFrameworkActivity({ activity, userInput, onInputChange }: 
                 id={`prompt-framework-${part.label.toLowerCase()}`}
                 value={values[index]}
                 onChange={(event) => {
+                  setCleared(false);
                   const nextValues = [...values];
                   nextValues[index] = event.target.value;
                   const nextPrompt = PROMPT_PARTS.map((item, itemIndex) => nextValues[itemIndex].trim() ? `${item.label}: ${nextValues[itemIndex].trim()}` : '').filter(Boolean).join('\n\n');
@@ -392,6 +394,7 @@ export function PromptFrameworkActivity({ activity, userInput, onInputChange }: 
                   'question-4': '',
                 }));
                 setCopied(false);
+                setCleared(true);
               }}
               className="inline-flex min-h-9 items-center gap-2 rounded-lg border border-white/15 bg-black/25 px-3 py-2 text-xs font-black text-white/70 transition-colors hover:border-[#00DC51]/50 hover:text-[#00DC51] disabled:cursor-not-allowed disabled:opacity-35"
             >
@@ -401,15 +404,25 @@ export function PromptFrameworkActivity({ activity, userInput, onInputChange }: 
           </div>
         </aside>
       </div>
-      <SavedStatus visible={completed > 0 || Boolean(legacyRewrite)} label="Prompt framework saved locally" />
+      <SavedStatus visible={completed > 0 || Boolean(legacyRewrite)} label="Prompt framework updated" />
+      <SavedStatus visible={cleared} label="Prompt cleared" />
     </div>
   );
 }
 
 function parseFirstNumber(value: unknown) {
   if (typeof value !== 'string') return null;
-  const match = value.replace(',', '.').match(/\d+(?:\.\d+)?/);
+  const match = value.trim().replace(',', '.').match(/^[+-]?\d+(?:\.\d+)?$/);
   return match ? Number.parseFloat(match[0]) : null;
+}
+
+function pricingValidationMessage(todayValue: unknown, aiValue: unknown) {
+  const today = parseFirstNumber(todayValue);
+  const withAi = parseFirstNumber(aiValue);
+  if ((today !== null && today < 0) || (withAi !== null && withAi < 0)) return 'Time values cannot be negative.';
+  if (today !== null && today === 0) return 'Time today must be greater than zero.';
+  if (today !== null && withAi !== null && withAi > today) return 'Estimated time with AI cannot exceed time today.';
+  return '';
 }
 
 function reductionFor(todayValue: unknown, aiValue: unknown) {
@@ -439,6 +452,7 @@ export function ImpactPricingActivity({ activity, userInput, onInputChange }: Fo
   const comparable = services.filter((service) => service.name.trim() && service.reduction);
   const strongest = comparable.length ? [...comparable].sort((a, b) => (b.reduction?.percent || 0) - (a.reduction?.percent || 0))[0] : null;
   const activeService = services[activeServiceIndex] || services[0];
+  const pricingError = pricingValidationMessage(activeService.today, activeService.withAi);
 
   const renderFieldLabel = (fieldIndex: number, compact = false) => {
     const field = fields[fieldIndex];
@@ -472,7 +486,7 @@ export function ImpactPricingActivity({ activity, userInput, onInputChange }: Fo
 
   return (
     <div className="space-y-6">
-      <div className="grid grid-cols-3 gap-2" role="tablist" aria-label="Services in the AI impact pricing worksheet">
+      <div className="grid grid-cols-1 gap-2 sm:grid-cols-3" role="tablist" aria-label="Services in the AI impact pricing worksheet">
         {services.map((service) => {
           const completedFields = [0, 1, 2, 3, 4].filter((fieldIndex) => String(saved[`field-${service.offset + fieldIndex}`] || '').trim()).length;
           const selected = service.serviceIndex === activeServiceIndex;
@@ -512,23 +526,25 @@ export function ImpactPricingActivity({ activity, userInput, onInputChange }: Fo
           </label>
 
           <div className="rounded-2xl border border-white/10 bg-white/[0.025] p-4">
-            <div className="grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-end gap-3 sm:gap-5">
+            <div className="grid grid-cols-1 items-end gap-3 sm:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] sm:gap-5">
               {[1, 2].map((fieldWithinService, pairIndex) => {
                 const fieldIndex = activeService.offset + fieldWithinService;
                 const field = fields[fieldIndex];
                 return (
                   <React.Fragment key={fieldIndex}>
-                    {pairIndex === 1 && <div className="mb-3 flex h-9 w-9 items-center justify-center rounded-full bg-[#00DC51]/12 text-[#00DC51]"><ArrowRight size={18} strokeWidth={2.7} aria-hidden="true" /></div>}
+                    {pairIndex === 1 && <div className="flex h-9 w-9 rotate-90 items-center justify-center justify-self-center rounded-full bg-[#00DC51]/12 text-[#00DC51] sm:mb-3 sm:rotate-0"><ArrowRight size={18} strokeWidth={2.7} aria-hidden="true" /></div>}
                     <label htmlFor={`impact-field-${fieldIndex}`} className="min-w-0">
                       {renderFieldLabel(fieldIndex, true)}
-                      <input id={`impact-field-${fieldIndex}`} inputMode="decimal" value={saved[`field-${fieldIndex}`] || ''} onChange={(event) => saveInputs(onInputChange, saved, { [`field-${fieldIndex}`]: event.target.value })} placeholder={field?.placeholder} className={`${fieldClassName} px-3`} />
+                      <input id={`impact-field-${fieldIndex}`} type="number" min="0" step="any" inputMode="decimal" aria-invalid={Boolean(pricingError)} aria-describedby={pricingError ? `impact-field-${activeService.offset}-error` : undefined} value={saved[`field-${fieldIndex}`] || ''} onChange={(event) => saveInputs(onInputChange, saved, { [`field-${fieldIndex}`]: event.target.value })} placeholder={field?.placeholder} className={`${fieldClassName} px-3`} />
                     </label>
                   </React.Fragment>
                 );
               })}
             </div>
             <div className="mt-4 border-t border-white/10 pt-4" aria-live="polite">
-              {activeService.reduction ? (
+              {pricingError ? (
+                <p id={`impact-field-${activeService.offset}-error`} className="text-xs font-bold text-[#FF9B9B]" role="alert">{pricingError}</p>
+              ) : activeService.reduction ? (
                 <div className="flex flex-wrap items-center justify-between gap-3">
                   <span className="flex items-center gap-2 text-xs font-bold text-white/65"><TrendingDown size={15} className="text-[#00DC51]" aria-hidden="true" />Reduction</span>
                   <span className="text-sm font-black text-[#00DC51]">{activeService.reduction.percent}% · {activeService.reduction.hours.toFixed(1)} hours</span>
@@ -572,7 +588,7 @@ export function ImpactPricingActivity({ activity, userInput, onInputChange }: Fo
           <p className="text-sm font-medium leading-relaxed text-white/60">Complete the paired time fields for at least one named service to compare the impact.</p>
         )}
       </section>
-      <SavedStatus visible={Object.keys(saved).some((key) => key.startsWith('field-') && String(saved[key]).trim())} label="Pricing worksheet saved locally" />
+      <SavedStatus visible={Object.keys(saved).some((key) => key.startsWith('field-') && String(saved[key]).trim())} label="Pricing worksheet updated" />
     </div>
   );
 }
@@ -592,7 +608,7 @@ export function ClientMessageActivity({ activity, userInput, onInputChange }: Fo
             <textarea id={`client-message-${index}`} value={answer} onChange={(event) => saveInputs(onInputChange, saved, { [`question-${index}`]: event.target.value })} placeholder="Type your answer here..." className={textareaClassName} />
           </label>
         ))}
-        <SavedStatus visible={answers.some((answer) => answer.trim())} label="Client communication plan saved locally" />
+        <SavedStatus visible={answers.some((answer) => answer.trim())} label="Client communication plan updated" />
       </div>
 
       <aside className="rounded-2xl border-2 border-[#00DC51] bg-[#00DC51]/8 p-5 lg:sticky lg:top-6 lg:self-start" aria-labelledby="client-message-preview-title">

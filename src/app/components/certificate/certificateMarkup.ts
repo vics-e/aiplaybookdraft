@@ -66,7 +66,10 @@ export function buildCertificatePrintMarkup({
   poweredByText: string;
   completionDate: string;
 }) {
-  const nameLines = wrapText(displayName, 28).slice(0, 2);
+  const nameLines = wrapText(displayName, 34);
+  const nameFontSize = nameLines.length > 2 ? 26 : nameLines.length > 1 ? 34 : 40;
+  const nameLineHeight = nameLines.length > 2 ? 31 : 42;
+  const nameFirstY = nameLines.length > 2 ? 278 : 302;
   const statementLines = wrapText(statement, 74).slice(0, 3);
   const poweredLines = wrapText(poweredByText, 60).slice(0, 3);
 
@@ -103,8 +106,8 @@ export function buildCertificatePrintMarkup({
         PRESENTED TO
       </text>
 
-      <text x="561.5" y="302" text-anchor="middle" fill="#FFFFFF" font-size="${nameLines.length > 1 ? 34 : 40}" font-weight="700" font-family="Georgia, 'Times New Roman', serif">
-        ${createTspans(nameLines, 561.5, 302, 42)}
+      <text x="561.5" y="${nameFirstY}" text-anchor="middle" fill="#FFFFFF" font-size="${nameFontSize}" font-weight="700" font-family="Georgia, 'Times New Roman', serif">
+        ${createTspans(nameLines, 561.5, nameFirstY, nameLineHeight)}
       </text>
 
       <line x1="230" y1="350" x2="893" y2="350" stroke="#00DC51" stroke-opacity="0.72" stroke-width="2"/>

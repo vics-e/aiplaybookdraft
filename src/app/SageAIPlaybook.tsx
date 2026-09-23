@@ -79,13 +79,14 @@ export default function SageAIPlaybook() {
   const [expandedSections, setExpandedSections] = useState<Set<string>>(new Set(['Introduction']));
   const [activeSectionOpener, setActiveSectionOpener] = useState<SectionOpenerId | null>(null);
   const [theme, setTheme] = useState<PlaybookTheme>(getInitialTheme);
+  const [persistenceFailed, setPersistenceFailed] = useState(false);
   const contentRegionRef = useRef<HTMLDivElement>(null);
   const shouldFocusContentRef = useRef(false);
 
   const totalPages = playbook.length;
 
   useEffect(() => {
-    savePlaybookState(getBrowserPlaybookStorage(), { currentPage, userInputs, visitedPages });
+    setPersistenceFailed(!savePlaybookState(getBrowserPlaybookStorage(), { currentPage, userInputs, visitedPages }));
   }, [currentPage, userInputs, visitedPages]);
 
   useEffect(() => {
@@ -322,6 +323,11 @@ export default function SageAIPlaybook() {
   return (
     <MotionConfig reducedMotion="user">
     <div className="playbook-app-shell min-h-screen overflow-x-hidden bg-[var(--color-page-background)] text-[var(--color-text-primary)] flex" style={{ fontFamily: 'var(--font-family-body)' }}>
+      {persistenceFailed && (
+        <div className="fixed inset-x-3 top-3 z-[100] rounded-xl border border-red-300/60 bg-[#3A1010] px-4 py-3 text-center text-sm font-bold text-white shadow-2xl" role="alert">
+          Your latest change could not be saved in this browser. Keep this page open and try again after freeing browser storage.
+        </div>
+      )}
       {sidebarOpen && !isDesktop && (
         <button
           type="button"

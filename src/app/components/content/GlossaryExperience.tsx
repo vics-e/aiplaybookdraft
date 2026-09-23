@@ -24,9 +24,8 @@ export function GlossaryExperience({ page, userInput, onInputChange }: GlossaryE
     return !query || term.term.toLowerCase().includes(query) || term.definition.toLowerCase().includes(query);
   });
   const selectedGlossaryTerm = filteredGlossaryTerms.find((term) => term.term === glossaryState.selectedTerm)
-    || glossaryTerms.find((term) => term.term === glossaryState.selectedTerm)
     || filteredGlossaryTerms[0]
-    || glossaryTerms[0];
+    || undefined;
   const glossaryFlashcardIndex = glossaryTerms.length > 0
     ? Math.min(Math.max(glossaryState.currentFlashcardIndex, 0), glossaryTerms.length - 1)
     : 0;
@@ -148,7 +147,7 @@ export function GlossaryExperience({ page, userInput, onInputChange }: GlossaryE
                   />
                 </div>
 
-                <div className="grid gap-4 lg:grid-cols-[280px_minmax(0,1fr)]">
+                <div className="grid min-w-0 gap-4 xl:grid-cols-[280px_minmax(0,1fr)]">
                   <aside className="glossary-term-list grid content-start gap-2 rounded-3xl border border-white/12 bg-[#030604] p-3 lg:max-h-[560px] lg:overflow-auto">
                     {filteredGlossaryTerms.length > 0 ? filteredGlossaryTerms.map((term) => (
                       <button
@@ -176,12 +175,12 @@ export function GlossaryExperience({ page, userInput, onInputChange }: GlossaryE
                     )}
                   </aside>
 
-                  <section className="rounded-3xl border border-white/12 bg-[radial-gradient(circle_at_top_right,_rgba(0,214,57,0.12),_transparent_34%),linear-gradient(145deg,#07140b,#020403)] p-6 md:p-7">
+                  <section className="min-w-0 overflow-hidden rounded-3xl border border-white/12 bg-[radial-gradient(circle_at_top_right,_rgba(0,214,57,0.12),_transparent_34%),linear-gradient(145deg,#07140b,#020403)] p-6 md:p-7">
                     {selectedGlossaryTerm ? (
                       <>
                         <div className="mb-2 text-xs font-black uppercase tracking-[0.18em] text-[#00DC51]">Definition</div>
-                        <h3 className="mb-4 text-3xl font-black tracking-tight text-white md:text-5xl">{selectedGlossaryTerm.term}</h3>
-                        <p className="mb-6 max-w-4xl text-base font-medium leading-relaxed text-white/86 md:text-lg">
+                        <h3 className="mb-4 break-words text-3xl font-black tracking-tight text-white md:text-5xl">{selectedGlossaryTerm.term}</h3>
+                        <p className="mb-6 max-w-4xl break-words text-base font-medium leading-relaxed text-white/86 md:text-lg">
                           {selectedGlossaryTerm.definition}
                         </p>
 

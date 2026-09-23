@@ -431,7 +431,7 @@ export function PromptLibraryExperience({ page, userInput, onInputChange }: Prom
               className="mt-4 flex items-center gap-2 text-xs font-bold text-[#00DC51]"
             >
               <CheckCircle size={16} strokeWidth={2.5} />
-              <span role="status" aria-live="polite" aria-atomic="true">Prompt library activity saved locally</span>
+              <span role="status" aria-live="polite" aria-atomic="true">Prompt library activity updated</span>
             </motion.div>
           )}
         </motion.div>

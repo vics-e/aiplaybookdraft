@@ -1,0 +1,14 @@
+# Manual defect fix verification — 23 September 2026
+
+The updated local build completed successfully and the full automated suite passed (61 tests).
+
+Verified in the local Chromium build:
+
+- Page 43 rejects `-6` and `-3` with “Time values cannot be negative” and does not calculate a positive saving.
+- Page 60 changes both the glossary result and displayed definition to AI Audit Trail after filtering for `audit trail`.
+- Page 63 retains the full 83-character certificate name, including `LASTTOKEN`, and shows the 100-character limit.
+- Page 31 shows “Prompt cleared” after Clear is used.
+- Page 24 keeps “Score each” and Next disabled with only one workflow.
+- The production build contains responsive pricing/glossary changes, local font aliases without the four broken CDN requests, truthful storage-failure feedback and a custom `404.html`.
+
+Deployment-dependent items remain ready for retest rather than passed: production resource requests and console, the custom Vercel 404, exact 320px layout, browser storage quota simulation, and the release-level resolved-fixes gate.

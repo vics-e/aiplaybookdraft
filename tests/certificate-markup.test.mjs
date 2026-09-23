@@ -51,6 +51,14 @@ test('certificate markup wraps long names without dropping the certificate struc
   assert.match(markup, /<tspan x="561\.5" y="344">/);
 });
 
+test('certificate markup preserves every word in a long supported name', () => {
+  const displayName = 'Firstpart Secondpart Thirdpart Fourthpart Fifthpart Sixthpart Seventhpart LASTTOKEN';
+  const markup = buildCertificatePrintMarkup({ ...certificateInput, displayName });
+
+  for (const word of displayName.split(' ')) assert.match(markup, new RegExp(word));
+  assert.match(markup, /LASTTOKEN/);
+});
+
 function createFakePrintHost({ blocked = false } = {}) {
   const calls = [];
   let afterPrint;

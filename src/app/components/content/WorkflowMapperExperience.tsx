@@ -119,10 +119,11 @@ export function WorkflowMapperExperience({ page, userInput, onInputChange }: Wor
                           key={label}
                           type="button"
                           onClick={() => {
-                            if (index === 0 || workflowMapState.workflows.length > 0) {
+                            if (index === 0 || workflowMapState.workflows.length >= 3) {
                               updateWorkflowMapState((current) => ({ ...current, currentStep: index }));
                             }
                           }}
+                          disabled={index > 0 && workflowMapState.workflows.length < 3}
                           className="relative flex flex-col items-center gap-2 pb-4 text-center"
                         >
                           <span className={`flex h-9 w-9 items-center justify-center rounded-[10px] border text-sm font-black transition-colors ${
@@ -972,7 +973,7 @@ export function WorkflowMapperExperience({ page, userInput, onInputChange }: Wor
               className="mt-4 flex items-center gap-2 text-xs font-bold text-[#00DC51]"
             >
               <CheckCircle size={16} strokeWidth={2.5} />
-              <span role="status" aria-live="polite" aria-atomic="true">Workflow map saved locally</span>
+              <span role="status" aria-live="polite" aria-atomic="true">Workflow map updated</span>
             </motion.div>
           )}
         </motion.div>
