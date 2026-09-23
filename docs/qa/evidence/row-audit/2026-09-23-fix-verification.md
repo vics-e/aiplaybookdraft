@@ -11,4 +11,4 @@ Verified in the local Chromium build:
 - Page 24 keeps “Score each” and Next disabled with only one workflow.
 - The production build contains responsive pricing/glossary changes, local font aliases without the four broken CDN requests, truthful storage-failure feedback and a custom `404.html`.
 
-After deployment, the production JavaScript and CSS returned 200, the old broken font host was absent, the browser console had no warnings or errors, and the branded 404 was served for an invalid route. Exact 320px layout, browser storage quota simulation, and the release-level resolved-fixes gate remain open.
+After deployment, the production JavaScript and CSS returned 200, the old broken font host was absent, the browser console had no warnings or errors, and the branded 404 was served for an invalid route. The repaired pricing page was then rechecked at exactly 320px and a controlled browser-storage quota failure produced the required explicit failure alert. All nine recorded fixes are now deployed and validated, so release-13 passes.

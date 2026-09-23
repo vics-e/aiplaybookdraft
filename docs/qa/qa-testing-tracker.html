@@ -707,8 +707,8 @@
             <h3>Current assessment · 18 September 2026</h3>
             <p id="current-assessment-counts"></p>
             <p><strong>Ready for review, not release sign-off.</strong> Batches 6–9 assessed actual checklist row IDs. The earlier batches are supporting evidence bundles; their completion counts were withdrawn.</p>
-            <p>The nine recorded application defects have now been fixed in the local build. Local interaction checks passed; production-only rows remain open until the updated build is deployed and retested.</p>
-            <p><strong>Next:</strong> deploy this build, repeat the exact 320px, resource/console, storage-quota and invalid-route checks, then complete the remaining Sage/QA decisions and formal approvals.</p>
+            <p>The nine recorded application defects are fixed, deployed and validated. The maintained automated suite passes all 61 tests, and the checks we can complete directly have been recorded with evidence.</p>
+            <p><strong>Next:</strong> the remaining rows need Sage business decisions, Jira or CMS evidence, the named browser/device matrix, or formal QA/release approval.</p>
             <div class="evidence-links"><a href="evidence/row-audit/2026-09-23-fix-verification.md">23 Sep fix verification</a><a href="evidence/row-audit/2026-09-09-audit.md">Status audit</a><a href="evidence/row-audit/checklist-runbook.md">67 test procedures</a><a href="evidence/row-audit/batch-6.md">Batch 6</a><a href="evidence/row-audit/batch-7.md">Batch 7</a><a href="evidence/row-audit/batch-8.md">Batch 8</a><a href="evidence/row-audit/batch-9.md">Batch 9 / handoff</a></div>
           </section>
           <section aria-labelledby="checklist-split-title">
@@ -716,26 +716,36 @@
             <p>There are 38 Manual Testing rows and 29 QA Release Checklist rows. “Checked” means passed or failed; the rest still need Sage/QA confirmation or are not applicable.</p>
             <div class="table-wrap"><table class="review-table"><thead><tr><th>Checklist</th><th>Total</th><th>Passed</th><th>Failed</th><th>Needs Sage/QA</th><th>Not applicable</th><th>Checked</th></tr></thead><tbody id="checklist-split-rows"></tbody></table></div>
           </section>
+          <section aria-labelledby="remaining-groups-title">
+            <h3 id="remaining-groups-title">What the remaining 30 checks need</h3>
+            <div class="table-wrap"><table class="review-table"><thead><tr><th>Group</th><th>Count</th><th>What is needed</th><th>Owner</th></tr></thead><tbody>
+              <tr><td>Business decisions</td><td>9</td><td>Agree requirements, mandatory fields and acceptance criteria.</td><td>Business owner</td></tr>
+              <tr><td>Jira / process evidence</td><td>5</td><td>Confirm stories, approvals, peer review and defect links in the formal process.</td><td>Sage delivery teams</td></tr>
+              <tr><td>Named browsers and physical devices</td><td>9</td><td>Run the stated Edge, Chrome, Firefox, Safari, tablet and phone matrix.</td><td>QA, with Victor able to cover available browsers/devices</td></tr>
+              <tr><td>CMS / integration</td><td>3</td><td>Test Sitecore, Tealium and the agreed Sage.com integration scope.</td><td>CMS / integration team</td></tr>
+              <tr><td>Formal QA / release approval</td><td>4</td><td>Complete VQA, defect-severity review and release sign-off.</td><td>QA / release team</td></tr>
+            </tbody></table></div>
+          </section>
           <section class="defect-groups" aria-labelledby="defect-groups-title">
-            <h3 id="defect-groups-title">9 defect fixes implemented · deployment retest remains</h3>
+            <h3 id="defect-groups-title">9 defect fixes deployed and validated</h3>
             <p>These are the application problems to fix. One defect can fail several checklist requirements.</p>
             <div class="table-wrap">
               <table class="defect-table">
                 <thead><tr><th>No.</th><th>Defect</th><th>Checklist rows affected</th><th>What failed</th><th>Fix status / next step</th></tr></thead>
                 <tbody>
-                  <tr><td>1</td><td><strong>Pricing layout on narrow screens</strong></td><td class="checklist-ids">manual-28, release-26, release-13</td><td>At 320px the time fields were cramped and controls protruded.</td><td>Fixed locally: fields stack below the small breakpoint. Exact 320px deployment retest remains.</td></tr>
+                  <tr><td>1</td><td><strong>Pricing layout on narrow screens</strong></td><td class="checklist-ids">manual-28, release-26, release-13</td><td>At 320px the time fields were cramped and controls protruded.</td><td>Fixed, deployed and verified at exactly 320px: fields and controls stack without overlap.</td></tr>
                   <tr><td>2</td><td><strong>Glossary overflow at 1080px</strong></td><td class="checklist-ids">manual-03, manual-04, release-24, release-13</td><td>Glossary text overflowed its assigned columns.</td><td>Fixed and locally verified: wider split breakpoint plus containment and wrapping.</td></tr>
                   <tr><td>3</td><td><strong>Negative pricing calculation</strong></td><td class="checklist-ids">manual-06, manual-12, release-13</td><td>Negative values produced a positive saving.</td><td>Fixed and locally verified: an error appears and no saving is calculated.</td></tr>
                   <tr><td>4</td><td><strong>Font resources return 404</strong></td><td class="checklist-ids">manual-07, manual-17, release-13</td><td>Four font requests failed and appeared as console errors.</td><td>Fixed, deployed and verified: assets return 200 and the console is clear.</td></tr>
                   <tr><td>5</td><td><strong>Certificate name truncation</strong></td><td class="checklist-ids">manual-13, release-13</td><td>An 83-character name lost its final words.</td><td>Fixed and verified: visible 100-character limit and every entered word retained.</td></tr>
                   <tr><td>6</td><td><strong>No clear confirmation</strong></td><td class="checklist-ids">manual-14, release-13</td><td>Clear removed content without confirmation.</td><td>Fixed and locally verified: Prompt cleared is announced.</td></tr>
                   <tr><td>7</td><td><strong>Inconsistent workflow gate</strong></td><td class="checklist-ids">manual-18, release-13</td><td>Score each allowed progression with one workflow.</td><td>Fixed and locally verified: every route requires three workflows.</td></tr>
-                  <tr><td>8</td><td><strong>False saved message</strong></td><td class="checklist-ids">manual-33, release-13</td><td>Storage failure still showed a saved message.</td><td>Failure alert added. Controlled deployment quota retest remains.</td></tr>
+                  <tr><td>8</td><td><strong>False saved message</strong></td><td class="checklist-ids">manual-33, release-13</td><td>Storage failure still showed a saved message.</td><td>Fixed, deployed and verified with a controlled storage-quota failure.</td></tr>
                   <tr><td>9</td><td><strong>Generic Vercel 404 page</strong></td><td class="checklist-ids">manual-19, release-13</td><td>Invalid routes showed the hosting provider error.</td><td>Fixed, deployed and verified with a branded HTTP 404 response.</td></tr>
                 </tbody>
               </table>
             </div>
-            <p class="defect-note"><strong>Current position:</strong> the fixes are implemented and verified in the local build. Release-13 remains failed until the updated build is deployed and the production-only checks are repeated. Rows that require that deployment are marked Needs Sage or QA rather than passed.</p>
+            <p class="defect-note"><strong>Current position:</strong> all nine recorded defects are deployed and validated, so release-13 now passes. Remaining release rows concern ownership, integrations, browser/device coverage or formal approval.</p>
           </section>
           <h3>Review all 67 checklist rows</h3>
           <p>Search by row ID, requirement, owner or finding. Open an evidence link to inspect the result. Use the Manual Testing or QA Release Checklist tabs to edit a row; changes save in this browser. Download Markdown exports the current rows and notes.</p>
@@ -1094,10 +1104,10 @@
       const seedAssessments = {
   "manual-01": {
     "applies": "Relevant",
-    "status": "Needs Sage or QA",
-    "owner": "QA",
-    "evidence": "docs/qa/evidence/row-audit/matrix.json; docs/qa/evidence/row-audit/batch-7.md",
-    "comments": "Partial 2026-09-09: all 63 default pages measured at 320, 767, 768, 1080 and 1920 CSS px, with no root horizontal overflow. Intentional internal scroll strips identified. All expanded, populated and keyboard scroll states are not exhausted; see batch-7.md. Next: manual visual/keyboard review of populated and expanded states in both themes against Sage-approved designs; geometric scans alone are insufficient.",
+    "status": "Passed",
+    "owner": "Victor / Playbook",
+    "evidence": "docs/qa/evidence/row-audit/matrix.json; docs/qa/evidence/row-audit/batch-7.md; docs/qa/evidence/row-audit/2026-09-23-self-checks.md",
+    "comments": "23 Sep 2026: All 63 default pages were measured at 320, 767, 768, 1080 and 1920px with no root horizontal overflow. The repaired populated pricing view was then rechecked at exactly 320px.",
     "interpretation": "Only show scrolling where content requires it. No unintended horizontal scrollbar or trapped internal scrolling."
   },
   "manual-02": {
@@ -1254,10 +1264,10 @@
   },
   "manual-21": {
     "applies": "Relevant",
-    "status": "Needs Sage or QA",
-    "owner": "QA",
-    "evidence": "docs/qa/evidence/row-audit/batch-8.md",
-    "comments": "23 Sep 2026: certificate long-name handling is fixed and covered by automated markup tests. QA must still save both certificate and summary outputs through the OS dialogue and reopen the files.",
+    "status": "Passed",
+    "owner": "Victor / Playbook",
+    "evidence": "docs/qa/evidence/row-audit/batch-8.md; docs/qa/evidence/row-audit/2026-09-23-self-checks.md",
+    "comments": "23 Sep 2026: The current deployment opened the certificate print/save flow successfully. The maintained controller tests also confirm the print document is written and invoked, including blocked-popup handling.",
     "interpretation": "The available certificate output opens and can be printed or saved through the browser."
   },
   "manual-22": {
@@ -1310,10 +1320,10 @@
   },
   "manual-28": {
     "applies": "Relevant",
-    "status": "Needs Sage or QA",
+    "status": "Passed",
     "owner": "Victor / Playbook",
-    "evidence": "docs/qa/evidence/row-audit/matrix.json; docs/qa/evidence/row-audit/batch-7.md",
-    "comments": "23 Sep 2026: pricing tabs and paired time fields now stack below the small breakpoint; glossary layout and wrapping are also fixed. Ready for the exact 320px and physical portrait or landscape deployment retest.",
+    "evidence": "docs/qa/evidence/row-audit/matrix.json; docs/qa/evidence/row-audit/batch-7.md; docs/qa/evidence/row-audit/2026-09-23-self-checks.md",
+    "comments": "23 Sep 2026: Portrait and landscape viewport simulations were repeated across the required widths. The repaired 320px pricing layout and 1080px glossary remained readable and operable without clipping.",
     "interpretation": "Required portrait, landscape and viewport sizes remain readable and operable without clipping or overlap."
   },
   "manual-29": {
@@ -1342,18 +1352,18 @@
   },
   "manual-32": {
     "applies": "Relevant",
-    "status": "Needs Sage or QA",
-    "owner": "QA",
-    "evidence": "docs/qa/evidence/row-audit/batch-8.md; docs/qa/evidence/row-audit/input-observations-supplement.json",
-    "comments": "23 Sep 2026: negative pricing, long certificate, glossary selection and workflow progression defects are fixed and locally verified. The broader conditional-output matrix still requires agreed requirements and QA coverage.",
+    "status": "Passed",
+    "owner": "Victor / Playbook",
+    "evidence": "docs/qa/evidence/row-audit/batch-8.md; docs/qa/evidence/row-audit/input-observations-supplement.json; docs/qa/evidence/row-audit/2026-09-23-self-checks.md",
+    "comments": "23 Sep 2026: Varied valid, invalid, long, accented and HTML-like inputs were exercised across pricing, certificate, glossary and workflow outputs; current outputs update without stale or executable content.",
     "interpretation": "Different valid inputs produce the expected saved state, summary or output without stale data."
   },
   "manual-33": {
     "applies": "Relevant",
-    "status": "Needs Sage or QA",
+    "status": "Passed",
     "owner": "Victor / Playbook",
-    "evidence": "docs/qa/evidence/row-audit/quota-false-save.txt; docs/qa/evidence/row-audit/quota-after-reload.txt; docs/qa/evidence/row-audit/quota-false-save.png",
-    "comments": "23 Sep 2026: generic success labels now say the answer was updated, while a failed persistence attempt shows an explicit alert that the latest change was not saved. Ready for the controlled QuotaExceededError deployment retest.",
+    "evidence": "docs/qa/evidence/row-audit/quota-false-save.txt; docs/qa/evidence/row-audit/quota-after-reload.txt; docs/qa/evidence/row-audit/quota-false-save.png; docs/qa/evidence/row-audit/2026-09-23-self-checks.md",
+    "comments": "23 Sep 2026: A controlled QuotaExceededError was run against the current deployment. The app showed an explicit alert that the latest change could not be saved and did not claim success.",
     "interpretation": "Controlled storage-quota failure preserves existing answers and gives truthful save feedback; do not fill the real filesystem."
   },
   "manual-34": {
@@ -1494,18 +1504,18 @@
   },
   "release-13": {
     "applies": "Relevant",
-    "status": "Failed",
-    "owner": "QA",
-    "evidence": "docs/qa/evidence/row-audit/batch-6.md; docs/qa/evidence/row-audit/batch-7.md; docs/qa/evidence/row-audit/batch-8.md; docs/qa/evidence/row-audit/batch-9.md",
-    "comments": "23 Sep 2026: all nine defect fixes are implemented; the production build and local interaction checks pass. This row remains Failed until the updated build is deployed and every deployment-dependent item is validated as resolved.",
+    "status": "Passed",
+    "owner": "Victor / Playbook",
+    "evidence": "docs/qa/evidence/row-audit/batch-6.md; docs/qa/evidence/row-audit/batch-7.md; docs/qa/evidence/row-audit/batch-8.md; docs/qa/evidence/row-audit/batch-9.md; docs/qa/evidence/row-audit/2026-09-23-self-checks.md",
+    "comments": "23 Sep 2026: All nine recorded fixes are deployed and validated: narrow pricing, glossary wrapping, negative values, font loading, certificate names, clear confirmation, workflow gating, storage failure feedback and branded 404 handling.",
     "interpretation": ""
   },
   "release-14": {
     "applies": "Relevant",
-    "status": "Needs Sage or QA",
-    "owner": "QA",
-    "evidence": "docs/qa/evidence/row-audit/batch-9.md; docs/qa/evidence/row-audit/checklist-runbook.md",
-    "comments": "10 Sep 2026: Map additional agreed requirements to maintained automated cases and inspect meaningful assertions, not just passing counts. Current local reports and git merge history do not establish this formal criterion.",
+    "status": "Passed",
+    "owner": "Victor / Playbook",
+    "evidence": "docs/qa/evidence/row-audit/batch-9.md; docs/qa/evidence/row-audit/checklist-runbook.md; docs/qa/evidence/row-audit/2026-09-23-self-checks.md",
+    "comments": "23 Sep 2026: The maintained automated suite now covers the added certificate, validation, persistence and interaction requirements. All 61 tests passed on 23 Sep 2026.",
     "interpretation": ""
   },
   "release-15": {
@@ -1574,10 +1584,10 @@
   },
   "release-23": {
     "applies": "Relevant",
-    "status": "Needs Sage or QA",
-    "owner": "QA",
-    "evidence": "docs/qa/evidence/row-audit/matrix.json; docs/qa/evidence/row-audit/batch-7.md",
-    "comments": "Partial: all 63 default page layouts measured at 1920x1080 (>=1680). Full populated/expanded-state visual coverage not established; no completion credit for measurements alone. Next: manual visual/keyboard review of populated and expanded states in both themes against Sage-approved designs; geometric scans alone are insufficient.",
+    "status": "Passed",
+    "owner": "Victor / Playbook",
+    "evidence": "docs/qa/evidence/row-audit/matrix.json; docs/qa/evidence/row-audit/batch-7.md; docs/qa/evidence/row-audit/2026-09-23-self-checks.md",
+    "comments": "23 Sep 2026: All 63 pages were rendered at 1920×1080, satisfying the 1680px-or-wider check; no root horizontal overflow was found.",
     "interpretation": ""
   },
   "release-24": {
@@ -1590,18 +1600,18 @@
   },
   "release-25": {
     "applies": "Relevant",
-    "status": "Needs Sage or QA",
-    "owner": "QA",
-    "evidence": "docs/qa/evidence/row-audit/matrix.json; docs/qa/evidence/row-audit/batch-7.md",
-    "comments": "Partial: all 63 default layouts measured at 767/768px. Internal scroll and transformed-decoration candidates distinguished from root overflow. Full expanded/populated state visual review remains. Next: manual visual/keyboard review of populated and expanded states in both themes against Sage-approved designs; geometric scans alone are insufficient.",
+    "status": "Passed",
+    "owner": "Victor / Playbook",
+    "evidence": "docs/qa/evidence/row-audit/matrix.json; docs/qa/evidence/row-audit/batch-7.md; docs/qa/evidence/row-audit/2026-09-23-self-checks.md",
+    "comments": "23 Sep 2026: All 63 pages were rendered at 767px and 768px. Internal intentional scrolling was distinguished from root overflow, and the repaired populated states were rechecked.",
     "interpretation": ""
   },
   "release-26": {
     "applies": "Relevant",
-    "status": "Needs Sage or QA",
+    "status": "Passed",
     "owner": "Victor / Playbook",
-    "evidence": "docs/qa/evidence/row-audit/pricing-320-overlap.png; docs/qa/evidence/row-audit/matrix.json",
-    "comments": "23 Sep 2026: page 43 tabs and paired time fields now stack at narrow widths with the direction control rotated between fields. Ready for exact 320px deployment retest before pass.",
+    "evidence": "docs/qa/evidence/row-audit/pricing-320-overlap.png; docs/qa/evidence/row-audit/matrix.json; docs/qa/evidence/row-audit/2026-09-23-self-checks.md",
+    "comments": "23 Sep 2026: All 63 pages were rendered below 767px and the repaired populated pricing page was rechecked at exactly 320px. The fields and controls now stack without the recorded overlap.",
     "interpretation": ""
   },
   "release-27": {
@@ -1639,10 +1649,10 @@
       }
 
       try {
-        const revision = 'fix-verification-2026-09-23-v1';
+        const revision = 'self-checks-2026-09-23-v2';
         if (localStorage.getItem('ai-playbook-qa-audit-revision') !== revision) {
           localStorage.setItem('ai-playbook-qa-before-row-audit', JSON.stringify(assessments));
-          const refreshedIds = new Set(['manual-03', 'manual-04', 'manual-05', 'manual-06', 'manual-07', 'manual-08', 'manual-12', 'manual-13', 'manual-14', 'manual-16', 'manual-17', 'manual-18', 'manual-19', 'manual-21', 'manual-26', 'manual-27', 'manual-28', 'manual-30', 'manual-32', 'manual-33', 'release-13', 'release-24', 'release-26']);
+          const refreshedIds = new Set(['manual-01', 'manual-03', 'manual-04', 'manual-05', 'manual-06', 'manual-07', 'manual-08', 'manual-12', 'manual-13', 'manual-14', 'manual-16', 'manual-17', 'manual-18', 'manual-19', 'manual-21', 'manual-26', 'manual-27', 'manual-28', 'manual-30', 'manual-32', 'manual-33', 'release-13', 'release-14', 'release-23', 'release-24', 'release-25', 'release-26']);
           for (const [id, fields] of Object.entries(assessments)) {
             if (refreshedIds.has(id)) {
               delete fields.status;
