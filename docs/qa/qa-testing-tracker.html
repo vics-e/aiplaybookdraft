@@ -124,6 +124,8 @@
       .header-actions {
         display: flex;
         align-items: center;
+        flex-wrap: wrap;
+        justify-content: flex-end;
         gap: 10px;
       }
 
@@ -146,6 +148,43 @@
 
       .primary-button:hover {
         background: #00684c;
+      }
+
+      .secondary-button {
+        min-height: 42px;
+        border: 1px solid var(--sage-deep);
+        border-radius: 9px;
+        background: #ffffff;
+        color: var(--sage-deep);
+        cursor: pointer;
+        padding: 0 14px;
+        font-weight: 750;
+      }
+
+      .secondary-button:hover { background: var(--sage-soft); }
+
+      .save-note {
+        margin: 12px 0 20px;
+        border-left: 4px solid var(--sage);
+        border-radius: 8px;
+        background: var(--sage-soft);
+        padding: 12px 14px;
+        color: var(--navy);
+      }
+
+      .save-note p { margin: 0; }
+      .save-note p + p { margin-top: 4px; color: var(--muted); font-size: 14px; }
+
+      .device-table td:first-child { font-weight: 750; color: var(--navy); }
+      .device-table .clarify-device { background: var(--amber-soft); }
+
+      .compact-details { margin: 22px 0; }
+      .compact-details > summary {
+        cursor: pointer;
+        color: var(--navy);
+        font-size: 18px;
+        font-weight: 800;
+        padding: 12px 0;
       }
 
       main {
@@ -637,7 +676,7 @@
       .checklist-ids { color: #8d281e; font-weight: 750; overflow-wrap: anywhere; }
       .defect-note { margin-top: 10px; padding: 12px 14px; border-radius: 8px; background: #f6f8f7; font-size: 13px; }
       .summary-card strong { font-variant-numeric: tabular-nums; }
-      @media print { .header-actions,.tabs,.filters,.review-controls,.legacy-evidence { display:none; } .panel { display:none; } #panel-overview { display:block; } .review-table { min-width:0; font-size:10px; } }
+      @media print { .header-actions,.tabs,.filters,.review-controls,.legacy-evidence,.save-note { display:none; } .panel { display:none; } #panel-overview { display:block; } .review-table { min-width:0; font-size:10px; } }
     </style>
   </head>
   <body>
@@ -651,8 +690,11 @@
           </div>
         </div>
         <div class="header-actions">
-          <span id="saved-indicator" class="saved-indicator">Saved locally</span>
-          <button id="download-markdown" class="primary-button" type="button">Download Markdown</button>
+          <span id="summary-indicator" class="saved-indicator">Loading status…</span>
+          <button id="download-markdown" class="primary-button" type="button">Download report (.md)</button>
+          <button id="download-json" class="secondary-button" type="button">Download editable backup (.json)</button>
+          <button id="import-json" class="secondary-button" type="button">Import backup</button>
+          <input id="import-json-file" type="file" accept="application/json,.json" hidden />
         </div>
       </div>
     </header>
@@ -666,6 +708,11 @@
             Track what applies, what has been tested, the supporting evidence and what needs to happen next.
           </p>
         </div>
+      </section>
+
+      <section class="save-note" aria-label="Saving and sharing">
+        <p><strong id="saved-indicator">Changes save automatically on this device.</strong></p>
+        <p>Edits made in Manual Testing and QA Release Checklist use the same local tracker. Download the Markdown report to share results, or the JSON backup so another person can import and continue editing.</p>
       </section>
 
       <section class="summary-grid" aria-label="Testing summary">
@@ -726,7 +773,25 @@
               <tr><td>Formal QA / release approval</td><td>4</td><td>Complete VQA, defect-severity review and release sign-off.</td><td>QA / release team</td></tr>
             </tbody></table></div>
           </section>
-          <section class="defect-groups" aria-labelledby="defect-groups-title">
+
+          <section aria-labelledby="device-matrix-title">
+            <h3 id="device-matrix-title">Requested browser and device checks</h3>
+            <p>Responsive browser emulation is useful preparation. Rows that name a physical device or operating system should be run on that setup or through the QA device lab.</p>
+            <div class="table-wrap"><table class="review-table device-table"><thead><tr><th>Type</th><th>Requested setup</th><th>Checklist row</th><th>Who can complete it</th></tr></thead><tbody>
+              <tr><td>Desktop browser</td><td>Microsoft Edge, latest version, on Windows 11</td><td>release-15</td><td>Victor or QA on a Windows 11 computer</td></tr>
+              <tr><td>Desktop browser</td><td>Google Chrome, latest version, on Windows 11</td><td>release-16</td><td>Victor or QA on a Windows 11 computer</td></tr>
+              <tr><td>Desktop browser</td><td>Mozilla Firefox, latest version, on Windows 11</td><td>release-17</td><td>Victor or QA on a Windows 11 computer</td></tr>
+              <tr><td>Desktop browser</td><td>Safari, latest version, on macOS</td><td>release-18</td><td>Someone with a Mac, or QA</td></tr>
+              <tr><td>Tablet</td><td>Samsung Galaxy Tab A9+ on the latest Android version</td><td>release-19</td><td>Device owner or QA device lab</td></tr>
+              <tr><td>Tablet</td><td>iPad 10th generation and iPad Mini 2021 on the latest iOS version</td><td>release-20</td><td>Device owner or QA device lab</td></tr>
+              <tr class="clarify-device"><td>Mobile</td><td>iPhone 17 and “Mini” on the latest iOS version. The source does not identify which Mini model.</td><td>release-21</td><td>QA should clarify the Mini model, then test both named devices</td></tr>
+              <tr><td>Mobile</td><td>Samsung S25 on the latest Android version</td><td>release-22</td><td>Device owner or QA device lab</td></tr>
+            </tbody></table></div>
+          </section>
+
+          <details class="compact-details defect-groups">
+            <summary>View the 9 fixed defects</summary>
+          <section aria-labelledby="defect-groups-title">
             <h3 id="defect-groups-title">9 defect fixes deployed and validated</h3>
             <p>These are the application problems to fix. One defect can fail several checklist requirements.</p>
             <div class="table-wrap">
@@ -747,11 +812,14 @@
             </div>
             <p class="defect-note"><strong>Current position:</strong> all nine recorded defects are deployed and validated, so release-13 now passes. Remaining release rows concern ownership, integrations, browser/device coverage or formal approval.</p>
           </section>
-          <h3>Review all 67 checklist rows</h3>
+          </details>
+          <details class="compact-details">
+          <summary>Search all 67 checklist rows</summary>
           <p>Search by row ID, requirement, owner or finding. Open an evidence link to inspect the result. Use the Manual Testing or QA Release Checklist tabs to edit a row; changes save in this browser. Download Markdown exports the current rows and notes.</p>
           <div class="review-controls"><input id="review-search" type="search" placeholder="Search IDs, findings or owners" aria-label="Search all checklist rows"><select id="review-status" aria-label="Filter review by status"><option>All statuses</option><option>Failed</option><option>Needs Sage or QA</option><option>Passed</option><option>Not applicable</option><option>Not assessed</option><option>Already evidenced</option><option>Blocked</option></select></div>
           <p id="review-count" aria-live="polite"></p>
           <div class="table-wrap"><table class="review-table"><thead><tr><th>ID</th><th>Checklist</th><th>Requirement</th><th>Pass / fail / status</th><th>Owner</th><th>Result / next action and evidence</th></tr></thead><tbody id="review-rows"></tbody></table></div>
+          </details>
           <details class="legacy-evidence"><summary>Assessment method and historical supporting evidence</summary>
           <div class="overview-grid">
             <article class="guide-card">
@@ -843,6 +911,7 @@
             <div>
               <h2>Manual Testing</h2>
               <p>Individual usability, functional, compatibility, performance and accessibility checks.</p>
+              <p><strong>Editable:</strong> changes here save automatically in the same local tracker as the QA Release Checklist.</p>
               <p class="status-legend"><strong>Yellow rows:</strong> Needs Sage or QA — a decision, approved baseline or external evidence is still needed. <strong>Red:</strong> failed. <strong>Green:</strong> passed.</p>
               <p class="applies-legend"><strong>“Not relevant” in Applies?</strong> means this standalone deployment has no matching feature (for example email, uploads, CMS CRUD, external page links or server form submission). It does not mean the requirement is unimportant for a future Sage integration.</p>
             </div>
@@ -909,6 +978,7 @@
             <div>
               <h2>QA Release Checklist</h2>
               <p>Entry criteria, exit criteria and sign-off criteria for the overall release.</p>
+              <p><strong>Editable:</strong> changes here save automatically in the same local tracker as Manual Testing.</p>
               <p class="status-legend"><strong>Yellow rows:</strong> Needs Sage or QA — this is awaiting release evidence or sign-off, not marked as failed. <strong>Red:</strong> failed. <strong>Green:</strong> passed.</p>
               <p class="applies-legend"><strong>“Not relevant” in Applies?</strong> means the current standalone deployment does not include the matching release integration or workflow. Sage can change that applicability decision when the integrated scope is confirmed.</p>
             </div>
@@ -1675,9 +1745,13 @@
       function saveAssessment(id, field, value) {
         assessments[id] = { ...(assessments[id] || {}), [field]: value };
         if (value === (seedAssessments[id]?.[field] ?? assessmentDefaults[field])) delete assessments[id][field];
-        localStorage.setItem('ai-playbook-qa-tracker', JSON.stringify(assessments));
         const indicator = document.getElementById('saved-indicator');
-        indicator.textContent = `Saved locally at ${new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
+        try {
+          localStorage.setItem('ai-playbook-qa-tracker', JSON.stringify(assessments));
+          indicator.textContent = `Saved locally on this device at ${new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
+        } catch {
+          indicator.textContent = 'This change could not be saved locally. Download a JSON backup before closing.';
+        }
         updateSummary();
         renderOutstandingActions();
       }
@@ -1718,7 +1792,7 @@
         const cell = document.createElement('td');
         if (className) cell.className = className;
         if (content instanceof Node) cell.appendChild(content);
-        else cell.textContent = content || 'N/A';
+        else cell.textContent = content === 0 ? '0' : (content || 'N/A');
         row.appendChild(cell);
       }
 
@@ -1936,7 +2010,7 @@
         document.getElementById('current-assessment-counts').textContent = `${checkedCount} of ${ids.length} checked · ${completedCount} completed with evidence · ${failedCount} failed · ${values.filter(s => s === 'Needs Sage or QA').length} need Sage or QA · ${values.filter(s => s === 'Not applicable').length} not applicable`;
         renderChecklistSplit();
         renderReview();
-        document.getElementById('saved-indicator').textContent = checkedCount
+        document.getElementById('summary-indicator').textContent = checkedCount
           ? `${checkedCount} of ${ids.length} checked · ${completedCount} completed · ${failedCount} failed`
           : `0 of ${ids.length} checked`;
       }
@@ -1999,6 +2073,51 @@
         URL.revokeObjectURL(url);
       }
 
+      function downloadJsonBackup() {
+        const currentRows = {};
+        [...manualChecks, ...releaseChecks].forEach((check) => {
+          currentRows[check.id] = getAssessment(check.id);
+        });
+        const payload = {
+          format: 'ai-playbook-qa-tracker',
+          version: 1,
+          exportedAt: new Date().toISOString(),
+          assessments: currentRows
+        };
+        const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const anchor = document.createElement('a');
+        const date = new Date().toISOString().slice(0, 10);
+        anchor.href = url;
+        anchor.download = `ai-playbook-qa-tracker-editable-${date}.json`;
+        anchor.click();
+        URL.revokeObjectURL(url);
+      }
+
+      async function importJsonBackup(file) {
+        const indicator = document.getElementById('saved-indicator');
+        try {
+          const payload = JSON.parse(await file.text());
+          if (payload?.format !== 'ai-playbook-qa-tracker' || !payload.assessments || typeof payload.assessments !== 'object') {
+            throw new Error('Unsupported tracker backup');
+          }
+          const knownIds = new Set([...manualChecks, ...releaseChecks].map((check) => check.id));
+          const imported = {};
+          Object.entries(payload.assessments).forEach(([id, value]) => {
+            if (knownIds.has(id) && value && typeof value === 'object') imported[id] = value;
+          });
+          assessments = imported;
+          localStorage.setItem('ai-playbook-qa-tracker', JSON.stringify(assessments));
+          indicator.textContent = `Imported and saved locally at ${new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
+          renderManualChecks();
+          renderReleaseChecks();
+          renderOutstandingActions();
+          updateSummary();
+        } catch {
+          indicator.textContent = 'The selected file is not a valid AI Playbook QA tracker backup.';
+        }
+      }
+
       const tabs = Array.from(document.querySelectorAll('[role="tab"]'));
       const panels = Array.from(document.querySelectorAll('[role="tabpanel"]'));
 
@@ -2045,6 +2164,13 @@
       document.getElementById('actions-search').addEventListener('input', renderOutstandingActions);
       document.getElementById('actions-owner-filter').addEventListener('change', renderOutstandingActions);
       document.getElementById('download-markdown').addEventListener('click', downloadMarkdown);
+      document.getElementById('download-json').addEventListener('click', downloadJsonBackup);
+      document.getElementById('import-json').addEventListener('click', () => document.getElementById('import-json-file').click());
+      document.getElementById('import-json-file').addEventListener('change', (event) => {
+        const file = event.target.files?.[0];
+        if (file) importJsonBackup(file);
+        event.target.value = '';
+      });
 
       renderManualChecks();
       renderReleaseChecks();
