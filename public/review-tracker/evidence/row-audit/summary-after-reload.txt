@@ -1,0 +1,801 @@
+- complementary "Playbook navigation":
+  - button "Sage The AI Playbook For Accountants & Bookkeepers":
+    - img "Sage"
+    - heading "The AI Playbook" [level=1]
+    - paragraph: For Accountants & Bookkeepers
+  - generic: CURRENT SECTION
+  - generic: Completion & Certificate
+  - navigation:
+    - button "Introduction 100%" [expanded]:
+      - generic: Introduction
+      - generic: 100%
+    - button "Contents":
+      - generic: Contents
+    - button "Section 1 Understanding AI 100%":
+      - generic: Section 1
+      - generic: Understanding AI
+      - generic: 100%
+    - button "Section 2 Professional Guardrails 100%":
+      - generic: Section 2
+      - generic: Professional Guardrails
+      - generic: 100%
+    - button "Section 3 Assistants & Agents 100%":
+      - generic: Section 3
+      - generic: Assistants & Agents
+      - generic: 100%
+    - button "Section 4 Prompting Skills 100%":
+      - generic: Section 4
+      - generic: Prompting Skills
+      - generic: 100%
+    - button "Section 5 Pricing & Economics 100%":
+      - generic: Section 5
+      - generic: Pricing & Economics
+      - generic: 100%
+    - button "Section 6 90-Day Plan 100%":
+      - generic: Section 6
+      - generic: 90-Day Plan
+      - generic: 100%
+    - button "Section 7 Templates & Tools 100%":
+      - generic: Section 7
+      - generic: Templates & Tools
+      - generic: 100%
+    - button "Conclusion 100%":
+      - generic: Conclusion
+      - generic: 100%
+  - generic: OVERALL PROGRESS
+  - generic: 100%
+  - generic: 63 of 63 pages visited
+- button "Close navigation menu" [expanded]:
+- button "Switch to light mode":
+  - tooltip "Switch to light mode"
+- main:
+  - generic: Activity Summary
+  - heading "Your AI Journey Responses" [level=2]:
+    - text: Your AI Journey
+    - generic: Responses
+  - paragraph: Review all your activity responses in one place
+  - generic: Total Activities
+  - paragraph: 51 / 57
+  - generic: Completion
+  - paragraph: 89%
+  - button "Download / Print Summary":
+    - generic: Download / Print Summary
+  - 'heading "Section 1: Understanding AI" [level=3]'
+  - generic: "1"
+  - heading "Capacity Reflection" [level=4]
+  - paragraph: "Reflect on where your team spends time and what you could do with that time back:"
+  - generic: Your Response
+  - paragraph: Where does your team spend the most repetitive time?
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: What would you do if those tasks took 30-50% less time?
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - button "Edit Response":
+    - generic: Edit Response
+  - generic: "2"
+  - heading "Identify Your Stage" [level=4]
+  - paragraph: Which stage best describes your firm today?
+  - generic: Your Response
+  - generic: Not completed
+  - generic: "3"
+  - heading "Task Assessment" [level=4]
+  - paragraph: List 5 common tasks in your firm. For each, identify whether it's AI-ready or Human-Led, then mark your top candidates for agent automation.
+  - generic: Your Response
+  - generic: Not completed
+  - generic: "4"
+  - heading "The Capacity Question" [level=4]
+  - paragraph: "Consider the impact of recovered capacity on your firm:"
+  - generic: Your Response
+  - paragraph: If your firm recovered 25% of compliance time, what would you stop doing?
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: What would you start offering or improving?
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: Where would you invest in your team?
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - button "Edit Response":
+    - generic: Edit Response
+  - generic: "5"
+  - heading "Role Reflection" [level=4]
+  - paragraph: "Think about how AI can support your work:"
+  - generic: Your Response
+  - paragraph: Which of your current tasks could AI assist with?
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: Which responsibilities should remain fully human?
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - button "Edit Response":
+    - generic: Edit Response
+  - generic: "6"
+  - heading "Define Your Review Rule" [level=4]
+  - paragraph: At what stage must a human review AI outputs in your firm? (e.g., before anything sent to clients, before tax submissions, before final reports)
+  - generic: Your Response
+  - generic: Not completed
+  - 'heading "Section 2: Professional Guardrails" [level=3]'
+  - generic: "7"
+  - heading "Professional Judgement Reflection" [level=4]
+  - paragraph: "Reflect on how you would apply professional judgement when using AI in your work:"
+  - generic: Your Response
+  - paragraph: What types of AI outputs would require your most careful review before sending to clients?
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: How would you explain your AI-assisted process to a client or regulator if asked?
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: What checks would you apply to ensure AI outputs meet your professional standards?
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - button "Edit Response":
+    - generic: Edit Response
+  - generic: "8"
+  - heading "Data Boundary Exercise" [level=4]
+  - paragraph: "Identify which types of data in your firm should never be entered into external AI tools, and which might be acceptable with appropriate controls:"
+  - generic: Your Response
+  - paragraph: List 3 types of data that must NEVER be entered into public AI tools (e.g., client financial records, personal information)
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: List 2 types of data that might be acceptable to enter if anonymised or de-identified (e.g., general tax questions, process templates)
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: What safeguards would you put in place to prevent accidental data exposure through AI tools?
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - button "Edit Response":
+    - generic: Edit Response
+  - generic: "9"
+  - heading "Responsibility Reflection" [level=4]
+  - paragraph: "Consider how you would handle responsibility and accountability when using AI:"
+  - generic: Your Response
+  - paragraph: If an AI tool produced an error that reached a client, how would you explain what happened?
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: What review processes would you implement to ensure you can stand behind AI-assisted work?
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: Would you disclose to clients when AI has been used to assist with their work? Why or why not?
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - button "Edit Response":
+    - generic: Edit Response
+  - generic: "10"
+  - heading "Process Confidence Check" [level=4]
+  - paragraph: Think of one documented process in your firm that has clear steps and produces consistent results. Could AI assist or follow this process safely?
+  - generic: Your Response
+  - generic: Not completed
+  - generic: "11"
+  - heading "Your Starting Rule" [level=4]
+  - paragraph: In our firm, AI is allowed for ___. But it must never be used for ___.
+  - generic: Your Response
+  - generic: Not completed
+  - generic: "12"
+  - heading "Failure-Spotting Activity" [level=4]
+  - paragraph: "Think about a recent AI output you reviewed or a type of work AI might assist with in your firm. Identify which failure modes pose the greatest risk:"
+  - generic: Your Response
+  - paragraph: Which of the six failure modes would be most dangerous in your work (e.g., hallucination in tax advice, outdated info in compliance)?
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: What checks would you implement to catch this type of failure before it reaches a client?
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: How would you train your team to recognise when AI outputs might be unreliable?
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - button "Edit Response":
+    - generic: Edit Response
+  - generic: "13"
+  - heading "Over-Reliance Reflection" [level=4]
+  - paragraph: "Reflect on how you can avoid over-reliance on AI in your firm:"
+  - generic: Your Response
+  - paragraph: What review checkpoints would ensure AI outputs are always verified before use?
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: How would you maintain professional skills and judgement in areas where AI performs most of the work?
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: What would you do if you noticed team members routinely approving AI outputs without proper review?
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - button "Edit Response":
+    - generic: Edit Response
+  - generic: "14"
+  - heading "Build a File Note Rule" [level=4]
+  - paragraph: "Design a simple rule for when and how AI use should be documented in your firm:"
+  - generic: Your Response
+  - paragraph: For which types of AI-assisted work would you require a file note? (e.g., client advice, tax returns, reports)
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: What key information should every AI file note contain?
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: Who would be responsible for creating and reviewing these file notes?
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - button "Edit Response":
+    - generic: Edit Response
+  - generic: "15"
+  - heading "Red-Team Exercise" [level=4]
+  - paragraph: "Plan a simple red-team exercise for your firm to test AI safeguards:"
+  - generic: Your Response
+  - paragraph: Choose one realistic AI risk scenario to test (e.g., unreviewed output sent to a client, confidential data entered into a public tool)
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: How would you simulate this scenario safely without creating real risk?
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: What safeguards or controls should catch this issue? If they don't, what would you change?
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - button "Edit Response":
+    - generic: Edit Response
+  - 'heading "Section 3: Assistants & Agents" [level=3]'
+  - generic: "16"
+  - heading "Assistant vs. Agent Assessment" [level=4]
+  - paragraph: "Think about tasks you perform regularly. Classify them as assistant tasks or agent workflow candidates:"
+  - generic: Your Response
+  - paragraph: List 2 tasks that are best handled as assistant tasks (one-off, varying contexts)
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: List 2 tasks that could become agent workflows (repeatable, structured data, clear outcomes)
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - button "Edit Response":
+    - generic: Edit Response
+  - generic: "17"
+  - heading "Identify Agent-Suitable Processes" [level=4]
+  - paragraph: "Think about workflows in your firm that could shift from assistant-led to agent-led:"
+  - generic: Your Response
+  - paragraph: List 3 processes where you currently use AI assistants for multiple steps in sequence
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: For each process, could an agent handle the full workflow if given a clear goal and access to the right data?
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: What would need to be in place for you to trust an agent with this workflow (e.g., review points, escalation rules)?
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - button "Edit Response":
+    - generic: Edit Response
+  - generic: "18"
+  - heading "Agent Candidate Check" [level=4]
+  - paragraph: "Evaluate workflows in your firm using the four-question check. For each workflow you assess, answer:"
+  - generic: Your Response
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - generic: "19"
+  - heading "Choose Your Starting Workflow" [level=4]
+  - paragraph: "Select one of these workflows as your starting point for agent adoption:"
+  - generic: Your Response
+  - paragraph: Which workflow would have the biggest impact in your firm?
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: What makes this workflow a good candidate? (e.g., high volume, time-consuming, repeatable)
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: What review process would you put in place to ensure quality and accountability?
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - button "Edit Response":
+    - generic: Edit Response
+  - generic: "20"
+  - heading "Map Your Workflows" [level=4]
+  - paragraph: "Complete the workflow mapping exercise for your firm:"
+  - generic: Your Response
+  - paragraph: QA workflow one
+  - paragraph: Repeatability
+  - paragraph: 3/5
+  - paragraph: Judgement
+  - paragraph: 3/5
+  - paragraph: Category
+  - paragraph: Human-led with assistant support
+  - paragraph: List 5 workflows or processes you perform regularly
+  - paragraph: QA workflow one
+  - paragraph: "For each, assess: Is it highly repeatable? Does it require significant professional judgement?"
+  - paragraph: QA workflow one - Repeatability 3/5, Judgement 3/5 (Human-led with assistant support)
+  - generic: "21"
+  - heading "Select Your First Agent" [level=4]
+  - paragraph: "Use the selection criteria to choose your first agent workflow:"
+  - generic: Your Response
+  - paragraph: Which workflow best meets the first-agent criteria? (high volume, low complexity, structured data, low risk, high frustration, visible savings)
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: What would success look like for this agent? (How will you know it's working?)
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: What review process will you implement to ensure quality before the agent's outputs reach clients?
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - button "Edit Response":
+    - generic: Edit Response
+  - generic: "22"
+  - heading "Identify Your Stage" [level=4]
+  - paragraph: "Plan your progression on the maturity ladder:"
+  - generic: Your Response
+  - paragraph: Which stage are you at today?
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: What's your target for 90 days from now?
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - button "Edit Response":
+    - generic: Edit Response
+  - generic: "23"
+  - heading "Plan Your First Agent" [level=4]
+  - paragraph: "Complete the agent specification template for your first workflow:"
+  - generic: Your Response
+  - paragraph: Workflow name
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: Goal or outcome
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: Trigger
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: Inputs required
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: Agent behaviour
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: Human review point
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: Final output
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: Escalation rules
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - generic: "24"
+  - heading "Control Assessment" [level=4]
+  - paragraph: "For your planned first agent, check which controls are already in place and which need to be implemented:"
+  - generic: Your Response
+  - generic: Not completed
+  - generic: "25"
+  - heading "Confidence-Building Plan" [level=4]
+  - paragraph: "Design a confidence-building approach for your first agent:"
+  - generic: Your Response
+  - paragraph: What low-risk workflow will you start with to build confidence?
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: What control or review process will help your team trust the agent's outputs?
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: How will you measure success? (e.g., time saved, error rate, user satisfaction)
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - button "Edit Response":
+    - generic: Edit Response
+  - generic: "26"
+  - heading "Envision Your AI-Enabled Workflow" [level=4]
+  - paragraph: "Imagine one of your current workflows reimagined as an AI-enabled process:"
+  - generic: Your Response
+  - paragraph: Choose a workflow you perform regularly. Describe how it works today (manual steps, time required).
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: "Reimagine it as an AI-enabled workflow: What would the agent handle? What would you review and approve?"
+  - paragraph: "Agent handles: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> \"single' double\" \\ / -1 Accountant reviews and approves: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> \"single' double\" \\ / -1"
+  - paragraph: What would you do with the time saved? (e.g., more advisory work, better client service, business development)
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: Agent Handles
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: Human Reviews
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - 'heading "Section 4: Prompting Skills" [level=3]'
+  - generic: "27"
+  - heading "Rewrite a Weak Prompt" [level=4]
+  - paragraph: "Practice applying the framework by rewriting this weak prompt into a structured one:"
+  - generic: Your Response
+  - paragraph: "Weak prompt: \"Write an email about the results.\" — Rewrite this using Role + Task + Context + Constraints to make it specific and useful."
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: What role would you give AI?
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: What task should it perform?
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: What context does it need?
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: What constraints would improve the output (e.g., tone, length, format)?
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - button "Edit Response":
+    - generic: Edit Response
+  - generic: "28"
+  - heading "Prompt Type Exercise" [level=4]
+  - paragraph: "Reflect on recent tasks where AI could have helped. For each situation below, identify which of the five prompt types would have been most useful:"
+  - generic: Your Response
+  - paragraph: A client asked you what Making Tax Digital (MTD) means and whether it applies to them. Which prompt type? (Draft, Summary, Explanation, Check, or Question)
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: You have a 20-page management report and need to present the highlights to a client in a 5-minute call. Which prompt type?
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: You need to send a client an update on their year-end accounts, which are delayed due to missing invoices. Which prompt type?
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: You want to verify that a tax return has all required fields completed before submission. Which prompt type?
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: You need to confirm the current Corporation Tax rate for a small company. Which prompt type?
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - button "Edit Response":
+    - generic: Edit Response
+  - generic: "29"
+  - heading "Basic-to-Structured Practice" [level=4]
+  - paragraph: "Take these basic prompts and rewrite them as structured prompts using Role + Task + Context + Constraints:"
+  - generic: Your Response
+  - paragraph: "Basic: \"Summarise this report.\" — Rewrite as a structured prompt."
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: "Basic: \"Draft an email to the client.\" — Rewrite as a structured prompt."
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: "Basic: \"Explain Corporation Tax.\" — Rewrite as a structured prompt."
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - button "Edit Response":
+    - generic: Edit Response
+  - generic: "30"
+  - heading "Workflow Progression" [level=4]
+  - paragraph: "Choose one task you currently perform and map its progression:"
+  - generic: Your Response
+  - paragraph: What prompt could assist this task?
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: How could it become part of a checklist?
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: Could it eventually become an agent workflow?
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - button "Edit Response":
+    - generic: Edit Response
+  - generic: "31"
+  - heading "Build Your Prompt Library" [level=4]
+  - paragraph: "Start building your own prompt library based on the tasks you perform most often:"
+  - generic: Your Response
+  - paragraph: Choose one prompt from the starter library above. Adapt it to a real task you have this week by filling in the placeholders.
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: Identify one task you perform regularly that is NOT in the starter library. Write a new structured prompt for it using Role + Task + Context + Constraints.
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: Where will you store your firm's prompt library so the team can access and share useful prompts?
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: Saved prompt drafts
+  - paragraph: Prompt 0
+  - paragraph: Var 0
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: Var 1
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: Var 2
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: Var 3
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: Prompt 1
+  - paragraph: Var 0
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: Var 1
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: Var 2
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: Prompt 2
+  - paragraph: Var 0
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: Var 1
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: Var 2
+  - paragraph: 2027-02-29
+  - paragraph: Prompt 3
+  - paragraph: Var 0
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: Var 1
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: Prompt 4
+  - paragraph: Var 0
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: Var 1
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: Prompt 5
+  - paragraph: Var 0
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: Var 1
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: Prompt 6
+  - paragraph: Var 0
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: Var 1
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: Var 2
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: Var 3
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: Prompt 7
+  - paragraph: Var 0
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: Var 1
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: Prompt 8
+  - paragraph: Var 0
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: Prompt 9
+  - paragraph: Var 0
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - 'heading "Section 5: Pricing & Economics" [level=3]'
+  - generic: "32"
+  - heading "Identify Your AI Dividend" [level=4]
+  - paragraph: "List 3 areas where AI could reduce time, remove repetition, or improve consistency in your firm. For each, note what you would do with the time recovered:"
+  - generic: Your Response
+  - paragraph: Item 1
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: Item 2
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: Item 3
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - button "Edit Response":
+    - generic: Edit Response
+  - generic: "33"
+  - heading "The Capacity Question" [level=4]
+  - paragraph: "Consider the impact of recovered capacity on your firm:"
+  - generic: Your Response
+  - paragraph: If your firm recovered 25% of compliance time, what would you stop doing or reduce?
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: What new services, activities, or client relationships would you invest that time in?
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: Where would you develop your team—and which skills would matter most in an AI-assisted firm?
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - button "Edit Response":
+    - generic: Edit Response
+  - generic: "34"
+  - heading "Pricing Pressure Reflection" [level=4]
+  - paragraph: "Think about your current pricing model and where AI might create pressure:"
+  - generic: Your Response
+  - paragraph: Which services in your firm are currently charged by the hour? How much of that time is spent on tasks AI could assist with?
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: If AI reduced your time on those tasks by 40%, what would happen to your revenue under the current model?
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: What would you need to change about your pricing to ensure AI efficiency improves your margin rather than reducing your fees?
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - button "Edit Response":
+    - generic: Edit Response
+  - generic: "35"
+  - heading "Pricing Model Review" [level=4]
+  - paragraph: "Reflect honestly on your firm's current and ideal pricing approach:"
+  - generic: Your Response
+  - paragraph: Which pricing model best describes how your firm prices most of its services today? (Time-based pricing, Fixed compliance pricing, Outcome-based pricing, or Tiered value pricing)
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: Which model do you want to move toward over the next 12–24 months? What would need to change to get there?
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: "For your tiered value model: what services would belong in Core, Growth, and Strategic tiers for your typical client?"
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - button "Edit Response":
+    - generic: Edit Response
+  - generic: "36"
+  - heading "The 70% Question" [level=4]
+  - paragraph: "If AI handled 70% of the processing in your firm, what would clients still pay you for? List three specific things—be as concrete as possible:"
+  - generic: Your Response
+  - paragraph: Item 1
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: Item 2
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: Item 3
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - button "Edit Response":
+    - generic: Edit Response
+  - generic: "37"
+  - heading "Apply the 3V Framework" [level=4]
+  - paragraph: "Choose one service or client relationship and apply the 3V Framework:"
+  - generic: Your Response
+  - paragraph: "V1 — Volume: What is the scope and complexity of the work for this service or client?"
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: "V2 — Value: What outcomes, savings, or benefits does the client actually receive from this service?"
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: "V3 — Visibility: How clearly does the client see and understand the value you deliver? What could you do to make it more visible?"
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - button "Edit Response":
+    - generic: Edit Response
+  - generic: "38"
+  - heading "Design Your Package" [level=4]
+  - paragraph: "Draft the three service tiers for your firm using the framework above:"
+  - generic: Your Response
+  - paragraph: "Core Package: What services would you include? What would you charge? What is the AI role in delivery?"
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: "Growth Package: What advisory services would you add? What is the price uplift over Core? What does the client receive that they cannot get from Core alone?"
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: "Strategic Package: What makes this your premium offer? Who are your ideal Strategic clients, and what do they need most from you?"
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - button "Edit Response":
+    - generic: Edit Response
+  - generic: "39"
+  - heading "AI Impact Pricing Worksheet" [level=4]
+  - paragraph: "Complete the AI Impact Pricing Exercise for three services in your firm. For each, estimate time today, time with AI, the human value that remains, and the pricing implication:"
+  - generic: Your Response
+  - paragraph: Service 1 — Name
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: Service 1 — Time today
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: Service 1 — Estimated time with AI
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: Service 1 — Human value remaining
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: Service 1 — Pricing implication
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: Service 2 — Name
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: Service 2 — Time today
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: Service 2 — Estimated time with AI
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: Service 2 — Human value remaining
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: Service 2 — Pricing implication
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: Service 3 — Name
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: Service 3 — Time today
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: Service 3 — Estimated time with AI
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: Service 3 — Human value remaining
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: Service 3 — Pricing implication
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - generic: "40"
+  - heading "Draft Your Client Message" [level=4]
+  - paragraph: "Prepare how you would talk to clients about AI use in your firm:"
+  - generic: Your Response
+  - paragraph: Write a 2–3 sentence statement explaining how your firm uses AI, suitable for including in a client engagement letter or service update.
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: "How would you respond if a client asked: \"Does this mean you're charging me the same for work that now takes half the time?\""
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: Which clients in your firm might need the most reassurance about AI use? What specific concerns might they have, and how would you address them?
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - button "Edit Response":
+    - generic: Edit Response
+  - generic: "41"
+  - heading "Pricing Action Checklist" [level=4]
+  - paragraph: "Review each area and check off what your firm has already addressed. Use this as your pricing roadmap for the next 12 months:"
+  - generic: Your Response
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - 'heading "Section 6: 90-Day Plan" [level=3]'
+  - generic: "42"
+  - heading "Your 30-Day Action Plan" [level=4]
+  - paragraph: "Check off each milestone as you complete it, then define your commitment:"
+  - generic: Your Response
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - generic: "43"
+  - heading "Your 60-Day Action Plan" [level=4]
+  - paragraph: "Check off each milestone as you complete it, then define your first workflow:"
+  - generic: Your Response
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - generic: "44"
+  - heading "Your 90-Day Action Plan" [level=4]
+  - paragraph: "Check off each milestone as you complete it, then define your first agent workflow:"
+  - generic: Your Response
+  - paragraph: Workflow name
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - generic: "45"
+  - heading "Set Your Rhythm" [level=4]
+  - paragraph: "Decide:"
+  - generic: Your Response
+  - paragraph: Who will your AI champion be?
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: When will your first prompt clinic take place?
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - button "Edit Response":
+    - generic: Edit Response
+  - generic: "46"
+  - heading "Choose Your Metrics" [level=4]
+  - paragraph: "Select two metrics to track for the next 90 days:"
+  - generic: Your Response
+  - paragraph: "Metric 1:"
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: "Metric 2:"
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - button "Edit Response":
+    - generic: Edit Response
+  - generic: "47"
+  - heading "Your Stop-Doing List" [level=4]
+  - paragraph: "List three tasks your firm could stop doing:"
+  - generic: Your Response
+  - paragraph: "Task 1:"
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: "Task 2:"
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: "Task 3:"
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - button "Edit Response":
+    - generic: Edit Response
+  - generic: "48"
+  - heading "Your Strategic Answers" [level=4]
+  - paragraph: "Write down one answer to each question:"
+  - generic: Your Response
+  - paragraph: What is no longer useful?
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: What is now possible?
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: Where will we create value?
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - button "Edit Response":
+    - generic: Edit Response
+  - generic: "49"
+  - heading "Stage Assessment" [level=4]
+  - paragraph: "Assess your current position and next step:"
+  - generic: Your Response
+  - paragraph: Which stage best describes your firm today?
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: What is the next step forward?
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - button "Edit Response":
+    - generic: Edit Response
+  - 'heading "Section 7: Templates & Tools" [level=3]'
+  - generic: "50"
+  - heading "Adapt This Policy" [level=4]
+  - paragraph: "Customise this policy for your firm:"
+  - generic: Your Response
+  - paragraph: "List your approved AI tools:"
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: "Define your review rule:"
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: Who will you share this policy with first?
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - button "Edit Response":
+    - generic: Edit Response
+  - generic: "51"
+  - heading "Agent Specification Template" [level=4]
+  - paragraph: "Complete this template for your first agent workflow:"
+  - generic: Your Response
+  - paragraph: Workflow name
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: Trigger
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: Inputs required
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: Agent step 1
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: Agent step 2
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: Agent step 3
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: Agent step 4
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: Agent step 5
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: Human review point
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: Final output
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: Escalation rules
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - generic: "52"
+  - heading "Embed the Checklist" [level=4]
+  - paragraph: Where will you add this checklist?
+  - generic: Your Response
+  - paragraph: "Add this checklist to: (e.g., internal procedures, workflow documentation, client file templates)"
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - button "Edit Response":
+    - generic: Edit Response
+  - generic: "53"
+  - heading "Create Your Matrix" [level=4]
+  - paragraph: "Build your firm's AI tool usage matrix:"
+  - generic: Your Response
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: Allowed tasks
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: Data boundaries
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: Review required
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: Allowed tasks
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: Data boundaries
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: Review required
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: Allowed tasks
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: Data boundaries
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: Review required
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: Allowed tasks
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: Data boundaries
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: Review required
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: "List the AI tools your firm uses:"
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1 QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1 QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1 QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - paragraph: "Define allowed tasks for your primary AI tool:"
+  - paragraph: "QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> \"single' double\" \\ / -1: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> \"single' double\" \\ / -1 QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> \"single' double\" \\ / -1: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> \"single' double\" \\ / -1 QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> \"single' double\" \\ / -1: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> \"single' double\" \\ / -1 QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> \"single' double\" \\ / -1: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> \"single' double\" \\ / -1"
+  - paragraph: What data boundaries will you set?
+  - paragraph: "QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> \"single' double\" \\ / -1: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> \"single' double\" \\ / -1 QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> \"single' double\" \\ / -1: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> \"single' double\" \\ / -1 QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> \"single' double\" \\ / -1: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> \"single' double\" \\ / -1 QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> \"single' double\" \\ / -1: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> \"single' double\" \\ / -1"
+  - generic: "54"
+  - heading "Define Your File Note Policy" [level=4]
+  - paragraph: "Decide when your firm will require an AI file note:"
+  - generic: Your Response
+  - paragraph: When will your firm require an AI file note?
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - button "Edit Response":
+    - generic: Edit Response
+  - generic: "55"
+  - heading "Write Your AI Statement" [level=4]
+  - paragraph: "Create your firm's AI statement in your own tone and style:"
+  - generic: Your Response
+  - paragraph: "Write your firm's client AI statement:"
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - button "Edit Response":
+    - generic: Edit Response
+  - heading "Conclusion" [level=3]
+  - generic: "56"
+  - heading "Your Next Step" [level=4]
+  - paragraph: What is the ONE action you will take in the next 24 hours to begin your AI journey?
+  - generic: Your Response
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - button "Edit Response":
+    - generic: Edit Response
+  - generic: "57"
+  - heading "Personalise Your Certificate" [level=4]
+  - paragraph: "Enter your name or practice name to personalise this certificate:"
+  - generic: Your Response
+  - paragraph: "Name / Practice Name:"
+  - paragraph: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - button "Edit Response":
+    - generic: Edit Response
+  - button "Go to previous page":
+    - generic: Previous
+  - generic: Page 62 of 63
+  - button "Go to page 60"
+  - button "Go to page 61"
+  - button "Go to page 62"
+  - button "Go to page 63"
+  - button "Go to next page":
+    - generic: Next

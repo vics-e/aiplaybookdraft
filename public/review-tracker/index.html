@@ -1,0 +1,1089 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AI Playbook Review Tracker</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --ink: #17232f;
+        --muted: #5e6a73;
+        --line: #d7ddd9;
+        --soft-line: #e9eeeb;
+        --surface: #ffffff;
+        --canvas: #f4f7f5;
+        --sage: #00a376;
+        --sage-deep: #007a59;
+        --sage-soft: #e7f7f1;
+        --navy: #102a43;
+        --amber: #aa6c00;
+        --amber-soft: #fff5d8;
+        --shadow: 0 14px 34px rgba(16, 42, 67, 0.08);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-width: 320px;
+        min-height: 100vh;
+        background: var(--canvas);
+        color: var(--ink);
+        font-family:
+          Inter, "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+        font-size: 16px;
+        line-height: 1.5;
+      }
+
+      button,
+      select,
+      input {
+        font: inherit;
+      }
+
+      button:focus-visible,
+      select:focus-visible,
+      input:focus-visible {
+        outline: 3px solid rgba(0, 163, 118, 0.28);
+        outline-offset: 2px;
+      }
+
+      .topbar {
+        border-bottom: 1px solid var(--line);
+        background: var(--surface);
+      }
+
+      .topbar-inner,
+      main {
+        width: min(1480px, calc(100% - 40px));
+        margin: 0 auto;
+      }
+
+      .topbar-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+        min-height: 74px;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 13px;
+        min-width: 0;
+      }
+
+      .brand-mark {
+        display: grid;
+        width: 38px;
+        height: 38px;
+        flex: 0 0 auto;
+        place-items: center;
+        border-radius: 10px;
+        background: var(--sage);
+        color: #ffffff;
+        font-weight: 800;
+        letter-spacing: -0.04em;
+      }
+
+      .brand-copy {
+        min-width: 0;
+      }
+
+      .brand-copy strong,
+      .brand-copy span {
+        display: block;
+      }
+
+      .brand-copy strong {
+        font-size: 17px;
+        line-height: 1.2;
+      }
+
+      .brand-copy span {
+        margin-top: 2px;
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      .draft-badge {
+        flex: 0 0 auto;
+        border: 1px solid #e7cd83;
+        border-radius: 999px;
+        background: var(--amber-soft);
+        color: var(--amber);
+        padding: 6px 11px;
+        font-size: 13px;
+        font-weight: 700;
+      }
+
+      .header-actions {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        gap: 10px;
+      }
+
+      .saved-indicator {
+        color: var(--muted);
+        font-size: 13px;
+        font-weight: 650;
+      }
+
+      .primary-button {
+        min-height: 42px;
+        border: 1px solid var(--sage-deep);
+        border-radius: 9px;
+        background: var(--sage-deep);
+        color: #ffffff;
+        cursor: pointer;
+        padding: 0 14px;
+        font-weight: 750;
+      }
+
+      .primary-button:hover {
+        background: #00684c;
+      }
+
+      .secondary-button {
+        min-height: 42px;
+        border: 1px solid var(--sage-deep);
+        border-radius: 9px;
+        background: #ffffff;
+        color: var(--sage-deep);
+        cursor: pointer;
+        padding: 0 14px;
+        font-weight: 750;
+      }
+
+      .secondary-button:hover { background: var(--sage-soft); }
+
+      .save-note {
+        margin: 12px 0 20px;
+        border-left: 4px solid var(--sage);
+        border-radius: 8px;
+        background: var(--sage-soft);
+        padding: 12px 14px;
+        color: var(--navy);
+      }
+
+      .save-note p { margin: 0; }
+      .save-note p + p { margin-top: 4px; color: var(--muted); font-size: 14px; }
+
+      .device-table td:first-child { font-weight: 750; color: var(--navy); }
+      .device-table .clarify-device { background: var(--amber-soft); }
+
+      .compact-details { margin: 22px 0; }
+      .compact-details > summary {
+        cursor: pointer;
+        color: var(--navy);
+        font-size: 18px;
+        font-weight: 800;
+        padding: 12px 0;
+      }
+
+      main {
+        padding: 34px 0 56px;
+      }
+
+      .page-heading {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        gap: 24px;
+        margin-bottom: 25px;
+      }
+
+      .eyebrow {
+        margin: 0 0 7px;
+        color: var(--sage-deep);
+        font-size: 13px;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        margin: 0;
+        color: var(--navy);
+        font-size: clamp(27px, 3vw, 38px);
+        line-height: 1.15;
+        letter-spacing: -0.035em;
+      }
+
+      .page-heading p:last-child {
+        max-width: 690px;
+        margin: 9px 0 0;
+        color: var(--muted);
+      }
+
+      .summary-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 14px;
+        margin-bottom: 24px;
+      }
+
+      .summary-card {
+        min-height: 115px;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        background: var(--surface);
+        padding: 18px;
+        box-shadow: 0 6px 20px rgba(16, 42, 67, 0.035);
+      }
+
+      .summary-card span {
+        display: block;
+        color: var(--muted);
+        font-size: 14px;
+        font-weight: 650;
+      }
+
+      .summary-card strong {
+        display: block;
+        margin-top: 9px;
+        color: var(--navy);
+        font-size: 29px;
+        line-height: 1;
+      }
+
+      .workspace {
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: 17px;
+        background: var(--surface);
+        box-shadow: var(--shadow);
+      }
+
+      .tabs {
+        display: flex;
+        gap: 4px;
+        overflow-x: auto;
+        border-bottom: 1px solid var(--line);
+        padding: 10px 12px 0;
+        scrollbar-width: thin;
+      }
+
+      .tab {
+        position: relative;
+        min-height: 48px;
+        border: 0;
+        border-radius: 9px 9px 0 0;
+        background: transparent;
+        color: var(--muted);
+        cursor: pointer;
+        padding: 0 16px;
+        white-space: nowrap;
+        font-weight: 700;
+      }
+
+      .tab:hover {
+        background: #f3f7f5;
+        color: var(--ink);
+      }
+
+      .tab[aria-selected="true"] {
+        background: var(--sage-soft);
+        color: var(--sage-deep);
+      }
+
+      .tab[aria-selected="true"]::after {
+        position: absolute;
+        right: 12px;
+        bottom: -1px;
+        left: 12px;
+        height: 3px;
+        border-radius: 3px 3px 0 0;
+        background: var(--sage);
+        content: "";
+      }
+
+      .panel {
+        display: none;
+        padding: 22px;
+      }
+
+      .panel.active {
+        display: block;
+      }
+
+      .panel-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+        margin-bottom: 18px;
+      }
+
+      .panel-header h2 {
+        margin: 0;
+        color: var(--navy);
+        font-size: 21px;
+        letter-spacing: -0.02em;
+      }
+
+      .panel-header p {
+        margin: 4px 0 0;
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      .filters {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .filters input,
+      .filters select {
+        min-height: 42px;
+        border: 1px solid var(--line);
+        border-radius: 9px;
+        background: #ffffff;
+        color: var(--ink);
+        padding: 0 12px;
+      }
+
+      .filters input {
+        width: min(290px, 42vw);
+      }
+
+      .table-wrap {
+        overflow-x: auto;
+        border: 1px solid var(--soft-line);
+        border-radius: 12px;
+      }
+
+      table {
+        width: 100%;
+        min-width: 1480px;
+        border-collapse: collapse;
+      }
+
+      th {
+        border-bottom: 1px solid var(--line);
+        background: #f6f8f7;
+        color: #43525d;
+        padding: 12px 14px;
+        text-align: left;
+        font-size: 13px;
+        letter-spacing: 0.02em;
+      }
+
+      td {
+        padding: 14px;
+        border-bottom: 1px solid var(--soft-line);
+        vertical-align: top;
+        font-size: 14px;
+      }
+
+      tbody tr:last-child td {
+        border-bottom: 0;
+      }
+
+      .priority,
+      .status-pill {
+        display: inline-flex;
+        align-items: center;
+        min-height: 27px;
+        border-radius: 999px;
+        padding: 3px 9px;
+        font-size: 12px;
+        font-weight: 800;
+        white-space: nowrap;
+      }
+
+      .priority-high {
+        background: #ffe8e4;
+        color: #a52c1f;
+      }
+
+      .priority-medium {
+        background: var(--amber-soft);
+        color: var(--amber);
+      }
+
+      .priority-low {
+        background: #eaf1f6;
+        color: #425b70;
+      }
+
+      .row-control {
+        width: 100%;
+        min-width: 140px;
+        min-height: 38px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #ffffff;
+        color: var(--ink);
+        padding: 7px 9px;
+        font-size: 13px;
+      }
+
+      textarea.row-control {
+        min-width: 220px;
+        min-height: 70px;
+        resize: vertical;
+      }
+
+      .summary-text {
+        min-width: 310px;
+        color: var(--ink);
+        font-weight: 620;
+      }
+
+      .source-detail {
+        min-width: 170px;
+        color: var(--muted);
+      }
+
+      .stage-label {
+        color: var(--sage-deep);
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+      }
+
+      .status-passed { background: #dff5e9; color: #11653d; }
+      .status-failed { background: #ffe4df; color: #9a2d20; }
+      .status-needs-sage-badge { background: #ffe9b5; color: #765000; }
+      .status-not-applicable-badge { background: #e9edf0; color: #58636b; }
+      .status-neutral { background: #eaf1f6; color: #425b70; }
+      .status-legend { margin: 8px 0 0; color: var(--muted); font-size: 13px; }
+      .applies-legend { margin: 4px 0 0; color: var(--muted); font-size: 13px; }
+
+      .empty-cell {
+        height: 265px;
+        text-align: center;
+      }
+
+      .empty-state {
+        width: min(450px, 100%);
+        margin: 0 auto;
+      }
+
+      .empty-icon {
+        display: grid;
+        width: 54px;
+        height: 54px;
+        margin: 0 auto 15px;
+        place-items: center;
+        border: 1px solid #bfe4d6;
+        border-radius: 15px;
+        background: var(--sage-soft);
+        color: var(--sage-deep);
+        font-size: 25px;
+        font-weight: 800;
+      }
+
+      .empty-state strong {
+        display: block;
+        color: var(--navy);
+        font-size: 17px;
+      }
+
+      .empty-state p {
+        margin: 7px 0 0;
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      .overview-empty {
+        display: grid;
+        min-height: 320px;
+        place-items: center;
+        border: 1px dashed #bdc9c2;
+        border-radius: 13px;
+        background: linear-gradient(135deg, #fbfcfb, #f4f8f6);
+        padding: 28px;
+        text-align: center;
+      }
+
+      .overview-empty .empty-state {
+        max-width: 520px;
+      }
+
+      .overview-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+
+      .guide-card {
+        border: 1px solid var(--soft-line);
+        border-radius: 13px;
+        background: #fbfcfb;
+        padding: 21px;
+      }
+
+      .guide-card h3 {
+        margin: 0 0 13px;
+        color: var(--navy);
+        font-size: 17px;
+      }
+
+      .guide-card ol,
+      .guide-card ul {
+        margin: 0;
+        padding-left: 22px;
+      }
+
+      .guide-card li + li {
+        margin-top: 8px;
+      }
+
+      .guide-card p {
+        margin: 13px 0 0;
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      .legend {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 9px;
+        margin-top: 18px;
+      }
+
+      .legend-item {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: #ffffff;
+        padding: 6px 10px;
+        color: #43525d;
+        font-size: 13px;
+        font-weight: 700;
+      }
+
+      .legend-dot {
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        background: #97a39d;
+      }
+
+      .legend-dot.relevant { background: var(--sage); }
+      .legend-dot.not-relevant { background: #7f8c86; }
+      .legend-dot.clarify { background: #e4a11b; }
+      .legend-dot.review { background: #4f7cac; }
+
+      @media (max-width: 900px) {
+        .summary-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .panel-header {
+          align-items: stretch;
+          flex-direction: column;
+        }
+
+        .overview-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .filters {
+          flex-wrap: wrap;
+        }
+      }
+
+      @media (max-width: 600px) {
+        .topbar-inner,
+        main {
+          width: min(100% - 24px, 1480px);
+        }
+
+        .topbar-inner {
+          min-height: 68px;
+        }
+
+        .brand-copy span,
+        .saved-indicator {
+          display: none;
+        }
+
+        main {
+          padding-top: 25px;
+        }
+
+        .summary-grid {
+          grid-template-columns: 1fr 1fr;
+          gap: 9px;
+        }
+
+        .summary-card {
+          min-height: 98px;
+          padding: 14px;
+        }
+
+        .panel {
+          padding: 16px;
+        }
+
+        .filters {
+          display: grid;
+          grid-template-columns: 1fr;
+        }
+
+        .filters input {
+          width: 100%;
+        }
+      }
+
+      .review-intro { border-left: 4px solid var(--sage); background: var(--sage-soft); padding: 16px 20px; margin-bottom: 20px; border-radius: 10px; }
+      .review-intro h3 { margin: 0 0 6px; }
+      .review-intro p { margin: 5px 0; }
+      .review-table { min-width: 850px; table-layout: fixed; }
+      .review-table th:nth-child(1) { width: 100px; }
+      .review-table th:nth-child(2) { width: 170px; }
+      .review-table th:nth-child(3) { width: 25%; }
+      .review-table th:nth-child(4) { width: 140px; }
+      .review-table th:nth-child(5) { width: 145px; }
+      .review-table td { overflow-wrap: anywhere; }
+      .review-table .failed { background: #fff0ec; }
+      .review-table .passed { background: #edfaf3; }
+      tbody tr.status-needs-sage,
+      .review-table .status-needs-sage { background: #fff4dc; }
+      tbody tr.status-not-applicable,
+      .review-table .status-not-applicable { background: #f1f3f4; color: #58636b; }
+      .review-status { font-size: 13px; font-weight: 800; }
+      .evidence-links { display: flex; flex-wrap: wrap; gap: 5px 10px; margin-top: 7px; font-size: 12px; }
+      a { color: #006b4f; }
+      .review-controls { display: flex; flex-wrap: wrap; gap: 10px; margin: 14px 0; }
+      .review-controls input, .review-controls select { border: 1px solid var(--line); border-radius: 8px; padding: 9px; }
+      .review-controls input { flex: 1; min-width: 220px; }
+      #review-count { color: var(--muted); font-size: 13px; }
+      .legacy-evidence { margin-top: 22px; }
+      .legacy-evidence summary { cursor: pointer; font-weight: 750; color: var(--navy); padding: 12px 0; }
+      .defect-groups { margin: 22px 0 26px; }
+      .defect-groups h3 { margin-bottom: 6px; }
+      .defect-groups > p { margin-top: 0; color: var(--muted); }
+      .defect-table { min-width: 980px; table-layout: fixed; }
+      .defect-table th:nth-child(1) { width: 58px; }
+      .defect-table th:nth-child(2) { width: 21%; }
+      .defect-table th:nth-child(3) { width: 25%; }
+      .defect-table th:nth-child(4) { width: 27%; }
+      .defect-table tbody tr { background: #fff0ec; }
+      .checklist-ids { color: #8d281e; font-weight: 750; overflow-wrap: anywhere; }
+      .defect-note { margin-top: 10px; padding: 12px 14px; border-radius: 8px; background: #f6f8f7; font-size: 13px; }
+      .summary-card strong { font-variant-numeric: tabular-nums; }
+      @media print { .header-actions,.tabs,.filters,.review-controls,.legacy-evidence,.save-note { display:none; } .panel { display:none; } #panel-overview { display:block; } .review-table { min-width:0; font-size:10px; } }
+    </style>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="topbar-inner">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true">AI</div>
+          <div class="brand-copy">
+            <strong>AI Playbook Review Tracker</strong>
+            <span>Evidence, gaps and actions in one place</span>
+          </div>
+        </div>
+        <div class="header-actions">
+          <span id="summary-indicator" class="saved-indicator">Loading status…</span>
+          <button id="download-markdown" class="primary-button" type="button">Download report (.md)</button>
+          <button id="download-json" class="secondary-button" type="button">Download editable backup (.json)</button>
+          <button id="import-json" class="secondary-button" type="button">Import backup</button>
+          <input id="import-json-file" type="file" accept="application/json,.json" hidden />
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="page-heading" aria-labelledby="page-title">
+        <div>
+          <p class="eyebrow">Review workspace</p>
+          <h1 id="page-title">Review overview</h1>
+          <p>
+            Track what applies, what has been tested, the supporting evidence and what needs to happen next.
+          </p>
+        </div>
+      </section>
+
+      <section class="save-note" aria-label="Saving and sharing">
+        <p><strong id="saved-indicator">Changes save automatically on this device.</strong></p>
+        <p>Edits made in Manual Testing and QA Release Checklist use the same local tracker. Download the Markdown report to share results, or the JSON backup so another person can import and continue editing.</p>
+      </section>
+
+      <section class="summary-grid" aria-label="Testing summary">
+        <article class="summary-card">
+          <span>Total checklist items</span>
+          <strong>0</strong>
+        </article>
+        <article class="summary-card">
+          <span>Completed with evidence</span>
+          <strong>0</strong>
+        </article>
+        <article class="summary-card">
+          <span>Tested and failed</span>
+          <strong>0</strong>
+        </article>
+        <article class="summary-card">
+          <span>Needs Sage or QA</span>
+          <strong>0</strong>
+        </article>
+      </section>
+
+      <section class="workspace" aria-label="QA tracker">
+        <div class="tabs" role="tablist" aria-label="Tracker sections">
+          <button class="tab" id="tab-overview" role="tab" aria-selected="true" aria-controls="panel-overview">Overview</button>
+          <button class="tab" id="tab-manual" role="tab" aria-selected="false" aria-controls="panel-manual" tabindex="-1">Manual Testing</button>
+          <button class="tab" id="tab-release" role="tab" aria-selected="false" aria-controls="panel-release" tabindex="-1">QA Release Checklist</button>
+          <button class="tab" id="tab-actions" role="tab" aria-selected="false" aria-controls="panel-actions" tabindex="-1">Outstanding Actions</button>
+        </div>
+
+        <div class="panel active" id="panel-overview" role="tabpanel" aria-labelledby="tab-overview">
+          <div class="panel-header">
+            <div>
+              <h2>Overview</h2>
+              <p>The source checklists are loaded. Results below distinguish completed tests from checks that only have earlier supporting evidence.</p>
+            </div>
+          </div>
+
+          <section class="review-intro" aria-label="Current assessment">
+            <h3>Current assessment · 18 September 2026</h3>
+            <p id="current-assessment-counts"></p>
+            <p><strong>Ready for review, not release sign-off.</strong> Batches 6–9 assessed actual checklist row IDs. The earlier batches are supporting evidence bundles; their completion counts were withdrawn.</p>
+            <p>The nine recorded application defects are fixed, deployed and validated. The maintained automated suite passes all 61 tests, and the checks we can complete directly have been recorded with evidence.</p>
+            <p><strong>Next:</strong> the remaining rows need Sage business decisions, Jira or CMS evidence, the named browser/device matrix, or formal QA/release approval.</p>
+            <div class="evidence-links"><a href="evidence/row-audit/2026-09-23-fix-verification.md">23 Sep fix verification</a><a href="evidence/row-audit/2026-09-09-audit.md">Status audit</a><a href="evidence/row-audit/checklist-runbook.md">67 test procedures</a><a href="evidence/row-audit/batch-6.md">Batch 6</a><a href="evidence/row-audit/batch-7.md">Batch 7</a><a href="evidence/row-audit/batch-8.md">Batch 8</a><a href="evidence/row-audit/batch-9.md">Batch 9 / handoff</a></div>
+          </section>
+          <section aria-labelledby="checklist-split-title">
+            <h3 id="checklist-split-title">Quick split by checklist</h3>
+            <p>There are 38 Manual Testing rows and 29 QA Release Checklist rows. “Checked” means passed or failed; the rest still need Sage/QA confirmation or are not applicable.</p>
+            <div class="table-wrap"><table class="review-table"><thead><tr><th>Checklist</th><th>Total</th><th>Passed</th><th>Failed</th><th>Needs Sage/QA</th><th>Not applicable</th><th>Checked</th></tr></thead><tbody id="checklist-split-rows"></tbody></table></div>
+          </section>
+          <section aria-labelledby="remaining-groups-title">
+            <h3 id="remaining-groups-title">What the remaining 30 checks need</h3>
+            <div class="table-wrap"><table class="review-table"><thead><tr><th>Group</th><th>Count</th><th>What is needed</th><th>Owner</th></tr></thead><tbody>
+              <tr><td>Business decisions</td><td>9</td><td>Agree requirements, mandatory fields and acceptance criteria.</td><td>Business owner</td></tr>
+              <tr><td>Jira / process evidence</td><td>5</td><td>Confirm stories, approvals, peer review and defect links in the formal process.</td><td>Sage delivery teams</td></tr>
+              <tr><td>Named browsers and physical devices</td><td>9</td><td>Run the stated Edge, Chrome, Firefox, Safari, tablet and phone matrix.</td><td>QA, with Victor able to cover available browsers/devices</td></tr>
+              <tr><td>CMS / integration</td><td>3</td><td>Test Sitecore, Tealium and the agreed Sage.com integration scope.</td><td>CMS / integration team</td></tr>
+              <tr><td>Formal QA / release approval</td><td>4</td><td>Complete VQA, defect-severity review and release sign-off.</td><td>QA / release team</td></tr>
+            </tbody></table></div>
+          </section>
+
+          <section aria-labelledby="device-matrix-title">
+            <h3 id="device-matrix-title">Requested browser and device checks</h3>
+            <p>Responsive browser emulation is useful preparation. Rows that name a physical device or operating system should be run on that setup or through the QA device lab.</p>
+            <div class="table-wrap"><table class="review-table device-table"><thead><tr><th>Type</th><th>Requested setup</th><th>Checklist row</th><th>Who can complete it</th></tr></thead><tbody>
+              <tr><td>Desktop browser</td><td>Microsoft Edge, latest version, on Windows 11</td><td>release-15</td><td>Victor or QA on a Windows 11 computer</td></tr>
+              <tr><td>Desktop browser</td><td>Google Chrome, latest version, on Windows 11</td><td>release-16</td><td>Victor or QA on a Windows 11 computer</td></tr>
+              <tr><td>Desktop browser</td><td>Mozilla Firefox, latest version, on Windows 11</td><td>release-17</td><td>Victor or QA on a Windows 11 computer</td></tr>
+              <tr><td>Desktop browser</td><td>Safari, latest version, on macOS</td><td>release-18</td><td>Someone with a Mac, or QA</td></tr>
+              <tr><td>Tablet</td><td>Samsung Galaxy Tab A9+ on the latest Android version</td><td>release-19</td><td>Device owner or QA device lab</td></tr>
+              <tr><td>Tablet</td><td>iPad 10th generation and iPad Mini 2021 on the latest iOS version</td><td>release-20</td><td>Device owner or QA device lab</td></tr>
+              <tr class="clarify-device"><td>Mobile</td><td>iPhone 17 and “Mini” on the latest iOS version. The source does not identify which Mini model.</td><td>release-21</td><td>QA should clarify the Mini model, then test both named devices</td></tr>
+              <tr><td>Mobile</td><td>Samsung S25 on the latest Android version</td><td>release-22</td><td>Device owner or QA device lab</td></tr>
+            </tbody></table></div>
+          </section>
+
+          <details class="compact-details defect-groups">
+            <summary>View the 9 fixed defects</summary>
+          <section aria-labelledby="defect-groups-title">
+            <h3 id="defect-groups-title">9 defect fixes deployed and validated</h3>
+            <p>These are the application problems to fix. One defect can fail several checklist requirements.</p>
+            <div class="table-wrap">
+              <table class="defect-table">
+                <thead><tr><th>No.</th><th>Defect</th><th>Checklist rows affected</th><th>What failed</th><th>Fix status / next step</th></tr></thead>
+                <tbody>
+                  <tr><td>1</td><td><strong>Pricing layout on narrow screens</strong></td><td class="checklist-ids">manual-28, release-26, release-13</td><td>At 320px the time fields were cramped and controls protruded.</td><td>Fixed, deployed and verified at exactly 320px: fields and controls stack without overlap.</td></tr>
+                  <tr><td>2</td><td><strong>Glossary overflow at 1080px</strong></td><td class="checklist-ids">manual-03, manual-04, release-24, release-13</td><td>Glossary text overflowed its assigned columns.</td><td>Fixed and locally verified: wider split breakpoint plus containment and wrapping.</td></tr>
+                  <tr><td>3</td><td><strong>Negative pricing calculation</strong></td><td class="checklist-ids">manual-06, manual-12, release-13</td><td>Negative values produced a positive saving.</td><td>Fixed and locally verified: an error appears and no saving is calculated.</td></tr>
+                  <tr><td>4</td><td><strong>Font resources return 404</strong></td><td class="checklist-ids">manual-07, manual-17, release-13</td><td>Four font requests failed and appeared as console errors.</td><td>Fixed, deployed and verified: assets return 200 and the console is clear.</td></tr>
+                  <tr><td>5</td><td><strong>Certificate name truncation</strong></td><td class="checklist-ids">manual-13, release-13</td><td>An 83-character name lost its final words.</td><td>Fixed and verified: visible 100-character limit and every entered word retained.</td></tr>
+                  <tr><td>6</td><td><strong>No clear confirmation</strong></td><td class="checklist-ids">manual-14, release-13</td><td>Clear removed content without confirmation.</td><td>Fixed and locally verified: Prompt cleared is announced.</td></tr>
+                  <tr><td>7</td><td><strong>Inconsistent workflow gate</strong></td><td class="checklist-ids">manual-18, release-13</td><td>Score each allowed progression with one workflow.</td><td>Fixed and locally verified: every route requires three workflows.</td></tr>
+                  <tr><td>8</td><td><strong>False saved message</strong></td><td class="checklist-ids">manual-33, release-13</td><td>Storage failure still showed a saved message.</td><td>Fixed, deployed and verified with a controlled storage-quota failure.</td></tr>
+                  <tr><td>9</td><td><strong>Generic Vercel 404 page</strong></td><td class="checklist-ids">manual-19, release-13</td><td>Invalid routes showed the hosting provider error.</td><td>Fixed, deployed and verified with a branded HTTP 404 response.</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="defect-note"><strong>Current position:</strong> all nine recorded defects are deployed and validated, so release-13 now passes. Remaining release rows concern ownership, integrations, browser/device coverage or formal approval.</p>
+          </section>
+          </details>
+          <details class="compact-details">
+          <summary>Search all 67 checklist rows</summary>
+          <p>Search by row ID, requirement, owner or finding. Open an evidence link to inspect the result. Use the Manual Testing or QA Release Checklist tabs to edit a row; changes save in this browser. Download Markdown exports the current rows and notes.</p>
+          <div class="review-controls"><input id="review-search" type="search" placeholder="Search IDs, findings or owners" aria-label="Search all checklist rows"><select id="review-status" aria-label="Filter review by status"><option>All statuses</option><option>Failed</option><option>Needs Sage or QA</option><option>Passed</option><option>Not applicable</option><option>Not assessed</option><option>Already evidenced</option><option>Blocked</option></select></div>
+          <p id="review-count" aria-live="polite"></p>
+          <div class="table-wrap"><table class="review-table"><thead><tr><th>ID</th><th>Checklist</th><th>Requirement</th><th>Pass / fail / status</th><th>Owner</th><th>Result / next action and evidence</th></tr></thead><tbody id="review-rows"></tbody></table></div>
+          </details>
+          <details class="legacy-evidence"><summary>Assessment method and historical supporting evidence</summary>
+          <div class="overview-grid">
+            <article class="guide-card">
+              <h3>Checklist row batches</h3>
+              <ol>
+                <li>Batch 6: manual-07, 17, 19, 35, 37, 38 — live resources, errors and audit tools.</li>
+                <li>Batch 7: manual-01–05, 28–29; release-15–26 — visual, viewport and browser matrix.</li>
+                <li>Batch 8: manual-06, 08–16, 18, 20–27, 30–34, 36 — input and functional requirements.</li>
+                <li>Batch 9: release-01–14, 27–29 — release evidence and formal ownership.</li>
+                <li>Checked means passed with evidence or failed. Partial and not applicable are counted separately.</li>
+                <li>Automated assertions support rows; their count never adds to checklist completion.</li>
+              </ol>
+            </article>
+            <article class="guide-card">
+              <h3>What counts as evidence</h3>
+              <ul>
+                <li>A dated screenshot showing the result.</li>
+                <li>A test report, automated test result or QA document.</li>
+                <li>A file path or link that another person can open.</li>
+                <li>A short note naming the browser, device or screen size tested.</li>
+              </ul>
+              <p>A row passes only when its full condition is supported. Field/test/render counts do not add to checklist totals. Evidence links open reports or screenshots. Browser edits are local to this browser; export Markdown to share them.</p>
+            </article>
+            <article class="guide-card">
+              <h3>Legacy evidence bundle 1 — supporting checks</h3>
+              <ul>
+                <li>60 of 60 automated tests passed.</li>
+                <li>The production build completed successfully.</li>
+                <li>25 of 25 bundled application assets loaded.</li>
+                <li>No console errors appeared in the representative browser journey.</li>
+                <li>Two failures were recorded: four Sage font files return 404, and invalid routes use a generic 404 page.</li>
+              </ul>
+              <p>Historical completion counts withdrawn by the 9 September row audit. These bundles do not constitute completed checklist batches.</p>
+              <p>Evidence: docs/qa/evidence/batch-1/2026-09-09-batch-1-technical-checks.md</p>
+            </article>
+            <article class="guide-card">
+              <h3>Legacy evidence bundle 2 — supporting checks</h3>
+              <ul>
+                <li>Navigation, saved answers and refresh persistence passed.</li>
+                <li>Activity summary, glossary search and flashcards passed.</li>
+                <li>Certificate personalisation safely displayed script-like text.</li>
+                <li>The operating-system print/save dialogue still needs a manual confirmation.</li>
+              </ul>
+              <p>Historical completion counts withdrawn by the 9 September row audit. These bundles do not constitute completed checklist batches.</p>
+              <p>Evidence: docs/qa/evidence/batch-2/2026-09-09-batch-2-core-functional-journey.md</p>
+            </article>
+            <article class="guide-card">
+              <h3>Legacy evidence bundle 3 — supporting checks</h3>
+              <ul>
+                <li>24 automated assertions passed; no additional checklist row was completed.</li>
+                <li>Navigation, page numbering, shared treatments and motion rules were covered.</li>
+                <li>A full 63-page visual and physical-device review is still separate work.</li>
+              </ul>
+              <p>Historical completion counts withdrawn by the 9 September row audit. These bundles do not constitute completed checklist batches.</p>
+              <p>Evidence: docs/qa/evidence/batch-3/2026-09-09-batch-3-structure-and-visual-foundations.md</p>
+            </article>
+            <article class="guide-card">
+              <h3>Legacy evidence bundle 4 — supporting checks</h3>
+              <ul>
+                <li>4 automated accessibility assertions passed; no additional checklist row was completed.</li>
+                <li>Focus, reduced motion, status announcements and image alternatives were covered.</li>
+                <li>Lighthouse, full keyboard and screen-reader review remain open.</li>
+              </ul>
+              <p>Historical completion counts withdrawn by the 9 September row audit. These bundles do not constitute completed checklist batches.</p>
+              <p>Evidence: docs/qa/evidence/batch-4/2026-09-09-batch-4-accessibility.md</p>
+            </article>
+            <article class="guide-card">
+              <h3>Legacy evidence bundle 5 — supporting checks</h3>
+              <ul>
+                <li>4 automated security assertions passed and the dependency audit found 0 vulnerabilities; no additional checklist row was completed.</li>
+                <li>The production build passed with the existing large-bundle warning.</li>
+                <li>Security headers passed. Generic 404, missing robots.txt and missing favicon were recorded.</li>
+              </ul>
+              <p>Historical completion counts withdrawn by the 9 September row audit. These bundles do not constitute completed checklist batches.</p>
+              <p>Evidence: docs/qa/evidence/batch-5/2026-09-09-batch-5-production-readiness.md</p>
+            </article>
+          </div>
+          </details>
+          <div class="legend" aria-label="Applicability key">
+            <span class="legend-item"><span class="legend-dot relevant" aria-hidden="true"></span>Relevant</span>
+            <span class="legend-item"><span class="legend-dot not-relevant" aria-hidden="true"></span>Not relevant</span>
+            <span class="legend-item"><span class="legend-dot clarify" aria-hidden="true"></span>Needs clarification</span>
+            <span class="legend-item"><span class="legend-dot review" aria-hidden="true"></span>To review</span>
+          </div>
+        </div>
+
+        <div class="panel" id="panel-manual" role="tabpanel" aria-labelledby="tab-manual" hidden>
+          <div class="panel-header">
+            <div>
+              <h2>Manual Testing</h2>
+              <p>Individual usability, functional, compatibility, performance and accessibility checks.</p>
+              <p><strong>Editable:</strong> changes here save automatically in the same local tracker as the QA Release Checklist.</p>
+              <p class="status-legend"><strong>Yellow rows:</strong> Needs Sage or QA — a decision, approved baseline or external evidence is still needed. <strong>Red:</strong> failed. <strong>Green:</strong> passed.</p>
+              <p class="applies-legend"><strong>“Not relevant” in Applies?</strong> means this standalone deployment has no matching feature (for example email, uploads, CMS CRUD, external page links or server form submission). It does not mean the requirement is unimportant for a future Sage integration.</p>
+            </div>
+            <div class="filters" aria-label="Manual testing filters">
+              <input id="manual-search" type="search" placeholder="Search checks" aria-label="Search manual testing checks" />
+              <select id="manual-priority-filter" aria-label="Filter manual testing by priority">
+                <option>All priorities</option>
+                <option>High</option>
+                <option>Medium</option>
+                <option>Low</option>
+              </select>
+              <select id="manual-status-filter" aria-label="Filter manual testing by status">
+                <option>All statuses</option>
+                <option>Not assessed</option>
+                <option>Already evidenced</option>
+                <option>Passed</option>
+                <option>Failed</option>
+                <option>Blocked</option>
+                <option>Needs Sage or QA</option>
+                <option>Not applicable</option>
+              </select>
+              <select id="manual-owner-filter" aria-label="Filter manual testing by owner">
+                <option>All owners</option>
+                <option>Unassigned</option>
+                <option>Victor / Playbook</option>
+                <option>CMS</option>
+                <option>QA</option>
+                <option>Business owner</option>
+                <option>Other Sage team</option>
+              </select>
+              <select id="manual-sort" aria-label="Sort manual testing checks">
+                <option value="source">Checklist order</option>
+                <option value="priority-desc">Priority: high to low</option>
+                <option value="priority-asc">Priority: low to high</option>
+              </select>
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Priority</th>
+                  <th>Test type</th>
+                  <th>Summary</th>
+                  <th>Status (quick view)</th>
+                  <th>Update status</th>
+                  <th>Applies?</th>
+                  <th>Owner</th>
+                  <th>Tools or add-ons</th>
+                  <th>Standards</th>
+                  <th>Checklist notes</th>
+                  <th>Interpretation / pass condition</th>
+                  <th>Evidence</th>
+                  <th>Tester comments</th>
+                </tr>
+              </thead>
+              <tbody id="manual-checks-body"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="panel" id="panel-release" role="tabpanel" aria-labelledby="tab-release" hidden>
+          <div class="panel-header">
+            <div>
+              <h2>QA Release Checklist</h2>
+              <p>Entry criteria, exit criteria and sign-off criteria for the overall release.</p>
+              <p><strong>Editable:</strong> changes here save automatically in the same local tracker as Manual Testing.</p>
+              <p class="status-legend"><strong>Yellow rows:</strong> Needs Sage or QA — this is awaiting release evidence or sign-off, not marked as failed. <strong>Red:</strong> failed. <strong>Green:</strong> passed.</p>
+              <p class="applies-legend"><strong>“Not relevant” in Applies?</strong> means the current standalone deployment does not include the matching release integration or workflow. Sage can change that applicability decision when the integrated scope is confirmed.</p>
+            </div>
+            <div class="filters" aria-label="QA release checklist filters">
+              <input id="release-search" type="search" placeholder="Search criteria" aria-label="Search QA release checklist" />
+              <select id="release-stage-filter" aria-label="Filter QA release checklist by stage">
+                <option>All stages</option>
+                <option>Entry criteria</option>
+                <option>Exit criteria</option>
+                <option>Compatibility: browsers</option>
+                <option>Compatibility: tablets</option>
+                <option>Compatibility: mobile</option>
+                <option>Responsive testing</option>
+                <option>Sign-off criteria</option>
+              </select>
+              <select id="release-status-filter" aria-label="Filter QA release checklist by status">
+                <option>All statuses</option>
+                <option>Not assessed</option>
+                <option>Already evidenced</option>
+                <option>Passed</option>
+                <option>Failed</option>
+                <option>Blocked</option>
+                <option>Needs Sage or QA</option>
+                <option>Not applicable</option>
+              </select>
+              <select id="release-owner-filter" aria-label="Filter QA release checklist by owner">
+                <option>All owners</option>
+                <option>Unassigned</option>
+                <option>Victor / Playbook</option>
+                <option>CMS</option>
+                <option>QA</option>
+                <option>Business owner</option>
+                <option>Other Sage team</option>
+              </select>
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Stage</th>
+                  <th>Criterion</th>
+                  <th>Status (quick view)</th>
+                  <th>Update status</th>
+                  <th>Applies?</th>
+                  <th>Owner</th>
+                  <th>Interpretation / pass condition</th>
+                  <th>Evidence</th>
+                  <th>Tester comments</th>
+                </tr>
+              </thead>
+              <tbody id="release-checks-body"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="panel" id="panel-actions" role="tabpanel" aria-labelledby="tab-actions" hidden>
+          <div class="panel-header">
+            <div>
+              <h2>Outstanding Actions</h2>
+              <p>Work queue for failed, blocked, not-assessed and Needs Sage or QA rows. It tells you what still needs action; it is not a list of additional failures.</p>
+            </div>
+            <div class="filters" aria-label="Outstanding action filters">
+              <input id="actions-search" type="search" placeholder="Search actions" aria-label="Search outstanding actions" />
+              <select id="actions-owner-filter" aria-label="Filter outstanding actions by owner">
+                <option>All owners</option>
+                <option>Unassigned</option>
+                <option>Victor / Playbook</option>
+                <option>CMS</option>
+                <option>QA</option>
+                <option>Business owner</option>
+                <option>Other Sage team</option>
+              </select>
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Action</th>
+                  <th>Source</th>
+                  <th>Priority</th>
+                  <th>Owner</th>
+                  <th>Status</th>
+                  <th>Evidence needed</th>
+                  <th>Comments</th>
+                </tr>
+              </thead>
+              <tbody id="outstanding-actions-body">
+                <tr>
+                  <td class="empty-cell" colspan="7">
+                    <div class="empty-state">
+                      <div class="empty-icon" aria-hidden="true">0</div>
+                      <strong>No outstanding actions</strong>
+                      <p>Actions will be generated from checks that are missing, failed, blocked or awaiting a decision.</p>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="/review-tracker/tracker.js"></script>
+  </body>
+</html>

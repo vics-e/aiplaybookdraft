@@ -1,0 +1,130 @@
+- complementary "Playbook navigation":
+  - button "Sage The AI Playbook For Accountants & Bookkeepers":
+    - img "Sage"
+    - heading "The AI Playbook" [level=1]
+    - paragraph: For Accountants & Bookkeepers
+  - generic: CURRENT SECTION
+  - generic: Prompting Skills
+  - navigation:
+    - button "Introduction 100%" [expanded]:
+      - generic: Introduction
+      - generic: 100%
+    - button "Contents":
+      - generic: Contents
+    - button "Section 1 Understanding AI 100%":
+      - generic: Section 1
+      - generic: Understanding AI
+      - generic: 100%
+    - button "Section 2 Professional Guardrails 100%":
+      - generic: Section 2
+      - generic: Professional Guardrails
+      - generic: 100%
+    - button "Section 3 Assistants & Agents 100%":
+      - generic: Section 3
+      - generic: Assistants & Agents
+      - generic: 100%
+    - button "Section 4 Prompting Skills 100%":
+      - generic: Section 4
+      - generic: Prompting Skills
+      - generic: 100%
+    - button "Section 5 Pricing & Economics 100%":
+      - generic: Section 5
+      - generic: Pricing & Economics
+      - generic: 100%
+    - button "Section 6 90-Day Plan 100%":
+      - generic: Section 6
+      - generic: 90-Day Plan
+      - generic: 100%
+    - button "Section 7 Templates & Tools 100%":
+      - generic: Section 7
+      - generic: Templates & Tools
+      - generic: 100%
+    - button "Conclusion 100%":
+      - generic: Conclusion
+      - generic: 100%
+  - generic: OVERALL PROGRESS
+  - generic: 100%
+  - generic: 63 of 63 pages visited
+- button "Close navigation menu" [expanded]:
+- button "Switch to light mode":
+  - tooltip "Switch to light mode"
+- main:
+  - generic: "Section 4: Prompting Skills"
+  - heading "The Accountant's Prompt Framework" [level=2]
+  - paragraph: How to get better results from AI assistants
+  - paragraph: A vague question produces a vague answer. A structured prompt produces a useful result. Most people ask AI to "help with something" and get generic outputs. Accountants who use a simple framework get outputs they can actually use.
+  - heading "Every Effective Prompt Has 4 Parts:" [level=4]
+  - paragraph:
+    - text: Select a prompt part to explore.
+  - tablist "Every Effective Prompt Has 4 Parts:":
+    - tab "1 Role" [selected]:
+      - generic: "1"
+      - generic: Role
+    - tab "2 Task":
+      - generic: "2"
+      - generic: Task
+    - tab "3 Context":
+      - generic: "3"
+      - generic: Context
+    - tab "4 Constraints":
+      - generic: "4"
+      - generic: Constraints
+  - tabpanel "1 Role":
+    - generic: 1 of 4
+    - heading "Role" [level=5]
+    - paragraph: "Tell AI who it should act as. This sets the professional context and tone. Examples: • \"You are a bookkeeper...\" • \"You are a tax accountant...\" • \"You are a business advisor...\" • \"You are a practice manager...\""
+  - heading "Complete Example:" [level=4]
+  - paragraph: "Role: \"You are an accountant.\" Task: \"Draft a short, professional email to a retail client explaining that their quarterly profit has decreased.\" Context: \"The decrease is due to higher supplier costs, which increased by 15% this quarter.\" Constraints: \"Keep it under 120 words and use a supportive tone.\""
+  - complementary "Learning":
+    - paragraph: Role + Task + Context + Constraints = A prompt that produces useful, professional outputs.
+  - complementary "Why This Works:":
+    - heading "Why This Works:" [level=4]
+    - paragraph: Without structure, AI guesses what you want. With structure, AI knows exactly what to produce and how to produce it.
+    - generic: Learning
+  - region "Rewrite a Weak Prompt":
+    - generic: Activity
+    - heading "Rewrite a Weak Prompt" [level=4]
+    - paragraph: "Practice applying the framework by rewriting this weak prompt into a structured one:"
+    - generic: Weak prompt
+    - paragraph: “Write an email about the results.”
+    - paragraph: "1. Weak prompt: \"Write an email about the results.\" — Rewrite this using Role + Task + Context + Constraints to make it specific and useful."
+    - generic: "1"
+    - text: Role
+    - generic: What role would you give AI?
+    - textbox "1 Role What role would you give AI?":
+      - /placeholder: What role would you give AI?
+    - generic: "2"
+    - text: Task
+    - generic: What task should it perform?
+    - textbox "2 Task What task should it perform?":
+      - /placeholder: What task should it perform?
+    - generic: "3"
+    - text: Context
+    - generic: What context does it need?
+    - textbox "3 Context What context does it need?":
+      - /placeholder: What context does it need?
+    - generic: "4"
+    - text: Constraints
+    - generic: What constraints would improve the output (e.g., tone, length, format)?
+    - textbox "4 Constraints What constraints would improve the output (e.g., tone, length, format)?":
+      - /placeholder: What constraints would improve the output?
+    - complementary "Structured prompt preview":
+      - heading "Structured prompt preview" [level=5]
+      - status: 0 of 4 parts
+      - generic: Complete Role, Task, Context, and Constraints to build your structured prompt.
+      - button "Copy prompt" [disabled]:
+        - text: Copy prompt
+      - button "Clear" [disabled]:
+        - text: Clear
+  - generic: Key Takeaway
+  - paragraph: Structured prompts produce structured results. Role + Task + Context + Constraints is your foundation.
+  - button "Go to previous page":
+    - generic: Previous
+  - generic: Page 31 of 63
+  - button "Go to page 29"
+  - button "Go to page 30"
+  - button "Go to page 31"
+  - button "Go to page 32"
+  - button "Go to page 33"
+  - button "Go to next page":
+    - generic: Next

@@ -1,0 +1,99 @@
+- complementary "Playbook navigation":
+  - button "Sage The AI Playbook For Accountants & Bookkeepers":
+    - img "Sage"
+    - heading "The AI Playbook" [level=1]
+    - paragraph: For Accountants & Bookkeepers
+  - generic: CURRENT SECTION
+  - generic: Completion & Certificate
+  - navigation:
+    - button "Introduction 100%" [expanded]:
+      - generic: Introduction
+      - generic: 100%
+    - button "Contents":
+      - generic: Contents
+    - button "Section 1 Understanding AI 100%":
+      - generic: Section 1
+      - generic: Understanding AI
+      - generic: 100%
+    - button "Section 2 Professional Guardrails 100%":
+      - generic: Section 2
+      - generic: Professional Guardrails
+      - generic: 100%
+    - button "Section 3 Assistants & Agents 100%":
+      - generic: Section 3
+      - generic: Assistants & Agents
+      - generic: 100%
+    - button "Section 4 Prompting Skills 100%":
+      - generic: Section 4
+      - generic: Prompting Skills
+      - generic: 100%
+    - button "Section 5 Pricing & Economics 100%":
+      - generic: Section 5
+      - generic: Pricing & Economics
+      - generic: 100%
+    - button "Section 6 90-Day Plan 100%":
+      - generic: Section 6
+      - generic: 90-Day Plan
+      - generic: 100%
+    - button "Section 7 Templates & Tools 100%":
+      - generic: Section 7
+      - generic: Templates & Tools
+      - generic: 100%
+    - button "Conclusion 100%":
+      - generic: Conclusion
+      - generic: 100%
+  - generic: OVERALL PROGRESS
+  - generic: 100%
+  - generic: 63 of 63 pages visited
+- button "Close navigation menu" [expanded]:
+- button "Switch to light mode":
+  - tooltip "Switch to light mode"
+- main:
+  - generic: Conclusion
+  - heading "Completion Certificate" [level=2]
+  - paragraph: Unlocked by completing the entire playbook
+  - heading "The AI Playbook for Accountants & Bookkeepers" [level=4]
+  - paragraph: Certificate of Completion
+  - complementary "Learning":
+    - paragraph: This certificate recognises the successful completion of The AI Playbook for Accountants & Bookkeepers, demonstrating commitment to AI-ready practice development.
+  - paragraph: "By completing this playbook, you have gained essential knowledge in:"
+  - paragraph: AI fundamentals and the shift to AI-assisted firms
+  - paragraph: "Professional guardrails: ethics, responsibility, and data confidentiality"
+  - paragraph: AI assistants, agents, and workflow transformation
+  - paragraph: Prompting skills and practical AI application
+  - paragraph: Pricing strategies for the AI era
+  - paragraph: The 90-day AI adoption plan
+  - paragraph: Templates, tools, and practical resources
+  - heading "Powered by Sage" [level=4]
+  - paragraph: This playbook was created to support accountants and bookkeepers in building AI-ready practices while maintaining professional standards and delivering exceptional client value.
+  - region "Personalise Your Certificate":
+    - generic: Activity
+    - heading "Personalise Your Certificate" [level=4]
+    - paragraph: "Enter your name or practice name to personalise this certificate:"
+    - paragraph: The AI Playbook for Accountants & Bookkeepers
+    - heading "Certificate of Completion" [level=3]
+    - paragraph: Presented to
+    - paragraph: QA preserved baseline
+    - paragraph: This certificate recognises the successful completion of The AI Playbook for Accountants & Bookkeepers, demonstrating commitment to AI-ready practice development.
+    - paragraph: Powered by Sage
+    - paragraph: This playbook was created to support accountants and bookkeepers in building AI-ready practices while maintaining professional standards and delivering exceptional client value.
+    - generic: Completion Date
+    - generic: 9 September 2026
+    - generic: "1. Name / Practice Name:"
+    - textbox "1. Name / Practice Name:":
+      - /placeholder: Type your answer here...
+      - text: QA preserved baseline
+    - status: Answers saved locally
+  - button "Download Certificate":
+    - generic: Download Certificate
+  - paragraph: Click to print or save as PDF
+  - generic: Key Takeaway
+  - paragraph: You are now equipped with the framework, guardrails, skills, and plan to build an AI-ready firm. The future of accountancy is here—and you're ready.
+  - button "Go to previous page":
+    - generic: Previous
+  - generic: Page 63 of 63
+  - button "Go to page 61"
+  - button "Go to page 62"
+  - button "Go to page 63"
+  - button "Finish playbook" [disabled]:
+    - generic: Finish

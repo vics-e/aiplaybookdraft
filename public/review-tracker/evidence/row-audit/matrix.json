@@ -1,0 +1,6159 @@
+[
+  {
+    "p": 1,
+    "w": 320,
+    "cw": 320,
+    "sh": 900,
+    "sw": 320
+  },
+  {
+    "p": 2,
+    "w": 320,
+    "cw": 305,
+    "sh": 1565,
+    "sw": 305
+  },
+  {
+    "p": 3,
+    "w": 320,
+    "cw": 305,
+    "sh": 2404,
+    "sw": 305
+  },
+  {
+    "p": 4,
+    "w": 320,
+    "cw": 305,
+    "sh": 1260,
+    "sw": 305
+  },
+  {
+    "p": 5,
+    "w": 320,
+    "cw": 305,
+    "sh": 1049,
+    "sw": 305
+  },
+  {
+    "p": 6,
+    "w": 320,
+    "cw": 305,
+    "sh": 2562,
+    "sw": 305
+  },
+  {
+    "p": 7,
+    "w": 320,
+    "cw": 305,
+    "sh": 1955,
+    "sw": 305
+  },
+  {
+    "p": 8,
+    "w": 320,
+    "cw": 305,
+    "sh": 2430,
+    "sw": 305
+  },
+  {
+    "p": 9,
+    "w": 320,
+    "cw": 305,
+    "sh": 2261,
+    "sw": 305
+  },
+  {
+    "p": 10,
+    "w": 320,
+    "cw": 305,
+    "sh": 3184,
+    "sw": 305
+  },
+  {
+    "p": 11,
+    "w": 320,
+    "cw": 305,
+    "overflow": [],
+    "sh": 3179,
+    "sw": 305
+  },
+  {
+    "p": 12,
+    "w": 320,
+    "cw": 305,
+    "overflow": [],
+    "sh": 3023,
+    "sw": 305
+  },
+  {
+    "p": 13,
+    "w": 320,
+    "cw": 305,
+    "overflow": [],
+    "sh": 1690,
+    "sw": 305
+  },
+  {
+    "p": 14,
+    "w": 320,
+    "cw": 305,
+    "overflow": [],
+    "sh": 1654,
+    "sw": 305
+  },
+  {
+    "p": 15,
+    "w": 320,
+    "cw": 305,
+    "overflow": [],
+    "sh": 2631,
+    "sw": 305
+  },
+  {
+    "p": 16,
+    "w": 320,
+    "cw": 305,
+    "overflow": [],
+    "sh": 3237,
+    "sw": 305
+  },
+  {
+    "p": 17,
+    "w": 320,
+    "cw": 305,
+    "overflow": [],
+    "sh": 1694,
+    "sw": 305
+  },
+  {
+    "p": 18,
+    "w": 320,
+    "cw": 305,
+    "overflow": [
+      {
+        "cls": "flex snap-x gap-1 overflow-x-auto bg-[var(--color-surface-1)] p-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:block md:overflow-visible",
+        "cw": 271,
+        "sw": 804,
+        "tag": "DIV",
+        "text": "1Professional accountability2Quality control3Client transparency4Continuous"
+      }
+    ],
+    "sh": 3178,
+    "sw": 305
+  },
+  {
+    "p": 19,
+    "w": 320,
+    "cw": 305,
+    "overflow": [],
+    "sh": 3108,
+    "sw": 305
+  },
+  {
+    "p": 20,
+    "w": 320,
+    "cw": 305,
+    "overflow": [],
+    "sh": 3224,
+    "sw": 305
+  },
+  {
+    "p": 21,
+    "w": 320,
+    "cw": 305,
+    "overflow": [
+      {
+        "cls": "grid md:grid-cols-2 gap-6 mb-6",
+        "cw": 205,
+        "sw": 225,
+        "tag": "DIV",
+        "text": "AI AssistantAssistants respond to what you ask.You drive the process. AI re"
+      }
+    ],
+    "sh": 3583,
+    "sw": 305
+  },
+  {
+    "p": 22,
+    "w": 320,
+    "cw": 305,
+    "overflow": [
+      {
+        "cls": "-mx-1 flex gap-2 overflow-x-auto px-1 pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
+        "cw": 239,
+        "sw": 632,
+        "tag": "DIV",
+        "text": "Data retrievalAutomated checksAnalysis and classificationOutput preparation"
+      },
+      {
+        "cls": "-mx-1 flex gap-2 overflow-x-auto px-1 pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
+        "cw": 239,
+        "sw": 790,
+        "tag": "DIV",
+        "text": "Clear outcomeStructured dataRepeatable processLow judgement requirementHuma"
+      },
+      {
+        "cls": "sr-only",
+        "cw": 1,
+        "sw": 149,
+        "tag": "LEGEND",
+        "text": "Workflow candidate 1"
+      },
+      {
+        "cls": "sr-only",
+        "cw": 1,
+        "sw": 201,
+        "tag": "SPAN",
+        "text": "Workflow candidate 1 name"
+      },
+      {
+        "cls": "sr-only",
+        "cw": 1,
+        "sw": 151,
+        "tag": "LEGEND",
+        "text": "Workflow candidate 2"
+      },
+      {
+        "cls": "sr-only",
+        "cw": 1,
+        "sw": 203,
+        "tag": "SPAN",
+        "text": "Workflow candidate 2 name"
+      },
+      {
+        "cls": "sr-only",
+        "cw": 1,
+        "sw": 151,
+        "tag": "LEGEND",
+        "text": "Workflow candidate 3"
+      },
+      {
+        "cls": "sr-only",
+        "cw": 1,
+        "sw": 203,
+        "tag": "SPAN",
+        "text": "Workflow candidate 3 name"
+      }
+    ],
+    "sh": 3970,
+    "sw": 305
+  },
+  {
+    "p": 23,
+    "w": 320,
+    "cw": 305,
+    "overflow": [],
+    "sh": 3220,
+    "sw": 305
+  },
+  {
+    "p": 24,
+    "w": 320,
+    "cw": 305,
+    "overflow": [
+      {
+        "cls": "flex snap-x gap-1 overflow-x-auto bg-[var(--color-surface-1)] p-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:block md:overflow-visible",
+        "cw": 271,
+        "sw": 804,
+        "tag": "DIV",
+        "text": "1List your workflows2Score each workflow3Plot the results4Prioritise"
+      },
+      {
+        "cls": "flex items-center justify-between gap-4",
+        "cw": 189,
+        "sw": 193,
+        "tag": "DIV",
+        "text": "Step 1 of 4List workflows0 workflows"
+      }
+    ],
+    "sh": 3421,
+    "sw": 305
+  },
+  {
+    "p": 25,
+    "w": 320,
+    "cw": 305,
+    "overflow": [
+      {
+        "cls": "flex snap-x gap-1 overflow-x-auto bg-[var(--color-surface-1)] p-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:block md:overflow-visible",
+        "cw": 271,
+        "sw": 1196,
+        "tag": "DIV",
+        "text": "1High volume, low complexity2Clear success measures3Structured data4Low ris"
+      }
+    ],
+    "sh": 3056,
+    "sw": 305
+  },
+  {
+    "p": 26,
+    "w": 320,
+    "cw": 305,
+    "overflow": [
+      {
+        "cls": "flex snap-x gap-1 overflow-x-auto bg-[var(--color-surface-1)] p-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:block md:overflow-visible",
+        "cw": 271,
+        "sw": 1000,
+        "tag": "DIV",
+        "text": "1Prompts2Assistants3Workflow Packs4Agents5Orchestrated Agents"
+      }
+    ],
+    "sh": 1338,
+    "sw": 305
+  },
+  {
+    "p": 27,
+    "w": 320,
+    "cw": 305,
+    "overflow": [],
+    "sh": 2417,
+    "sw": 305
+  },
+  {
+    "p": 28,
+    "w": 320,
+    "cw": 305,
+    "overflow": [],
+    "sh": 2665,
+    "sw": 305
+  },
+  {
+    "p": 29,
+    "w": 320,
+    "cw": 305,
+    "overflow": [],
+    "sh": 2575,
+    "sw": 305
+  },
+  {
+    "p": 30,
+    "w": 320,
+    "cw": 305,
+    "overflow": [],
+    "sh": 4553,
+    "sw": 305
+  },
+  {
+    "p": 31,
+    "w": 320,
+    "cw": 305,
+    "overflow": [
+      {
+        "cls": "flex snap-x gap-1 overflow-x-auto bg-[var(--color-surface-1)] p-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:block md:overflow-visible",
+        "cw": 271,
+        "sw": 804,
+        "tag": "DIV",
+        "text": "1Role2Task3Context4Constraints"
+      }
+    ],
+    "sh": 4411,
+    "sw": 305
+  },
+  {
+    "p": 32,
+    "w": 320,
+    "cw": 305,
+    "overflow": [],
+    "sh": 3202,
+    "sw": 305
+  },
+  {
+    "p": 33,
+    "w": 320,
+    "cw": 305,
+    "overflow": [],
+    "sh": 3600,
+    "sw": 305
+  },
+  {
+    "p": 34,
+    "w": 320,
+    "cw": 305,
+    "overflow": [
+      {
+        "cls": "flex snap-x gap-1 overflow-x-auto bg-[var(--color-surface-1)] p-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:block md:overflow-visible",
+        "cw": 271,
+        "sw": 804,
+        "tag": "DIV",
+        "text": "1Individual Prompts2Standard Prompts3Workflow Packs4Agents"
+      }
+    ],
+    "sh": 2127,
+    "sw": 305
+  },
+  {
+    "p": 35,
+    "w": 320,
+    "cw": 305,
+    "overflow": [],
+    "sh": 8192,
+    "sw": 305
+  },
+  {
+    "p": 36,
+    "w": 320,
+    "cw": 305,
+    "overflow": [],
+    "sh": 3274,
+    "sw": 305
+  },
+  {
+    "p": 37,
+    "w": 320,
+    "cw": 305,
+    "overflow": [],
+    "sh": 2957,
+    "sw": 305
+  },
+  {
+    "p": 38,
+    "w": 320,
+    "cw": 305,
+    "overflow": [
+      {
+        "cls": "flex snap-x gap-1 overflow-x-auto bg-[var(--color-surface-1)] p-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:block md:overflow-visible",
+        "cw": 271,
+        "sw": 804,
+        "tag": "DIV",
+        "text": "1Transparency increases2Efficiency creates pressure3Value is decoupled from"
+      }
+    ],
+    "sh": 3659,
+    "sw": 305
+  },
+  {
+    "p": 39,
+    "w": 320,
+    "cw": 305,
+    "overflow": [],
+    "sh": 2768,
+    "sw": 305
+  },
+  {
+    "p": 40,
+    "w": 320,
+    "cw": 305,
+    "overflow": [],
+    "sh": 2998,
+    "sw": 305
+  },
+  {
+    "p": 41,
+    "w": 320,
+    "cw": 305,
+    "overflow": [],
+    "sh": 3008,
+    "sw": 305
+  },
+  {
+    "p": 42,
+    "w": 320,
+    "cw": 305,
+    "overflow": [],
+    "sh": 4364,
+    "sw": 305
+  },
+  {
+    "p": 43,
+    "w": 320,
+    "cw": 305,
+    "overflow": [
+      {
+        "cls": "space-y-6",
+        "cw": 231,
+        "sw": 242,
+        "tag": "DIV",
+        "text": "Service 1Service 2Service 3Service 1Service 1 — NameIdentify a common servi"
+      },
+      {
+        "cls": "block text-sm font-black",
+        "cw": 46,
+        "sw": 53,
+        "tag": "SPAN",
+        "text": "Service 1"
+      },
+      {
+        "cls": "block text-sm font-black",
+        "cw": 46,
+        "sw": 53,
+        "tag": "SPAN",
+        "text": "Service 2"
+      },
+      {
+        "cls": "block text-sm font-black",
+        "cw": 46,
+        "sw": 53,
+        "tag": "SPAN",
+        "text": "Service 3"
+      },
+      {
+        "cls": "rounded-2xl border border-[#00DC51]/35 bg-black/24 p-4 sm:p-6",
+        "cw": 229,
+        "sw": 241,
+        "tag": "FIELDSET",
+        "text": "Service 1Service 1 — NameIdentify a common service in your firmService 1 — "
+      },
+      {
+        "cls": "space-y-5",
+        "cw": 197,
+        "sw": 225,
+        "tag": "DIV",
+        "text": "Service 1 — NameIdentify a common service in your firmService 1 — Time toda"
+      },
+      {
+        "cls": "rounded-2xl border border-white/10 bg-white/[0.025] p-4",
+        "cw": 195,
+        "sw": 224,
+        "tag": "DIV",
+        "text": "Service 1 — Time todayHow long does this currently take on average?Service "
+      },
+      {
+        "cls": "grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-end gap-3 sm:gap-5",
+        "cw": 163,
+        "sw": 208,
+        "tag": "DIV",
+        "text": "Service 1 — Time todayHow long does this currently take on average?Service "
+      },
+      {
+        "cls": "min-w-0",
+        "cw": 52,
+        "sw": 81,
+        "tag": "LABEL",
+        "text": "Service 1 — Time todayHow long does this currently take on average?"
+      },
+      {
+        "cls": "mb-2 flex min-h-8 items-start justify-between gap-2 font-bold text-white/90 text-xs",
+        "cw": 52,
+        "sw": 81,
+        "tag": "SPAN",
+        "text": "Service 1 — Time todayHow long does this currently take on average?"
+      },
+      {
+        "cls": "min-w-0",
+        "cw": 52,
+        "sw": 97,
+        "tag": "LABEL",
+        "text": "Service 1 — Estimated time with AIHow long would this take with AI assistan"
+      },
+      {
+        "cls": "mb-2 flex min-h-8 items-start justify-between gap-2 font-bold text-white/90 text-xs",
+        "cw": 52,
+        "sw": 97,
+        "tag": "SPAN",
+        "text": "Service 1 — Estimated time with AIHow long would this take with AI assistan"
+      }
+    ],
+    "sh": 3679,
+    "sw": 305
+  },
+  {
+    "p": 44,
+    "w": 320,
+    "cw": 305,
+    "overflow": [],
+    "sh": 4293,
+    "sw": 305
+  },
+  {
+    "p": 45,
+    "w": 320,
+    "cw": 305,
+    "overflow": [],
+    "sh": 3319,
+    "sw": 305
+  },
+  {
+    "p": 46,
+    "w": 320,
+    "cw": 305,
+    "overflow": [],
+    "sh": 1831,
+    "sw": 305
+  },
+  {
+    "p": 47,
+    "w": 320,
+    "cw": 305,
+    "overflow": [],
+    "sh": 1618,
+    "sw": 305
+  },
+  {
+    "p": 48,
+    "w": 320,
+    "cw": 305,
+    "overflow": [],
+    "sh": 1597,
+    "sw": 305
+  },
+  {
+    "p": 49,
+    "w": 320,
+    "cw": 305,
+    "overflow": [],
+    "sh": 1892,
+    "sw": 305
+  },
+  {
+    "p": 50,
+    "w": 320,
+    "cw": 305,
+    "overflow": [
+      {
+        "cls": "overflow-x-auto rounded-2xl border border-[var(--color-rule)] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
+        "cw": 271,
+        "sw": 1080,
+        "tag": "DIV",
+        "text": "1Time savedReduction in time spent on key workflows.2Turnaround timeSpeed f"
+      }
+    ],
+    "sh": 1497,
+    "sw": 305
+  },
+  {
+    "p": 51,
+    "w": 320,
+    "cw": 305,
+    "overflow": [],
+    "sh": 1932,
+    "sw": 305
+  },
+  {
+    "p": 52,
+    "w": 320,
+    "cw": 305,
+    "overflow": [],
+    "sh": 1966,
+    "sw": 305
+  },
+  {
+    "p": 53,
+    "w": 320,
+    "cw": 305,
+    "overflow": [
+      {
+        "cls": "flex snap-x gap-1 overflow-x-auto bg-[var(--color-surface-1)] p-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:block md:overflow-visible",
+        "cw": 271,
+        "sw": 804,
+        "tag": "DIV",
+        "text": "1Experimentation2Structured assistants3Workflow integration4Agent-driven fi"
+      }
+    ],
+    "sh": 2066,
+    "sw": 305
+  },
+  {
+    "p": 54,
+    "w": 320,
+    "cw": 305,
+    "overflow": [],
+    "sh": 3254,
+    "sw": 305
+  },
+  {
+    "p": 55,
+    "w": 320,
+    "cw": 305,
+    "overflow": [],
+    "sh": 2636,
+    "sw": 305
+  },
+  {
+    "p": 56,
+    "w": 320,
+    "cw": 305,
+    "overflow": [],
+    "sh": 2194,
+    "sw": 305
+  },
+  {
+    "p": 57,
+    "w": 320,
+    "cw": 305,
+    "overflow": [],
+    "sh": 3560,
+    "sw": 305
+  },
+  {
+    "p": 58,
+    "w": 320,
+    "cw": 305,
+    "overflow": [],
+    "sh": 1938,
+    "sw": 305
+  },
+  {
+    "p": 59,
+    "w": 320,
+    "cw": 305,
+    "overflow": [],
+    "sh": 1474,
+    "sw": 305
+  },
+  {
+    "p": 60,
+    "w": 320,
+    "cw": 305,
+    "overflow": [],
+    "sh": 3147,
+    "sw": 305
+  },
+  {
+    "p": 61,
+    "w": 320,
+    "cw": 305,
+    "overflow": [],
+    "sh": 1910,
+    "sw": 305
+  },
+  {
+    "p": 62,
+    "w": 320,
+    "cw": 320,
+    "overflow": [],
+    "sh": 900,
+    "sw": 320
+  },
+  {
+    "p": 63,
+    "w": 320,
+    "cw": 305,
+    "overflow": [],
+    "sh": 3324,
+    "sw": 305
+  },
+  {
+    "p": 1,
+    "w": 767,
+    "cw": 767,
+    "heading": "THE AI PLAYBOOKFor Accountants &Bookkeepers",
+    "overflow": [],
+    "sh": 900,
+    "sw": 767
+  },
+  {
+    "p": 2,
+    "w": 767,
+    "cw": 767,
+    "heading": "Contents",
+    "overflow": [],
+    "sh": 900,
+    "sw": 767
+  },
+  {
+    "p": 3,
+    "w": 767,
+    "cw": 752,
+    "heading": "The Shift to AI-Assisted Firms",
+    "overflow": [],
+    "sh": 2015,
+    "sw": 752
+  },
+  {
+    "p": 4,
+    "w": 767,
+    "cw": 752,
+    "heading": "The Three Stages of AI",
+    "overflow": [],
+    "sh": 1038,
+    "sw": 752
+  },
+  {
+    "p": 5,
+    "w": 767,
+    "cw": 767,
+    "heading": "The 5 Principles of AI-Ready Firms",
+    "overflow": [],
+    "sh": 900,
+    "sw": 767
+  },
+  {
+    "p": 6,
+    "w": 767,
+    "cw": 752,
+    "heading": "Where AI Works Best",
+    "overflow": [],
+    "sh": 1837,
+    "sw": 752
+  },
+  {
+    "p": 7,
+    "w": 767,
+    "cw": 752,
+    "heading": "The Capacity Opportunity",
+    "overflow": [],
+    "sh": 1576,
+    "sw": 752
+  },
+  {
+    "p": 8,
+    "w": 767,
+    "cw": 752,
+    "heading": "The New Role of the Accountant",
+    "overflow": [
+      {
+        "cls": "",
+        "cw": 704,
+        "sw": 711,
+        "tag": "DIV",
+        "text": "Section 1: Understanding AIThe New Role of the AccountantAI "
+      },
+      {
+        "cls": "playbook-page-content space-y-8  ",
+        "cw": 704,
+        "sw": 711,
+        "tag": "DIV",
+        "text": "Section 1: Understanding AIThe New Role of the AccountantAI "
+      },
+      {
+        "cls": "space-y-6",
+        "cw": 704,
+        "sw": 724,
+        "tag": "DIV",
+        "text": "What AI Can Do WellDraft communicationsSummarise dataCheck c"
+      },
+      {
+        "cls": "grid grid-cols-1 md:grid-cols-2 gap-6",
+        "cw": 704,
+        "sw": 724,
+        "tag": "DIV",
+        "text": "What AI Can Do WellDraft communicationsSummarise dataCheck c"
+      }
+    ],
+    "sh": 2255,
+    "sw": 752
+  },
+  {
+    "p": 9,
+    "w": 767,
+    "cw": 752,
+    "heading": "The Human-in-the-Loop Model",
+    "overflow": [],
+    "sh": 1778,
+    "sw": 752
+  },
+  {
+    "p": 10,
+    "w": 767,
+    "cw": 752,
+    "heading": "Professional Ethics and Responsibility in an AI World",
+    "overflow": [],
+    "sh": 2644,
+    "sw": 752
+  },
+  {
+    "p": 11,
+    "w": 767,
+    "cw": 752,
+    "heading": "Data and Confidentiality in an AI World",
+    "overflow": [],
+    "sh": 2237,
+    "sw": 752
+  },
+  {
+    "p": 12,
+    "w": 767,
+    "cw": 752,
+    "heading": "Legal Responsibility Does Not Change",
+    "overflow": [],
+    "sh": 2089,
+    "sw": 752
+  },
+  {
+    "p": 13,
+    "w": 767,
+    "cw": 752,
+    "heading": "The Real Risk: AI Without Process",
+    "overflow": [],
+    "sh": 1219,
+    "sw": 752
+  },
+  {
+    "p": 14,
+    "w": 767,
+    "cw": 752,
+    "heading": "The Minimum AI Policy",
+    "overflow": [],
+    "sh": 1280,
+    "sw": 752
+  },
+  {
+    "p": 15,
+    "w": 767,
+    "cw": 752,
+    "heading": "Common AI Failure Modes",
+    "overflow": [],
+    "sh": 2037,
+    "sw": 752
+  },
+  {
+    "p": 16,
+    "w": 767,
+    "cw": 752,
+    "heading": "Avoiding Over-Reliance on AI",
+    "overflow": [],
+    "sh": 2399,
+    "sw": 752
+  },
+  {
+    "p": 17,
+    "w": 767,
+    "cw": 752,
+    "heading": "The 4 Output Checks",
+    "overflow": [],
+    "sh": 1202,
+    "sw": 752
+  },
+  {
+    "p": 18,
+    "w": 767,
+    "cw": 752,
+    "heading": "Creating an AI Evidence Trail",
+    "overflow": [
+      {
+        "cls": "flex snap-x gap-1 overflow-x-auto bg-[var(--color-surface-1)] p-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:block md:overflow-visible",
+        "cw": 702,
+        "sw": 804,
+        "tag": "DIV",
+        "text": "1Professional accountability2Quality control3Client transpar"
+      }
+    ],
+    "sh": 2362,
+    "sw": 752
+  },
+  {
+    "p": 19,
+    "w": 767,
+    "cw": 752,
+    "heading": "The Red-Team Exercise",
+    "overflow": [],
+    "sh": 2223,
+    "sw": 752
+  },
+  {
+    "p": 20,
+    "w": 767,
+    "cw": 752,
+    "heading": "Where Assistants Help",
+    "overflow": [],
+    "sh": 2846,
+    "sw": 752
+  },
+  {
+    "p": 21,
+    "w": 767,
+    "cw": 752,
+    "heading": "Assistants vs Agents: The New Way Work Gets Done",
+    "overflow": [
+      {
+        "cls": "grid md:grid-cols-2 gap-6 mb-6",
+        "cw": 636,
+        "sw": 656,
+        "tag": "DIV",
+        "text": "AI AssistantAssistants respond to what you ask.You drive the"
+      }
+    ],
+    "sh": 2442,
+    "sw": 752
+  },
+  {
+    "p": 22,
+    "w": 767,
+    "cw": 752,
+    "heading": "Where Agents Transform Work",
+    "overflow": [
+      {
+        "cls": "-mx-1 flex gap-2 overflow-x-auto px-1 pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
+        "cw": 662,
+        "sw": 790,
+        "tag": "DIV",
+        "text": "Clear outcomeStructured dataRepeatable processLow judgement "
+      }
+    ],
+    "sh": 2756,
+    "sw": 752
+  },
+  {
+    "p": 23,
+    "w": 767,
+    "cw": 752,
+    "heading": "The Core Agent Workflows in a Firm",
+    "overflow": [],
+    "sh": 2164,
+    "sw": 752
+  },
+  {
+    "p": 24,
+    "w": 767,
+    "cw": 752,
+    "heading": "The Workflow Map: Where Agents Work Best",
+    "overflow": [
+      {
+        "cls": "flex snap-x gap-1 overflow-x-auto bg-[var(--color-surface-1)] p-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:block md:overflow-visible",
+        "cw": 702,
+        "sw": 804,
+        "tag": "DIV",
+        "text": "1List your workflows2Score each workflow3Plot the results4Pr"
+      }
+    ],
+    "sh": 2272,
+    "sw": 752
+  },
+  {
+    "p": 25,
+    "w": 767,
+    "cw": 752,
+    "heading": "How to Choose Your First Agent",
+    "overflow": [
+      {
+        "cls": "flex snap-x gap-1 overflow-x-auto bg-[var(--color-surface-1)] p-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:block md:overflow-visible",
+        "cw": 702,
+        "sw": 1196,
+        "tag": "DIV",
+        "text": "1High volume, low complexity2Clear success measures3Structur"
+      }
+    ],
+    "sh": 2292,
+    "sw": 752
+  },
+  {
+    "p": 26,
+    "w": 767,
+    "cw": 752,
+    "heading": "The Agent Maturity Ladder",
+    "overflow": [
+      {
+        "cls": "flex snap-x gap-1 overflow-x-auto bg-[var(--color-surface-1)] p-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:block md:overflow-visible",
+        "cw": 702,
+        "sw": 1000,
+        "tag": "DIV",
+        "text": "1Prompts2Assistants3Workflow Packs4Agents5Orchestrated Agent"
+      }
+    ],
+    "sh": 1199,
+    "sw": 752
+  },
+  {
+    "p": 27,
+    "w": 767,
+    "cw": 752,
+    "heading": "The Agent Spec Template",
+    "overflow": [],
+    "sh": 2067,
+    "sw": 752
+  },
+  {
+    "p": 28,
+    "w": 767,
+    "cw": 752,
+    "heading": "The Agent Controls Checklist",
+    "overflow": [],
+    "sh": 1942,
+    "sw": 752
+  },
+  {
+    "p": 29,
+    "w": 767,
+    "cw": 752,
+    "heading": "Building Confidence in Agents",
+    "overflow": [],
+    "sh": 1982,
+    "sw": 752
+  },
+  {
+    "p": 30,
+    "w": 767,
+    "cw": 752,
+    "heading": "The AI-Enabled Workflow",
+    "overflow": [],
+    "sh": 3044,
+    "sw": 752
+  },
+  {
+    "p": 31,
+    "w": 767,
+    "cw": 752,
+    "heading": "The Accountant's Prompt Framework",
+    "overflow": [
+      {
+        "cls": "flex snap-x gap-1 overflow-x-auto bg-[var(--color-surface-1)] p-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:block md:overflow-visible",
+        "cw": 702,
+        "sw": 804,
+        "tag": "DIV",
+        "text": "1Role2Task3Context4Constraints"
+      }
+    ],
+    "sh": 3421,
+    "sw": 752
+  },
+  {
+    "p": 32,
+    "w": 767,
+    "cw": 752,
+    "heading": "The Five Prompt Types Every Accountant Should Know",
+    "overflow": [],
+    "sh": 2512,
+    "sw": 752
+  },
+  {
+    "p": 33,
+    "w": 767,
+    "cw": 752,
+    "heading": "Prompt Practice: From Basic to Structured",
+    "overflow": [],
+    "sh": 2524,
+    "sw": 752
+  },
+  {
+    "p": 34,
+    "w": 767,
+    "cw": 752,
+    "heading": "From Prompts to Workflows to Agents",
+    "overflow": [
+      {
+        "cls": "flex snap-x gap-1 overflow-x-auto bg-[var(--color-surface-1)] p-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:block md:overflow-visible",
+        "cw": 702,
+        "sw": 804,
+        "tag": "DIV",
+        "text": "1Individual Prompts2Standard Prompts3Workflow Packs4Agents"
+      }
+    ],
+    "sh": 1770,
+    "sw": 752
+  },
+  {
+    "p": 35,
+    "w": 767,
+    "cw": 752,
+    "heading": "Your Starter Prompt Library",
+    "overflow": [],
+    "sh": 5019,
+    "sw": 752
+  },
+  {
+    "p": 36,
+    "w": 767,
+    "cw": 752,
+    "heading": "Understanding the AI Dividend",
+    "overflow": [],
+    "sh": 2669,
+    "sw": 752
+  },
+  {
+    "p": 37,
+    "w": 767,
+    "cw": 752,
+    "heading": "The Capacity Question",
+    "overflow": [],
+    "sh": 1997,
+    "sw": 752
+  },
+  {
+    "p": 38,
+    "w": 767,
+    "cw": 752,
+    "heading": "Why Time-Based Pricing Becomes Unstable",
+    "overflow": [
+      {
+        "cls": "flex snap-x gap-1 overflow-x-auto bg-[var(--color-surface-1)] p-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:block md:overflow-visible",
+        "cw": 702,
+        "sw": 804,
+        "tag": "DIV",
+        "text": "1Transparency increases2Efficiency creates pressure3Value is"
+      }
+    ],
+    "sh": 2580,
+    "sw": 752
+  },
+  {
+    "p": 39,
+    "w": 767,
+    "cw": 752,
+    "heading": "The Four Pricing Models in an AI World",
+    "overflow": [],
+    "sh": 1987,
+    "sw": 752
+  },
+  {
+    "p": 40,
+    "w": 767,
+    "cw": 752,
+    "heading": "The Shift from Effort to Judgement",
+    "overflow": [],
+    "sh": 1989,
+    "sw": 752
+  },
+  {
+    "p": 41,
+    "w": 767,
+    "cw": 752,
+    "heading": "The 3V Pricing Framework",
+    "overflow": [],
+    "sh": 2195,
+    "sw": 752
+  },
+  {
+    "p": 42,
+    "w": 767,
+    "cw": 752,
+    "heading": "Designing AI-Era Service Packages",
+    "overflow": [],
+    "sh": 2985,
+    "sw": 752
+  },
+  {
+    "p": 43,
+    "w": 767,
+    "cw": 752,
+    "heading": "The AI Impact Pricing Exercise",
+    "overflow": [],
+    "sh": 2568,
+    "sw": 752
+  },
+  {
+    "p": 44,
+    "w": 767,
+    "cw": 752,
+    "heading": "Talking to Clients About AI",
+    "overflow": [],
+    "sh": 2979,
+    "sw": 752
+  },
+  {
+    "p": 45,
+    "w": 767,
+    "cw": 752,
+    "heading": "Pricing Action Checklist",
+    "overflow": [],
+    "sh": 2350,
+    "sw": 752
+  },
+  {
+    "p": 46,
+    "w": 767,
+    "cw": 752,
+    "heading": "The First 30 Days: Build the Foundations",
+    "overflow": [],
+    "sh": 1812,
+    "sw": 752
+  },
+  {
+    "p": 47,
+    "w": 767,
+    "cw": 752,
+    "heading": "Days 31–60: Move from Prompts to Workflows",
+    "overflow": [],
+    "sh": 1275,
+    "sw": 752
+  },
+  {
+    "p": 48,
+    "w": 767,
+    "cw": 752,
+    "heading": "Days 61–90: Introduce Your First Agent",
+    "overflow": [],
+    "sh": 1337,
+    "sw": 752
+  },
+  {
+    "p": 49,
+    "w": 767,
+    "cw": 752,
+    "heading": "The AI Enablement Rhythm",
+    "overflow": [],
+    "sh": 1590,
+    "sw": 752
+  },
+  {
+    "p": 50,
+    "w": 767,
+    "cw": 752,
+    "heading": "The AI Scorecard",
+    "overflow": [
+      {
+        "cls": "overflow-x-auto rounded-2xl border border-[var(--color-rule)] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
+        "cw": 702,
+        "sw": 1080,
+        "tag": "DIV",
+        "text": "1Time savedReduction in time spent on key workflows.2Turnaro"
+      }
+    ],
+    "sh": 1317,
+    "sw": 752
+  },
+  {
+    "p": 51,
+    "w": 767,
+    "cw": 752,
+    "heading": "The Stop-Doing List",
+    "overflow": [],
+    "sh": 1498,
+    "sw": 752
+  },
+  {
+    "p": 52,
+    "w": 767,
+    "cw": 752,
+    "heading": "Three Strategic Questions for the AI-Ready Firm",
+    "overflow": [],
+    "sh": 1711,
+    "sw": 752
+  },
+  {
+    "p": 53,
+    "w": 767,
+    "cw": 752,
+    "heading": "The Four Stages of the AI-Ready Firm",
+    "overflow": [
+      {
+        "cls": "flex snap-x gap-1 overflow-x-auto bg-[var(--color-surface-1)] p-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:block md:overflow-visible",
+        "cw": 702,
+        "sw": 804,
+        "tag": "DIV",
+        "text": "1Experimentation2Structured assistants3Workflow integration4"
+      }
+    ],
+    "sh": 1677,
+    "sw": 752
+  },
+  {
+    "p": 54,
+    "w": 767,
+    "cw": 752,
+    "heading": "AI Acceptable Use Policy (Starter Template)",
+    "overflow": [],
+    "sh": 3093,
+    "sw": 752
+  },
+  {
+    "p": 55,
+    "w": 767,
+    "cw": 752,
+    "heading": "Agent Specification Template",
+    "overflow": [],
+    "sh": 2089,
+    "sw": 752
+  },
+  {
+    "p": 56,
+    "w": 767,
+    "cw": 752,
+    "heading": "AI Output Review Checklist",
+    "overflow": [],
+    "sh": 1775,
+    "sw": 752
+  },
+  {
+    "p": 57,
+    "w": 767,
+    "cw": 752,
+    "heading": "AI Tool Usage Matrix",
+    "overflow": [],
+    "sh": 2649,
+    "sw": 752
+  },
+  {
+    "p": 58,
+    "w": 767,
+    "cw": 752,
+    "heading": "AI File Note Template",
+    "overflow": [],
+    "sh": 1733,
+    "sw": 752
+  },
+  {
+    "p": 59,
+    "w": 767,
+    "cw": 752,
+    "heading": "Client AI Communication Template",
+    "overflow": [],
+    "sh": 1082,
+    "sw": 752
+  },
+  {
+    "p": 60,
+    "w": 767,
+    "cw": 752,
+    "heading": "AI Glossary",
+    "overflow": [],
+    "sh": 2722,
+    "sw": 752
+  },
+  {
+    "p": 61,
+    "w": 767,
+    "cw": 752,
+    "heading": "Building Your AI-Ready Firm",
+    "overflow": [],
+    "sh": 1437,
+    "sw": 752
+  },
+  {
+    "p": 62,
+    "w": 767,
+    "cw": 752,
+    "heading": "Your AI Journey Responses",
+    "overflow": [],
+    "sh": 11271,
+    "sw": 752
+  },
+  {
+    "p": 63,
+    "w": 767,
+    "cw": 752,
+    "heading": "Completion Certificate",
+    "overflow": [],
+    "sh": 2225,
+    "sw": 752
+  },
+  {
+    "p": 1,
+    "w": 768,
+    "cw": 768,
+    "heading": "THE AI PLAYBOOKFor Accountants &Bookkeepers",
+    "overflow": [],
+    "sh": 900,
+    "sw": 768
+  },
+  {
+    "p": 2,
+    "w": 768,
+    "cw": 768,
+    "heading": "Contents",
+    "overflow": [],
+    "sh": 900,
+    "sw": 768
+  },
+  {
+    "p": 3,
+    "w": 768,
+    "cw": 753,
+    "heading": "The Shift to AI-Assisted Firms",
+    "overflow": [],
+    "sh": 2016,
+    "sw": 753
+  },
+  {
+    "p": 4,
+    "w": 768,
+    "cw": 768,
+    "heading": "The Three Stages of AI",
+    "overflow": [],
+    "sh": 900,
+    "sw": 768
+  },
+  {
+    "p": 5,
+    "w": 768,
+    "cw": 768,
+    "heading": "The 5 Principles of AI-Ready Firms",
+    "overflow": [],
+    "sh": 900,
+    "sw": 768
+  },
+  {
+    "p": 6,
+    "w": 768,
+    "cw": 753,
+    "heading": "Where AI Works Best",
+    "overflow": [],
+    "sh": 1671,
+    "sw": 753
+  },
+  {
+    "p": 7,
+    "w": 768,
+    "cw": 753,
+    "heading": "The Capacity Opportunity",
+    "overflow": [],
+    "sh": 1576,
+    "sw": 753
+  },
+  {
+    "p": 8,
+    "w": 768,
+    "cw": 753,
+    "heading": "The New Role of the Accountant",
+    "overflow": [
+      {
+        "cls": "",
+        "cw": 705,
+        "sw": 713,
+        "tag": "DIV",
+        "text": "Section 1: Understanding AIThe New Role of the AccountantAI "
+      },
+      {
+        "cls": "playbook-page-content space-y-8  ",
+        "cw": 705,
+        "sw": 713,
+        "tag": "DIV",
+        "text": "Section 1: Understanding AIThe New Role of the AccountantAI "
+      },
+      {
+        "cls": "space-y-6",
+        "cw": 705,
+        "sw": 725,
+        "tag": "DIV",
+        "text": "What AI Can Do WellDraft communicationsSummarise dataCheck c"
+      },
+      {
+        "cls": "grid grid-cols-1 md:grid-cols-2 gap-6",
+        "cw": 705,
+        "sw": 725,
+        "tag": "DIV",
+        "text": "What AI Can Do WellDraft communicationsSummarise dataCheck c"
+      }
+    ],
+    "sh": 1903,
+    "sw": 753
+  },
+  {
+    "p": 9,
+    "w": 768,
+    "cw": 753,
+    "heading": "The Human-in-the-Loop Model",
+    "overflow": [],
+    "sh": 1429,
+    "sw": 753
+  },
+  {
+    "p": 10,
+    "w": 768,
+    "cw": 753,
+    "heading": "Professional Ethics and Responsibility in an AI World",
+    "overflow": [],
+    "sh": 2644,
+    "sw": 753
+  },
+  {
+    "p": 11,
+    "w": 768,
+    "cw": 753,
+    "heading": "Data and Confidentiality in an AI World",
+    "overflow": [],
+    "sh": 2237,
+    "sw": 753
+  },
+  {
+    "p": 12,
+    "w": 768,
+    "cw": 753,
+    "heading": "Legal Responsibility Does Not Change",
+    "overflow": [],
+    "sh": 2089,
+    "sw": 753
+  },
+  {
+    "p": 13,
+    "w": 768,
+    "cw": 753,
+    "heading": "The Real Risk: AI Without Process",
+    "overflow": [],
+    "sh": 1219,
+    "sw": 753
+  },
+  {
+    "p": 14,
+    "w": 768,
+    "cw": 753,
+    "heading": "The Minimum AI Policy",
+    "overflow": [],
+    "sh": 1280,
+    "sw": 753
+  },
+  {
+    "p": 15,
+    "w": 768,
+    "cw": 753,
+    "heading": "Common AI Failure Modes",
+    "overflow": [],
+    "sh": 2037,
+    "sw": 753
+  },
+  {
+    "p": 16,
+    "w": 768,
+    "cw": 753,
+    "heading": "Avoiding Over-Reliance on AI",
+    "overflow": [],
+    "sh": 2052,
+    "sw": 753
+  },
+  {
+    "p": 17,
+    "w": 768,
+    "cw": 753,
+    "heading": "The 4 Output Checks",
+    "overflow": [],
+    "sh": 1202,
+    "sw": 753
+  },
+  {
+    "p": 18,
+    "w": 768,
+    "cw": 753,
+    "heading": "Creating an AI Evidence Trail",
+    "overflow": [],
+    "sh": 2339,
+    "sw": 753
+  },
+  {
+    "p": 19,
+    "w": 768,
+    "cw": 753,
+    "heading": "The Red-Team Exercise",
+    "overflow": [],
+    "sh": 2223,
+    "sw": 753
+  },
+  {
+    "p": 20,
+    "w": 768,
+    "cw": 753,
+    "heading": "Where Assistants Help",
+    "overflow": [],
+    "sh": 2414,
+    "sw": 753
+  },
+  {
+    "p": 21,
+    "w": 768,
+    "cw": 753,
+    "heading": "Assistants vs Agents: The New Way Work Gets Done",
+    "overflow": [
+      {
+        "cls": "grid md:grid-cols-2 gap-6 mb-6",
+        "cw": 637,
+        "sw": 657,
+        "tag": "DIV",
+        "text": "AI AssistantAssistants respond to what you ask.You drive the"
+      }
+    ],
+    "sh": 2141,
+    "sw": 753
+  },
+  {
+    "p": 22,
+    "w": 768,
+    "cw": 753,
+    "heading": "Where Agents Transform Work",
+    "overflow": [
+      {
+        "cls": "-mx-1 flex gap-2 overflow-x-auto px-1 pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
+        "cw": 663,
+        "sw": 790,
+        "tag": "DIV",
+        "text": "Clear outcomeStructured dataRepeatable processLow judgement "
+      }
+    ],
+    "sh": 2756,
+    "sw": 753
+  },
+  {
+    "p": 23,
+    "w": 768,
+    "cw": 753,
+    "heading": "The Core Agent Workflows in a Firm",
+    "overflow": [],
+    "sh": 1958,
+    "sw": 753
+  },
+  {
+    "p": 24,
+    "w": 768,
+    "cw": 753,
+    "heading": "The Workflow Map: Where Agents Work Best",
+    "overflow": [],
+    "sh": 2270,
+    "sw": 753
+  },
+  {
+    "p": 25,
+    "w": 768,
+    "cw": 753,
+    "heading": "How to Choose Your First Agent",
+    "overflow": [],
+    "sh": 2296,
+    "sw": 753
+  },
+  {
+    "p": 26,
+    "w": 768,
+    "cw": 753,
+    "heading": "The Agent Maturity Ladder",
+    "overflow": [],
+    "sh": 1177,
+    "sw": 753
+  },
+  {
+    "p": 27,
+    "w": 768,
+    "cw": 753,
+    "heading": "The Agent Spec Template",
+    "overflow": [],
+    "sh": 2067,
+    "sw": 753
+  },
+  {
+    "p": 28,
+    "w": 768,
+    "cw": 753,
+    "heading": "The Agent Controls Checklist",
+    "overflow": [],
+    "sh": 1942,
+    "sw": 753
+  },
+  {
+    "p": 29,
+    "w": 768,
+    "cw": 753,
+    "heading": "Building Confidence in Agents",
+    "overflow": [],
+    "sh": 1982,
+    "sw": 753
+  },
+  {
+    "p": 30,
+    "w": 768,
+    "cw": 753,
+    "heading": "The AI-Enabled Workflow",
+    "overflow": [],
+    "sh": 3044,
+    "sw": 753
+  },
+  {
+    "p": 31,
+    "w": 768,
+    "cw": 753,
+    "heading": "The Accountant's Prompt Framework",
+    "overflow": [],
+    "sh": 3369,
+    "sw": 753
+  },
+  {
+    "p": 32,
+    "w": 768,
+    "cw": 753,
+    "heading": "The Five Prompt Types Every Accountant Should Know",
+    "overflow": [],
+    "sh": 2512,
+    "sw": 753
+  },
+  {
+    "p": 33,
+    "w": 768,
+    "cw": 753,
+    "heading": "Prompt Practice: From Basic to Structured",
+    "overflow": [],
+    "sh": 2524,
+    "sw": 753
+  },
+  {
+    "p": 34,
+    "w": 768,
+    "cw": 753,
+    "heading": "From Prompts to Workflows to Agents",
+    "overflow": [],
+    "sh": 1747,
+    "sw": 753
+  },
+  {
+    "p": 35,
+    "w": 768,
+    "cw": 753,
+    "heading": "Your Starter Prompt Library",
+    "overflow": [],
+    "sh": 4773,
+    "sw": 753
+  },
+  {
+    "p": 36,
+    "w": 768,
+    "cw": 753,
+    "heading": "Understanding the AI Dividend",
+    "overflow": [],
+    "sh": 2670,
+    "sw": 753
+  },
+  {
+    "p": 37,
+    "w": 768,
+    "cw": 753,
+    "heading": "The Capacity Question",
+    "overflow": [],
+    "sh": 1997,
+    "sw": 753
+  },
+  {
+    "p": 38,
+    "w": 768,
+    "cw": 753,
+    "heading": "Why Time-Based Pricing Becomes Unstable",
+    "overflow": [],
+    "sh": 2539,
+    "sw": 753
+  },
+  {
+    "p": 39,
+    "w": 768,
+    "cw": 753,
+    "heading": "The Four Pricing Models in an AI World",
+    "overflow": [],
+    "sh": 1987,
+    "sw": 753
+  },
+  {
+    "p": 40,
+    "w": 768,
+    "cw": 753,
+    "heading": "The Shift from Effort to Judgement",
+    "overflow": [],
+    "sh": 1884,
+    "sw": 753
+  },
+  {
+    "p": 41,
+    "w": 768,
+    "cw": 753,
+    "heading": "The 3V Pricing Framework",
+    "overflow": [],
+    "sh": 2195,
+    "sw": 753
+  },
+  {
+    "p": 42,
+    "w": 768,
+    "cw": 753,
+    "heading": "Designing AI-Era Service Packages",
+    "overflow": [],
+    "sh": 2985,
+    "sw": 753
+  },
+  {
+    "p": 43,
+    "w": 768,
+    "cw": 753,
+    "heading": "The AI Impact Pricing Exercise",
+    "overflow": [],
+    "sh": 2568,
+    "sw": 753
+  },
+  {
+    "p": 44,
+    "w": 768,
+    "cw": 753,
+    "heading": "Talking to Clients About AI",
+    "overflow": [],
+    "sh": 2979,
+    "sw": 753
+  },
+  {
+    "p": 45,
+    "w": 768,
+    "cw": 753,
+    "heading": "Pricing Action Checklist",
+    "overflow": [],
+    "sh": 2350,
+    "sw": 753
+  },
+  {
+    "p": 46,
+    "w": 768,
+    "cw": 753,
+    "heading": "The First 30 Days: Build the Foundations",
+    "overflow": [],
+    "sh": 1813,
+    "sw": 753
+  },
+  {
+    "p": 47,
+    "w": 768,
+    "cw": 753,
+    "heading": "Days 31–60: Move from Prompts to Workflows",
+    "overflow": [],
+    "sh": 1275,
+    "sw": 753
+  },
+  {
+    "p": 48,
+    "w": 768,
+    "cw": 753,
+    "heading": "Days 61–90: Introduce Your First Agent",
+    "overflow": [],
+    "sh": 1337,
+    "sw": 753
+  },
+  {
+    "p": 49,
+    "w": 768,
+    "cw": 753,
+    "heading": "The AI Enablement Rhythm",
+    "overflow": [],
+    "sh": 1310,
+    "sw": 753
+  },
+  {
+    "p": 50,
+    "w": 768,
+    "cw": 753,
+    "heading": "The AI Scorecard",
+    "overflow": [],
+    "sh": 1324,
+    "sw": 753
+  },
+  {
+    "p": 51,
+    "w": 768,
+    "cw": 753,
+    "heading": "The Stop-Doing List",
+    "overflow": [],
+    "sh": 1498,
+    "sw": 753
+  },
+  {
+    "p": 52,
+    "w": 768,
+    "cw": 753,
+    "heading": "Three Strategic Questions for the AI-Ready Firm",
+    "overflow": [],
+    "sh": 1457,
+    "sw": 753
+  },
+  {
+    "p": 53,
+    "w": 768,
+    "cw": 753,
+    "heading": "The Four Stages of the AI-Ready Firm",
+    "overflow": [],
+    "sh": 1630,
+    "sw": 753
+  },
+  {
+    "p": 54,
+    "w": 768,
+    "cw": 753,
+    "heading": "AI Acceptable Use Policy (Starter Template)",
+    "overflow": [],
+    "sh": 2558,
+    "sw": 753
+  },
+  {
+    "p": 55,
+    "w": 768,
+    "cw": 753,
+    "heading": "Agent Specification Template",
+    "overflow": [],
+    "sh": 2105,
+    "sw": 753
+  },
+  {
+    "p": 56,
+    "w": 768,
+    "cw": 753,
+    "heading": "AI Output Review Checklist",
+    "overflow": [],
+    "sh": 1403,
+    "sw": 753
+  },
+  {
+    "p": 57,
+    "w": 768,
+    "cw": 753,
+    "heading": "AI Tool Usage Matrix",
+    "overflow": [],
+    "sh": 2365,
+    "sw": 753
+  },
+  {
+    "p": 58,
+    "w": 768,
+    "cw": 753,
+    "heading": "AI File Note Template",
+    "overflow": [],
+    "sh": 1549,
+    "sw": 753
+  },
+  {
+    "p": 59,
+    "w": 768,
+    "cw": 753,
+    "heading": "Client AI Communication Template",
+    "overflow": [],
+    "sh": 1082,
+    "sw": 753
+  },
+  {
+    "p": 60,
+    "w": 768,
+    "cw": 753,
+    "heading": "AI Glossary",
+    "overflow": [],
+    "sh": 2493,
+    "sw": 753
+  },
+  {
+    "p": 61,
+    "w": 768,
+    "cw": 753,
+    "heading": "Building Your AI-Ready Firm",
+    "overflow": [],
+    "sh": 1437,
+    "sw": 753
+  },
+  {
+    "p": 62,
+    "w": 768,
+    "cw": 753,
+    "heading": "Your AI Journey Responses",
+    "overflow": [],
+    "sh": 11271,
+    "sw": 753
+  },
+  {
+    "p": 63,
+    "w": 768,
+    "cw": 753,
+    "heading": "Completion Certificate",
+    "overflow": [],
+    "sh": 2386,
+    "sw": 753
+  },
+  {
+    "p": 1,
+    "w": 1080,
+    "cw": 1065,
+    "heading": "THE AI PLAYBOOKFor Accountants &Bookkeepers",
+    "overflow": [],
+    "sh": 1052,
+    "sw": 1065
+  },
+  {
+    "p": 2,
+    "w": 1080,
+    "cw": 1065,
+    "heading": "Contents",
+    "overflow": [],
+    "sh": 929,
+    "sw": 1065
+  },
+  {
+    "p": 3,
+    "w": 1080,
+    "cw": 1065,
+    "heading": "The Shift to AI-Assisted Firms",
+    "overflow": [],
+    "sh": 2129,
+    "sw": 1065
+  },
+  {
+    "p": 4,
+    "w": 1080,
+    "cw": 1080,
+    "heading": "The Three Stages of AI",
+    "overflow": [],
+    "sh": 900,
+    "sw": 1080
+  },
+  {
+    "p": 5,
+    "w": 1080,
+    "cw": 1065,
+    "heading": "The 5 Principles of AI-Ready Firms",
+    "overflow": [],
+    "sh": 991,
+    "sw": 1065
+  },
+  {
+    "p": 6,
+    "w": 1080,
+    "cw": 1065,
+    "heading": "Where AI Works Best",
+    "overflow": [],
+    "sh": 1836,
+    "sw": 1065
+  },
+  {
+    "p": 7,
+    "w": 1080,
+    "cw": 1065,
+    "heading": "The Capacity Opportunity",
+    "overflow": [],
+    "sh": 1633,
+    "sw": 1065
+  },
+  {
+    "p": 8,
+    "w": 1080,
+    "cw": 1065,
+    "heading": "The New Role of the Accountant",
+    "overflow": [
+      {
+        "cls": "",
+        "cw": 649,
+        "sw": 661,
+        "tag": "DIV",
+        "text": "Section 1: Understanding AIThe New Role of the AccountantAI "
+      },
+      {
+        "cls": "playbook-page-content space-y-8  ",
+        "cw": 649,
+        "sw": 661,
+        "tag": "DIV",
+        "text": "Section 1: Understanding AIThe New Role of the AccountantAI "
+      },
+      {
+        "cls": "space-y-6",
+        "cw": 649,
+        "sw": 669,
+        "tag": "DIV",
+        "text": "What AI Can Do WellDraft communicationsSummarise dataCheck c"
+      },
+      {
+        "cls": "grid grid-cols-1 md:grid-cols-2 gap-6",
+        "cw": 649,
+        "sw": 669,
+        "tag": "DIV",
+        "text": "What AI Can Do WellDraft communicationsSummarise dataCheck c"
+      },
+      {
+        "cls": "flex items-center gap-3 justify-between",
+        "cw": 581,
+        "sw": 616,
+        "tag": "DIV",
+        "text": "ProcessorData HandlerEnters & manages dataReviewerInsight Pr"
+      }
+    ],
+    "sh": 2026,
+    "sw": 1065
+  },
+  {
+    "p": 9,
+    "w": 1080,
+    "cw": 1065,
+    "heading": "The Human-in-the-Loop Model",
+    "overflow": [],
+    "sh": 1578,
+    "sw": 1065
+  },
+  {
+    "p": 10,
+    "w": 1080,
+    "cw": 1065,
+    "heading": "Professional Ethics and Responsibility in an AI World",
+    "overflow": [],
+    "sh": 2786,
+    "sw": 1065
+  },
+  {
+    "p": 11,
+    "w": 1080,
+    "cw": 1065,
+    "heading": "Data and Confidentiality in an AI World",
+    "overflow": [],
+    "sh": 2355,
+    "sw": 1065
+  },
+  {
+    "p": 12,
+    "w": 1080,
+    "cw": 1065,
+    "heading": "Legal Responsibility Does Not Change",
+    "overflow": [],
+    "sh": 2309,
+    "sw": 1065
+  },
+  {
+    "p": 13,
+    "w": 1080,
+    "cw": 1065,
+    "heading": "The Real Risk: AI Without Process",
+    "overflow": [],
+    "sh": 1342,
+    "sw": 1065
+  },
+  {
+    "p": 14,
+    "w": 1080,
+    "cw": 1065,
+    "heading": "The Minimum AI Policy",
+    "overflow": [],
+    "sh": 1324,
+    "sw": 1065
+  },
+  {
+    "p": 15,
+    "w": 1080,
+    "cw": 1065,
+    "heading": "Common AI Failure Modes",
+    "overflow": [],
+    "sh": 2105,
+    "sw": 1065
+  },
+  {
+    "p": 16,
+    "w": 1080,
+    "cw": 1065,
+    "heading": "Avoiding Over-Reliance on AI",
+    "overflow": [],
+    "sh": 2173,
+    "sw": 1065
+  },
+  {
+    "p": 17,
+    "w": 1080,
+    "cw": 1065,
+    "heading": "The 4 Output Checks",
+    "overflow": [],
+    "sh": 1276,
+    "sw": 1065
+  },
+  {
+    "p": 18,
+    "w": 1080,
+    "cw": 1065,
+    "heading": "Creating an AI Evidence Trail",
+    "overflow": [],
+    "sh": 2460,
+    "sw": 1065
+  },
+  {
+    "p": 19,
+    "w": 1080,
+    "cw": 1065,
+    "heading": "The Red-Team Exercise",
+    "overflow": [],
+    "sh": 2314,
+    "sw": 1065
+  },
+  {
+    "p": 20,
+    "w": 1080,
+    "cw": 1065,
+    "heading": "Where Assistants Help",
+    "overflow": [],
+    "sh": 2471,
+    "sw": 1065
+  },
+  {
+    "p": 21,
+    "w": 1080,
+    "cw": 1065,
+    "heading": "Assistants vs Agents: The New Way Work Gets Done",
+    "overflow": [
+      {
+        "cls": "grid md:grid-cols-2 gap-6 mb-6",
+        "cw": 581,
+        "sw": 601,
+        "tag": "DIV",
+        "text": "AI AssistantAssistants respond to what you ask.You drive the"
+      }
+    ],
+    "sh": 2313,
+    "sw": 1065
+  },
+  {
+    "p": 22,
+    "w": 1080,
+    "cw": 1065,
+    "heading": "Where Agents Transform Work",
+    "overflow": [
+      {
+        "cls": "-mx-1 flex gap-2 overflow-x-auto px-1 pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
+        "cw": 607,
+        "sw": 632,
+        "tag": "DIV",
+        "text": "Data retrievalAutomated checksAnalysis and classificationOut"
+      },
+      {
+        "cls": "-mx-1 flex gap-2 overflow-x-auto px-1 pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
+        "cw": 607,
+        "sw": 790,
+        "tag": "DIV",
+        "text": "Clear outcomeStructured dataRepeatable processLow judgement "
+      }
+    ],
+    "sh": 2633,
+    "sw": 1065
+  },
+  {
+    "p": 23,
+    "w": 1080,
+    "cw": 1065,
+    "heading": "The Core Agent Workflows in a Firm",
+    "overflow": [],
+    "sh": 1965,
+    "sw": 1065
+  },
+  {
+    "p": 24,
+    "w": 1080,
+    "cw": 1065,
+    "heading": "The Workflow Map: Where Agents Work Best",
+    "overflow": [],
+    "sh": 2363,
+    "sw": 1065
+  },
+  {
+    "p": 25,
+    "w": 1080,
+    "cw": 1065,
+    "heading": "How to Choose Your First Agent",
+    "overflow": [],
+    "sh": 2402,
+    "sw": 1065
+  },
+  {
+    "p": 26,
+    "w": 1080,
+    "cw": 1065,
+    "heading": "The Agent Maturity Ladder",
+    "overflow": [],
+    "sh": 1221,
+    "sw": 1065
+  },
+  {
+    "p": 27,
+    "w": 1080,
+    "cw": 1065,
+    "heading": "The Agent Spec Template",
+    "overflow": [],
+    "sh": 2120,
+    "sw": 1065
+  },
+  {
+    "p": 28,
+    "w": 1080,
+    "cw": 1065,
+    "heading": "The Agent Controls Checklist",
+    "overflow": [],
+    "sh": 2063,
+    "sw": 1065
+  },
+  {
+    "p": 29,
+    "w": 1080,
+    "cw": 1065,
+    "heading": "Building Confidence in Agents",
+    "overflow": [],
+    "sh": 2111,
+    "sw": 1065
+  },
+  {
+    "p": 30,
+    "w": 1080,
+    "cw": 1065,
+    "heading": "The AI-Enabled Workflow",
+    "overflow": [],
+    "sh": 2803,
+    "sw": 1065
+  },
+  {
+    "p": 31,
+    "w": 1080,
+    "cw": 1065,
+    "heading": "The Accountant's Prompt Framework",
+    "overflow": [],
+    "sh": 3066,
+    "sw": 1065
+  },
+  {
+    "p": 32,
+    "w": 1080,
+    "cw": 1065,
+    "heading": "The Five Prompt Types Every Accountant Should Know",
+    "overflow": [],
+    "sh": 2654,
+    "sw": 1065
+  },
+  {
+    "p": 33,
+    "w": 1080,
+    "cw": 1065,
+    "heading": "Prompt Practice: From Basic to Structured",
+    "overflow": [],
+    "sh": 2614,
+    "sw": 1065
+  },
+  {
+    "p": 34,
+    "w": 1080,
+    "cw": 1065,
+    "heading": "From Prompts to Workflows to Agents",
+    "overflow": [],
+    "sh": 1849,
+    "sw": 1065
+  },
+  {
+    "p": 35,
+    "w": 1080,
+    "cw": 1065,
+    "heading": "Your Starter Prompt Library",
+    "overflow": [],
+    "sh": 5325,
+    "sw": 1065
+  },
+  {
+    "p": 36,
+    "w": 1080,
+    "cw": 1065,
+    "heading": "Understanding the AI Dividend",
+    "overflow": [],
+    "sh": 2787,
+    "sw": 1065
+  },
+  {
+    "p": 37,
+    "w": 1080,
+    "cw": 1065,
+    "heading": "The Capacity Question",
+    "overflow": [],
+    "sh": 2143,
+    "sw": 1065
+  },
+  {
+    "p": 38,
+    "w": 1080,
+    "cw": 1065,
+    "heading": "Why Time-Based Pricing Becomes Unstable",
+    "overflow": [],
+    "sh": 2674,
+    "sw": 1065
+  },
+  {
+    "p": 39,
+    "w": 1080,
+    "cw": 1065,
+    "heading": "The Four Pricing Models in an AI World",
+    "overflow": [],
+    "sh": 2160,
+    "sw": 1065
+  },
+  {
+    "p": 40,
+    "w": 1080,
+    "cw": 1065,
+    "heading": "The Shift from Effort to Judgement",
+    "overflow": [],
+    "sh": 2029,
+    "sw": 1065
+  },
+  {
+    "p": 41,
+    "w": 1080,
+    "cw": 1065,
+    "heading": "The 3V Pricing Framework",
+    "overflow": [],
+    "sh": 2269,
+    "sw": 1065
+  },
+  {
+    "p": 42,
+    "w": 1080,
+    "cw": 1065,
+    "heading": "Designing AI-Era Service Packages",
+    "overflow": [],
+    "sh": 3134,
+    "sw": 1065
+  },
+  {
+    "p": 43,
+    "w": 1080,
+    "cw": 1065,
+    "heading": "The AI Impact Pricing Exercise",
+    "overflow": [],
+    "sh": 2588,
+    "sw": 1065
+  },
+  {
+    "p": 44,
+    "w": 1080,
+    "cw": 1065,
+    "heading": "Talking to Clients About AI",
+    "overflow": [],
+    "sh": 2777,
+    "sw": 1065
+  },
+  {
+    "p": 45,
+    "w": 1080,
+    "cw": 1065,
+    "heading": "Pricing Action Checklist",
+    "overflow": [],
+    "sh": 2440,
+    "sw": 1065
+  },
+  {
+    "p": 46,
+    "w": 1080,
+    "cw": 1065,
+    "heading": "The First 30 Days: Build the Foundations",
+    "overflow": [],
+    "sh": 1881,
+    "sw": 1065
+  },
+  {
+    "p": 47,
+    "w": 1080,
+    "cw": 1065,
+    "heading": "Days 31–60: Move from Prompts to Workflows",
+    "overflow": [],
+    "sh": 1345,
+    "sw": 1065
+  },
+  {
+    "p": 48,
+    "w": 1080,
+    "cw": 1065,
+    "heading": "Days 61–90: Introduce Your First Agent",
+    "overflow": [],
+    "sh": 1468,
+    "sw": 1065
+  },
+  {
+    "p": 49,
+    "w": 1080,
+    "cw": 1065,
+    "heading": "The AI Enablement Rhythm",
+    "overflow": [],
+    "sh": 1382,
+    "sw": 1065
+  },
+  {
+    "p": 50,
+    "w": 1080,
+    "cw": 1065,
+    "heading": "The AI Scorecard",
+    "overflow": [],
+    "sh": 1396,
+    "sw": 1065
+  },
+  {
+    "p": 51,
+    "w": 1080,
+    "cw": 1065,
+    "heading": "The Stop-Doing List",
+    "overflow": [],
+    "sh": 1543,
+    "sw": 1065
+  },
+  {
+    "p": 52,
+    "w": 1080,
+    "cw": 1065,
+    "heading": "Three Strategic Questions for the AI-Ready Firm",
+    "overflow": [],
+    "sh": 1541,
+    "sw": 1065
+  },
+  {
+    "p": 53,
+    "w": 1080,
+    "cw": 1065,
+    "heading": "The Four Stages of the AI-Ready Firm",
+    "overflow": [],
+    "sh": 1736,
+    "sw": 1065
+  },
+  {
+    "p": 54,
+    "w": 1080,
+    "cw": 1065,
+    "heading": "AI Acceptable Use Policy (Starter Template)",
+    "overflow": [],
+    "sh": 2607,
+    "sw": 1065
+  },
+  {
+    "p": 55,
+    "w": 1080,
+    "cw": 1065,
+    "heading": "Agent Specification Template",
+    "overflow": [],
+    "sh": 2207,
+    "sw": 1065
+  },
+  {
+    "p": 56,
+    "w": 1080,
+    "cw": 1065,
+    "heading": "AI Output Review Checklist",
+    "overflow": [],
+    "sh": 1460,
+    "sw": 1065
+  },
+  {
+    "p": 57,
+    "w": 1080,
+    "cw": 1065,
+    "heading": "AI Tool Usage Matrix",
+    "overflow": [],
+    "sh": 2410,
+    "sw": 1065
+  },
+  {
+    "p": 58,
+    "w": 1080,
+    "cw": 1065,
+    "heading": "AI File Note Template",
+    "overflow": [],
+    "sh": 1623,
+    "sw": 1065
+  },
+  {
+    "p": 59,
+    "w": 1080,
+    "cw": 1065,
+    "heading": "Client AI Communication Template",
+    "overflow": [],
+    "sh": 1175,
+    "sw": 1065
+  },
+  {
+    "p": 60,
+    "w": 1080,
+    "cw": 1065,
+    "heading": "AI Glossary",
+    "overflow": [
+      {
+        "cls": "mb-5 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between",
+        "cw": 599,
+        "sw": 622,
+        "tag": "DIV",
+        "text": "Glossary LabExplore terms as a reference tool, then switch i"
+      },
+      {
+        "cls": "inline-flex w-full max-w-full rounded-full border border-white/12 bg-[#101310] p-1 sm:w-auto max-[380px]:flex-col",
+        "cw": 207,
+        "sw": 231,
+        "tag": "DIV",
+        "text": "Glossary LabFlashcards"
+      },
+      {
+        "cls": "space-y-5",
+        "cw": 599,
+        "sw": 610,
+        "tag": "DIV",
+        "text": "AI (Artificial Intelligence)AI AgentAI AssistantAI Audit Tra"
+      },
+      {
+        "cls": "grid gap-4 lg:grid-cols-[280px_minmax(0,1fr)]",
+        "cw": 599,
+        "sw": 610,
+        "tag": "DIV",
+        "text": "AI (Artificial Intelligence)AI AgentAI AssistantAI Audit Tra"
+      },
+      {
+        "cls": "rounded-3xl border border-white/12 bg-[radial-gradient(circle_at_top_right,_rgba(0,214,57,0.12),_transparent_34%),linear-gradient(145deg,#07140b,#020403)] p-6 md:p-7",
+        "cw": 301,
+        "sw": 313,
+        "tag": "SECTION",
+        "text": "DefinitionAI (Artificial Intelligence)Technology that perfor"
+      },
+      {
+        "cls": "mb-4 text-3xl font-black tracking-tight text-white md:text-5xl",
+        "cw": 245,
+        "sw": 285,
+        "tag": "H3",
+        "text": "AI (Artificial Intelligence)"
+      },
+      {
+        "cls": "mb-5 grid gap-3 md:grid-cols-3",
+        "cw": 245,
+        "sw": 249,
+        "tag": "DIV",
+        "text": "ExampleAn AI tool summarises client notes or helps draft a p"
+      },
+      {
+        "cls": "min-h-[132px] rounded-2xl border border-white/12 bg-white/[0.035] p-4",
+        "cw": 72,
+        "sw": 98,
+        "tag": "DIV",
+        "text": "ExampleAn AI tool summarises client notes or helps draft a p"
+      },
+      {
+        "cls": "mb-2 text-xs font-black uppercase tracking-[0.12em] text-[#00DC51]",
+        "cw": 40,
+        "sw": 65,
+        "tag": "P",
+        "text": "Example"
+      },
+      {
+        "cls": "text-sm font-medium leading-relaxed text-white/82",
+        "cw": 40,
+        "sw": 82,
+        "tag": "P",
+        "text": "An AI tool summarises client notes or helps draft a professi"
+      },
+      {
+        "cls": "min-h-[132px] rounded-2xl border border-white/12 bg-white/[0.035] p-4",
+        "cw": 72,
+        "sw": 80,
+        "tag": "DIV",
+        "text": "Watch outAI can sound confident even when the answer still n"
+      },
+      {
+        "cls": "mb-2 text-xs font-black uppercase tracking-[0.12em] text-[#00DC51]",
+        "cw": 40,
+        "sw": 48,
+        "tag": "P",
+        "text": "Watch out"
+      },
+      {
+        "cls": "text-sm font-medium leading-relaxed text-white/82",
+        "cw": 40,
+        "sw": 64,
+        "tag": "P",
+        "text": "AI can sound confident even when the answer still needs chec"
+      },
+      {
+        "cls": "min-h-[132px] rounded-2xl border border-white/12 bg-white/[0.035] p-4",
+        "cw": 72,
+        "sw": 77,
+        "tag": "DIV",
+        "text": "Plain EnglishSoftware that can help with tasks that usually "
+      },
+      {
+        "cls": "mb-2 text-xs font-black uppercase tracking-[0.12em] text-[#00DC51]",
+        "cw": 40,
+        "sw": 61,
+        "tag": "P",
+        "text": "Plain English"
+      },
+      {
+        "cls": "text-sm font-medium leading-relaxed text-white/82",
+        "cw": 40,
+        "sw": 60,
+        "tag": "P",
+        "text": "Software that can help with tasks that usually need human th"
+      }
+    ],
+    "sh": 1569,
+    "sw": 1065
+  },
+  {
+    "p": 61,
+    "w": 1080,
+    "cw": 1065,
+    "heading": "Building Your AI-Ready Firm",
+    "overflow": [],
+    "sh": 1490,
+    "sw": 1065
+  },
+  {
+    "p": 62,
+    "w": 1080,
+    "cw": 1065,
+    "heading": "Your AI Journey Responses",
+    "overflow": [],
+    "sh": 11393,
+    "sw": 1065
+  },
+  {
+    "p": 63,
+    "w": 1080,
+    "cw": 1065,
+    "heading": "Completion Certificate",
+    "overflow": [],
+    "sh": 2480,
+    "sw": 1065
+  },
+  {
+    "p": 1,
+    "w": 1920,
+    "cw": 1920,
+    "fields": [],
+    "heading": "THE AI PLAYBOOKFor Accountants &Bookkeepers",
+    "links": [],
+    "overflow": [],
+    "sh": 1080,
+    "sw": 1920
+  },
+  {
+    "p": 2,
+    "w": 1920,
+    "cw": 1920,
+    "fields": [],
+    "heading": "Contents",
+    "links": [],
+    "overflow": [],
+    "sh": 1080,
+    "sw": 1920
+  },
+  {
+    "p": 3,
+    "w": 1920,
+    "cw": 1905,
+    "fields": [
+      {
+        "id": "s1-intro-question-0",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Type your answer here...",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      },
+      {
+        "id": "s1-intro-question-1",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Type your answer here...",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      }
+    ],
+    "heading": "The Shift to AI-Assisted Firms",
+    "links": [],
+    "overflow": [],
+    "sh": 2078,
+    "sw": 1905
+  },
+  {
+    "p": 4,
+    "w": 1920,
+    "cw": 1920,
+    "fields": [
+      {
+        "id": "",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": null,
+        "required": false,
+        "tag": "SELECT",
+        "type": "select-one"
+      }
+    ],
+    "heading": "The Three Stages of AI",
+    "links": [],
+    "overflow": [],
+    "sh": 1080,
+    "sw": 1920
+  },
+  {
+    "p": 5,
+    "w": 1920,
+    "cw": 1920,
+    "fields": [],
+    "heading": "The 5 Principles of AI-Ready Firms",
+    "links": [],
+    "overflow": [],
+    "sh": 1080,
+    "sw": 1920
+  },
+  {
+    "p": 6,
+    "w": 1920,
+    "cw": 1905,
+    "fields": [
+      {
+        "id": "",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Task 1",
+        "required": false,
+        "tag": "INPUT",
+        "type": "text"
+      },
+      {
+        "id": "",
+        "label": "Task 1",
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": null,
+        "required": false,
+        "tag": "INPUT",
+        "type": "radio"
+      },
+      {
+        "id": "",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": null,
+        "required": false,
+        "tag": "INPUT",
+        "type": "radio"
+      },
+      {
+        "id": "",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": null,
+        "required": false,
+        "tag": "INPUT",
+        "type": "checkbox"
+      },
+      {
+        "id": "",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Task 2",
+        "required": false,
+        "tag": "INPUT",
+        "type": "text"
+      },
+      {
+        "id": "",
+        "label": "Task 2",
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": null,
+        "required": false,
+        "tag": "INPUT",
+        "type": "radio"
+      },
+      {
+        "id": "",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": null,
+        "required": false,
+        "tag": "INPUT",
+        "type": "radio"
+      },
+      {
+        "id": "",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": null,
+        "required": false,
+        "tag": "INPUT",
+        "type": "checkbox"
+      },
+      {
+        "id": "",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Task 3",
+        "required": false,
+        "tag": "INPUT",
+        "type": "text"
+      },
+      {
+        "id": "",
+        "label": "Task 3",
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": null,
+        "required": false,
+        "tag": "INPUT",
+        "type": "radio"
+      },
+      {
+        "id": "",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": null,
+        "required": false,
+        "tag": "INPUT",
+        "type": "radio"
+      },
+      {
+        "id": "",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": null,
+        "required": false,
+        "tag": "INPUT",
+        "type": "checkbox"
+      },
+      {
+        "id": "",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Task 4",
+        "required": false,
+        "tag": "INPUT",
+        "type": "text"
+      },
+      {
+        "id": "",
+        "label": "Task 4",
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": null,
+        "required": false,
+        "tag": "INPUT",
+        "type": "radio"
+      },
+      {
+        "id": "",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": null,
+        "required": false,
+        "tag": "INPUT",
+        "type": "radio"
+      },
+      {
+        "id": "",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": null,
+        "required": false,
+        "tag": "INPUT",
+        "type": "checkbox"
+      },
+      {
+        "id": "",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Task 5",
+        "required": false,
+        "tag": "INPUT",
+        "type": "text"
+      },
+      {
+        "id": "",
+        "label": "Task 5",
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": null,
+        "required": false,
+        "tag": "INPUT",
+        "type": "radio"
+      },
+      {
+        "id": "",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": null,
+        "required": false,
+        "tag": "INPUT",
+        "type": "radio"
+      },
+      {
+        "id": "",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": null,
+        "required": false,
+        "tag": "INPUT",
+        "type": "checkbox"
+      }
+    ],
+    "heading": "Where AI Works Best",
+    "links": [],
+    "overflow": [],
+    "sh": 1708,
+    "sw": 1905
+  },
+  {
+    "p": 7,
+    "w": 1920,
+    "cw": 1905,
+    "fields": [
+      {
+        "id": "s1-capacity-question-0",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Type your answer here...",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      },
+      {
+        "id": "s1-capacity-question-1",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Type your answer here...",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      },
+      {
+        "id": "s1-capacity-question-2",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Type your answer here...",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      }
+    ],
+    "heading": "The Capacity Opportunity",
+    "links": [],
+    "overflow": [],
+    "sh": 1645,
+    "sw": 1905
+  },
+  {
+    "p": 8,
+    "w": 1920,
+    "cw": 1905,
+    "fields": [
+      {
+        "id": "s1-role-question-0",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Type your answer here...",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      },
+      {
+        "id": "s1-role-question-1",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Type your answer here...",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      }
+    ],
+    "heading": "The New Role of the Accountant",
+    "links": [],
+    "overflow": [
+      {
+        "cls": "",
+        "cw": 928,
+        "sw": 934,
+        "tag": "DIV",
+        "text": "Section 1: Understanding AIThe New Role of the AccountantAI "
+      },
+      {
+        "cls": "playbook-page-content space-y-8  ",
+        "cw": 928,
+        "sw": 934,
+        "tag": "DIV",
+        "text": "Section 1: Understanding AIThe New Role of the AccountantAI "
+      },
+      {
+        "cls": "space-y-6",
+        "cw": 928,
+        "sw": 948,
+        "tag": "DIV",
+        "text": "What AI Can Do WellDraft communicationsSummarise dataCheck c"
+      },
+      {
+        "cls": "grid grid-cols-1 md:grid-cols-2 gap-6",
+        "cw": 928,
+        "sw": 948,
+        "tag": "DIV",
+        "text": "What AI Can Do WellDraft communicationsSummarise dataCheck c"
+      }
+    ],
+    "sh": 1896,
+    "sw": 1905
+  },
+  {
+    "p": 9,
+    "w": 1920,
+    "cw": 1905,
+    "fields": [
+      {
+        "id": "",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Type your answer here...",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      }
+    ],
+    "heading": "The Human-in-the-Loop Model",
+    "links": [],
+    "overflow": [],
+    "sh": 1447,
+    "sw": 1905
+  },
+  {
+    "p": 10,
+    "w": 1920,
+    "cw": 1905,
+    "fields": [
+      {
+        "id": "s2-ethics-responsibility-question-0",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Type your answer here...",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      },
+      {
+        "id": "s2-ethics-responsibility-question-1",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Type your answer here...",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      },
+      {
+        "id": "s2-ethics-responsibility-question-2",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Type your answer here...",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      }
+    ],
+    "heading": "Professional Ethics and Responsibility in an AI World",
+    "links": [],
+    "overflow": [],
+    "sh": 2696,
+    "sw": 1905
+  },
+  {
+    "p": 11,
+    "w": 1920,
+    "cw": 1905,
+    "fields": [
+      {
+        "id": "s2-data-confidentiality-question-0-item-0",
+        "label": "List 3 types of data that must NEVER be entered into public AI tools (e.g., client financial records, personal information) — item 1",
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Type item 1...",
+        "required": false,
+        "tag": "INPUT",
+        "type": "text"
+      },
+      {
+        "id": "s2-data-confidentiality-question-0-item-1",
+        "label": "List 3 types of data that must NEVER be entered into public AI tools (e.g., client financial records, personal information) — item 2",
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Type item 2...",
+        "required": false,
+        "tag": "INPUT",
+        "type": "text"
+      },
+      {
+        "id": "s2-data-confidentiality-question-0-item-2",
+        "label": "List 3 types of data that must NEVER be entered into public AI tools (e.g., client financial records, personal information) — item 3",
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Type item 3...",
+        "required": false,
+        "tag": "INPUT",
+        "type": "text"
+      },
+      {
+        "id": "s2-data-confidentiality-question-1-item-0",
+        "label": "List 2 types of data that might be acceptable to enter if anonymised or de-identified (e.g., general tax questions, process templates) — item 1",
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Type item 1...",
+        "required": false,
+        "tag": "INPUT",
+        "type": "text"
+      },
+      {
+        "id": "s2-data-confidentiality-question-1-item-1",
+        "label": "List 2 types of data that might be acceptable to enter if anonymised or de-identified (e.g., general tax questions, process templates) — item 2",
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Type item 2...",
+        "required": false,
+        "tag": "INPUT",
+        "type": "text"
+      },
+      {
+        "id": "s2-data-confidentiality-question-2",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Type your answer here...",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      }
+    ],
+    "heading": "Data and Confidentiality in an AI World",
+    "links": [],
+    "overflow": [],
+    "sh": 2263,
+    "sw": 1905
+  },
+  {
+    "p": 12,
+    "w": 1920,
+    "cw": 1905,
+    "fields": [
+      {
+        "id": "s2-legal-responsibility-question-0",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Type your answer here...",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      },
+      {
+        "id": "s2-legal-responsibility-question-1",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Type your answer here...",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      },
+      {
+        "id": "s2-legal-responsibility-question-2",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Type your answer here...",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      }
+    ],
+    "heading": "Legal Responsibility Does Not Change",
+    "links": [],
+    "overflow": [],
+    "sh": 2157,
+    "sw": 1905
+  },
+  {
+    "p": 13,
+    "w": 1920,
+    "cw": 1905,
+    "fields": [
+      {
+        "id": "",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": null,
+        "required": false,
+        "tag": "INPUT",
+        "type": "radio"
+      },
+      {
+        "id": "",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": null,
+        "required": false,
+        "tag": "INPUT",
+        "type": "radio"
+      }
+    ],
+    "heading": "The Real Risk: AI Without Process",
+    "links": [],
+    "overflow": [],
+    "sh": 1316,
+    "sw": 1905
+  },
+  {
+    "p": 14,
+    "w": 1920,
+    "cw": 1905,
+    "fields": [
+      {
+        "id": "",
+        "label": "Your Starting Rule, blank 1",
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "___",
+        "required": false,
+        "tag": "INPUT",
+        "type": "text"
+      },
+      {
+        "id": "",
+        "label": "Your Starting Rule, blank 2",
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "___",
+        "required": false,
+        "tag": "INPUT",
+        "type": "text"
+      }
+    ],
+    "heading": "The Minimum AI Policy",
+    "links": [],
+    "overflow": [],
+    "sh": 1283,
+    "sw": 1905
+  },
+  {
+    "p": 15,
+    "w": 1920,
+    "cw": 1905,
+    "fields": [
+      {
+        "id": "s2-failure-modes-question-0",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Type your answer here...",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      },
+      {
+        "id": "s2-failure-modes-question-1",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Type your answer here...",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      },
+      {
+        "id": "s2-failure-modes-question-2",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Type your answer here...",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      }
+    ],
+    "heading": "Common AI Failure Modes",
+    "links": [],
+    "overflow": [],
+    "sh": 2051,
+    "sw": 1905
+  },
+  {
+    "p": 16,
+    "w": 1920,
+    "cw": 1905,
+    "fields": [
+      {
+        "id": "s2-over-reliance-question-0",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Type your answer here...",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      },
+      {
+        "id": "s2-over-reliance-question-1",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Type your answer here...",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      },
+      {
+        "id": "s2-over-reliance-question-2",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Type your answer here...",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      }
+    ],
+    "heading": "Avoiding Over-Reliance on AI",
+    "links": [],
+    "overflow": [],
+    "sh": 1928,
+    "sw": 1905
+  },
+  {
+    "p": 17,
+    "w": 1920,
+    "cw": 1905,
+    "fields": [],
+    "heading": "The 4 Output Checks",
+    "links": [],
+    "overflow": [],
+    "sh": 1195,
+    "sw": 1905
+  },
+  {
+    "p": 18,
+    "w": 1920,
+    "cw": 1905,
+    "fields": [
+      {
+        "id": "s2-evidence-trail-question-0",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Type your answer here...",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      },
+      {
+        "id": "s2-evidence-trail-question-1",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Type your answer here...",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      },
+      {
+        "id": "s2-evidence-trail-question-2",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Type your answer here...",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      }
+    ],
+    "heading": "Creating an AI Evidence Trail",
+    "links": [],
+    "overflow": [],
+    "sh": 2305,
+    "sw": 1905
+  },
+  {
+    "p": 19,
+    "w": 1920,
+    "cw": 1905,
+    "fields": [
+      {
+        "id": "s2-red-team-question-0",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Type your answer here...",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      },
+      {
+        "id": "s2-red-team-question-1",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Type your answer here...",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      },
+      {
+        "id": "s2-red-team-question-2",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Type your answer here...",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      }
+    ],
+    "heading": "The Red-Team Exercise",
+    "links": [],
+    "overflow": [],
+    "sh": 2261,
+    "sw": 1905
+  },
+  {
+    "p": 20,
+    "w": 1920,
+    "cw": 1905,
+    "fields": [
+      {
+        "id": "s3-where-assistants-question-0",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Type your answer here...",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      },
+      {
+        "id": "s3-where-assistants-question-1",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Type your answer here...",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      }
+    ],
+    "heading": "Where Assistants Help",
+    "links": [],
+    "overflow": [],
+    "sh": 2420,
+    "sw": 1905
+  },
+  {
+    "p": 21,
+    "w": 1920,
+    "cw": 1905,
+    "fields": [
+      {
+        "id": "s3-difference-question-0",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Type your answer here...",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      },
+      {
+        "id": "s3-difference-question-1",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Type your answer here...",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      },
+      {
+        "id": "s3-difference-question-2",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Type your answer here...",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      }
+    ],
+    "heading": "Assistants vs Agents: The New Way Work Gets Done",
+    "links": [],
+    "overflow": [
+      {
+        "cls": "grid md:grid-cols-2 gap-6 mb-6",
+        "cw": 860,
+        "sw": 880,
+        "tag": "DIV",
+        "text": "AI AssistantAssistants respond to what you ask.You drive the"
+      }
+    ],
+    "sh": 2084,
+    "sw": 1905
+  },
+  {
+    "p": 22,
+    "w": 1920,
+    "cw": 1905,
+    "fields": [
+      {
+        "id": "agent-candidate-0",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Workflow 1",
+        "required": false,
+        "tag": "INPUT",
+        "type": "text"
+      },
+      {
+        "id": "agent-candidate-0-criterion-0",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": null,
+        "required": false,
+        "tag": "INPUT",
+        "type": "checkbox"
+      },
+      {
+        "id": "agent-candidate-0-criterion-1",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": null,
+        "required": false,
+        "tag": "INPUT",
+        "type": "checkbox"
+      },
+      {
+        "id": "agent-candidate-0-criterion-2",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": null,
+        "required": false,
+        "tag": "INPUT",
+        "type": "checkbox"
+      },
+      {
+        "id": "agent-candidate-0-criterion-3",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": null,
+        "required": false,
+        "tag": "INPUT",
+        "type": "checkbox"
+      },
+      {
+        "id": "agent-candidate-1",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Workflow 2",
+        "required": false,
+        "tag": "INPUT",
+        "type": "text"
+      },
+      {
+        "id": "agent-candidate-1-criterion-0",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": null,
+        "required": false,
+        "tag": "INPUT",
+        "type": "checkbox"
+      },
+      {
+        "id": "agent-candidate-1-criterion-1",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": null,
+        "required": false,
+        "tag": "INPUT",
+        "type": "checkbox"
+      },
+      {
+        "id": "agent-candidate-1-criterion-2",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": null,
+        "required": false,
+        "tag": "INPUT",
+        "type": "checkbox"
+      },
+      {
+        "id": "agent-candidate-1-criterion-3",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": null,
+        "required": false,
+        "tag": "INPUT",
+        "type": "checkbox"
+      },
+      {
+        "id": "agent-candidate-2",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Workflow 3",
+        "required": false,
+        "tag": "INPUT",
+        "type": "text"
+      },
+      {
+        "id": "agent-candidate-2-criterion-0",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": null,
+        "required": false,
+        "tag": "INPUT",
+        "type": "checkbox"
+      },
+      {
+        "id": "agent-candidate-2-criterion-1",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": null,
+        "required": false,
+        "tag": "INPUT",
+        "type": "checkbox"
+      },
+      {
+        "id": "agent-candidate-2-criterion-2",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": null,
+        "required": false,
+        "tag": "INPUT",
+        "type": "checkbox"
+      },
+      {
+        "id": "agent-candidate-2-criterion-3",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": null,
+        "required": false,
+        "tag": "INPUT",
+        "type": "checkbox"
+      }
+    ],
+    "heading": "Where Agents Transform Work",
+    "links": [],
+    "overflow": [],
+    "sh": 2368,
+    "sw": 1905
+  },
+  {
+    "p": 23,
+    "w": 1920,
+    "cw": 1905,
+    "fields": [
+      {
+        "id": "",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": null,
+        "required": false,
+        "tag": "INPUT",
+        "type": "radio"
+      },
+      {
+        "id": "",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": null,
+        "required": false,
+        "tag": "INPUT",
+        "type": "radio"
+      },
+      {
+        "id": "",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": null,
+        "required": false,
+        "tag": "INPUT",
+        "type": "radio"
+      },
+      {
+        "id": "",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": null,
+        "required": false,
+        "tag": "INPUT",
+        "type": "radio"
+      },
+      {
+        "id": "starting-workflow-question-1",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Type your answer here...",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      },
+      {
+        "id": "starting-workflow-question-2",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Type your answer here...",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      }
+    ],
+    "heading": "The Core Agent Workflows in a Firm",
+    "links": [],
+    "overflow": [],
+    "sh": 1771,
+    "sw": 1905
+  },
+  {
+    "p": 24,
+    "w": 1920,
+    "cw": 1905,
+    "fields": [
+      {
+        "id": "",
+        "label": "Workflow or process name",
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Add a workflow or process, e.g. Monthly reporting",
+        "required": false,
+        "tag": "INPUT",
+        "type": "text"
+      }
+    ],
+    "heading": "The Workflow Map: Where Agents Work Best",
+    "links": [],
+    "overflow": [],
+    "sh": 2337,
+    "sw": 1905
+  },
+  {
+    "p": 25,
+    "w": 1920,
+    "cw": 1905,
+    "fields": [
+      {
+        "id": "s3-first-agent-question-0",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Type your answer here...",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      },
+      {
+        "id": "s3-first-agent-question-1",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Type your answer here...",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      },
+      {
+        "id": "s3-first-agent-question-2",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Type your answer here...",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      }
+    ],
+    "heading": "How to Choose Your First Agent",
+    "links": [],
+    "overflow": [],
+    "sh": 2323,
+    "sw": 1905
+  },
+  {
+    "p": 26,
+    "w": 1920,
+    "cw": 1905,
+    "fields": [
+      {
+        "id": "s3-maturity-question-0",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": null,
+        "required": false,
+        "tag": "SELECT",
+        "type": "select-one"
+      },
+      {
+        "id": "s3-maturity-question-1",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Type your answer here...",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      }
+    ],
+    "heading": "The Agent Maturity Ladder",
+    "links": [],
+    "overflow": [],
+    "sh": 1233,
+    "sw": 1905
+  },
+  {
+    "p": 27,
+    "w": 1920,
+    "cw": 1905,
+    "fields": [
+      {
+        "id": "s3-spec-field-0",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "e.g., Quarterly update preparation",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      },
+      {
+        "id": "s3-spec-field-1",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "What result should the agent achieve?",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      },
+      {
+        "id": "s3-spec-field-2",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "What starts the process?",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      },
+      {
+        "id": "s3-spec-field-3",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "What information or data is needed?",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      },
+      {
+        "id": "s3-spec-field-4",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "e.g., gather data, run checks, identify issues, prepare outputs",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      },
+      {
+        "id": "s3-spec-field-5",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Where does the accountant step in?",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      },
+      {
+        "id": "s3-spec-field-6",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "e.g., draft update, exception report, completed return",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      },
+      {
+        "id": "s3-spec-field-7",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "e.g., missing data, unusual results, policy breaches",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      }
+    ],
+    "heading": "The Agent Spec Template",
+    "links": [],
+    "overflow": [],
+    "sh": 2115,
+    "sw": 1905
+  },
+  {
+    "p": 28,
+    "w": 1920,
+    "cw": 1905,
+    "fields": [
+      {
+        "id": "",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": null,
+        "required": false,
+        "tag": "INPUT",
+        "type": "checkbox"
+      },
+      {
+        "id": "",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": null,
+        "required": false,
+        "tag": "INPUT",
+        "type": "checkbox"
+      },
+      {
+        "id": "",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": null,
+        "required": false,
+        "tag": "INPUT",
+        "type": "checkbox"
+      },
+      {
+        "id": "",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": null,
+        "required": false,
+        "tag": "INPUT",
+        "type": "checkbox"
+      },
+      {
+        "id": "",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": null,
+        "required": false,
+        "tag": "INPUT",
+        "type": "checkbox"
+      },
+      {
+        "id": "",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": null,
+        "required": false,
+        "tag": "INPUT",
+        "type": "checkbox"
+      },
+      {
+        "id": "",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": null,
+        "required": false,
+        "tag": "INPUT",
+        "type": "checkbox"
+      },
+      {
+        "id": "",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": null,
+        "required": false,
+        "tag": "INPUT",
+        "type": "checkbox"
+      }
+    ],
+    "heading": "The Agent Controls Checklist",
+    "links": [],
+    "overflow": [],
+    "sh": 1954,
+    "sw": 1905
+  },
+  {
+    "p": 29,
+    "w": 1920,
+    "cw": 1905,
+    "fields": [
+      {
+        "id": "s3-confidence-question-0",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Type your answer here...",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      },
+      {
+        "id": "s3-confidence-question-1",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Type your answer here...",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      },
+      {
+        "id": "s3-confidence-question-2",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Type your answer here...",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      }
+    ],
+    "heading": "Building Confidence in Agents",
+    "links": [],
+    "overflow": [],
+    "sh": 2029,
+    "sw": 1905
+  },
+  {
+    "p": 30,
+    "w": 1920,
+    "cw": 1905,
+    "fields": [
+      {
+        "id": "current-workflow",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Type your answer here...",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      },
+      {
+        "id": "agent-handles",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Describe the agent’s work...",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      },
+      {
+        "id": "human-reviews",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Describe the human review point...",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      },
+      {
+        "id": "time-saved-use",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Type your answer here...",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      }
+    ],
+    "heading": "The AI-Enabled Workflow",
+    "links": [],
+    "overflow": [],
+    "sh": 2559,
+    "sw": 1905
+  },
+  {
+    "p": 31,
+    "w": 1920,
+    "cw": 1905,
+    "fields": [
+      {
+        "id": "prompt-framework-role",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "What role would you give AI?",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      },
+      {
+        "id": "prompt-framework-task",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "What task should it perform?",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      },
+      {
+        "id": "prompt-framework-context",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "What context does it need?",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      },
+      {
+        "id": "prompt-framework-constraints",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "What constraints would improve the output?",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      }
+    ],
+    "heading": "The Accountant's Prompt Framework",
+    "links": [],
+    "overflow": [],
+    "sh": 2992,
+    "sw": 1905
+  },
+  {
+    "p": 32,
+    "w": 1920,
+    "cw": 1905,
+    "fields": [
+      {
+        "id": "s4-types-question-0",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Type your answer here...",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      },
+      {
+        "id": "s4-types-question-1",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Type your answer here...",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      },
+      {
+        "id": "s4-types-question-2",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Type your answer here...",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      },
+      {
+        "id": "s4-types-question-3",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Type your answer here...",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      },
+      {
+        "id": "s4-types-question-4",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Type your answer here...",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      }
+    ],
+    "heading": "The Five Prompt Types Every Accountant Should Know",
+    "links": [],
+    "overflow": [],
+    "sh": 2499,
+    "sw": 1905
+  },
+  {
+    "p": 33,
+    "w": 1920,
+    "cw": 1905,
+    "fields": [
+      {
+        "id": "s4-practice-question-0",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Type your answer here...",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      },
+      {
+        "id": "s4-practice-question-1",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Type your answer here...",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      },
+      {
+        "id": "s4-practice-question-2",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Type your answer here...",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      }
+    ],
+    "heading": "Prompt Practice: From Basic to Structured",
+    "links": [],
+    "overflow": [],
+    "sh": 2470,
+    "sw": 1905
+  },
+  {
+    "p": 34,
+    "w": 1920,
+    "cw": 1905,
+    "fields": [
+      {
+        "id": "s4-progression-question-0",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Type your answer here...",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      },
+      {
+        "id": "s4-progression-question-1",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Type your answer here...",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      },
+      {
+        "id": "s4-progression-question-2",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Type your answer here...",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      }
+    ],
+    "heading": "From Prompts to Workflows to Agents",
+    "links": [],
+    "overflow": [],
+    "sh": 1873,
+    "sw": 1905
+  },
+  {
+    "p": 35,
+    "w": 1920,
+    "cw": 1905,
+    "fields": [
+      {
+        "id": "",
+        "label": "Filter prompts",
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Filter prompts...",
+        "required": false,
+        "tag": "INPUT",
+        "type": "text"
+      },
+      {
+        "id": "",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Type your answer here...",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      },
+      {
+        "id": "",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": null,
+        "required": false,
+        "tag": "INPUT",
+        "type": "checkbox"
+      },
+      {
+        "id": "",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Type your answer here...",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      },
+      {
+        "id": "",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": null,
+        "required": false,
+        "tag": "INPUT",
+        "type": "checkbox"
+      },
+      {
+        "id": "",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Type your answer here...",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      },
+      {
+        "id": "",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": null,
+        "required": false,
+        "tag": "INPUT",
+        "type": "checkbox"
+      }
+    ],
+    "heading": "Your Starter Prompt Library",
+    "links": [],
+    "overflow": [],
+    "sh": 3559,
+    "sw": 1905
+  },
+  {
+    "p": 36,
+    "w": 1920,
+    "cw": 1905,
+    "fields": [
+      {
+        "id": "",
+        "label": "Area 1",
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Area 1...",
+        "required": false,
+        "tag": "INPUT",
+        "type": "text"
+      },
+      {
+        "id": "",
+        "label": "Area 2",
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Area 2...",
+        "required": false,
+        "tag": "INPUT",
+        "type": "text"
+      },
+      {
+        "id": "",
+        "label": "Area 3",
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Area 3...",
+        "required": false,
+        "tag": "INPUT",
+        "type": "text"
+      }
+    ],
+    "heading": "Understanding the AI Dividend",
+    "links": [],
+    "overflow": [],
+    "sh": 2759,
+    "sw": 1905
+  },
+  {
+    "p": 37,
+    "w": 1920,
+    "cw": 1905,
+    "fields": [
+      {
+        "id": "s5-capacity-question-question-0",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Type your answer here...",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      },
+      {
+        "id": "s5-capacity-question-question-1",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Type your answer here...",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      },
+      {
+        "id": "s5-capacity-question-question-2",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Type your answer here...",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      }
+    ],
+    "heading": "The Capacity Question",
+    "links": [],
+    "overflow": [],
+    "sh": 2019,
+    "sw": 1905
+  },
+  {
+    "p": 38,
+    "w": 1920,
+    "cw": 1905,
+    "fields": [
+      {
+        "id": "s5-time-pricing-question-0",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Type your answer here...",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      },
+      {
+        "id": "s5-time-pricing-question-1",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Type your answer here...",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      },
+      {
+        "id": "s5-time-pricing-question-2",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Type your answer here...",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      }
+    ],
+    "heading": "Why Time-Based Pricing Becomes Unstable",
+    "links": [],
+    "overflow": [],
+    "sh": 2547,
+    "sw": 1905
+  },
+  {
+    "p": 39,
+    "w": 1920,
+    "cw": 1905,
+    "fields": [
+      {
+        "id": "s5-pricing-question-0",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Type your answer here...",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      },
+      {
+        "id": "s5-pricing-question-1",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Type your answer here...",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      },
+      {
+        "id": "s5-pricing-question-2",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Type your answer here...",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      }
+    ],
+    "heading": "The Four Pricing Models in an AI World",
+    "links": [],
+    "overflow": [],
+    "sh": 2054,
+    "sw": 1905
+  },
+  {
+    "p": 40,
+    "w": 1920,
+    "cw": 1905,
+    "fields": [
+      {
+        "id": "",
+        "label": "Clients would still pay for 1",
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Clients would still pay for 1...",
+        "required": false,
+        "tag": "INPUT",
+        "type": "text"
+      },
+      {
+        "id": "",
+        "label": "Clients would still pay for 2",
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Clients would still pay for 2...",
+        "required": false,
+        "tag": "INPUT",
+        "type": "text"
+      },
+      {
+        "id": "",
+        "label": "Clients would still pay for 3",
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Clients would still pay for 3...",
+        "required": false,
+        "tag": "INPUT",
+        "type": "text"
+      }
+    ],
+    "heading": "The Shift from Effort to Judgement",
+    "links": [],
+    "overflow": [],
+    "sh": 1903,
+    "sw": 1905
+  },
+  {
+    "p": 41,
+    "w": 1920,
+    "cw": 1905,
+    "fields": [
+      {
+        "id": "s5-3v-framework-question-0",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Type your answer here...",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      },
+      {
+        "id": "s5-3v-framework-question-1",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Type your answer here...",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      },
+      {
+        "id": "s5-3v-framework-question-2",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Type your answer here...",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      }
+    ],
+    "heading": "The 3V Pricing Framework",
+    "links": [],
+    "overflow": [],
+    "sh": 2213,
+    "sw": 1905
+  },
+  {
+    "p": 42,
+    "w": 1920,
+    "cw": 1905,
+    "fields": [
+      {
+        "id": "s5-packages-question-0",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Type your answer here...",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      },
+      {
+        "id": "s5-packages-question-1",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Type your answer here...",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      },
+      {
+        "id": "s5-packages-question-2",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Type your answer here...",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      }
+    ],
+    "heading": "Designing AI-Era Service Packages",
+    "links": [],
+    "overflow": [],
+    "sh": 2951,
+    "sw": 1905
+  },
+  {
+    "p": 43,
+    "w": 1920,
+    "cw": 1905,
+    "fields": [
+      {
+        "id": "impact-field-0",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "e.g., Annual accounts, VAT returns, Payroll, Tax return",
+        "required": false,
+        "tag": "INPUT",
+        "type": "text"
+      },
+      {
+        "id": "impact-field-1",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "e.g., 6 hours per client per year",
+        "required": false,
+        "tag": "INPUT",
+        "type": "text"
+      },
+      {
+        "id": "impact-field-2",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "e.g., 3 hours (50% reduction)",
+        "required": false,
+        "tag": "INPUT",
+        "type": "text"
+      },
+      {
+        "id": "impact-field-3",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "e.g., Review, judgement calls, client conversation, professional sign-off",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      },
+      {
+        "id": "impact-field-4",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "e.g., Maintain fixed fee (margin improves), or move to tiered package",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      }
+    ],
+    "heading": "The AI Impact Pricing Exercise",
+    "links": [],
+    "overflow": [],
+    "sh": 2353,
+    "sw": 1905
+  },
+  {
+    "p": 44,
+    "w": 1920,
+    "cw": 1905,
+    "fields": [
+      {
+        "id": "client-message-0",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Type your answer here...",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      },
+      {
+        "id": "client-message-1",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Type your answer here...",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      },
+      {
+        "id": "client-message-2",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Type your answer here...",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      }
+    ],
+    "heading": "Talking to Clients About AI",
+    "links": [],
+    "overflow": [],
+    "sh": 2565,
+    "sw": 1905
+  },
+  {
+    "p": 45,
+    "w": 1920,
+    "cw": 1905,
+    "fields": [
+      {
+        "id": "",
+        "label": "Task 1 name",
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Understanding the AI Dividend",
+        "required": false,
+        "tag": "INPUT",
+        "type": "text"
+      },
+      {
+        "id": "",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": null,
+        "required": false,
+        "tag": "INPUT",
+        "type": "checkbox"
+      },
+      {
+        "id": "",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": null,
+        "required": false,
+        "tag": "INPUT",
+        "type": "checkbox"
+      },
+      {
+        "id": "",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": null,
+        "required": false,
+        "tag": "INPUT",
+        "type": "checkbox"
+      },
+      {
+        "id": "",
+        "label": "Task 2 name",
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Reviewing Current Pricing Model",
+        "required": false,
+        "tag": "INPUT",
+        "type": "text"
+      },
+      {
+        "id": "",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": null,
+        "required": false,
+        "tag": "INPUT",
+        "type": "checkbox"
+      },
+      {
+        "id": "",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": null,
+        "required": false,
+        "tag": "INPUT",
+        "type": "checkbox"
+      },
+      {
+        "id": "",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": null,
+        "required": false,
+        "tag": "INPUT",
+        "type": "checkbox"
+      },
+      {
+        "id": "",
+        "label": "Task 3 name",
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Moving Away from Time-Based Billing",
+        "required": false,
+        "tag": "INPUT",
+        "type": "text"
+      },
+      {
+        "id": "",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": null,
+        "required": false,
+        "tag": "INPUT",
+        "type": "checkbox"
+      },
+      {
+        "id": "",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": null,
+        "required": false,
+        "tag": "INPUT",
+        "type": "checkbox"
+      },
+      {
+        "id": "",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": null,
+        "required": false,
+        "tag": "INPUT",
+        "type": "checkbox"
+      },
+      {
+        "id": "",
+        "label": "Task 4 name",
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Designing Service Packages",
+        "required": false,
+        "tag": "INPUT",
+        "type": "text"
+      },
+      {
+        "id": "",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": null,
+        "required": false,
+        "tag": "INPUT",
+        "type": "checkbox"
+      },
+      {
+        "id": "",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": null,
+        "required": false,
+        "tag": "INPUT",
+        "type": "checkbox"
+      },
+      {
+        "id": "",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": null,
+        "required": false,
+        "tag": "INPUT",
+        "type": "checkbox"
+      },
+      {
+        "id": "",
+        "label": "Task 5 name",
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Completing the AI Impact Pricing Exercise",
+        "required": false,
+        "tag": "INPUT",
+        "type": "text"
+      },
+      {
+        "id": "",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": null,
+        "required": false,
+        "tag": "INPUT",
+        "type": "checkbox"
+      },
+      {
+        "id": "",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": null,
+        "required": false,
+        "tag": "INPUT",
+        "type": "checkbox"
+      },
+      {
+        "id": "",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": null,
+        "required": false,
+        "tag": "INPUT",
+        "type": "checkbox"
+      },
+      {
+        "id": "",
+        "label": "Task 6 name",
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Preparing for Client Conversations",
+        "required": false,
+        "tag": "INPUT",
+        "type": "text"
+      },
+      {
+        "id": "",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": null,
+        "required": false,
+        "tag": "INPUT",
+        "type": "checkbox"
+      },
+      {
+        "id": "",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": null,
+        "required": false,
+        "tag": "INPUT",
+        "type": "checkbox"
+      },
+      {
+        "id": "",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": null,
+        "required": false,
+        "tag": "INPUT",
+        "type": "checkbox"
+      },
+      {
+        "id": "",
+        "label": "Task 7 name",
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Applying the 3V Framework",
+        "required": false,
+        "tag": "INPUT",
+        "type": "text"
+      },
+      {
+        "id": "",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": null,
+        "required": false,
+        "tag": "INPUT",
+        "type": "checkbox"
+      },
+      {
+        "id": "",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": null,
+        "required": false,
+        "tag": "INPUT",
+        "type": "checkbox"
+      },
+      {
+        "id": "",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": null,
+        "required": false,
+        "tag": "INPUT",
+        "type": "checkbox"
+      }
+    ],
+    "heading": "Pricing Action Checklist",
+    "links": [],
+    "overflow": [],
+    "sh": 2392,
+    "sw": 1905
+  },
+  {
+    "p": 46,
+    "w": 1920,
+    "cw": 1905,
+    "fields": [
+      {
+        "id": "",
+        "label": "Task 1 name",
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "30-Day Checklist",
+        "required": false,
+        "tag": "INPUT",
+        "type": "text"
+      },
+      {
+        "id": "",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": null,
+        "required": false,
+        "tag": "INPUT",
+        "type": "checkbox"
+      },
+      {
+        "id": "",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": null,
+        "required": false,
+        "tag": "INPUT",
+        "type": "checkbox"
+      },
+      {
+        "id": "",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": null,
+        "required": false,
+        "tag": "INPUT",
+        "type": "checkbox"
+      },
+      {
+        "id": "",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": null,
+        "required": false,
+        "tag": "INPUT",
+        "type": "checkbox"
+      }
+    ],
+    "heading": "The First 30 Days: Build the Foundations",
+    "links": [],
+    "overflow": [],
+    "sh": 1984,
+    "sw": 1905
+  },
+  {
+    "p": 47,
+    "w": 1920,
+    "cw": 1905,
+    "fields": [
+      {
+        "id": "",
+        "label": "Task 1 name",
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "60-Day Checklist",
+        "required": false,
+        "tag": "INPUT",
+        "type": "text"
+      },
+      {
+        "id": "",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": null,
+        "required": false,
+        "tag": "INPUT",
+        "type": "checkbox"
+      },
+      {
+        "id": "",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": null,
+        "required": false,
+        "tag": "INPUT",
+        "type": "checkbox"
+      },
+      {
+        "id": "",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": null,
+        "required": false,
+        "tag": "INPUT",
+        "type": "checkbox"
+      }
+    ],
+    "heading": "Days 31–60: Move from Prompts to Workflows",
+    "links": [],
+    "overflow": [],
+    "sh": 1321,
+    "sw": 1905
+  },
+  {
+    "p": 48,
+    "w": 1920,
+    "cw": 1905,
+    "fields": [
+      {
+        "id": "s6-days61-90-workflow-name",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "e.g., Quarterly update preparation, Client chaser, Onboarding steps",
+        "required": false,
+        "tag": "INPUT",
+        "type": "text"
+      },
+      {
+        "id": "",
+        "label": "Task 1 name",
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Optional: add a short name for this checklist",
+        "required": false,
+        "tag": "INPUT",
+        "type": "text"
+      },
+      {
+        "id": "",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": null,
+        "required": false,
+        "tag": "INPUT",
+        "type": "checkbox"
+      },
+      {
+        "id": "",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": null,
+        "required": false,
+        "tag": "INPUT",
+        "type": "checkbox"
+      },
+      {
+        "id": "",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": null,
+        "required": false,
+        "tag": "INPUT",
+        "type": "checkbox"
+      },
+      {
+        "id": "",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": null,
+        "required": false,
+        "tag": "INPUT",
+        "type": "checkbox"
+      }
+    ],
+    "heading": "Days 61–90: Introduce Your First Agent",
+    "links": [],
+    "overflow": [],
+    "sh": 1444,
+    "sw": 1905
+  },
+  {
+    "p": 49,
+    "w": 1920,
+    "cw": 1905,
+    "fields": [
+      {
+        "id": "s6-rhythm-question-0",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Type your answer here...",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      },
+      {
+        "id": "s6-rhythm-question-1",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Type your answer here...",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      }
+    ],
+    "heading": "The AI Enablement Rhythm",
+    "links": [],
+    "overflow": [],
+    "sh": 1348,
+    "sw": 1905
+  },
+  {
+    "p": 50,
+    "w": 1920,
+    "cw": 1905,
+    "fields": [
+      {
+        "id": "s6-scorecard-question-0",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Type your answer here...",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      },
+      {
+        "id": "s6-scorecard-question-1",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Type your answer here...",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      }
+    ],
+    "heading": "The AI Scorecard",
+    "links": [],
+    "overflow": [],
+    "sh": 1327,
+    "sw": 1905
+  },
+  {
+    "p": 51,
+    "w": 1920,
+    "cw": 1905,
+    "fields": [
+      {
+        "id": "s6-stop-doing-question-0",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Type your answer here...",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      },
+      {
+        "id": "s6-stop-doing-question-1",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Type your answer here...",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      },
+      {
+        "id": "s6-stop-doing-question-2",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Type your answer here...",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      }
+    ],
+    "heading": "The Stop-Doing List",
+    "links": [],
+    "overflow": [],
+    "sh": 1505,
+    "sw": 1905
+  },
+  {
+    "p": 52,
+    "w": 1920,
+    "cw": 1905,
+    "fields": [
+      {
+        "id": "s6-strategic-questions-question-0",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Type your answer here...",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      },
+      {
+        "id": "s6-strategic-questions-question-1",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Type your answer here...",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      },
+      {
+        "id": "s6-strategic-questions-question-2",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Type your answer here...",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      }
+    ],
+    "heading": "Three Strategic Questions for the AI-Ready Firm",
+    "links": [],
+    "overflow": [],
+    "sh": 1494,
+    "sw": 1905
+  },
+  {
+    "p": 53,
+    "w": 1920,
+    "cw": 1905,
+    "fields": [
+      {
+        "id": "s6-four-stages-question-0",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Type your answer here...",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      },
+      {
+        "id": "s6-four-stages-question-1",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Type your answer here...",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      }
+    ],
+    "heading": "The Four Stages of the AI-Ready Firm",
+    "links": [],
+    "overflow": [],
+    "sh": 1737,
+    "sw": 1905
+  },
+  {
+    "p": 54,
+    "w": 1920,
+    "cw": 1905,
+    "fields": [
+      {
+        "id": "s7-policy-question-0",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Type your answer here...",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      },
+      {
+        "id": "s7-policy-question-1",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Type your answer here...",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      },
+      {
+        "id": "s7-policy-question-2",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Type your answer here...",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      }
+    ],
+    "heading": "AI Acceptable Use Policy (Starter Template)",
+    "links": [],
+    "overflow": [],
+    "sh": 2604,
+    "sw": 1905
+  },
+  {
+    "p": 55,
+    "w": 1920,
+    "cw": 1905,
+    "fields": [
+      {
+        "id": "agent-spec-field-0",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "e.g., Quarterly update preparation",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      }
+    ],
+    "heading": "Agent Specification Template",
+    "links": [],
+    "overflow": [],
+    "sh": 1747,
+    "sw": 1905
+  },
+  {
+    "p": 56,
+    "w": 1920,
+    "cw": 1905,
+    "fields": [
+      {
+        "id": "",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": null,
+        "required": false,
+        "tag": "INPUT",
+        "type": "checkbox"
+      },
+      {
+        "id": "",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": null,
+        "required": false,
+        "tag": "INPUT",
+        "type": "checkbox"
+      },
+      {
+        "id": "",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": null,
+        "required": false,
+        "tag": "INPUT",
+        "type": "checkbox"
+      },
+      {
+        "id": "",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": null,
+        "required": false,
+        "tag": "INPUT",
+        "type": "checkbox"
+      },
+      {
+        "id": "s7-checklist-question-0",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Type your answer here...",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      }
+    ],
+    "heading": "AI Output Review Checklist",
+    "links": [],
+    "overflow": [],
+    "sh": 1405,
+    "sw": 1905
+  },
+  {
+    "p": 57,
+    "w": 1920,
+    "cw": 1905,
+    "fields": [
+      {
+        "id": "tool-matrix-name",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": null,
+        "required": false,
+        "tag": "INPUT",
+        "type": "text"
+      },
+      {
+        "id": "tool-matrix-allowed-tasks",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Define the tasks this tool is allowed to support.",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      },
+      {
+        "id": "tool-matrix-data-boundaries",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "What data can this tool use?",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      },
+      {
+        "id": "tool-matrix-review-required",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Explain where review or approval is mandatory.",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      }
+    ],
+    "heading": "AI Tool Usage Matrix",
+    "links": [],
+    "overflow": [],
+    "sh": 1854,
+    "sw": 1905
+  },
+  {
+    "p": 58,
+    "w": 1920,
+    "cw": 1905,
+    "fields": [
+      {
+        "id": "s7-file-note-question-0",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Type your answer here...",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      }
+    ],
+    "heading": "AI File Note Template",
+    "links": [],
+    "overflow": [],
+    "sh": 1610,
+    "sw": 1905
+  },
+  {
+    "p": 59,
+    "w": 1920,
+    "cw": 1905,
+    "fields": [
+      {
+        "id": "s7-client-comms-question-0",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Type your answer here...",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      }
+    ],
+    "heading": "Client AI Communication Template",
+    "links": [],
+    "overflow": [],
+    "sh": 1152,
+    "sw": 1905
+  },
+  {
+    "p": 60,
+    "w": 1920,
+    "cw": 1905,
+    "fields": [
+      {
+        "id": "",
+        "label": "Search glossary terms",
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Search glossary terms...",
+        "required": false,
+        "tag": "INPUT",
+        "type": "text"
+      }
+    ],
+    "heading": "AI Glossary",
+    "links": [],
+    "overflow": [
+      {
+        "cls": "",
+        "cw": 928,
+        "sw": 952,
+        "tag": "DIV",
+        "text": "Section 7: Templates & ToolsAI GlossaryQuick reference to co"
+      },
+      {
+        "cls": "playbook-page-content space-y-8  ",
+        "cw": 928,
+        "sw": 952,
+        "tag": "DIV",
+        "text": "Section 7: Templates & ToolsAI GlossaryQuick reference to co"
+      }
+    ],
+    "sh": 1201,
+    "sw": 1905
+  },
+  {
+    "p": 61,
+    "w": 1920,
+    "cw": 1905,
+    "fields": [
+      {
+        "id": "",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Type your answer here...",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      }
+    ],
+    "heading": "Building Your AI-Ready Firm",
+    "links": [],
+    "overflow": [],
+    "sh": 1473,
+    "sw": 1905
+  },
+  {
+    "p": 62,
+    "w": 1920,
+    "cw": 1905,
+    "fields": [],
+    "heading": "Your AI Journey Responses",
+    "links": [],
+    "overflow": [],
+    "sh": 11171,
+    "sw": 1905
+  },
+  {
+    "p": 63,
+    "w": 1920,
+    "cw": 1905,
+    "fields": [
+      {
+        "id": "certificate-question-0",
+        "label": null,
+        "max": "",
+        "maxLength": -1,
+        "min": "",
+        "placeholder": "Type your answer here...",
+        "required": false,
+        "tag": "TEXTAREA",
+        "type": "textarea"
+      }
+    ],
+    "heading": "Completion Certificate",
+    "links": [],
+    "overflow": [],
+    "sh": 2280,
+    "sw": 1905
+  }
+]

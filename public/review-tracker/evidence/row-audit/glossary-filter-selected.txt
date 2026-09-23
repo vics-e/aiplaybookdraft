@@ -1,0 +1,89 @@
+- complementary "Playbook navigation":
+  - button "Sage The AI Playbook For Accountants & Bookkeepers":
+    - img "Sage"
+    - heading "The AI Playbook" [level=1]
+    - paragraph: For Accountants & Bookkeepers
+  - generic: CURRENT SECTION
+  - generic: Templates & Tools
+  - navigation:
+    - button "Introduction 100%" [expanded]:
+      - generic: Introduction
+      - generic: 100%
+    - button "Contents":
+      - generic: Contents
+    - button "Section 1 Understanding AI 100%":
+      - generic: Section 1
+      - generic: Understanding AI
+      - generic: 100%
+    - button "Section 2 Professional Guardrails 100%":
+      - generic: Section 2
+      - generic: Professional Guardrails
+      - generic: 100%
+    - button "Section 3 Assistants & Agents 100%":
+      - generic: Section 3
+      - generic: Assistants & Agents
+      - generic: 100%
+    - button "Section 4 Prompting Skills 100%":
+      - generic: Section 4
+      - generic: Prompting Skills
+      - generic: 100%
+    - button "Section 5 Pricing & Economics 100%":
+      - generic: Section 5
+      - generic: Pricing & Economics
+      - generic: 100%
+    - button "Section 6 90-Day Plan 100%":
+      - generic: Section 6
+      - generic: 90-Day Plan
+      - generic: 100%
+    - button "Section 7 Templates & Tools 100%":
+      - generic: Section 7
+      - generic: Templates & Tools
+      - generic: 100%
+    - button "Conclusion 100%":
+      - generic: Conclusion
+      - generic: 100%
+  - generic: OVERALL PROGRESS
+  - generic: 100%
+  - generic: 63 of 63 pages visited
+- button "Close navigation menu" [expanded]:
+- button "Switch to light mode":
+  - tooltip "Switch to light mode"
+- main:
+  - generic: "Section 7: Templates & Tools"
+  - heading "AI Glossary" [level=2]
+  - paragraph: Quick reference to common AI terms
+  - heading "Glossary Lab" [level=3]
+  - paragraph: Explore terms as a reference tool, then switch into flashcards to remember the key ideas.
+  - button "Glossary Lab"
+  - button "Flashcards"
+  - textbox "Search glossary terms" [active]:
+    - /placeholder: Search glossary terms...
+    - text: audit trail
+  - complementary:
+    - button "AI Audit Trail":
+      - paragraph: AI Audit Trail
+  - generic: Definition
+  - heading "AI (Artificial Intelligence)" [level=3]
+  - paragraph: Technology that performs tasks normally requiring human intelligence, such as analysing data or generating text.
+  - paragraph: Example
+  - paragraph: An AI tool summarises client notes or helps draft a professional email.
+  - paragraph: Watch out
+  - paragraph: AI can sound confident even when the answer still needs checking.
+  - paragraph: Plain English
+  - paragraph: Software that can help with tasks that usually need human thinking.
+  - paragraph: Related terms
+  - button "Generative AI"
+  - button "Machine Learning (ML)"
+  - button "Model"
+  - button "Copy explanation":
+    - generic: Copy explanation
+  - button "Go to previous page":
+    - generic: Previous
+  - generic: Page 60 of 63
+  - button "Go to page 58"
+  - button "Go to page 59"
+  - button "Go to page 60"
+  - button "Go to page 61"
+  - button "Go to page 62"
+  - button "Go to next page":
+    - generic: Next

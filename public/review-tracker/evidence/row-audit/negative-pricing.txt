@@ -1,0 +1,121 @@
+- complementary "Playbook navigation":
+  - button "Sage The AI Playbook For Accountants & Bookkeepers":
+    - img "Sage"
+    - heading "The AI Playbook" [level=1]
+    - paragraph: For Accountants & Bookkeepers
+  - generic: CURRENT SECTION
+  - generic: Pricing & Economics
+  - navigation:
+    - button "Introduction 100%" [expanded]:
+      - generic: Introduction
+      - generic: 100%
+    - button "Contents":
+      - generic: Contents
+    - button "Section 1 Understanding AI 100%":
+      - generic: Section 1
+      - generic: Understanding AI
+      - generic: 100%
+    - button "Section 2 Professional Guardrails 100%":
+      - generic: Section 2
+      - generic: Professional Guardrails
+      - generic: 100%
+    - button "Section 3 Assistants & Agents 100%":
+      - generic: Section 3
+      - generic: Assistants & Agents
+      - generic: 100%
+    - button "Section 4 Prompting Skills 100%":
+      - generic: Section 4
+      - generic: Prompting Skills
+      - generic: 100%
+    - button "Section 5 Pricing & Economics 100%":
+      - generic: Section 5
+      - generic: Pricing & Economics
+      - generic: 100%
+    - button "Section 6 90-Day Plan 100%":
+      - generic: Section 6
+      - generic: 90-Day Plan
+      - generic: 100%
+    - button "Section 7 Templates & Tools 100%":
+      - generic: Section 7
+      - generic: Templates & Tools
+      - generic: 100%
+    - button "Conclusion 100%":
+      - generic: Conclusion
+      - generic: 100%
+  - generic: OVERALL PROGRESS
+  - generic: 100%
+  - generic: 63 of 63 pages visited
+- button "Close navigation menu" [expanded]:
+- button "Switch to light mode":
+  - tooltip "Switch to light mode"
+- main:
+  - generic: "Section 5: Pricing & Economics"
+  - heading "The AI Impact Pricing Exercise" [level=2]
+  - paragraph: Mapping the financial impact of AI across your services
+  - paragraph: Before restructuring pricing, it helps to understand exactly where AI creates efficiency in your firm—and what that efficiency is worth. This exercise maps the time, cost, and pricing implications of AI across your key services.
+  - paragraph: "For each service, you need to understand four things: how long it takes today, how long it will take with AI assistance, what human value remains after AI does its work, and what the pricing implication is."
+  - heading "How to Complete the Exercise:" [level=4]
+  - paragraph: "For each service or task type in your firm: 1. Estimate the current time to complete (e.g., 6 hours for a standard set of accounts) 2. Estimate the time with AI assistance (e.g., 3.5 hours) 3. Identify what human activity remains and why it matters (e.g., review, judgement, client conversation) 4. Decide the pricing implication: maintain fee (improve margin), increase fee (if value increases), or restructure (move to fixed/tiered model) This gives you a clear picture of where AI improves economics and where pricing changes are needed."
+  - complementary "Learning":
+    - paragraph: The goal is not to lower prices because AI is faster. It is to understand where margin improves, where you can invest more advisory time, and where pricing needs to evolve.
+  - heading "Example Completed Row:" [level=4]
+  - paragraph: "Service: Quarterly VAT return Time today: 2.5 hours Time with AI: 1.0 hours Human value remaining: Exception review, client query handling, professional sign-off Pricing implication: Maintain fixed fee — margin improves by 60% per return"
+  - region "AI Impact Pricing Worksheet":
+    - generic: Activity
+    - heading "AI Impact Pricing Worksheet" [level=4]
+    - paragraph: "Complete the AI Impact Pricing Exercise for three services in your firm. For each, estimate time today, time with AI, the human value that remains, and the pricing implication:"
+    - tablist "Services in the AI impact pricing worksheet":
+      - tab "Service 1, 5 of 5 fields complete, expanded" [expanded] [selected]:
+        - generic: Service 1
+      - tab "Service 2, 0 of 5 fields complete, collapsed":
+        - generic: Service 2
+      - tab "Service 3, 0 of 5 fields complete, collapsed":
+        - generic: Service 3
+    - tabpanel "Service 1, 5 of 5 fields complete, expanded":
+      - generic: Service 1
+      - generic: Service 1 — Name
+      - button "Guidance for Service 1 — Name":
+      - textbox "Service 1 — Name Guidance for Service 1 — Name":
+        - /placeholder: e.g., Annual accounts, VAT returns, Payroll, Tax return
+        - text: QA negative time
+      - generic: Service 1 — Time today
+      - button "Guidance for Service 1 — Time today":
+      - textbox "Service 1 — Time today Guidance for Service 1 — Time today":
+        - /placeholder: e.g., 6 hours per client per year
+        - text: "-6"
+      - generic: Service 1 — Estimated time with AI
+      - button "Guidance for Service 1 — Estimated time with AI":
+      - textbox "Service 1 — Estimated time with AI Guidance for Service 1 — Estimated time with AI" [active]:
+        - /placeholder: e.g., 3 hours (50% reduction)
+        - text: "-3"
+      - text: Reduction
+      - generic: 50% · 3.0 hours
+      - generic: Service 1 — Human value remaining
+      - button "Guidance for Service 1 — Human value remaining":
+      - textbox "Service 1 — Human value remaining Guidance for Service 1 — Human value remaining":
+        - /placeholder: e.g., Review, judgement calls, client conversation, professional sign-off
+        - text: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+      - generic: Service 1 — Pricing implication
+      - button "Guidance for Service 1 — Pricing implication":
+      - textbox "Service 1 — Pricing implication Guidance for Service 1 — Pricing implication":
+        - /placeholder: e.g., Maintain fixed fee (margin improves), or move to tiered package
+        - text: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+    - region "On-page comparison":
+      - heading "On-page comparison" [level=5]
+      - generic: QA negative time
+      - generic: 50% reduction
+      - paragraph: "Strongest efficiency opportunity: QA negative time."
+    - status:
+      - generic: Pricing worksheet saved locally
+  - generic: Key Takeaway
+  - paragraph: The AI Impact Pricing Exercise turns abstract efficiency gains into concrete pricing decisions. Complete it before restructuring fees.
+  - button "Go to previous page":
+    - generic: Previous
+  - generic: Page 43 of 63
+  - button "Go to page 41"
+  - button "Go to page 42"
+  - button "Go to page 43"
+  - button "Go to page 44"
+  - button "Go to page 45"
+  - button "Go to next page":
+    - generic: Next

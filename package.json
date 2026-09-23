@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "build": "vite build",
+    "build:review-tracker": "node scripts/generate-review-tracker.mjs",
     "dev": "vite",
     "test": "node --test --test-isolation=none tests/*.test.mjs"
   },

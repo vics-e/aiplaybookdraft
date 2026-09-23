@@ -1,0 +1,415 @@
+{
+  "provenance": "Successful CUA test call outputs, 9–10 September 2026; supplements retained raw input-cases.json. The interrupted call is not counted.",
+  "rows": [
+    {
+      "page": 21,
+      "fields": 3,
+      "negativeRetained": true,
+      "specialCharactersRetained": true,
+      "tenThousandCharsRetained": true,
+      "blankKeyboardCleared": true,
+      "unicodeReloadMatched": true,
+      "exception": null
+    },
+    {
+      "page": 22,
+      "fields": 3,
+      "negativeRetained": true,
+      "specialCharactersRetained": true,
+      "tenThousandCharsRetained": true,
+      "blankKeyboardCleared": true,
+      "unicodeReloadMatched": true,
+      "exception": null
+    },
+    {
+      "page": 23,
+      "fields": 2,
+      "negativeRetained": true,
+      "specialCharactersRetained": true,
+      "tenThousandCharsRetained": true,
+      "blankKeyboardCleared": true,
+      "unicodeReloadMatched": true,
+      "exception": null
+    },
+    {
+      "page": 24,
+      "fields": 1,
+      "negativeRetained": true,
+      "specialCharactersRetained": true,
+      "tenThousandCharsRetained": true,
+      "blankKeyboardCleared": true,
+      "unicodeReloadMatched": true,
+      "exception": null
+    },
+    {
+      "page": 25,
+      "fields": 3,
+      "negativeRetained": true,
+      "specialCharactersRetained": true,
+      "tenThousandCharsRetained": true,
+      "blankKeyboardCleared": true,
+      "unicodeReloadMatched": true,
+      "exception": null
+    },
+    {
+      "page": 26,
+      "fields": 1,
+      "negativeRetained": true,
+      "specialCharactersRetained": true,
+      "tenThousandCharsRetained": true,
+      "blankKeyboardCleared": true,
+      "unicodeReloadMatched": true,
+      "exception": null
+    },
+    {
+      "page": 27,
+      "fields": 8,
+      "negativeRetained": true,
+      "specialCharactersRetained": true,
+      "tenThousandCharsRetained": true,
+      "blankKeyboardCleared": true,
+      "unicodeReloadMatched": true,
+      "exception": null
+    },
+    {
+      "page": 29,
+      "fields": 3,
+      "negativeRetained": true,
+      "specialCharactersRetained": true,
+      "tenThousandCharsRetained": true,
+      "blankKeyboardCleared": true,
+      "unicodeReloadMatched": true,
+      "exception": null
+    },
+    {
+      "page": 30,
+      "fields": 4,
+      "negativeRetained": true,
+      "specialCharactersRetained": true,
+      "tenThousandCharsRetained": true,
+      "blankKeyboardCleared": true,
+      "unicodeReloadMatched": true,
+      "exception": null
+    },
+    {
+      "page": 31,
+      "fields": 4,
+      "negativeRetained": true,
+      "specialCharactersRetained": true,
+      "tenThousandCharsRetained": true,
+      "blankKeyboardCleared": true,
+      "unicodeReloadMatched": true,
+      "exception": null
+    },
+    {
+      "page": 32,
+      "fields": 5,
+      "negativeRetained": true,
+      "specialCharactersRetained": true,
+      "tenThousandCharsRetained": true,
+      "blankKeyboardCleared": true,
+      "unicodeReloadMatched": true,
+      "exception": null
+    },
+    {
+      "page": 33,
+      "fields": 3,
+      "negativeRetained": true,
+      "specialCharactersRetained": true,
+      "tenThousandCharsRetained": true,
+      "blankKeyboardCleared": true,
+      "unicodeReloadMatched": true,
+      "exception": null
+    },
+    {
+      "page": 34,
+      "fields": 3,
+      "negativeRetained": true,
+      "specialCharactersRetained": true,
+      "tenThousandCharsRetained": true,
+      "blankKeyboardCleared": true,
+      "unicodeReloadMatched": true,
+      "exception": null
+    },
+    {
+      "page": 35,
+      "fields": 4,
+      "negativeRetained": true,
+      "specialCharactersRetained": true,
+      "tenThousandCharsRetained": true,
+      "blankKeyboardCleared": true,
+      "unicodeReloadMatched": true,
+      "exception": null
+    },
+    {
+      "page": 36,
+      "fields": 3,
+      "negativeRetained": true,
+      "specialCharactersRetained": true,
+      "tenThousandCharsRetained": true,
+      "blankKeyboardCleared": true,
+      "unicodeReloadMatched": true,
+      "exception": null
+    },
+    {
+      "page": 37,
+      "fields": 3,
+      "negativeRetained": true,
+      "specialCharactersRetained": true,
+      "tenThousandCharsRetained": true,
+      "blankKeyboardCleared": true,
+      "unicodeReloadMatched": true,
+      "exception": null
+    },
+    {
+      "page": 38,
+      "fields": 3,
+      "negativeRetained": true,
+      "specialCharactersRetained": true,
+      "tenThousandCharsRetained": true,
+      "blankKeyboardCleared": true,
+      "unicodeReloadMatched": true,
+      "exception": null
+    },
+    {
+      "page": 39,
+      "fields": 3,
+      "negativeRetained": true,
+      "specialCharactersRetained": true,
+      "tenThousandCharsRetained": true,
+      "blankKeyboardCleared": true,
+      "unicodeReloadMatched": true,
+      "exception": null
+    },
+    {
+      "page": 40,
+      "fields": 3,
+      "negativeRetained": true,
+      "specialCharactersRetained": true,
+      "tenThousandCharsRetained": true,
+      "blankKeyboardCleared": true,
+      "unicodeReloadMatched": true,
+      "exception": null
+    },
+    {
+      "page": 41,
+      "fields": 3,
+      "negativeRetained": true,
+      "specialCharactersRetained": true,
+      "tenThousandCharsRetained": true,
+      "blankKeyboardCleared": true,
+      "unicodeReloadMatched": true,
+      "exception": null
+    },
+    {
+      "page": 42,
+      "fields": 3,
+      "negativeRetained": true,
+      "specialCharactersRetained": true,
+      "tenThousandCharsRetained": true,
+      "blankKeyboardCleared": true,
+      "unicodeReloadMatched": true,
+      "exception": null
+    },
+    {
+      "page": 43,
+      "fields": 5,
+      "negativeRetained": true,
+      "specialCharactersRetained": true,
+      "tenThousandCharsRetained": true,
+      "blankKeyboardCleared": true,
+      "unicodeReloadMatched": true,
+      "exception": null
+    },
+    {
+      "page": 44,
+      "fields": 3,
+      "negativeRetained": true,
+      "specialCharactersRetained": true,
+      "tenThousandCharsRetained": true,
+      "blankKeyboardCleared": true,
+      "unicodeReloadMatched": true,
+      "exception": null
+    },
+    {
+      "page": 45,
+      "fields": 7,
+      "negativeRetained": true,
+      "specialCharactersRetained": true,
+      "tenThousandCharsRetained": true,
+      "blankKeyboardCleared": true,
+      "unicodeReloadMatched": true,
+      "exception": null
+    },
+    {
+      "page": 46,
+      "fields": 1,
+      "negativeRetained": true,
+      "specialCharactersRetained": true,
+      "tenThousandCharsRetained": true,
+      "blankKeyboardCleared": true,
+      "unicodeReloadMatched": true,
+      "exception": null
+    },
+    {
+      "page": 47,
+      "fields": 1,
+      "negativeRetained": true,
+      "specialCharactersRetained": true,
+      "tenThousandCharsRetained": true,
+      "blankKeyboardCleared": true,
+      "unicodeReloadMatched": true,
+      "exception": null
+    },
+    {
+      "page": 48,
+      "fields": 2,
+      "negativeRetained": true,
+      "specialCharactersRetained": true,
+      "tenThousandCharsRetained": true,
+      "blankKeyboardCleared": true,
+      "unicodeReloadMatched": true,
+      "exception": null
+    },
+    {
+      "page": 49,
+      "fields": 2,
+      "negativeRetained": true,
+      "specialCharactersRetained": true,
+      "tenThousandCharsRetained": true,
+      "blankKeyboardCleared": true,
+      "unicodeReloadMatched": true,
+      "exception": null
+    },
+    {
+      "page": 50,
+      "fields": 2,
+      "negativeRetained": true,
+      "specialCharactersRetained": true,
+      "tenThousandCharsRetained": true,
+      "blankKeyboardCleared": true,
+      "unicodeReloadMatched": true,
+      "exception": null
+    },
+    {
+      "page": 51,
+      "fields": 3,
+      "negativeRetained": true,
+      "specialCharactersRetained": true,
+      "tenThousandCharsRetained": true,
+      "blankKeyboardCleared": true,
+      "unicodeReloadMatched": true,
+      "exception": null
+    },
+    {
+      "page": 52,
+      "fields": 3,
+      "negativeRetained": true,
+      "specialCharactersRetained": true,
+      "tenThousandCharsRetained": true,
+      "blankKeyboardCleared": true,
+      "unicodeReloadMatched": true,
+      "exception": null
+    },
+    {
+      "page": 53,
+      "fields": 2,
+      "negativeRetained": true,
+      "specialCharactersRetained": true,
+      "tenThousandCharsRetained": true,
+      "blankKeyboardCleared": true,
+      "unicodeReloadMatched": true,
+      "exception": null
+    },
+    {
+      "page": 54,
+      "fields": 3,
+      "negativeRetained": true,
+      "specialCharactersRetained": true,
+      "tenThousandCharsRetained": true,
+      "blankKeyboardCleared": true,
+      "unicodeReloadMatched": true,
+      "exception": null
+    },
+    {
+      "page": 55,
+      "fields": 1,
+      "negativeRetained": true,
+      "specialCharactersRetained": true,
+      "tenThousandCharsRetained": true,
+      "blankKeyboardCleared": true,
+      "unicodeReloadMatched": true,
+      "exception": null
+    },
+    {
+      "page": 56,
+      "fields": 1,
+      "negativeRetained": true,
+      "specialCharactersRetained": true,
+      "tenThousandCharsRetained": true,
+      "blankKeyboardCleared": true,
+      "unicodeReloadMatched": true,
+      "exception": null
+    },
+    {
+      "page": 57,
+      "fields": 4,
+      "negativeRetained": true,
+      "specialCharactersRetained": true,
+      "tenThousandCharsRetained": true,
+      "blankKeyboardCleared": false,
+      "unicodeReloadMatched": true,
+      "exception": "Blank tool name normalises to default 20-character name; other three fields clear. Not a required-field error."
+    },
+    {
+      "page": 58,
+      "fields": 1,
+      "negativeRetained": true,
+      "specialCharactersRetained": true,
+      "tenThousandCharsRetained": true,
+      "blankKeyboardCleared": true,
+      "unicodeReloadMatched": true,
+      "exception": null
+    },
+    {
+      "page": 59,
+      "fields": 1,
+      "negativeRetained": true,
+      "specialCharactersRetained": true,
+      "tenThousandCharsRetained": true,
+      "blankKeyboardCleared": true,
+      "unicodeReloadMatched": true,
+      "exception": null
+    },
+    {
+      "page": 60,
+      "fields": 1,
+      "negativeRetained": true,
+      "specialCharactersRetained": true,
+      "tenThousandCharsRetained": true,
+      "blankKeyboardCleared": true,
+      "unicodeReloadMatched": true,
+      "exception": null
+    },
+    {
+      "page": 61,
+      "fields": 1,
+      "negativeRetained": true,
+      "specialCharactersRetained": true,
+      "tenThousandCharsRetained": true,
+      "blankKeyboardCleared": true,
+      "unicodeReloadMatched": true,
+      "exception": null
+    },
+    {
+      "page": 63,
+      "fields": 1,
+      "negativeRetained": true,
+      "specialCharactersRetained": true,
+      "tenThousandCharsRetained": true,
+      "blankKeyboardCleared": true,
+      "unicodeReloadMatched": true,
+      "exception": null
+    }
+  ]
+}
