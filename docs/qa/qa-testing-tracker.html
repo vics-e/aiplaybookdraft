@@ -726,12 +726,12 @@
                   <tr><td>1</td><td><strong>Pricing layout on narrow screens</strong></td><td class="checklist-ids">manual-28, release-26, release-13</td><td>At 320px the time fields were cramped and controls protruded.</td><td>Fixed locally: fields stack below the small breakpoint. Exact 320px deployment retest remains.</td></tr>
                   <tr><td>2</td><td><strong>Glossary overflow at 1080px</strong></td><td class="checklist-ids">manual-03, manual-04, release-24, release-13</td><td>Glossary text overflowed its assigned columns.</td><td>Fixed and locally verified: wider split breakpoint plus containment and wrapping.</td></tr>
                   <tr><td>3</td><td><strong>Negative pricing calculation</strong></td><td class="checklist-ids">manual-06, manual-12, release-13</td><td>Negative values produced a positive saving.</td><td>Fixed and locally verified: an error appears and no saving is calculated.</td></tr>
-                  <tr><td>4</td><td><strong>Font resources return 404</strong></td><td class="checklist-ids">manual-07, manual-17, release-13</td><td>Four font requests failed and appeared as console errors.</td><td>Broken requests removed. Deployment resource and console retest remains.</td></tr>
+                  <tr><td>4</td><td><strong>Font resources return 404</strong></td><td class="checklist-ids">manual-07, manual-17, release-13</td><td>Four font requests failed and appeared as console errors.</td><td>Fixed, deployed and verified: assets return 200 and the console is clear.</td></tr>
                   <tr><td>5</td><td><strong>Certificate name truncation</strong></td><td class="checklist-ids">manual-13, release-13</td><td>An 83-character name lost its final words.</td><td>Fixed and verified: visible 100-character limit and every entered word retained.</td></tr>
                   <tr><td>6</td><td><strong>No clear confirmation</strong></td><td class="checklist-ids">manual-14, release-13</td><td>Clear removed content without confirmation.</td><td>Fixed and locally verified: Prompt cleared is announced.</td></tr>
                   <tr><td>7</td><td><strong>Inconsistent workflow gate</strong></td><td class="checklist-ids">manual-18, release-13</td><td>Score each allowed progression with one workflow.</td><td>Fixed and locally verified: every route requires three workflows.</td></tr>
                   <tr><td>8</td><td><strong>False saved message</strong></td><td class="checklist-ids">manual-33, release-13</td><td>Storage failure still showed a saved message.</td><td>Failure alert added. Controlled deployment quota retest remains.</td></tr>
-                  <tr><td>9</td><td><strong>Generic Vercel 404 page</strong></td><td class="checklist-ids">manual-19, release-13</td><td>Invalid routes showed the hosting provider error.</td><td>Branded 404 output added. Vercel deployment retest remains.</td></tr>
+                  <tr><td>9</td><td><strong>Generic Vercel 404 page</strong></td><td class="checklist-ids">manual-19, release-13</td><td>Invalid routes showed the hosting provider error.</td><td>Fixed, deployed and verified with a branded HTTP 404 response.</td></tr>
                 </tbody>
               </table>
             </div>
@@ -1142,10 +1142,10 @@
   },
   "manual-07": {
     "applies": "Relevant",
-    "status": "Needs Sage or QA",
+    "status": "Passed",
     "owner": "Victor / Playbook",
     "evidence": "docs/qa/evidence/row-audit/batch-6.md; docs/qa/evidence/row-audit/http-checks.json",
-    "comments": "23 Sep 2026: the four broken font URLs were removed and the production build succeeds. Ready for deployment retest of live resource requests before pass.",
+    "comments": "23 Sep 2026: deployed JavaScript and CSS return 200 and the old broken font host is absent from production CSS. The four recorded font 404 requests are resolved.",
     "interpretation": "All rendered links and resources load successfully, with no missing images, stylesheet failures or script errors."
   },
   "manual-08": {
@@ -1222,10 +1222,10 @@
   },
   "manual-17": {
     "applies": "Relevant",
-    "status": "Needs Sage or QA",
+    "status": "Passed",
     "owner": "Victor / Playbook",
     "evidence": "docs/qa/evidence/row-audit/pagespeed-console.txt; docs/qa/evidence/row-audit/batch-6.md",
-    "comments": "23 Sep 2026: removed the four font URLs that caused the recorded console 404s and verified the local production build. Requires one deployed console or PageSpeed rerun before pass.",
+    "comments": "23 Sep 2026: deployed browser check returned no console warnings or errors after the broken font requests were removed.",
     "interpretation": "Normal journeys complete without errors in the browser console."
   },
   "manual-18": {
@@ -1238,10 +1238,10 @@
   },
   "manual-19": {
     "applies": "Relevant",
-    "status": "Needs Sage or QA",
+    "status": "Passed",
     "owner": "Victor / Playbook",
     "evidence": "docs/qa/evidence/row-audit/http-checks.json",
-    "comments": "23 Sep 2026: added a branded public/404.html to the production output. Ready for deployment retest because the local development fallback does not reproduce Vercel missing-route handling.",
+    "comments": "23 Sep 2026: deployed invalid route returned the branded AI Playbook Page not found experience with HTTP 404.",
     "interpretation": "Invalid application routes must show a custom error page. A generic hosting response is insufficient without an explicit Sage waiver."
   },
   "manual-20": {

@@ -11,4 +11,4 @@ Verified in the local Chromium build:
 - Page 24 keeps “Score each” and Next disabled with only one workflow.
 - The production build contains responsive pricing/glossary changes, local font aliases without the four broken CDN requests, truthful storage-failure feedback and a custom `404.html`.
 
-Deployment-dependent items remain ready for retest rather than passed: production resource requests and console, the custom Vercel 404, exact 320px layout, browser storage quota simulation, and the release-level resolved-fixes gate.
+After deployment, the production JavaScript and CSS returned 200, the old broken font host was absent, the browser console had no warnings or errors, and the branded 404 was served for an invalid route. Exact 320px layout, browser storage quota simulation, and the release-level resolved-fixes gate remain open.
