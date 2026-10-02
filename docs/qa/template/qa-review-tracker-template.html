@@ -1,0 +1,1546 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>QA Review Tracker — [PROJECT NAME]</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --ink: #17232f;
+        --muted: #5e6a73;
+        --line: #d7ddd9;
+        --soft-line: #e9eeeb;
+        --surface: #ffffff;
+        --canvas: #f4f7f5;
+        --sage: #00a376;
+        --sage-deep: #007a59;
+        --sage-soft: #e7f7f1;
+        --navy: #102a43;
+        --amber: #aa6c00;
+        --amber-soft: #fff5d8;
+        --shadow: 0 14px 34px rgba(16, 42, 67, 0.08);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-width: 320px;
+        min-height: 100vh;
+        background: var(--canvas);
+        color: var(--ink);
+        font-family:
+          Inter, "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+        font-size: 16px;
+        line-height: 1.5;
+      }
+
+      button,
+      select,
+      input {
+        font: inherit;
+      }
+
+      button:focus-visible,
+      select:focus-visible,
+      input:focus-visible {
+        outline: 3px solid rgba(0, 163, 118, 0.28);
+        outline-offset: 2px;
+      }
+
+      .topbar {
+        border-bottom: 1px solid var(--line);
+        background: var(--surface);
+      }
+
+      .topbar-inner,
+      main {
+        width: min(1480px, calc(100% - 40px));
+        margin: 0 auto;
+      }
+
+      .topbar-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+        min-height: 74px;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 13px;
+        min-width: 0;
+      }
+
+      .brand-mark {
+        display: grid;
+        width: 38px;
+        height: 38px;
+        flex: 0 0 auto;
+        place-items: center;
+        border-radius: 10px;
+        background: var(--sage);
+        color: #ffffff;
+        font-weight: 800;
+        letter-spacing: -0.04em;
+      }
+
+      .brand-copy {
+        min-width: 0;
+      }
+
+      .brand-copy strong,
+      .brand-copy span {
+        display: block;
+      }
+
+      .brand-copy strong {
+        font-size: 17px;
+        line-height: 1.2;
+      }
+
+      .brand-copy span {
+        margin-top: 2px;
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      .draft-badge {
+        flex: 0 0 auto;
+        border: 1px solid #e7cd83;
+        border-radius: 999px;
+        background: var(--amber-soft);
+        color: var(--amber);
+        padding: 6px 11px;
+        font-size: 13px;
+        font-weight: 700;
+      }
+
+      .header-actions {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        gap: 10px;
+      }
+
+      .saved-indicator {
+        color: var(--muted);
+        font-size: 13px;
+        font-weight: 650;
+      }
+
+      .primary-button {
+        min-height: 42px;
+        border: 1px solid var(--sage-deep);
+        border-radius: 9px;
+        background: var(--sage-deep);
+        color: #ffffff;
+        cursor: pointer;
+        padding: 0 14px;
+        font-weight: 750;
+      }
+
+      .primary-button:hover {
+        background: #00684c;
+      }
+
+      .secondary-button {
+        min-height: 42px;
+        border: 1px solid var(--sage-deep);
+        border-radius: 9px;
+        background: #ffffff;
+        color: var(--sage-deep);
+        cursor: pointer;
+        padding: 0 14px;
+        font-weight: 750;
+      }
+
+      .secondary-button:hover { background: var(--sage-soft); }
+
+      .save-note {
+        margin: 12px 0 20px;
+        border-left: 4px solid var(--sage);
+        border-radius: 8px;
+        background: var(--sage-soft);
+        padding: 12px 14px;
+        color: var(--navy);
+      }
+
+      .save-note p { margin: 0; }
+      .save-note p + p { margin-top: 4px; color: var(--muted); font-size: 14px; }
+
+      .device-table td:first-child { font-weight: 750; color: var(--navy); }
+      .device-table .clarify-device { background: var(--amber-soft); }
+
+      .compact-details { margin: 22px 0; }
+      .compact-details > summary {
+        cursor: pointer;
+        color: var(--navy);
+        font-size: 18px;
+        font-weight: 800;
+        padding: 12px 0;
+      }
+
+      main {
+        padding: 34px 0 56px;
+      }
+
+      .page-heading {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        gap: 24px;
+        margin-bottom: 25px;
+      }
+
+      .eyebrow {
+        margin: 0 0 7px;
+        color: var(--sage-deep);
+        font-size: 13px;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        margin: 0;
+        color: var(--navy);
+        font-size: clamp(27px, 3vw, 38px);
+        line-height: 1.15;
+        letter-spacing: -0.035em;
+      }
+
+      .page-heading p:last-child {
+        max-width: 690px;
+        margin: 9px 0 0;
+        color: var(--muted);
+      }
+
+      .summary-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 14px;
+        margin-bottom: 24px;
+      }
+
+      .summary-card {
+        min-height: 115px;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        background: var(--surface);
+        padding: 18px;
+        box-shadow: 0 6px 20px rgba(16, 42, 67, 0.035);
+      }
+
+      .summary-card span {
+        display: block;
+        color: var(--muted);
+        font-size: 14px;
+        font-weight: 650;
+      }
+
+      .summary-card strong {
+        display: block;
+        margin-top: 9px;
+        color: var(--navy);
+        font-size: 29px;
+        line-height: 1;
+      }
+
+      .workspace {
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: 17px;
+        background: var(--surface);
+        box-shadow: var(--shadow);
+      }
+
+      .tabs {
+        display: flex;
+        gap: 4px;
+        overflow-x: auto;
+        border-bottom: 1px solid var(--line);
+        padding: 10px 12px 0;
+        scrollbar-width: thin;
+      }
+
+      .tab {
+        position: relative;
+        min-height: 48px;
+        border: 0;
+        border-radius: 9px 9px 0 0;
+        background: transparent;
+        color: var(--muted);
+        cursor: pointer;
+        padding: 0 16px;
+        white-space: nowrap;
+        font-weight: 700;
+      }
+
+      .tab:hover {
+        background: #f3f7f5;
+        color: var(--ink);
+      }
+
+      .tab[aria-selected="true"] {
+        background: var(--sage-soft);
+        color: var(--sage-deep);
+      }
+
+      .tab[aria-selected="true"]::after {
+        position: absolute;
+        right: 12px;
+        bottom: -1px;
+        left: 12px;
+        height: 3px;
+        border-radius: 3px 3px 0 0;
+        background: var(--sage);
+        content: "";
+      }
+
+      .panel {
+        display: none;
+        padding: 22px;
+      }
+
+      .panel.active {
+        display: block;
+      }
+
+      .panel-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+        margin-bottom: 18px;
+      }
+
+      .panel-header h2 {
+        margin: 0;
+        color: var(--navy);
+        font-size: 21px;
+        letter-spacing: -0.02em;
+      }
+
+      .panel-header p {
+        margin: 4px 0 0;
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      .filters {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .filters input,
+      .filters select {
+        min-height: 42px;
+        border: 1px solid var(--line);
+        border-radius: 9px;
+        background: #ffffff;
+        color: var(--ink);
+        padding: 0 12px;
+      }
+
+      .filters input {
+        width: min(290px, 42vw);
+      }
+
+      .table-wrap {
+        overflow-x: auto;
+        border: 1px solid var(--soft-line);
+        border-radius: 12px;
+      }
+
+      table {
+        width: 100%;
+        min-width: 1480px;
+        border-collapse: collapse;
+      }
+
+      th {
+        border-bottom: 1px solid var(--line);
+        background: #f6f8f7;
+        color: #43525d;
+        padding: 12px 14px;
+        text-align: left;
+        font-size: 13px;
+        letter-spacing: 0.02em;
+      }
+
+      td {
+        padding: 14px;
+        border-bottom: 1px solid var(--soft-line);
+        vertical-align: top;
+        font-size: 14px;
+      }
+
+      tbody tr:last-child td {
+        border-bottom: 0;
+      }
+
+      .priority,
+      .status-pill {
+        display: inline-flex;
+        align-items: center;
+        min-height: 27px;
+        border-radius: 999px;
+        padding: 3px 9px;
+        font-size: 12px;
+        font-weight: 800;
+        white-space: nowrap;
+      }
+
+      .priority-high {
+        background: #ffe8e4;
+        color: #a52c1f;
+      }
+
+      .priority-medium {
+        background: var(--amber-soft);
+        color: var(--amber);
+      }
+
+      .priority-low {
+        background: #eaf1f6;
+        color: #425b70;
+      }
+
+      .row-control {
+        width: 100%;
+        min-width: 140px;
+        min-height: 38px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #ffffff;
+        color: var(--ink);
+        padding: 7px 9px;
+        font-size: 13px;
+      }
+
+      textarea.row-control {
+        min-width: 220px;
+        min-height: 70px;
+        resize: vertical;
+      }
+
+      .summary-text {
+        min-width: 310px;
+        color: var(--ink);
+        font-weight: 620;
+      }
+
+      .source-detail {
+        min-width: 170px;
+        color: var(--muted);
+      }
+
+      .stage-label {
+        color: var(--sage-deep);
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+      }
+
+      .status-passed { background: #dff5e9; color: #11653d; }
+      .status-failed { background: #ffe4df; color: #9a2d20; }
+      .status-needs-sage-badge { background: #ffe9b5; color: #765000; }
+      .status-not-applicable-badge { background: #e9edf0; color: #58636b; }
+      .status-neutral { background: #eaf1f6; color: #425b70; }
+      .status-legend { margin: 8px 0 0; color: var(--muted); font-size: 13px; }
+      .applies-legend { margin: 4px 0 0; color: var(--muted); font-size: 13px; }
+
+      .empty-cell {
+        height: 265px;
+        text-align: center;
+      }
+
+      .empty-state {
+        width: min(450px, 100%);
+        margin: 0 auto;
+      }
+
+      .empty-icon {
+        display: grid;
+        width: 54px;
+        height: 54px;
+        margin: 0 auto 15px;
+        place-items: center;
+        border: 1px solid #bfe4d6;
+        border-radius: 15px;
+        background: var(--sage-soft);
+        color: var(--sage-deep);
+        font-size: 25px;
+        font-weight: 800;
+      }
+
+      .empty-state strong {
+        display: block;
+        color: var(--navy);
+        font-size: 17px;
+      }
+
+      .empty-state p {
+        margin: 7px 0 0;
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      .overview-empty {
+        display: grid;
+        min-height: 320px;
+        place-items: center;
+        border: 1px dashed #bdc9c2;
+        border-radius: 13px;
+        background: linear-gradient(135deg, #fbfcfb, #f4f8f6);
+        padding: 28px;
+        text-align: center;
+      }
+
+      .overview-empty .empty-state {
+        max-width: 520px;
+      }
+
+      .overview-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+
+      .guide-card {
+        border: 1px solid var(--soft-line);
+        border-radius: 13px;
+        background: #fbfcfb;
+        padding: 21px;
+      }
+
+      .guide-card h3 {
+        margin: 0 0 13px;
+        color: var(--navy);
+        font-size: 17px;
+      }
+
+      .guide-card ol,
+      .guide-card ul {
+        margin: 0;
+        padding-left: 22px;
+      }
+
+      .guide-card li + li {
+        margin-top: 8px;
+      }
+
+      .guide-card p {
+        margin: 13px 0 0;
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      .legend {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 9px;
+        margin-top: 18px;
+      }
+
+      .legend-item {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: #ffffff;
+        padding: 6px 10px;
+        color: #43525d;
+        font-size: 13px;
+        font-weight: 700;
+      }
+
+      .legend-dot {
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        background: #97a39d;
+      }
+
+      .legend-dot.relevant { background: var(--sage); }
+      .legend-dot.not-relevant { background: #7f8c86; }
+      .legend-dot.clarify { background: #e4a11b; }
+      .legend-dot.review { background: #4f7cac; }
+
+      @media (max-width: 900px) {
+        .summary-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .panel-header {
+          align-items: stretch;
+          flex-direction: column;
+        }
+
+        .overview-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .filters {
+          flex-wrap: wrap;
+        }
+      }
+
+      @media (max-width: 600px) {
+        .topbar-inner,
+        main {
+          width: min(100% - 24px, 1480px);
+        }
+
+        .topbar-inner {
+          min-height: 68px;
+        }
+
+        .brand-copy span,
+        .saved-indicator {
+          display: none;
+        }
+
+        main {
+          padding-top: 25px;
+        }
+
+        .summary-grid {
+          grid-template-columns: 1fr 1fr;
+          gap: 9px;
+        }
+
+        .summary-card {
+          min-height: 98px;
+          padding: 14px;
+        }
+
+        .panel {
+          padding: 16px;
+        }
+
+        .filters {
+          display: grid;
+          grid-template-columns: 1fr;
+        }
+
+        .filters input {
+          width: 100%;
+        }
+
+        .status-summary-table { font-size: 12px; }
+        .status-summary-table th,
+        .status-summary-table td { padding: 9px 6px; }
+      }
+
+      .review-intro { border-left: 4px solid var(--sage); background: var(--sage-soft); padding: 16px 20px; margin-bottom: 20px; border-radius: 10px; }
+      .review-intro h3 { margin: 0 0 6px; }
+      .review-intro p { margin: 5px 0; }
+      .review-table { min-width: 850px; table-layout: fixed; }
+      .review-table th:nth-child(1) { width: 100px; }
+      .review-table th:nth-child(2) { width: 170px; }
+      .review-table th:nth-child(3) { width: 25%; }
+      .review-table th:nth-child(4) { width: 140px; }
+      .review-table th:nth-child(5) { width: 145px; }
+      .review-table td { overflow-wrap: anywhere; }
+      .review-table .failed { background: #fff0ec; }
+      .review-table .passed { background: #edfaf3; }
+      tbody tr.status-needs-sage,
+      .review-table .status-needs-sage { background: #fff4dc; }
+      tbody tr.status-not-applicable,
+      .review-table .status-not-applicable { background: #f1f3f4; color: #58636b; }
+      .status-summary-table { min-width: 0; table-layout: auto; }
+      .status-summary-table th:nth-child(n) { width: auto; }
+      .status-summary-table td:first-child { color: var(--navy); font-weight: 800; }
+      .status-summary-table tbody tr:last-child { background: var(--sage-soft); }
+      .remaining-table { min-width: 720px; }
+      .tab span { display: block; margin-top: 2px; font-size: 11px; font-weight: 650; opacity: .78; }
+      .checklist-choices .guide-card { display: flex; flex-direction: column; align-items: flex-start; }
+      .checklist-choices .guide-card p { flex: 1; }
+      .review-status { font-size: 13px; font-weight: 800; }
+      .evidence-links { display: flex; flex-wrap: wrap; gap: 5px 10px; margin-top: 7px; font-size: 12px; }
+      a { color: #006b4f; }
+      .review-controls { display: flex; flex-wrap: wrap; gap: 10px; margin: 14px 0; }
+      .review-controls input, .review-controls select { border: 1px solid var(--line); border-radius: 8px; padding: 9px; }
+      .review-controls input { flex: 1; min-width: 220px; }
+      #review-count { color: var(--muted); font-size: 13px; }
+      .legacy-evidence { margin-top: 22px; }
+      .legacy-evidence summary { cursor: pointer; font-weight: 750; color: var(--navy); padding: 12px 0; }
+      .defect-groups { margin: 22px 0 26px; }
+      .defect-groups h3 { margin-bottom: 6px; }
+      .defect-groups > p { margin-top: 0; color: var(--muted); }
+      .defect-table { min-width: 980px; table-layout: fixed; }
+      .defect-table th:nth-child(1) { width: 58px; }
+      .defect-table th:nth-child(2) { width: 21%; }
+      .defect-table th:nth-child(3) { width: 25%; }
+      .defect-table th:nth-child(4) { width: 27%; }
+      .defect-table tbody tr { background: #fff0ec; }
+      .checklist-ids { color: #8d281e; font-weight: 750; overflow-wrap: anywhere; }
+      .defect-note { margin-top: 10px; padding: 12px 14px; border-radius: 8px; background: #f6f8f7; font-size: 13px; }
+      .summary-card strong { font-variant-numeric: tabular-nums; }
+      @media print { .header-actions,.tabs,.filters,.review-controls,.legacy-evidence,.save-note { display:none; } .panel { display:none; } #panel-overview { display:block; } .review-table { min-width:0; font-size:10px; } }
+    </style>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="topbar-inner">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true">QA</div>
+          <div class="brand-copy">
+            <strong>QA Review Tracker</strong>
+            <span>[PROJECT NAME] · Assessment date: [ASSESSMENT DATE]</span>
+          </div>
+        </div>
+        <div class="header-actions">
+          <span id="summary-indicator" class="saved-indicator">Loading status…</span>
+          <button id="download-markdown" class="primary-button" type="button">Download report (.md)</button>
+          <button id="download-json" class="secondary-button" type="button">Download editable backup (.json)</button>
+          <button id="import-json" class="secondary-button" type="button">Import backup</button>
+          <input id="import-json-file" type="file" accept="application/json,.json" hidden />
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="page-heading" aria-labelledby="page-title">
+        <div>
+          <p class="eyebrow">[PROJECT NAME]</p>
+          <h1 id="page-title">QA Review Tracker</h1>
+          <p><strong>Assessment date:</strong> [ASSESSMENT DATE]</p>
+          <p>Track what applies, what has been tested, the supporting evidence and what needs to happen next.</p>
+        </div>
+      </section>
+
+      <section class="workspace" aria-label="QA tracker">
+        <div class="tabs" role="tablist" aria-label="Tracker sections">
+          <button class="tab" id="tab-overview" role="tab" aria-selected="true" aria-controls="panel-overview">Overview</button>
+          <button class="tab" id="tab-manual" role="tab" aria-selected="false" aria-controls="panel-manual" tabindex="-1">Manual Testing <span id="manual-tab-summary"></span></button>
+          <button class="tab" id="tab-release" role="tab" aria-selected="false" aria-controls="panel-release" tabindex="-1">QA Release Checklist <span id="release-tab-summary"></span></button>
+          <button class="tab" id="tab-actions" role="tab" aria-selected="false" aria-controls="panel-actions" tabindex="-1">Outstanding Actions</button>
+        </div>
+
+        <div class="panel active" id="panel-overview" role="tabpanel" aria-labelledby="tab-overview">
+          <div class="panel-header">
+            <div>
+              <h2>At a glance</h2>
+              <p>The current status of the Manual Testing and QA Release checklists.</p>
+            </div>
+          </div>
+
+          <section aria-labelledby="checklist-split-title">
+            <h3 id="checklist-split-title">Checklist status</h3>
+            <div class="table-wrap"><table class="review-table status-summary-table"><thead><tr><th>Checklist</th><th>Passed</th><th>Failed</th><th>Needs Project/QA</th><th>Not applicable</th><th>Total</th></tr></thead><tbody id="checklist-split-rows"></tbody></table></div>
+          </section>
+
+          <section class="review-intro" aria-label="Current assessment">
+            <h3>Current assessment · [ASSESSMENT DATE]</h3>
+            <p id="current-assessment-counts"></p>
+            <p>Complete the checks that can be evidenced directly. Leave business decisions, unavailable browsers or devices, external integrations and formal release approval with the appropriate project or QA owner.</p>
+          </section>
+
+          <section class="save-note" aria-label="Saving and sharing">
+            <p><strong id="saved-indicator">Changes save automatically on this device.</strong></p>
+            <p>Edits in either checklist stay in this browser. Download the Markdown report to share the results, or download the JSON backup so another person can import it and continue editing.</p>
+          </section>
+
+
+
+          <section aria-labelledby="open-checklist-title">
+            <h3 id="open-checklist-title">Review or update a checklist</h3>
+            <div class="overview-grid checklist-choices">
+              <article class="guide-card"><h3>Manual Testing</h3><p>Usability, functional, compatibility, performance and accessibility checks.</p><button class="secondary-button open-tab-button" type="button" data-open-tab="tab-manual">Open Manual Testing</button></article>
+              <article class="guide-card"><h3>QA Release Checklist</h3><p>Release criteria, browser and device coverage, integrations and formal approval.</p><button class="secondary-button open-tab-button" type="button" data-open-tab="tab-release">Open QA Release Checklist</button></article>
+            </div>
+          </section>
+
+
+
+          <details class="compact-details">
+            <summary>About this checklist</summary>
+            <p>The tracker combines the supplied Manual Testing and QA Release checklists. A row is passed only when its full condition has supporting evidence. Checks that require a business decision, formal process evidence, unsupported browser, physical device, CMS access or release approval stay with Project or QA.</p>
+            <p>Changes made on this page save only in the current browser. Download the editable JSON backup and return it to the project owner or agent before expecting the official GitHub and Vercel version to change.</p>
+          </details>
+
+          <details class="compact-details">
+            <summary>View requested browsers and devices</summary>
+            <p>Browser emulation is useful preparation. Checks that name a physical device or operating system should be run on that setup or through a QA device lab.</p>
+            <div class="table-wrap"><table class="review-table device-table"><thead><tr><th>Type</th><th>Requested setup</th><th>Checklist row</th><th>Who can complete it</th></tr></thead><tbody>
+              <tr><td>Desktop browser</td><td>Microsoft Edge, latest version, on Windows 11</td><td>release-15</td><td>QA or a Windows 11 tester</td></tr>
+              <tr><td>Desktop browser</td><td>Google Chrome, latest version, on Windows 11</td><td>release-16</td><td>QA or a Windows 11 tester</td></tr>
+              <tr><td>Desktop browser</td><td>Mozilla Firefox, latest version, on Windows 11</td><td>release-17</td><td>QA or a Windows 11 tester</td></tr>
+              <tr><td>Desktop browser</td><td>Safari, latest version, on macOS</td><td>release-18</td><td>QA or a macOS tester</td></tr>
+              <tr><td>Tablet</td><td>Samsung Galaxy Tab A9+ on the latest Android version</td><td>release-19</td><td>QA or a device owner</td></tr>
+              <tr><td>Tablet</td><td>iPad 10th generation and iPad Mini 2021 on the latest iOS version</td><td>release-20</td><td>QA or a device owner</td></tr>
+              <tr class="clarify-device"><td>Mobile</td><td>iPhone 17 and “Mini” on the latest iOS version. The source does not identify which Mini model.</td><td>release-21</td><td>QA to clarify the Mini model and test both devices</td></tr>
+              <tr><td>Mobile</td><td>Samsung S25 on the latest Android version</td><td>release-22</td><td>QA or a device owner</td></tr>
+            </tbody></table></div>
+          </details>
+
+
+          <div class="legend" aria-label="Applicability key">
+            <span class="legend-item"><span class="legend-dot relevant" aria-hidden="true"></span>Relevant</span>
+            <span class="legend-item"><span class="legend-dot not-relevant" aria-hidden="true"></span>Not relevant</span>
+            <span class="legend-item"><span class="legend-dot clarify" aria-hidden="true"></span>Needs clarification</span>
+            <span class="legend-item"><span class="legend-dot review" aria-hidden="true"></span>To review</span>
+          </div>
+        </div>
+
+        <div class="panel" id="panel-manual" role="tabpanel" aria-labelledby="tab-manual" hidden>
+          <div class="panel-header">
+            <div>
+              <h2>Manual Testing</h2>
+              <p>Individual usability, functional, compatibility, performance and accessibility checks.</p>
+              <p><strong>Editable:</strong> changes here save automatically in the same local tracker as the QA Release Checklist.</p>
+              <p class="status-legend"><strong>Yellow rows:</strong> Needs Project or QA — a decision, approved baseline or external evidence is still needed. <strong>Red:</strong> failed. <strong>Green:</strong> passed.</p>
+              <p class="applies-legend"><strong>“Not relevant” in Applies?</strong> means this standalone deployment has no matching feature (for example email, uploads, CMS CRUD, external page links or server form submission). It does not mean the requirement is unimportant for a future integration.</p>
+            </div>
+            <div class="filters" aria-label="Manual testing filters">
+              <input id="manual-search" type="search" placeholder="Search checks" aria-label="Search manual testing checks" />
+              <select id="manual-priority-filter" aria-label="Filter manual testing by priority">
+                <option>All priorities</option>
+                <option>High</option>
+                <option>Medium</option>
+                <option>Low</option>
+              </select>
+              <select id="manual-status-filter" aria-label="Filter manual testing by status">
+                <option>All statuses</option>
+                <option>Not assessed</option>
+                <option>Already evidenced</option>
+                <option>Passed</option>
+                <option>Failed</option>
+                <option>Blocked</option>
+                <option>Needs Project or QA</option>
+                <option>Not applicable</option>
+              </select>
+              <select id="manual-owner-filter" aria-label="Filter manual testing by owner">
+                <option>All owners</option>
+                <option>Unassigned</option>
+                <option>Project team</option>
+                <option>CMS</option>
+                <option>QA</option>
+                <option>Business owner</option>
+                <option>Other team</option>
+              </select>
+              <select id="manual-sort" aria-label="Sort manual testing checks">
+                <option value="source">Checklist order</option>
+                <option value="priority-desc">Priority: high to low</option>
+                <option value="priority-asc">Priority: low to high</option>
+              </select>
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Priority</th>
+                  <th>Test type</th>
+                  <th>Summary</th>
+                  <th>Status (quick view)</th>
+                  <th>Update status</th>
+                  <th>Applies?</th>
+                  <th>Owner</th>
+                  <th>Tools or add-ons</th>
+                  <th>Standards</th>
+                  <th>Checklist notes</th>
+                  <th>Interpretation / pass condition</th>
+                  <th>Evidence</th>
+                  <th>Tester comments</th>
+                </tr>
+              </thead>
+              <tbody id="manual-checks-body"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="panel" id="panel-release" role="tabpanel" aria-labelledby="tab-release" hidden>
+          <div class="panel-header">
+            <div>
+              <h2>QA Release Checklist</h2>
+              <p>Entry criteria, exit criteria and sign-off criteria for the overall release.</p>
+              <p><strong>Editable:</strong> changes here save automatically in the same local tracker as Manual Testing.</p>
+              <p class="status-legend"><strong>Yellow rows:</strong> Needs Project or QA — this is awaiting release evidence or sign-off, not marked as failed. <strong>Red:</strong> failed. <strong>Green:</strong> passed.</p>
+              <p class="applies-legend"><strong>“Not relevant” in Applies?</strong> means the current standalone deployment does not include the matching release integration or workflow. The project or QA owner can change that applicability decision when the integrated scope is confirmed.</p>
+            </div>
+            <div class="filters" aria-label="QA release checklist filters">
+              <input id="release-search" type="search" placeholder="Search criteria" aria-label="Search QA release checklist" />
+              <select id="release-stage-filter" aria-label="Filter QA release checklist by stage">
+                <option>All stages</option>
+                <option>Entry criteria</option>
+                <option>Exit criteria</option>
+                <option>Compatibility: browsers</option>
+                <option>Compatibility: tablets</option>
+                <option>Compatibility: mobile</option>
+                <option>Responsive testing</option>
+                <option>Sign-off criteria</option>
+              </select>
+              <select id="release-status-filter" aria-label="Filter QA release checklist by status">
+                <option>All statuses</option>
+                <option>Not assessed</option>
+                <option>Already evidenced</option>
+                <option>Passed</option>
+                <option>Failed</option>
+                <option>Blocked</option>
+                <option>Needs Project or QA</option>
+                <option>Not applicable</option>
+              </select>
+              <select id="release-owner-filter" aria-label="Filter QA release checklist by owner">
+                <option>All owners</option>
+                <option>Unassigned</option>
+                <option>Project team</option>
+                <option>CMS</option>
+                <option>QA</option>
+                <option>Business owner</option>
+                <option>Other team</option>
+              </select>
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Stage</th>
+                  <th>Criterion</th>
+                  <th>Status (quick view)</th>
+                  <th>Update status</th>
+                  <th>Applies?</th>
+                  <th>Owner</th>
+                  <th>Interpretation / pass condition</th>
+                  <th>Evidence</th>
+                  <th>Tester comments</th>
+                </tr>
+              </thead>
+              <tbody id="release-checks-body"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="panel" id="panel-actions" role="tabpanel" aria-labelledby="tab-actions" hidden>
+          <div class="panel-header">
+            <div>
+              <h2>Outstanding Actions</h2>
+              <p>Work queue for failed, blocked, not-assessed and Needs Project or QA rows. It tells you what still needs action; it is not a list of additional failures.</p>
+            </div>
+            <div class="filters" aria-label="Outstanding action filters">
+              <input id="actions-search" type="search" placeholder="Search actions" aria-label="Search outstanding actions" />
+              <select id="actions-owner-filter" aria-label="Filter outstanding actions by owner">
+                <option>All owners</option>
+                <option>Unassigned</option>
+                <option>Project team</option>
+                <option>CMS</option>
+                <option>QA</option>
+                <option>Business owner</option>
+                <option>Other team</option>
+              </select>
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Action</th>
+                  <th>Source</th>
+                  <th>Priority</th>
+                  <th>Owner</th>
+                  <th>Status</th>
+                  <th>Evidence needed</th>
+                  <th>Comments</th>
+                </tr>
+              </thead>
+              <tbody id="outstanding-actions-body">
+                <tr>
+                  <td class="empty-cell" colspan="7">
+                    <div class="empty-state">
+                      <div class="empty-icon" aria-hidden="true">0</div>
+                      <strong>No outstanding actions</strong>
+                      <p>Actions will be generated from checks that are missing, failed, blocked or awaiting a decision.</p>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      const manualChecks = [
+        { id: 'manual-01', priority: 'Low', type: 'Usability', summary: 'Scroll bar should appear only if required.', tools: 'N/A', standards: 'Usability.gov guidelines', sourceNotes: '' },
+        { id: 'manual-02', priority: 'Low', type: 'Usability', summary: 'Check enough space is applied between field labels, columns, rows and errors.', tools: 'N/A', standards: 'W3C usability guidelines', sourceNotes: '' },
+        { id: 'manual-03', priority: 'Medium', type: 'Usability', summary: 'All text should be properly aligned.', tools: 'N/A', standards: '', sourceNotes: '' },
+        { id: 'manual-04', priority: 'Medium', type: 'Usability', summary: 'Check the site is responsive at 767px, 768px, 1080px and 1920px.', tools: 'Web Developer toolbar: Resize, View Responsive Layouts', standards: '', sourceNotes: '' },
+        { id: 'manual-05', priority: 'High', type: 'Usability', summary: 'Font should be consistent throughout the site.', tools: 'N/A', standards: '', sourceNotes: '' },
+        { id: 'manual-06', priority: 'Medium', type: 'Usability', summary: 'Display appropriate server-side and client-side validation for form fields.', tools: 'N/A', standards: '', sourceNotes: '' },
+        { id: 'manual-07', priority: 'High', type: 'Usability', summary: 'Check for broken links, missing images, CSS, Flash, RSS, script errors, expired domains and server configuration issues.', tools: 'Xenu', standards: '', sourceNotes: '' },
+        { id: 'manual-08', priority: 'Medium', type: 'Functional', summary: 'Test all mandatory fields validate correctly based on user input.', tools: 'N/A', standards: 'N/A', sourceNotes: '' },
+        { id: 'manual-09', priority: 'Medium', type: 'Functional', summary: 'Test accented letters are displayed correctly in Page Editor and the front end.', tools: 'N/A', standards: '', sourceNotes: 'The source checklist contains examples covering common European accented characters.' },
+        { id: 'manual-10', priority: 'Low', type: 'Functional', summary: 'Test no mandatory error message is present for optional fields.', tools: 'N/A', standards: '', sourceNotes: '' },
+        { id: 'manual-11', priority: 'Medium', type: 'Functional', summary: 'Test leap years are validated correctly and do not cause errors.', tools: 'N/A', standards: '', sourceNotes: '' },
+        { id: 'manual-12', priority: 'Low', type: 'Functional', summary: 'Test negative input values for each field.', tools: 'N/A', standards: '', sourceNotes: '' },
+        { id: 'manual-13', priority: 'Low', type: 'Functional', summary: 'Test the maximum length of every field to ensure data is not truncated.', tools: 'N/A', standards: '', sourceNotes: '' },
+        { id: 'manual-14', priority: 'Medium', type: 'Functional', summary: 'Check a confirmation message is displayed for update and delete operations.', tools: 'N/A', standards: '', sourceNotes: '' },
+        { id: 'manual-15', priority: 'Medium', type: 'Functional', summary: 'Test all input fields for special characters.', tools: 'N/A', standards: '', sourceNotes: '' },
+        { id: 'manual-16', priority: 'Medium', type: 'Functional', summary: 'Test the sorting and filtering functionality.', tools: 'N/A', standards: '', sourceNotes: '' },
+        { id: 'manual-17', priority: 'Medium', type: 'Functional', summary: 'Test no errors are present in the browser console.', tools: 'Browser developer tools console', standards: '', sourceNotes: '' },
+        { id: 'manual-18', priority: 'Medium', type: 'Functional', summary: 'Test the functionality of buttons, including enabled, disabled and hidden states.', tools: 'N/A', standards: '', sourceNotes: '' },
+        { id: 'manual-19', priority: 'High', type: 'Functional', summary: 'Test that failed functionality redirects the user to the custom error page (404).', tools: 'N/A', standards: '', sourceNotes: '' },
+        { id: 'manual-20', priority: 'Medium', type: 'Functional', summary: 'Test all uploaded documents open correctly in a new window, new tab or intended destination.', tools: 'N/A', standards: '', sourceNotes: '' },
+        { id: 'manual-21', priority: 'High', type: 'Functional', summary: 'Test the user is able to download files.', tools: 'N/A', standards: '', sourceNotes: '' },
+        { id: 'manual-22', priority: 'High', type: 'Functional', summary: 'Test email functionality, such as feedback and order confirmation.', tools: 'N/A', standards: '', sourceNotes: '' },
+        { id: 'manual-23', priority: 'High', type: 'Functional', summary: 'Validate that blank form submissions are not allowed and at least one field is required.', tools: 'N/A', standards: '', sourceNotes: '' },
+        { id: 'manual-24', priority: 'Medium', type: 'Functional', summary: 'Test external page links open in a new tab or window.', tools: 'N/A', standards: '', sourceNotes: '' },
+        { id: 'manual-25', priority: 'High', type: 'Functional', summary: 'Check Create, Edit, Delete and Publish for a new component.', tools: 'N/A', standards: '', sourceNotes: '' },
+        { id: 'manual-26', priority: 'High', type: 'Functional', summary: 'Verify data retrieval delivers the correct data, such as Search and News sections.', tools: 'N/A', standards: '', sourceNotes: '' },
+        { id: 'manual-27', priority: 'Medium', type: 'Functional', summary: 'Ensure search functions correctly and results are accurate and helpful to the customer.', tools: 'N/A', standards: '', sourceNotes: '' },
+        { id: 'manual-28', priority: 'High', type: 'Compatibility', summary: 'Test page rendering at different screen resolutions and rotations.', tools: 'Web Developer toolbar: Resize, View Responsive Layouts', standards: 'Latest browser versions only', sourceNotes: 'Chrome developer tools can also be used to switch between representative devices.' },
+        { id: 'manual-29', priority: 'High', type: 'Compatibility', summary: 'Test that the CSS and HTML used are compatible with the appropriate browser and device versions.', tools: 'Edge, Chrome, Firefox, Safari, iPhone and Android', standards: 'Portrait and landscape orientations', sourceNotes: '' },
+        { id: 'manual-30', priority: 'Low', type: 'Destructive', summary: 'Apply inputs that force all error messages to occur.', tools: 'N/A', standards: 'N/A', sourceNotes: '' },
+        { id: 'manual-31', priority: 'Low', type: 'Destructive', summary: 'Repeatedly attempt to submit a form by continually clicking the submit action.', tools: 'N/A', standards: '', sourceNotes: '' },
+        { id: 'manual-32', priority: 'Low', type: 'Destructive', summary: 'Force different outputs to be generated for each input.', tools: 'N/A', standards: '', sourceNotes: '' },
+        { id: 'manual-33', priority: 'Low', type: 'Destructive', summary: 'Attempt to fill the file system to its capacity.', tools: 'N/A', standards: '', sourceNotes: '' },
+        { id: 'manual-34', priority: 'Low', type: 'Destructive', summary: 'Attempt to submit blank forms repeatedly.', tools: 'N/A', standards: '', sourceNotes: '' },
+        { id: 'manual-35', priority: 'Low', type: 'Destructive', summary: 'Attempt to view an invalid page URL within the site.', tools: 'N/A', standards: '', sourceNotes: '' },
+        { id: 'manual-36', priority: 'Low', type: 'Destructive', summary: 'Alter strings within the webpages where applicable and ensure an appropriate message is displayed.', tools: 'N/A', standards: '', sourceNotes: '' },
+        { id: 'manual-37', priority: 'High', type: 'Performance', summary: 'Run Google PageSpeed to identify performance improvements.', tools: 'Google PageSpeed', standards: 'N/A', sourceNotes: '' },
+        { id: 'manual-38', priority: 'High', type: 'Accessibility', summary: 'Run Lighthouse Accessibility to identify accessibility improvements.', tools: 'Lighthouse', standards: 'N/A', sourceNotes: '' }
+      ];
+
+      const releaseChecks = [
+        { id: 'release-01', stage: 'Entry criteria', summary: 'All designs are signed off.' },
+        { id: 'release-02', stage: 'Entry criteria', summary: 'Acceptance criteria are locked down.' },
+        { id: 'release-03', stage: 'Entry criteria', summary: 'All code changes are complete and peer reviewed for each user story delivered.' },
+        { id: 'release-04', stage: 'Entry criteria', summary: 'The test environment is fully configured to update customer websites dynamically.' },
+        { id: 'release-05', stage: 'Entry criteria', summary: 'Test cases are documented and ready for execution.' },
+        { id: 'release-06', stage: 'Entry criteria', summary: 'Unit testing and VQA are complete before changes are pushed to development.' },
+        { id: 'release-07', stage: 'Entry criteria', summary: 'Modified requirements are updated in acceptance criteria rather than Jira comments or designs.' },
+        { id: 'release-08', stage: 'Entry criteria', summary: 'New requirements treated as changes are addressed in a new user story.' },
+        { id: 'release-09', stage: 'Entry criteria', summary: 'If designs change, updated designs are recorded in Jira with the exact layouts and styles used for testing.' },
+        { id: 'release-10', stage: 'Exit criteria', summary: 'All acceptance criteria have been verified.' },
+        { id: 'release-11', stage: 'Exit criteria', summary: 'All targeted and integrated testing is completed.' },
+        { id: 'release-12', stage: 'Exit criteria', summary: 'Any bugs found are raised in Jira, assigned to the appropriate developer and linked to the parent story.' },
+        { id: 'release-13', stage: 'Exit criteria', summary: 'Bug fixes are deployed and validated as resolved.' },
+        { id: 'release-14', stage: 'Exit criteria', summary: 'The automated test suite is maintained and updated for additional requirements.' },
+        { id: 'release-15', stage: 'Compatibility: browsers', summary: 'Microsoft Edge, latest version, on Windows 11.' },
+        { id: 'release-16', stage: 'Compatibility: browsers', summary: 'Google Chrome, latest version, on Windows 11.' },
+        { id: 'release-17', stage: 'Compatibility: browsers', summary: 'Mozilla Firefox, latest version, on Windows 11.' },
+        { id: 'release-18', stage: 'Compatibility: browsers', summary: 'Safari, latest version, on macOS.' },
+        { id: 'release-19', stage: 'Compatibility: tablets', summary: 'Samsung Galaxy Tab A9+ on the latest Android version.' },
+        { id: 'release-20', stage: 'Compatibility: tablets', summary: 'iPad 10th generation and iPad Mini 2021 on the latest iOS version.' },
+        { id: 'release-21', stage: 'Compatibility: mobile', summary: 'iPhone 17 and Mini on the latest iOS version.' },
+        { id: 'release-22', stage: 'Compatibility: mobile', summary: 'Samsung S25 on the latest Android version.' },
+        { id: 'release-23', stage: 'Responsive testing', summary: 'Test at a screen resolution of 1680px or wider.' },
+        { id: 'release-24', stage: 'Responsive testing', summary: 'Test at a screen resolution of 1080px or wider.' },
+        { id: 'release-25', stage: 'Responsive testing', summary: 'Test at a screen resolution of 767px or wider.' },
+        { id: 'release-26', stage: 'Responsive testing', summary: 'Test below 767px.' },
+        { id: 'release-27', stage: 'Sign-off criteria', summary: 'No known Blocker or Critical bugs are outstanding.' },
+        { id: 'release-28', stage: 'Sign-off criteria', summary: 'Manual and automated regression tests are complete for Sitecore, third parties, Tealium tags, market sites and ecommerce journeys.' },
+        { id: 'release-29', stage: 'Sign-off criteria', summary: 'VQA has signed off the changes.' }
+      ];
+
+      const assessmentDefaults = {
+        applies: 'To review',
+        status: 'Not assessed',
+        owner: 'Unassigned',
+        interpretation: '',
+        evidence: '',
+        comments: ''
+      };
+
+      const evidenceSeed = (applies, status, owner, evidence, comments, interpretation = '') => ({
+        applies, status, owner, evidence, comments, interpretation
+      });
+
+      const seedAssessments = {};
+      const previousSeedAssessments = {};
+
+      let assessments = {};
+      try {
+        assessments = JSON.parse(localStorage.getItem('qa-review-tracker-[PROJECT-SLUG]') || '{}');
+      } catch {
+        assessments = {};
+      }
+
+      try {
+        const revision = 'template-initial-v1';
+        if (localStorage.getItem('qa-review-tracker-[PROJECT-SLUG]-revision') !== revision) {
+          localStorage.setItem('qa-review-tracker-[PROJECT-SLUG]-before-update', JSON.stringify(assessments));
+          const refreshedIds = new Set(['manual-01', 'manual-03', 'manual-04', 'manual-05', 'manual-06', 'manual-07', 'manual-08', 'manual-12', 'manual-13', 'manual-14', 'manual-16', 'manual-17', 'manual-18', 'manual-19', 'manual-21', 'manual-26', 'manual-27', 'manual-28', 'manual-30', 'manual-32', 'manual-33', 'release-13', 'release-14', 'release-23', 'release-24', 'release-25', 'release-26']);
+          for (const [id, fields] of Object.entries(assessments)) {
+            if (refreshedIds.has(id)) {
+              delete fields.status;
+              delete fields.owner;
+              delete fields.comments;
+            }
+            for (const [field, value] of Object.entries(fields)) {
+              if (value === previousSeedAssessments[id]?.[field]) delete fields[field];
+            }
+          }
+          localStorage.setItem('qa-review-tracker-[PROJECT-SLUG]', JSON.stringify(assessments));
+          localStorage.setItem('qa-review-tracker-[PROJECT-SLUG]-revision', revision);
+        }
+      } catch { /* Retain in-memory assessment if browser storage is unavailable. */ }
+
+      function getAssessment(id) {
+        return { ...assessmentDefaults, ...(seedAssessments[id] || {}), ...(assessments[id] || {}) };
+      }
+
+      function saveAssessment(id, field, value) {
+        assessments[id] = { ...(assessments[id] || {}), [field]: value };
+        if (value === (seedAssessments[id]?.[field] ?? assessmentDefaults[field])) delete assessments[id][field];
+        const indicator = document.getElementById('saved-indicator');
+        try {
+          localStorage.setItem('qa-review-tracker-[PROJECT-SLUG]', JSON.stringify(assessments));
+          indicator.textContent = `Saved locally on this device at ${new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
+        } catch {
+          indicator.textContent = 'This change could not be saved locally. Download a JSON backup before closing.';
+        }
+        updateSummary();
+        renderOutstandingActions();
+      }
+
+      const appliesOptions = ['To review', 'Relevant', 'Not relevant', 'Needs clarification'];
+      const statusOptions = ['Not assessed', 'Already evidenced', 'Passed', 'Failed', 'Blocked', 'Needs Project or QA', 'Not applicable'];
+      const ownerOptions = ['Unassigned', 'Project team', 'CMS', 'QA', 'Business owner', 'Other team'];
+
+      function makeSelect(id, field, value, options, label) {
+        const select = document.createElement('select');
+        select.className = 'row-control';
+        select.setAttribute('aria-label', label);
+        options.forEach((optionText) => {
+          const option = document.createElement('option');
+          option.textContent = optionText;
+          option.selected = optionText === value;
+          select.appendChild(option);
+        });
+        select.addEventListener('change', () => saveAssessment(id, field, select.value));
+        return select;
+      }
+
+      function makeTextInput(id, field, value, label, multiline = false) {
+        const input = document.createElement(multiline ? 'textarea' : 'input');
+        input.className = 'row-control';
+        input.value = value;
+        input.placeholder = field === 'evidence'
+          ? 'Link, file path or description'
+          : field === 'interpretation'
+            ? 'Define what passing means here'
+            : 'Add testing notes';
+        input.setAttribute('aria-label', label);
+        input.addEventListener('input', () => saveAssessment(id, field, input.value));
+        return input;
+      }
+
+      function addCell(row, content, className = '') {
+        const cell = document.createElement('td');
+        if (className) cell.className = className;
+        if (content instanceof Node) cell.appendChild(content);
+        else cell.textContent = content === 0 ? '0' : (content || 'N/A');
+        row.appendChild(cell);
+      }
+
+      function statusRowClass(status) {
+        if (status === 'Failed') return 'failed';
+        if (['Passed', 'Already evidenced'].includes(status)) return 'passed';
+        if (status === 'Needs Project or QA') return 'status-needs-sage';
+        if (status === 'Not applicable') return 'status-not-applicable';
+        return '';
+      }
+
+      function makeStatusBadge(status) {
+        const badge = document.createElement('span');
+        badge.className = `status-pill ${status === 'Passed' || status === 'Already evidenced' ? 'status-passed' : status === 'Failed' ? 'status-failed' : status === 'Needs Project or QA' ? 'status-needs-sage-badge' : status === 'Not applicable' ? 'status-not-applicable-badge' : 'status-neutral'}`;
+        badge.textContent = status;
+        return badge;
+      }
+
+      function renderManualChecks() {
+        const body = document.getElementById('manual-checks-body');
+        const query = document.getElementById('manual-search').value.trim().toLowerCase();
+        const priorityFilter = document.getElementById('manual-priority-filter').value;
+        const statusFilter = document.getElementById('manual-status-filter').value;
+        const ownerFilter = document.getElementById('manual-owner-filter').value;
+        const sortMode = document.getElementById('manual-sort').value;
+        body.replaceChildren();
+
+        const priorityRank = { High: 3, Medium: 2, Low: 1 };
+        const filtered = manualChecks.filter((check) => {
+          const assessment = getAssessment(check.id);
+          const haystack = [check.id, check.priority, check.type, check.summary, check.tools, check.standards, check.sourceNotes, assessment.interpretation, assessment.evidence, assessment.comments].join(' ').toLowerCase();
+          return (!query || haystack.includes(query))
+            && (priorityFilter === 'All priorities' || check.priority === priorityFilter)
+            && (statusFilter === 'All statuses' || assessment.status === statusFilter)
+            && (ownerFilter === 'All owners' || assessment.owner === ownerFilter);
+        }).sort((left, right) => {
+          if (sortMode === 'priority-desc') return priorityRank[right.priority] - priorityRank[left.priority];
+          if (sortMode === 'priority-asc') return priorityRank[left.priority] - priorityRank[right.priority];
+          return manualChecks.indexOf(left) - manualChecks.indexOf(right);
+        });
+
+        filtered.forEach((check) => {
+          const assessment = getAssessment(check.id);
+          const row = document.createElement('tr');
+          row.className = statusRowClass(assessment.status);
+          const priority = document.createElement('span');
+          priority.className = `priority priority-${check.priority.toLowerCase()}`;
+          priority.textContent = check.priority;
+          addCell(row, priority);
+          addCell(row, check.type);
+          addCell(row, `${check.id}: ${check.summary}`, 'summary-text');
+          addCell(row, makeStatusBadge(assessment.status));
+          addCell(row, makeSelect(check.id, 'status', assessment.status, statusOptions, `Status for ${check.summary}`));
+          addCell(row, makeSelect(check.id, 'applies', assessment.applies, appliesOptions, `Applicability for ${check.summary}`));
+          addCell(row, makeSelect(check.id, 'owner', assessment.owner, ownerOptions, `Owner for ${check.summary}`));
+          addCell(row, check.tools, 'source-detail');
+          addCell(row, check.standards, 'source-detail');
+          addCell(row, check.sourceNotes, 'source-detail');
+          addCell(row, makeTextInput(check.id, 'interpretation', assessment.interpretation, `Interpretation for ${check.summary}`, true));
+          addCell(row, makeTextInput(check.id, 'evidence', assessment.evidence, `Evidence for ${check.summary}`));
+          addCell(row, makeTextInput(check.id, 'comments', assessment.comments, `Comments for ${check.summary}`, true));
+          body.appendChild(row);
+        });
+
+        if (!filtered.length) body.appendChild(makeNoResultsRow(13));
+      }
+
+      function renderReleaseChecks() {
+        const body = document.getElementById('release-checks-body');
+        const query = document.getElementById('release-search').value.trim().toLowerCase();
+        const stageFilter = document.getElementById('release-stage-filter').value;
+        const statusFilter = document.getElementById('release-status-filter').value;
+        const ownerFilter = document.getElementById('release-owner-filter').value;
+        body.replaceChildren();
+
+        const filtered = releaseChecks.filter((check) => {
+          const assessment = getAssessment(check.id);
+          const haystack = `${check.id} ${check.stage} ${check.summary} ${assessment.interpretation} ${assessment.evidence} ${assessment.comments}`.toLowerCase();
+          return (!query || haystack.includes(query))
+            && (stageFilter === 'All stages' || check.stage === stageFilter)
+            && (statusFilter === 'All statuses' || assessment.status === statusFilter)
+            && (ownerFilter === 'All owners' || assessment.owner === ownerFilter);
+        });
+
+        filtered.forEach((check) => {
+          const assessment = getAssessment(check.id);
+          const row = document.createElement('tr');
+          row.className = statusRowClass(assessment.status);
+          const stage = document.createElement('span');
+          stage.className = 'stage-label';
+          stage.textContent = check.stage;
+          addCell(row, stage);
+          addCell(row, `${check.id}: ${check.summary}`, 'summary-text');
+          addCell(row, makeStatusBadge(assessment.status));
+          addCell(row, makeSelect(check.id, 'status', assessment.status, statusOptions, `Status for ${check.summary}`));
+          addCell(row, makeSelect(check.id, 'applies', assessment.applies, appliesOptions, `Applicability for ${check.summary}`));
+          addCell(row, makeSelect(check.id, 'owner', assessment.owner, ownerOptions, `Owner for ${check.summary}`));
+          addCell(row, makeTextInput(check.id, 'interpretation', assessment.interpretation, `Interpretation for ${check.summary}`, true));
+          addCell(row, makeTextInput(check.id, 'evidence', assessment.evidence, `Evidence for ${check.summary}`));
+          addCell(row, makeTextInput(check.id, 'comments', assessment.comments, `Comments for ${check.summary}`, true));
+          body.appendChild(row);
+        });
+
+        if (!filtered.length) body.appendChild(makeNoResultsRow(9));
+      }
+
+      function makeNoResultsRow(colspan) {
+        const row = document.createElement('tr');
+        const cell = document.createElement('td');
+        cell.className = 'empty-cell';
+        cell.colSpan = colspan;
+        cell.textContent = 'No checks match the current filters.';
+        row.appendChild(cell);
+        return row;
+      }
+
+      function renderOutstandingActions() {
+        const body = document.getElementById('outstanding-actions-body');
+        const query = document.getElementById('actions-search').value.trim().toLowerCase();
+        const ownerFilter = document.getElementById('actions-owner-filter').value;
+        const actionStatuses = ['Failed', 'Blocked', 'Needs Project or QA', 'Not assessed'];
+        const allChecks = [
+          ...manualChecks.map((check) => ({ ...check, source: 'Manual Testing' })),
+          ...releaseChecks.map((check) => ({ ...check, source: 'QA Release Checklist' }))
+        ];
+        const actions = allChecks.filter((check) => {
+          const assessment = getAssessment(check.id);
+          const haystack = `${check.summary} ${check.source} ${assessment.owner} ${assessment.status} ${assessment.evidence} ${assessment.comments}`.toLowerCase();
+          return actionStatuses.includes(assessment.status)
+            && (!query || haystack.includes(query))
+            && (ownerFilter === 'All owners' || assessment.owner === ownerFilter);
+        });
+        body.replaceChildren();
+
+        if (!actions.length) {
+          const row = document.createElement('tr');
+          const cell = document.createElement('td');
+          cell.className = 'empty-cell';
+          cell.colSpan = 7;
+          const wrapper = document.createElement('div');
+          wrapper.className = 'empty-state';
+          wrapper.innerHTML = '<div class="empty-icon" aria-hidden="true">0</div><strong>No outstanding actions</strong><p>Failed, blocked and Project or QA items will appear here automatically.</p>';
+          cell.appendChild(wrapper);
+          row.appendChild(cell);
+          body.appendChild(row);
+          return;
+        }
+
+        actions.forEach((check) => {
+          const assessment = getAssessment(check.id);
+          const row = document.createElement('tr');
+          row.className = statusRowClass(assessment.status);
+          addCell(row, `${check.id}: ${check.summary}`, 'summary-text');
+          addCell(row, check.source);
+          addCell(row, check.priority || check.stage);
+          addCell(row, assessment.owner);
+          addCell(row, assessment.status);
+          addCell(row, assessment.evidence || 'Evidence not added');
+          addCell(row, assessment.comments || 'No comments added');
+          body.appendChild(row);
+        });
+      }
+
+
+      function evidenceLinks(value) {
+        const links = document.createElement('div'); links.className = 'evidence-links';
+        String(value || '').split(';').map(v => v.trim()).filter(Boolean).forEach(path => {
+          if (!path.startsWith('docs/qa/evidence/') && !/^https?:\/\//.test(path)) return;
+          const a = document.createElement('a');
+          a.href = path.startsWith('docs/qa/') ? path.slice('docs/qa/'.length) : path;
+          a.textContent = path.split('/').pop(); a.target = '_blank'; a.rel = 'noopener'; links.appendChild(a);
+        }); return links;
+      }
+      function renderChecklistSplit() {
+        const body = document.getElementById('checklist-split-rows'); if (!body) return;
+        body.replaceChildren();
+        [['Manual Testing', manualChecks], ['QA Release Checklist', releaseChecks], ['Overall', [...manualChecks, ...releaseChecks]]].forEach(([label, checks]) => {
+          const counts = { Passed: 0, Failed: 0, 'Needs Project or QA': 0, 'Not applicable': 0 };
+          checks.forEach(check => {
+            const status = getAssessment(check.id).status;
+            if (status === 'Already evidenced') counts.Passed++;
+            else if (counts[status] !== undefined) counts[status]++;
+          });
+          const row = document.createElement('tr');
+          addCell(row, label); addCell(row, counts.Passed, 'passed'); addCell(row, counts.Failed, 'failed');
+          addCell(row, counts['Needs Project or QA'], 'status-needs-sage'); addCell(row, counts['Not applicable'], 'status-not-applicable');
+          addCell(row, checks.length); body.appendChild(row);
+        });
+      }
+      function renderReview() {
+        const tbody = document.getElementById('review-rows'); if (!tbody) return;
+        const query = document.getElementById('review-search').value.trim().toLowerCase();
+        const filter = document.getElementById('review-status').value;
+        tbody.replaceChildren();
+        const checks = [...manualChecks, ...releaseChecks].filter(check => {
+          const a = getAssessment(check.id);
+          return (filter === 'All statuses' || filter === a.status) && (!query || [check.id, check.summary, a.owner, a.status, a.comments, a.interpretation].join(' ').toLowerCase().includes(query));
+        });
+        checks.forEach(check => {
+          const a=getAssessment(check.id); const tr=document.createElement('tr');
+          tr.className = statusRowClass(a.status);
+          addCell(tr,check.id);addCell(tr,manualChecks.includes(check) ? 'Manual Testing' : 'QA Release Checklist');addCell(tr,check.summary);addCell(tr,a.status,'review-status');addCell(tr,a.owner);
+          const cell=document.createElement('td');cell.textContent=a.comments||'Evidence and next action not yet recorded.';cell.appendChild(evidenceLinks(a.evidence));tr.appendChild(cell);tbody.appendChild(tr);
+        });
+        document.getElementById('review-count').textContent = checks.length + ' of 67 rows shown';
+      }
+
+      function updateSummary() {
+        const ids = [...manualChecks, ...releaseChecks].map((check) => check.id);
+        const values = ids.map((id) => getAssessment(id).status);
+        const completedCount = values.filter((status) => ['Already evidenced', 'Passed'].includes(status)).length;
+        const failedCount = values.filter((status) => status === 'Failed').length;
+        const checkedCount = completedCount + failedCount;
+        const needsCount = values.filter(s => s === 'Needs Project or QA').length;
+        const notApplicableCount = values.filter(s => s === 'Not applicable').length;
+        document.getElementById('current-assessment-counts').textContent = `${completedCount} passed · ${failedCount} failed · ${needsCount} need Project or QA · ${notApplicableCount} not applicable`;
+        renderChecklistSplit();
+        renderReview();
+        const manualStatuses = manualChecks.map(check => getAssessment(check.id).status);
+        const releaseStatuses = releaseChecks.map(check => getAssessment(check.id).status);
+        document.getElementById('manual-tab-summary').textContent = `· ${manualStatuses.filter(s => ['Passed', 'Already evidenced'].includes(s)).length} passed / ${manualStatuses.filter(s => s === 'Needs Project or QA').length} need QA`;
+        document.getElementById('release-tab-summary').textContent = `· ${releaseStatuses.filter(s => ['Passed', 'Already evidenced'].includes(s)).length} passed / ${releaseStatuses.filter(s => s === 'Needs Project or QA').length} need QA`;
+        document.getElementById('summary-indicator').textContent = checkedCount
+          ? `${checkedCount} of ${ids.length} checked · ${completedCount} completed · ${failedCount} failed`
+          : `0 of ${ids.length} checked`;
+      }
+
+      function markdownCell(value) {
+        return String(value || '').replace(/\|/g, '\\|').replace(/\r?\n/g, '<br>');
+      }
+
+      function makeMarkdownTable(headers, rows) {
+        return [
+          `| ${headers.join(' | ')} |`,
+          `| ${headers.map(() => '---').join(' | ')} |`,
+          ...rows.map((row) => `| ${row.map(markdownCell).join(' | ')} |`)
+        ].join('\n');
+      }
+
+      function downloadMarkdown() {
+        const allStatuses = [...manualChecks, ...releaseChecks].map((check) => getAssessment(check.id).status);
+        const lines = [
+          '# QA Review Tracker — [PROJECT NAME]',
+          '',
+          `Exported: ${new Date().toLocaleString()}`,
+          '',
+          `- Total checks: ${manualChecks.length + releaseChecks.length}`,
+          `- Completed with evidence: ${allStatuses.filter((status) => ['Already evidenced', 'Passed'].includes(status)).length}`,
+          `- Failed: ${allStatuses.filter((status) => status === 'Failed').length}`,
+          `- Needs Project or QA: ${allStatuses.filter((status) => status === 'Needs Project or QA').length}`,
+          '',
+          'Checked counts include completed-with-evidence and failed rows only. Partial, Needs Project or QA and Not applicable are not completed. Multiple rows can refer to one defect.',
+          '',
+          '## Manual Testing',
+          '',
+          makeMarkdownTable(
+            ['ID', 'Priority', 'Test type', 'Summary', 'Tools or add-ons', 'Standards', 'Checklist notes', 'Interpretation / pass condition', 'Applies?', 'Status', 'Owner', 'Evidence', 'Tester comments'],
+            manualChecks.map((check) => {
+              const assessment = getAssessment(check.id);
+              return [check.id, check.priority, check.type, check.summary, check.tools, check.standards, check.sourceNotes, assessment.interpretation, assessment.applies, assessment.status, assessment.owner, assessment.evidence, assessment.comments];
+            })
+          ),
+          '',
+          '## QA Release Checklist',
+          '',
+          makeMarkdownTable(
+            ['ID', 'Stage', 'Criterion', 'Interpretation / pass condition', 'Applies?', 'Status', 'Owner', 'Evidence', 'Tester comments'],
+            releaseChecks.map((check) => {
+              const assessment = getAssessment(check.id);
+              return [check.id, check.stage, check.summary, assessment.interpretation, assessment.applies, assessment.status, assessment.owner, assessment.evidence, assessment.comments];
+            })
+          )
+        ];
+
+        const blob = new Blob([lines.join('\n')], { type: 'text/markdown;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const anchor = document.createElement('a');
+        const today = new Date();
+        const date = [today.getFullYear(), String(today.getMonth() + 1).padStart(2, '0'), String(today.getDate()).padStart(2, '0')].join('-');
+        anchor.href = url;
+        anchor.download = `qa-review-tracker-[PROJECT-SLUG]-${date}.md`;
+        anchor.click();
+        URL.revokeObjectURL(url);
+      }
+
+      function downloadJsonBackup() {
+        const currentRows = {};
+        [...manualChecks, ...releaseChecks].forEach((check) => {
+          currentRows[check.id] = getAssessment(check.id);
+        });
+        const payload = {
+          format: 'qa-review-tracker',
+          version: 1,
+          exportedAt: new Date().toISOString(),
+          assessments: currentRows
+        };
+        const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const anchor = document.createElement('a');
+        const date = new Date().toISOString().slice(0, 10);
+        anchor.href = url;
+        anchor.download = `qa-review-tracker-[PROJECT-SLUG]-editable-${date}.json`;
+        anchor.click();
+        URL.revokeObjectURL(url);
+      }
+
+      async function importJsonBackup(file) {
+        const indicator = document.getElementById('saved-indicator');
+        try {
+          const payload = JSON.parse(await file.text());
+          if (payload?.format !== 'qa-review-tracker' || !payload.assessments || typeof payload.assessments !== 'object') {
+            throw new Error('Unsupported tracker backup');
+          }
+          const knownIds = new Set([...manualChecks, ...releaseChecks].map((check) => check.id));
+          const imported = {};
+          Object.entries(payload.assessments).forEach(([id, value]) => {
+            if (knownIds.has(id) && value && typeof value === 'object') imported[id] = value;
+          });
+          assessments = imported;
+          localStorage.setItem('qa-review-tracker-[PROJECT-SLUG]', JSON.stringify(assessments));
+          indicator.textContent = `Imported and saved locally at ${new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
+          renderManualChecks();
+          renderReleaseChecks();
+          renderOutstandingActions();
+          updateSummary();
+        } catch {
+          indicator.textContent = 'The selected file is not a valid QA tracker backup.';
+        }
+      }
+
+      const tabs = Array.from(document.querySelectorAll('[role="tab"]'));
+      const panels = Array.from(document.querySelectorAll('[role="tabpanel"]'));
+
+      function selectTab(nextTab) {
+        tabs.forEach((tab) => {
+          const selected = tab === nextTab;
+          tab.setAttribute('aria-selected', String(selected));
+          tab.tabIndex = selected ? 0 : -1;
+        });
+
+        panels.forEach((panel) => {
+          const selected = panel.id === nextTab.getAttribute('aria-controls');
+          panel.hidden = !selected;
+          panel.classList.toggle('active', selected);
+        });
+      }
+
+      tabs.forEach((tab, index) => {
+        tab.addEventListener('click', () => selectTab(tab));
+        tab.addEventListener('keydown', (event) => {
+          if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
+          event.preventDefault();
+          let nextIndex = index;
+          if (event.key === 'ArrowLeft') nextIndex = (index - 1 + tabs.length) % tabs.length;
+          if (event.key === 'ArrowRight') nextIndex = (index + 1) % tabs.length;
+          if (event.key === 'Home') nextIndex = 0;
+          if (event.key === 'End') nextIndex = tabs.length - 1;
+          tabs[nextIndex].focus();
+          selectTab(tabs[nextIndex]);
+        });
+      });
+
+      document.querySelectorAll('[data-open-tab]').forEach((button) => {
+        button.addEventListener('click', () => {
+          const tab = document.getElementById(button.dataset.openTab);
+          if (!tab) return;
+          selectTab(tab);
+          tab.focus();
+          document.querySelector('.workspace').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+      });
+
+      document.getElementById('manual-search').addEventListener('input', renderManualChecks);
+      document.getElementById('manual-priority-filter').addEventListener('change', renderManualChecks);
+      document.getElementById('manual-status-filter').addEventListener('change', renderManualChecks);
+      document.getElementById('manual-owner-filter').addEventListener('change', renderManualChecks);
+      document.getElementById('manual-sort').addEventListener('change', renderManualChecks);
+      document.getElementById('release-search').addEventListener('input', renderReleaseChecks);
+      document.getElementById('release-stage-filter').addEventListener('change', renderReleaseChecks);
+      document.getElementById('release-status-filter').addEventListener('change', renderReleaseChecks);
+      document.getElementById('release-owner-filter').addEventListener('change', renderReleaseChecks);
+      document.getElementById('actions-search').addEventListener('input', renderOutstandingActions);
+      document.getElementById('actions-owner-filter').addEventListener('change', renderOutstandingActions);
+      document.getElementById('download-markdown').addEventListener('click', downloadMarkdown);
+      document.getElementById('download-json').addEventListener('click', downloadJsonBackup);
+      document.getElementById('import-json').addEventListener('click', () => document.getElementById('import-json-file').click());
+      document.getElementById('import-json-file').addEventListener('change', (event) => {
+        const file = event.target.files?.[0];
+        if (file) importJsonBackup(file);
+        event.target.value = '';
+      });
+
+      renderManualChecks();
+      renderReleaseChecks();
+      renderOutstandingActions();
+      updateSummary();
+    </script>
+  </body>
+</html>

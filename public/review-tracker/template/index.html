@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>QA Review Tracker — AI Playbook</title>
+    <title>QA Review Tracker — [PROJECT NAME]</title>
     <style>
       :root {
         color-scheme: light;
@@ -698,7 +698,7 @@
           <div class="brand-mark" aria-hidden="true">QA</div>
           <div class="brand-copy">
             <strong>QA Review Tracker</strong>
-            <span>AI Playbook · Assessment date: 23 September 2026</span>
+            <span>[PROJECT NAME] · Assessment date: [ASSESSMENT DATE]</span>
           </div>
         </div>
         <div class="header-actions">
@@ -714,9 +714,9 @@
     <main>
       <section class="page-heading" aria-labelledby="page-title">
         <div>
-          <p class="eyebrow">AI Playbook</p>
+          <p class="eyebrow">[PROJECT NAME]</p>
           <h1 id="page-title">QA Review Tracker</h1>
-          <p><strong>Assessment date:</strong> 23 September 2026</p>
+          <p><strong>Assessment date:</strong> [ASSESSMENT DATE]</p>
           <p>Track what applies, what has been tested, the supporting evidence and what needs to happen next.</p>
         </div>
       </section>
@@ -739,13 +739,13 @@
 
           <section aria-labelledby="checklist-split-title">
             <h3 id="checklist-split-title">Checklist status</h3>
-            <div class="table-wrap"><table class="review-table status-summary-table"><thead><tr><th>Checklist</th><th>Passed</th><th>Failed</th><th>Needs Sage/QA</th><th>Not applicable</th><th>Total</th></tr></thead><tbody id="checklist-split-rows"></tbody></table></div>
+            <div class="table-wrap"><table class="review-table status-summary-table"><thead><tr><th>Checklist</th><th>Passed</th><th>Failed</th><th>Needs Project/QA</th><th>Not applicable</th><th>Total</th></tr></thead><tbody id="checklist-split-rows"></tbody></table></div>
           </section>
 
           <section class="review-intro" aria-label="Current assessment">
-            <h3>Current assessment · 23 September 2026</h3>
+            <h3>Current assessment · [ASSESSMENT DATE]</h3>
             <p id="current-assessment-counts"></p>
-            <p><strong>There are no recorded failures.</strong> The remaining checks require business decisions, delivery evidence, browser or device testing, CMS integration checks, or formal QA approval.</p>
+            <p>Complete the checks that can be evidenced directly. Leave business decisions, unavailable browsers or devices, external integrations and formal release approval with the appropriate project or QA owner.</p>
           </section>
 
           <section class="save-note" aria-label="Saving and sharing">
@@ -753,16 +753,7 @@
             <p>Edits in either checklist stay in this browser. Download the Markdown report to share the results, or download the JSON backup so another person can import it and continue editing.</p>
           </section>
 
-          <section aria-labelledby="remaining-groups-title">
-            <h3 id="remaining-groups-title">What the remaining 30 checks need</h3>
-            <div class="table-wrap"><table class="review-table remaining-table"><thead><tr><th>Group</th><th>Count</th><th>What is needed</th><th>Owner</th></tr></thead><tbody>
-              <tr><td>Business decisions</td><td>9</td><td>Agree requirements, mandatory fields and acceptance criteria.</td><td>Business owner</td></tr>
-              <tr><td>Jira / process evidence</td><td>5</td><td>Confirm stories, approvals, peer review and defect links in the formal process.</td><td>Delivery teams</td></tr>
-              <tr><td>Browsers and physical devices</td><td>9</td><td>Run the stated Edge, Chrome, Firefox, Safari, tablet and phone matrix.</td><td>QA or available device owners</td></tr>
-              <tr><td>CMS / integration</td><td>3</td><td>Test Sitecore, Tealium and the agreed integration scope.</td><td>CMS / integration team</td></tr>
-              <tr><td>Formal QA / release approval</td><td>4</td><td>Complete VQA, defect-severity review and release sign-off.</td><td>QA / release team</td></tr>
-            </tbody></table></div>
-          </section>
+
 
           <section aria-labelledby="open-checklist-title">
             <h3 id="open-checklist-title">Review or update a checklist</h3>
@@ -772,20 +763,11 @@
             </div>
           </section>
 
-          <details class="compact-details">
-            <summary>Reuse this QA process on another project</summary>
-            <p>Start with the blank tracker, replace the project placeholders, and follow the agent runbook. Related browser checks can be completed in batches, but every checklist row must retain its own status, evidence and reasoning.</p>
-            <div class="evidence-links">
-              <a href="template/">Open the blank QA tracker</a>
-              <a href="template/qa-review-tracker-template.html" download>Download the blank tracker HTML</a>
-              <a href="template/QA-RUNBOOK.md">Read the agent QA runbook</a>
-              <a href="template/README.md">Read the reviewer guide</a>
-            </div>
-          </details>
+
 
           <details class="compact-details">
             <summary>About this checklist</summary>
-            <p>The tracker combines the supplied Manual Testing and QA Release checklists. A row is passed only when its full condition has supporting evidence. Checks that require a business decision, formal process evidence, unsupported browser, physical device, CMS access or release approval stay with Sage or QA.</p>
+            <p>The tracker combines the supplied Manual Testing and QA Release checklists. A row is passed only when its full condition has supporting evidence. Checks that require a business decision, formal process evidence, unsupported browser, physical device, CMS access or release approval stay with Project or QA.</p>
             <p>Changes made on this page save only in the current browser. Download the editable JSON backup and return it to the project owner or agent before expecting the official GitHub and Vercel version to change.</p>
           </details>
 
@@ -804,86 +786,7 @@
             </tbody></table></div>
           </details>
 
-          <details class="legacy-evidence"><summary>Archived evidence and testing history</summary>
-          <p>This section contains supporting evidence and historical testing detail. It is not a list of current failures.</p>
-          <div class="evidence-links"><a href="evidence/row-audit/2026-09-23-fix-verification.md">Fix verification archive</a><a href="evidence/row-audit/2026-09-09-audit.md">Status audit</a><a href="evidence/row-audit/checklist-runbook.md">67 test procedures</a><a href="evidence/row-audit/batch-6.md">Batch 6</a><a href="evidence/row-audit/batch-7.md">Batch 7</a><a href="evidence/row-audit/batch-8.md">Batch 8</a><a href="evidence/row-audit/batch-9.md">Batch 9</a></div>
-          <div class="overview-grid">
-            <article class="guide-card">
-              <h3>Checklist row batches</h3>
-              <ol>
-                <li>Batch 6: manual-07, 17, 19, 35, 37, 38 — live resources, errors and audit tools.</li>
-                <li>Batch 7: manual-01–05, 28–29; release-15–26 — visual, viewport and browser matrix.</li>
-                <li>Batch 8: manual-06, 08–16, 18, 20–27, 30–34, 36 — input and functional requirements.</li>
-                <li>Batch 9: release-01–14, 27–29 — release evidence and formal ownership.</li>
-                <li>Checked means passed with evidence or failed. Partial and not applicable are counted separately.</li>
-                <li>Automated assertions support rows; their count never adds to checklist completion.</li>
-              </ol>
-            </article>
-            <article class="guide-card">
-              <h3>What counts as evidence</h3>
-              <ul>
-                <li>A dated screenshot showing the result.</li>
-                <li>A test report, automated test result or QA document.</li>
-                <li>A file path or link that another person can open.</li>
-                <li>A short note naming the browser, device or screen size tested.</li>
-              </ul>
-              <p>A row passes only when its full condition is supported. Field/test/render counts do not add to checklist totals. Evidence links open reports or screenshots. Browser edits are local to this browser; export Markdown to share them.</p>
-            </article>
-            <article class="guide-card">
-              <h3>Legacy evidence bundle 1 — supporting checks</h3>
-              <ul>
-                <li>60 of 60 automated tests passed.</li>
-                <li>The production build completed successfully.</li>
-                <li>25 of 25 bundled application assets loaded.</li>
-                <li>No console errors appeared in the representative browser journey.</li>
-                <li>Two failures were recorded: four Sage font files return 404, and invalid routes use a generic 404 page.</li>
-              </ul>
-              <p>Historical completion counts withdrawn by the 9 September row audit. These bundles do not constitute completed checklist batches.</p>
-              <p>Evidence: docs/qa/evidence/batch-1/2026-09-09-batch-1-technical-checks.md</p>
-            </article>
-            <article class="guide-card">
-              <h3>Legacy evidence bundle 2 — supporting checks</h3>
-              <ul>
-                <li>Navigation, saved answers and refresh persistence passed.</li>
-                <li>Activity summary, glossary search and flashcards passed.</li>
-                <li>Certificate personalisation safely displayed script-like text.</li>
-                <li>The operating-system print/save dialogue still needs a manual confirmation.</li>
-              </ul>
-              <p>Historical completion counts withdrawn by the 9 September row audit. These bundles do not constitute completed checklist batches.</p>
-              <p>Evidence: docs/qa/evidence/batch-2/2026-09-09-batch-2-core-functional-journey.md</p>
-            </article>
-            <article class="guide-card">
-              <h3>Legacy evidence bundle 3 — supporting checks</h3>
-              <ul>
-                <li>24 automated assertions passed; no additional checklist row was completed.</li>
-                <li>Navigation, page numbering, shared treatments and motion rules were covered.</li>
-                <li>A full 63-page visual and physical-device review is still separate work.</li>
-              </ul>
-              <p>Historical completion counts withdrawn by the 9 September row audit. These bundles do not constitute completed checklist batches.</p>
-              <p>Evidence: docs/qa/evidence/batch-3/2026-09-09-batch-3-structure-and-visual-foundations.md</p>
-            </article>
-            <article class="guide-card">
-              <h3>Legacy evidence bundle 4 — supporting checks</h3>
-              <ul>
-                <li>4 automated accessibility assertions passed; no additional checklist row was completed.</li>
-                <li>Focus, reduced motion, status announcements and image alternatives were covered.</li>
-                <li>Lighthouse, full keyboard and screen-reader review remain open.</li>
-              </ul>
-              <p>Historical completion counts withdrawn by the 9 September row audit. These bundles do not constitute completed checklist batches.</p>
-              <p>Evidence: docs/qa/evidence/batch-4/2026-09-09-batch-4-accessibility.md</p>
-            </article>
-            <article class="guide-card">
-              <h3>Legacy evidence bundle 5 — supporting checks</h3>
-              <ul>
-                <li>4 automated security assertions passed and the dependency audit found 0 vulnerabilities; no additional checklist row was completed.</li>
-                <li>The production build passed with the existing large-bundle warning.</li>
-                <li>Security headers passed. Generic 404, missing robots.txt and missing favicon were recorded.</li>
-              </ul>
-              <p>Historical completion counts withdrawn by the 9 September row audit. These bundles do not constitute completed checklist batches.</p>
-              <p>Evidence: docs/qa/evidence/batch-5/2026-09-09-batch-5-production-readiness.md</p>
-            </article>
-          </div>
-          </details>
+
           <div class="legend" aria-label="Applicability key">
             <span class="legend-item"><span class="legend-dot relevant" aria-hidden="true"></span>Relevant</span>
             <span class="legend-item"><span class="legend-dot not-relevant" aria-hidden="true"></span>Not relevant</span>
@@ -898,8 +801,8 @@
               <h2>Manual Testing</h2>
               <p>Individual usability, functional, compatibility, performance and accessibility checks.</p>
               <p><strong>Editable:</strong> changes here save automatically in the same local tracker as the QA Release Checklist.</p>
-              <p class="status-legend"><strong>Yellow rows:</strong> Needs Sage or QA — a decision, approved baseline or external evidence is still needed. <strong>Red:</strong> failed. <strong>Green:</strong> passed.</p>
-              <p class="applies-legend"><strong>“Not relevant” in Applies?</strong> means this standalone deployment has no matching feature (for example email, uploads, CMS CRUD, external page links or server form submission). It does not mean the requirement is unimportant for a future Sage integration.</p>
+              <p class="status-legend"><strong>Yellow rows:</strong> Needs Project or QA — a decision, approved baseline or external evidence is still needed. <strong>Red:</strong> failed. <strong>Green:</strong> passed.</p>
+              <p class="applies-legend"><strong>“Not relevant” in Applies?</strong> means this standalone deployment has no matching feature (for example email, uploads, CMS CRUD, external page links or server form submission). It does not mean the requirement is unimportant for a future integration.</p>
             </div>
             <div class="filters" aria-label="Manual testing filters">
               <input id="manual-search" type="search" placeholder="Search checks" aria-label="Search manual testing checks" />
@@ -916,17 +819,17 @@
                 <option>Passed</option>
                 <option>Failed</option>
                 <option>Blocked</option>
-                <option>Needs Sage or QA</option>
+                <option>Needs Project or QA</option>
                 <option>Not applicable</option>
               </select>
               <select id="manual-owner-filter" aria-label="Filter manual testing by owner">
                 <option>All owners</option>
                 <option>Unassigned</option>
-                <option>Victor / Playbook</option>
+                <option>Project team</option>
                 <option>CMS</option>
                 <option>QA</option>
                 <option>Business owner</option>
-                <option>Other Sage team</option>
+                <option>Other team</option>
               </select>
               <select id="manual-sort" aria-label="Sort manual testing checks">
                 <option value="source">Checklist order</option>
@@ -965,8 +868,8 @@
               <h2>QA Release Checklist</h2>
               <p>Entry criteria, exit criteria and sign-off criteria for the overall release.</p>
               <p><strong>Editable:</strong> changes here save automatically in the same local tracker as Manual Testing.</p>
-              <p class="status-legend"><strong>Yellow rows:</strong> Needs Sage or QA — this is awaiting release evidence or sign-off, not marked as failed. <strong>Red:</strong> failed. <strong>Green:</strong> passed.</p>
-              <p class="applies-legend"><strong>“Not relevant” in Applies?</strong> means the current standalone deployment does not include the matching release integration or workflow. Sage can change that applicability decision when the integrated scope is confirmed.</p>
+              <p class="status-legend"><strong>Yellow rows:</strong> Needs Project or QA — this is awaiting release evidence or sign-off, not marked as failed. <strong>Red:</strong> failed. <strong>Green:</strong> passed.</p>
+              <p class="applies-legend"><strong>“Not relevant” in Applies?</strong> means the current standalone deployment does not include the matching release integration or workflow. The project or QA owner can change that applicability decision when the integrated scope is confirmed.</p>
             </div>
             <div class="filters" aria-label="QA release checklist filters">
               <input id="release-search" type="search" placeholder="Search criteria" aria-label="Search QA release checklist" />
@@ -987,17 +890,17 @@
                 <option>Passed</option>
                 <option>Failed</option>
                 <option>Blocked</option>
-                <option>Needs Sage or QA</option>
+                <option>Needs Project or QA</option>
                 <option>Not applicable</option>
               </select>
               <select id="release-owner-filter" aria-label="Filter QA release checklist by owner">
                 <option>All owners</option>
                 <option>Unassigned</option>
-                <option>Victor / Playbook</option>
+                <option>Project team</option>
                 <option>CMS</option>
                 <option>QA</option>
                 <option>Business owner</option>
-                <option>Other Sage team</option>
+                <option>Other team</option>
               </select>
             </div>
           </div>
@@ -1025,18 +928,18 @@
           <div class="panel-header">
             <div>
               <h2>Outstanding Actions</h2>
-              <p>Work queue for failed, blocked, not-assessed and Needs Sage or QA rows. It tells you what still needs action; it is not a list of additional failures.</p>
+              <p>Work queue for failed, blocked, not-assessed and Needs Project or QA rows. It tells you what still needs action; it is not a list of additional failures.</p>
             </div>
             <div class="filters" aria-label="Outstanding action filters">
               <input id="actions-search" type="search" placeholder="Search actions" aria-label="Search outstanding actions" />
               <select id="actions-owner-filter" aria-label="Filter outstanding actions by owner">
                 <option>All owners</option>
                 <option>Unassigned</option>
-                <option>Victor / Playbook</option>
+                <option>Project team</option>
                 <option>CMS</option>
                 <option>QA</option>
                 <option>Business owner</option>
-                <option>Other Sage team</option>
+                <option>Other team</option>
               </select>
             </div>
           </div>
@@ -1070,6 +973,6 @@
       </section>
     </main>
 
-    <script src="/review-tracker/tracker.js"></script>
+    <script src="/review-tracker/template/tracker.js"></script>
   </body>
 </html>

@@ -23,6 +23,37 @@ fs.writeFileSync(
   scriptMatch[1].trimStart() + '\n'
 );
 
+const templateSourceDir = path.join(root, 'docs', 'qa', 'template');
+const templateOutputDir = path.join(outputDir, 'template');
+const templateSourcePath = path.join(templateSourceDir, 'qa-review-tracker-template.html');
+const templateHtml = fs.readFileSync(templateSourcePath, 'utf8');
+const templateScriptMatch = templateHtml.match(/\n    <script>([\s\S]*?)\n    <\/script>\n  <\/body>/);
+
+if (!templateScriptMatch) throw new Error('Reusable tracker template script block was not found.');
+
+fs.mkdirSync(templateOutputDir, { recursive: true });
+fs.writeFileSync(
+  path.join(templateOutputDir, 'index.html'),
+  templateHtml.replace(
+    templateScriptMatch[0],
+    '\n    <script src="/review-tracker/template/tracker.js"></script>\n  </body>'
+  )
+);
+fs.writeFileSync(
+  path.join(templateOutputDir, 'tracker.js'),
+  templateScriptMatch[1].trimStart() + '\n'
+);
+fs.copyFileSync(
+  templateSourcePath,
+  path.join(templateOutputDir, 'qa-review-tracker-template.html')
+);
+for (const guideName of ['QA-RUNBOOK.md', 'README.md']) {
+  fs.copyFileSync(
+    path.join(templateSourceDir, guideName),
+    path.join(templateOutputDir, guideName)
+  );
+}
+
 const evidencePaths = new Set();
 for (const match of sourceHtml.matchAll(/docs\/qa\/(evidence\/[A-Za-z0-9_./ -]+)/g)) {
   evidencePaths.add(match[1].trim().replace(/[.;]+$/, ''));
@@ -39,4 +70,4 @@ for (const relativePath of evidencePaths) {
   fs.copyFileSync(sourcePath, destinationPath);
 }
 
-console.log(`Generated AI Playbook QA Review Tracker with ${evidencePaths.size} evidence references.`);
+console.log(`Generated AI Playbook QA Review Tracker, reusable template and ${evidencePaths.size} evidence references.`);
