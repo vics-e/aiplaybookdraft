@@ -18,10 +18,10 @@ function removeBlock(start, end) {
 
 html = html
   .replace('<title>QA Review Tracker — AI Playbook</title>', '<title>QA Review Tracker — [PROJECT NAME]</title>')
-  .replace('<span>AI Playbook · Assessment date: 23 September 2026</span>', '<span>[PROJECT NAME] · Assessment date: [ASSESSMENT DATE]</span>')
+  .replace('<span>AI Playbook · Assessment date: 23rd Sept 2026</span>', '<span>[PROJECT NAME] · Assessment date: [ASSESSMENT DATE]</span>')
   .replace('<p class="eyebrow">AI Playbook</p>', '<p class="eyebrow">[PROJECT NAME]</p>')
-  .replace('<p><strong>Assessment date:</strong> 23 September 2026</p>', '<p><strong>Assessment date:</strong> [ASSESSMENT DATE]</p>')
-  .replace('<h3>Current assessment · 23 September 2026</h3>', '<h3>Current assessment · [ASSESSMENT DATE]</h3>')
+  .replace('<p><strong>Assessment date:</strong> 23rd Sept 2026</p>', '<p><strong>Assessment date:</strong> [ASSESSMENT DATE]</p>')
+  .replace('<h3>Current assessment · 23rd Sept 2026</h3>', '<h3>Current assessment · [ASSESSMENT DATE]</h3>')
   .replace('<p><strong>There are no recorded failures.</strong> The remaining checks require business decisions, delivery evidence, browser or device testing, CMS integration checks, or formal QA approval.</p>', '<p>Complete the checks that can be evidenced directly. Leave business decisions, unavailable browsers or devices, external integrations and formal release approval with the appropriate project or QA owner.</p>')
   .replaceAll('Needs Sage/QA', 'Needs Project/QA')
   .replaceAll('Needs Sage or QA', 'Needs Project or QA')
