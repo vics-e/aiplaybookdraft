@@ -73,7 +73,8 @@ if results_file.exists():
     project_checks = {**checks, 'owners': results['owners'], 'status': results['statuses'], 'applies': results['applies']}
     assessed = project.get('lastChecked')
     seed = {
-        cid: {**row, 'history': [] if row['status'] == 'Not assessed' or not assessed else [{'at': assessed, 'status': row['status']}]}
+        # A row may carry its own history (e.g. Failed, then Passed after a fix); otherwise one entry is made.
+        cid: {**row, 'history': row.get('history') or ([] if row['status'] == 'Not assessed' or not assessed else [{'at': assessed, 'status': row['status']}])}
         for cid, row in results['current'].items()
     }
 write_file(qa / 'qa-testing-tracker.html', render(project_checks, seed, project))

@@ -235,6 +235,9 @@
   a.ev-result::before { content: ''; display: inline-block; width: 7px; height: 7px; margin-right: 5px; border-radius: 99px; background: var(--f, var(--s)); vertical-align: 1px; }
   .linkish { border: 0; padding: 0; background: none; color: var(--muted); font-weight: 600; font-size: 12.5px; cursor: pointer; text-decoration: underline; text-decoration-color: var(--rule-strong); text-underline-offset: 3px; }
   .linkish:hover { color: var(--accent-strong); text-decoration-color: currentColor; }
+  /* The first-visit pointer to About: green and bold so new readers notice it. */
+  .linkish.newhere { color: var(--accent-strong); font-weight: 700; font-size: 13.5px; text-decoration-color: currentColor; }
+  :root[data-theme='dark'] .linkish.newhere { color: var(--accent); }
   :root[data-theme='dark'] .linkish:hover { color: var(--accent); }
   .sources { list-style: none; margin: 8px 0 0; padding: 0; display: grid; gap: 6px; }
   .sources a { display: inline-flex; align-items: center; gap: 8px; font-weight: 600; }
@@ -421,7 +424,7 @@
   <section class="panel" id="panel-overview" role="tabpanel" aria-labelledby="tab-overview">
     <div class="wrap">
       <h2>Where things stand</h2>
-      <p class="lead"><span id="overview-lead"></span> <button class="linkish" type="button" data-open-tab="tab-about">New here? How this tracker works</button></p>
+      <p class="lead"><span id="overview-lead"></span> <button class="linkish newhere" type="button" data-open-tab="tab-about">New here? How this tracker works →</button></p>
       <div class="card table-card"><table class="summary" id="summary-table"></table></div>
       <div class="split" style="margin-top:14px">
         <div class="card">
