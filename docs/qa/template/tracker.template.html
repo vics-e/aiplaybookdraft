@@ -713,7 +713,7 @@ function renderOverview() {
     : '<p class="muted" style="margin:6px 0 0">Nothing has failed and been fixed yet. Every check keeps its history, so a fix and its re-test both stay visible.</p>';
   $('#fixed-list').innerHTML = fixedChecks.map(c => {
     const h = row(c.id).history; const failed = h.find(x => x.status === 'Failed'); const passed = [...h].reverse().find(x => x.status === 'Passed');
-    return `<li><span class="id">${esc(c.id)}</span><span><button class="linkish" type="button" data-edit="${c.id}">${esc(c.title)}</button> <span class="muted">· failed ${fmtDate(failed?.at)}, passed ${fmtDate(passed?.at)}</span></span></li>`;
+    return `<li><span class="id">${esc(c.id)}</span><span><button class="linkish" type="button" data-edit="${c.id}">${esc(c.summary || c.title || c.id)}</button> <span class="muted">· failed ${fmtDate(failed?.at)}, passed ${fmtDate(passed?.at)}</span></span></li>`;
   }).join('');
   const p = project();
   const tested = Array.isArray(p.testSummary) ? p.testSummary : [];
