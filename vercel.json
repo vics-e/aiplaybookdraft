@@ -42,8 +42,8 @@
       "permanent": true
     },
     {
-      "source": "/review-tracker/:path*",
-      "destination": "/qa-review-tracker/:path*",
+      "source": "/review-tracker/(.*)",
+      "destination": "/qa-review-tracker/$1",
       "permanent": true
     }
   ]
