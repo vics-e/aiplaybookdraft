@@ -30,8 +30,31 @@ THEME_INIT = re.compile(r'<script>\n(  // Apply the saved theme.*?)</script>', r
 MAIN = re.compile(r'<script>\n(/\* =+\n   PROJECT DETAILS.*?)</script>\n</body>', re.S)
 
 
-def render(checks, seed=None, project=None):
+def read_lessons(path):
+    """lessons-learned.md -> {intro, headers, rows, patterns} for the tracker's Lessons tab."""
+    if not path.exists():
+        return None
+    lines = path.read_text(encoding='utf-8').splitlines()
+    split = lambda line: [cell.strip() for cell in line.strip().strip('|').split('|')]
+    table = [l for l in lines if l.lstrip().startswith('|')]
+    if len(table) < 3:
+        return None
+    first = lines.index(table[0])
+    intro = ' '.join(l.strip() for l in lines[1:first] if l.strip() and not l.startswith('#'))
+    patterns, in_patterns = [], False
+    for l in lines:
+        if l.startswith('## '):
+            in_patterns = l.strip().lower() == '## patterns'
+        elif in_patterns and l.startswith('- '):
+            patterns.append(l[2:].strip())
+        elif in_patterns and l.startswith('  ') and patterns:
+            patterns[-1] += ' ' + l.strip()
+    return {'intro': intro, 'headers': split(table[0]), 'rows': [split(l) for l in table[2:]], 'patterns': patterns}
+
+
+def render(checks, seed=None, project=None, lessons=None):
     html = template.replace('/*__CHECKS__*/null', json.dumps(checks, ensure_ascii=False))
+    html = html.replace('/*__LESSONS__*/null', json.dumps(lessons, ensure_ascii=False))
     html = html.replace('/*__SEED__*/{}', json.dumps(seed or {}, ensure_ascii=False))
     if project:
         start = html.index('/*__PROJECT__*/')
@@ -77,8 +100,9 @@ if results_file.exists():
         cid: {**row, 'history': row.get('history') or ([] if row['status'] == 'Not assessed' or not assessed else [{'at': assessed, 'status': row['status']}])}
         for cid, row in results['current'].items()
     }
-write_file(qa / 'qa-testing-tracker.html', render(project_checks, seed, project))
+lessons = read_lessons(qa / 'lessons-learned.md')
+write_file(qa / 'qa-testing-tracker.html', render(project_checks, seed, project, lessons))
 
 shutil.rmtree(here / 'publish', ignore_errors=True)
-write_publish('review-tracker', render(project_checks, seed, project))
+write_publish('review-tracker', render(project_checks, seed, project, lessons))
 write_publish('review-tracker/template', render(checks, project=blank_project))

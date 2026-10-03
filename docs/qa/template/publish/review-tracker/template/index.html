@@ -171,6 +171,26 @@
   .owner-list { list-style: none; margin: 8px 0 0; padding: 0; }
   .owner-list li { display: flex; justify-content: space-between; gap: 12px; padding: 9px 0; border-top: 1px solid var(--rule); font-size: 14px; }
   .owner-list li:first-child { border-top: 0; }
+  /* Overview: how it was tested, fixed after failing, handover. */
+  .facts { display: grid; grid-template-columns: max-content 1fr; gap: 8px 16px; margin: 10px 0 0; font-size: 14px; }
+  .facts dt { color: var(--muted); font-weight: 600; }
+  .facts dd { margin: 0; }
+  @media (max-width: 560px) { .facts { grid-template-columns: 1fr; gap: 2px; } .facts dd { margin-bottom: 8px; } }
+  .fixed-list { list-style: none; margin: 10px 0 0; padding: 0; font-size: 14px; }
+  .fixed-list li { display: flex; gap: 10px; align-items: baseline; padding: 7px 0; border-top: 1px solid var(--rule); }
+  .fixed-list li:first-child { border-top: 0; }
+  .fixed-list .id { font-family: ui-monospace, Consolas, monospace; font-size: 12.5px; color: var(--muted); white-space: nowrap; }
+  .next-steps { margin: 10px 0 0; padding-left: 22px; font-size: 14px; line-height: 1.55; }
+  .next-steps li { padding: 4px 0; }
+  /* Lessons tab */
+  .lessons-wrap { overflow-x: auto; }
+  table.lessons { width: 100%; min-width: 720px; border-collapse: collapse; font-size: 13.5px; }
+  table.lessons th { text-align: left; font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); padding: 10px 12px; border-bottom: 1px solid var(--rule-strong); background: var(--surface-2); }
+  table.lessons td { padding: 10px 12px; border-bottom: 1px solid var(--rule); vertical-align: top; line-height: 1.45; }
+  table.lessons tr:last-child td { border-bottom: 0; }
+  table.lessons code, .patterns code { font-size: 12.5px; background: var(--surface-2); padding: 1px 4px; border-radius: 4px; }
+  .patterns { margin: 10px 0 0; padding-left: 20px; font-size: 14px; line-height: 1.55; }
+  .patterns li { padding: 3px 0; }
   .callout { display: flex; gap: 12px; padding: 14px 16px; border-radius: 12px; background: var(--accent-soft); border: 1px solid color-mix(in srgb, var(--accent) 25%, transparent); font-size: 14px; }
   .callout svg { flex: none; margin-top: 2px; color: var(--accent-strong); }
   :root[data-theme='dark'] .callout svg { color: var(--accent); }
@@ -353,6 +373,7 @@
       <button class="tab" role="tab" id="tab-manual" aria-controls="panel-manual" aria-selected="false">Manual testing <span class="count" id="count-manual"></span></button>
       <button class="tab" role="tab" id="tab-release" aria-controls="panel-release" aria-selected="false">Release checklist <span class="count" id="count-release"></span></button>
       <button class="tab" role="tab" id="tab-actions" aria-controls="panel-actions" aria-selected="false">To do <span class="count" id="count-actions"></span></button>
+      <button class="tab" role="tab" id="tab-lessons" aria-controls="panel-lessons" aria-selected="false">Lessons <span class="count" id="count-lessons"></span></button>
       <button class="tab" role="tab" id="tab-about" aria-controls="panel-about" aria-selected="false">About</button>
     </div>
   </nav>
@@ -431,7 +452,21 @@
           <ul class="owner-list" id="owners"></ul>
         </div>
       </div>
-      <div class="callout" style="margin-top:14px" id="fixed-callout"><svg class="i"><use href="#i-info"/></svg><div id="fixed-text"></div></div>
+      <div class="split" style="margin-top:14px">
+        <div class="card" id="tested-card" hidden>
+          <h3 style="margin-top:0">How it was tested</h3>
+          <dl class="facts" id="tested"></dl>
+        </div>
+        <div class="card">
+          <h3 style="margin-top:0">Fixed after failing</h3>
+          <div id="fixed-text"></div>
+          <ul class="fixed-list" id="fixed-list"></ul>
+        </div>
+      </div>
+      <div class="card" id="next-card" style="margin-top:14px" hidden>
+        <h3 style="margin-top:0">Handover: what happens next</h3>
+        <ol class="next-steps" id="next-steps"></ol>
+      </div>
     </div>
   </section>
 
@@ -448,6 +483,17 @@
       <h2>Release checklist</h2>
       <p class="lead">What must be true before go-live: sign-offs, testing done, browsers and devices covered. Open a check to update it.</p>
       <div data-list="release"></div>
+    </div>
+  </section>
+  <section class="panel" id="panel-lessons" role="tabpanel" aria-labelledby="tab-lessons" hidden>
+    <div class="wrap">
+      <h2>Lessons learned</h2>
+      <p class="lead" id="lessons-intro"></p>
+      <div class="card table-card lessons-wrap"><table class="lessons" id="lessons-table"></table></div>
+      <div class="card" style="margin-top:14px" id="patterns-card">
+        <h3 style="margin-top:0">Patterns</h3>
+        <ul class="patterns" id="patterns"></ul>
+      </div>
     </div>
   </section>
   <section class="panel" id="panel-actions" role="tabpanel" aria-labelledby="tab-actions" hidden>

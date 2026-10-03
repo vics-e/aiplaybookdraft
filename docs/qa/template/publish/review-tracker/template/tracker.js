@@ -35,7 +35,13 @@ const DEVICE_STAGES = new Set(['Compatibility: browsers', 'Compatibility: tablet
 const DEFAULTS = { applies: 'To review', status: 'Not assessed', owner: 'Unassigned', interpretation: '', evidence: '', comments: '' };
 
 const $ = (s, el = document) => el.querySelector(s);
+
+/* This project's lessons-learned.md, as a table (filled in by build.py; none in the blank template). */
+const LESSONS = null;
+if (!LESSONS || !LESSONS.rows.length) { $('#tab-lessons')?.remove(); $('#panel-lessons')?.remove(); }
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+/** Escaped text with Markdown-style `code` and **bold**. */
+const md = s => esc(s).replace(/`([^`]+)`/g, '<code>$1</code>').replace(/\*\*([^*]+)\*\*/g, '<b>$1</b>');
 const fmtDate = iso => { if (!iso) return ''; const d = new Date(iso); return isNaN(d) ? iso : d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }); };
 
 /* ------------------------------------------------------------ saved state */
@@ -140,10 +146,21 @@ function renderOverview() {
   $('#owners').innerHTML = owners.length
     ? owners.map(([o, k]) => `<li><span>${esc(o)}</span><b>${k}</b></li>`).join('')
     : '<li class="muted">Nothing outstanding yet.</li>';
-  const fixed = ALL.filter(c => { const r = row(c.id); return r.status === 'Passed' && r.history.some(h => h.status === 'Failed'); }).length;
-  $('#fixed-text').innerHTML = fixed
-    ? `<b>${fixed} check${fixed === 1 ? '' : 's'} passed after a fix.</b> Open a check to see its history: when it failed, and when it passed on re-test.`
-    : '<b>Every check keeps its history.</b> If a check fails and is fixed later, both results stay visible so anyone can re-check the fix.';
+  const fixedChecks = ALL.filter(c => { const r = row(c.id); return r.status === 'Passed' && r.history.some(h => h.status === 'Failed'); });
+  $('#fixed-text').innerHTML = fixedChecks.length
+    ? `<p class="muted" style="margin:6px 0 0">${fixedChecks.length} check${fixedChecks.length === 1 ? '' : 's'} failed, were fixed and passed on re-test. Open one to see both results.</p>`
+    : '<p class="muted" style="margin:6px 0 0">Nothing has failed and been fixed yet. Every check keeps its history, so a fix and its re-test both stay visible.</p>';
+  $('#fixed-list').innerHTML = fixedChecks.map(c => {
+    const h = row(c.id).history; const failed = h.find(x => x.status === 'Failed'); const passed = [...h].reverse().find(x => x.status === 'Passed');
+    return `<li><span class="id">${esc(c.id)}</span><span><button class="linkish" type="button" data-edit="${c.id}">${esc(c.title)}</button> <span class="muted">· failed ${fmtDate(failed?.at)}, passed ${fmtDate(passed?.at)}</span></span></li>`;
+  }).join('');
+  const p = project();
+  const tested = Array.isArray(p.testSummary) ? p.testSummary : [];
+  $('#tested-card').hidden = !tested.length;
+  $('#tested').innerHTML = tested.map(([k, v]) => `<dt>${esc(k)}</dt><dd>${md(v)}</dd>`).join('');
+  const next = Array.isArray(p.nextSteps) ? p.nextSteps : [];
+  $('#next-card').hidden = !next.length;
+  $('#next-steps').innerHTML = next.map(step => `<li>${md(step)}</li>`).join('');
   $('#count-manual').textContent = CHECKS.manual.length;
   $('#count-release').textContent = CHECKS.release.length;
   $('#count-actions').textContent = ALL.filter(c => TODO.has(row(c.id).status)).length;
@@ -297,6 +314,16 @@ function renderActions() {
     <div class="list">${todo.filter(c => row(c.id).owner === o).map(itemHtml).join('')}</div>`).join('');
 }
 
+function renderLessons() {
+  if (!LESSONS || !$('#panel-lessons')) return;
+  $('#lessons-intro').innerHTML = md(LESSONS.intro || '');
+  $('#lessons-table').innerHTML = `<thead><tr>${LESSONS.headers.map(h => `<th scope="col">${md(h)}</th>`).join('')}</tr></thead>` +
+    `<tbody>${LESSONS.rows.map(r => `<tr>${r.map(cell => `<td>${md(cell)}</td>`).join('')}</tr>`).join('')}</tbody>`;
+  $('#patterns-card').hidden = !(LESSONS.patterns || []).length;
+  $('#patterns').innerHTML = (LESSONS.patterns || []).map(x => `<li>${md(x)}</li>`).join('');
+  $('#count-lessons').textContent = LESSONS.rows.length;
+}
+
 function renderAll(keepOpen) {
   if (keepOpen) open.add(keepOpen);
   renderHeader(); renderOverview(); renderList('manual'); renderList('release'); renderActions();
@@ -314,6 +341,8 @@ document.addEventListener('click', e => {
   if (ed) {
     const id = ed.dataset.edit;
     view = 'summary'; open.add(id); renderList('manual'); renderList('release');
+    const check = ALL.find(c => c.id === id);
+    if (check) select(check.list === 'release' ? 'tab-release' : 'tab-manual');
     document.querySelector(`[data-toggle="${id}"]`)?.scrollIntoView({ block: 'center' });
     document.querySelector(`[data-toggle="${id}"]`)?.focus({ preventScroll: true });
     return;
@@ -425,5 +454,5 @@ let toastTimer;
 function toast(msg) { const t = $('#toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(toastTimer); toastTimer = setTimeout(() => t.classList.remove('show'), 2200); }
 
 /* start */
-paintTheme(); renderAbout(); renderAll();
+paintTheme(); renderAbout(); renderLessons(); renderAll();
 try { const last = sessionStorage.getItem('qa-tracker-tab'); if (last && document.getElementById(last)) select(last); } catch {}

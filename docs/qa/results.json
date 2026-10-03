@@ -22,7 +22,19 @@
    "owner": "Victor / Playbook",
    "evidence": "docs/qa/evidence/row-audit/glossary-1080-overflow.png; docs/qa/evidence/row-audit/pricing-320-overlap.png",
    "comments": "23 Sep 2026: fixed the glossary grid breakpoint and added containment and word-wrapping safeguards. Local rendered glossary and production build verified; headings and definitions remain within the content panel.",
-   "interpretation": "Text follows the intended page grid and component alignment. Deliberate exceptions are visually consistent."
+   "interpretation": "Text follows the intended page grid and component alignment. Deliberate exceptions are visually consistent.",
+   "history": [
+    {
+     "at": "2026-09-09T12:00:00Z",
+     "status": "Failed",
+     "note": "First QA pass"
+    },
+    {
+     "at": "2026-09-23T17:00:00Z",
+     "status": "Passed",
+     "note": "Fixed and re-tested on the live site"
+    }
+   ]
   },
   "manual-04": {
    "applies": "Relevant",
@@ -30,7 +42,19 @@
    "owner": "Victor / Playbook",
    "evidence": "docs/qa/evidence/row-audit/matrix.json; docs/qa/evidence/row-audit/glossary-1080-overflow.png",
    "comments": "23 Sep 2026: the identified glossary containment failure is fixed by moving the split layout to the wider breakpoint and wrapping long content. The local build passed and the affected page was rechecked.",
-   "interpretation": "At every required width, content remains readable and usable with no clipping or unintended horizontal overflow."
+   "interpretation": "At every required width, content remains readable and usable with no clipping or unintended horizontal overflow.",
+   "history": [
+    {
+     "at": "2026-09-09T12:00:00Z",
+     "status": "Failed",
+     "note": "First QA pass"
+    },
+    {
+     "at": "2026-09-23T17:00:00Z",
+     "status": "Passed",
+     "note": "Fixed and re-tested on the live site"
+    }
+   ]
   },
   "manual-05": {
    "applies": "Relevant",
@@ -46,15 +70,39 @@
    "owner": "Victor / Playbook",
    "evidence": "docs/qa/evidence/row-audit/negative-pricing.txt; docs/qa/evidence/row-audit/batch-8.md",
    "comments": "23 Sep 2026: fixed signed-number parsing and added number controls with a zero minimum and inline validation. Local retest with -6 and -3 shows Time values cannot be negative and no saving calculation.",
-   "interpretation": "Client-side validation should match agreed required fields. Server-side validation is not applicable unless the hosting or integration design introduces form submission."
+   "interpretation": "Client-side validation should match agreed required fields. Server-side validation is not applicable unless the hosting or integration design introduces form submission.",
+   "history": [
+    {
+     "at": "2026-09-10T12:00:00Z",
+     "status": "Failed",
+     "note": "First QA pass"
+    },
+    {
+     "at": "2026-09-23T17:00:00Z",
+     "status": "Passed",
+     "note": "Fixed and re-tested on the live site"
+    }
+   ]
   },
   "manual-07": {
    "applies": "Relevant",
    "status": "Passed",
    "owner": "Victor / Playbook",
    "evidence": "docs/qa/evidence/row-audit/batch-6.md; docs/qa/evidence/row-audit/http-checks.json",
-   "comments": "23 Sep 2026: deployed JavaScript and CSS return 200 and the old broken font host is absent from production CSS. The four recorded font 404 requests are resolved.",
-   "interpretation": "All rendered links and resources load successfully, with no missing images, stylesheet failures or script errors."
+   "comments": "23 Sep 2026: deployed JavaScript and CSS return 200 and the old broken font host is absent from production CSS. The four recorded font 404 requests are resolved. 3 Oct 2026: robots.txt (keeps /review-tracker/ out of search), a Sage favicon and Apple touch icons added; all return 200.",
+   "interpretation": "All rendered links and resources load successfully, with no missing images, stylesheet failures or script errors.",
+   "history": [
+    {
+     "at": "2026-09-09T12:00:00Z",
+     "status": "Failed",
+     "note": "First QA pass"
+    },
+    {
+     "at": "2026-09-23T17:00:00Z",
+     "status": "Passed",
+     "note": "Fixed and re-tested on the live site"
+    }
+   ]
   },
   "manual-08": {
    "applies": "Needs clarification",
@@ -94,7 +142,19 @@
    "owner": "Victor / Playbook",
    "evidence": "docs/qa/evidence/row-audit/negative-pricing.txt; docs/qa/evidence/row-audit/negative-pricing.png",
    "comments": "23 Sep 2026: pricing fields now use numeric controls and signed parsing. Negative values show an inline error and do not produce a reduction; time with AI above time today is also rejected.",
-   "interpretation": "Numeric controls reject or safely constrain values outside their agreed range."
+   "interpretation": "Numeric controls reject or safely constrain values outside their agreed range.",
+   "history": [
+    {
+     "at": "2026-09-10T12:00:00Z",
+     "status": "Failed",
+     "note": "First QA pass"
+    },
+    {
+     "at": "2026-09-23T17:00:00Z",
+     "status": "Passed",
+     "note": "Fixed and re-tested on the live site"
+    }
+   ]
   },
   "manual-13": {
    "applies": "Relevant",
@@ -102,7 +162,19 @@
    "owner": "Victor / Playbook",
    "evidence": "docs/qa/evidence/row-audit/certificate-truncation.json; docs/qa/evidence/row-audit/certificate-truncation.png",
    "comments": "23 Sep 2026: certificate names now have a visible 100-character limit and generated markup preserves every wrapped line. The 83-character reproduction retains every word including LASTTOKEN in the preview and markup test.",
-   "interpretation": "Long input remains usable, is stored safely and is not silently truncated in the interface or output."
+   "interpretation": "Long input remains usable, is stored safely and is not silently truncated in the interface or output.",
+   "history": [
+    {
+     "at": "2026-09-10T12:00:00Z",
+     "status": "Failed",
+     "note": "First QA pass"
+    },
+    {
+     "at": "2026-09-23T17:00:00Z",
+     "status": "Passed",
+     "note": "Fixed and re-tested on the live site"
+    }
+   ]
   },
   "manual-14": {
    "applies": "Relevant",
@@ -110,7 +182,19 @@
    "owner": "Victor / Playbook",
    "evidence": "docs/qa/evidence/row-audit/prompt-clear.txt; docs/qa/evidence/row-audit/batch-8.md",
    "comments": "23 Sep 2026: page 31 now announces Prompt cleared in an accessible live status after Clear completes. Verified in the local rendered build.",
-   "interpretation": "Explicit local updates and deletions provide accurate confirmation."
+   "interpretation": "Explicit local updates and deletions provide accurate confirmation.",
+   "history": [
+    {
+     "at": "2026-09-10T12:00:00Z",
+     "status": "Failed",
+     "note": "First QA pass"
+    },
+    {
+     "at": "2026-09-23T17:00:00Z",
+     "status": "Passed",
+     "note": "Fixed and re-tested on the live site"
+    }
+   ]
   },
   "manual-15": {
    "applies": "Relevant",
@@ -134,15 +218,39 @@
    "owner": "Victor / Playbook",
    "evidence": "docs/qa/evidence/row-audit/pagespeed-console.txt; docs/qa/evidence/row-audit/batch-6.md",
    "comments": "23 Sep 2026: deployed browser check returned no console warnings or errors after the broken font requests were removed.",
-   "interpretation": "Normal journeys complete without errors in the browser console."
+   "interpretation": "Normal journeys complete without errors in the browser console.",
+   "history": [
+    {
+     "at": "2026-09-09T12:00:00Z",
+     "status": "Failed",
+     "note": "First QA pass"
+    },
+    {
+     "at": "2026-09-23T17:00:00Z",
+     "status": "Passed",
+     "note": "Fixed and re-tested on the live site"
+    }
+   ]
   },
   "manual-18": {
    "applies": "Relevant",
    "status": "Passed",
    "owner": "Victor / Playbook",
    "evidence": "docs/qa/evidence/row-audit/workflow-gate.txt; docs/qa/evidence/row-audit/batch-8.md",
-   "comments": "23 Sep 2026: every route into workflow scoring now requires at least three workflows. With one workflow, both Score each and Next remain disabled in the local rendered retest.",
-   "interpretation": "Every visible button performs the intended action and disabled or hidden states occur only under the agreed conditions."
+   "comments": "23 Sep 2026: every route into workflow scoring now requires at least three workflows. With one workflow, both Score each and Next remain disabled in the local rendered retest. 3 Oct 2026: Finish on the certificate page was disabled (a dead end); it now returns to the contents page. Verified on the live site.",
+   "interpretation": "Every visible button performs the intended action and disabled or hidden states occur only under the agreed conditions.",
+   "history": [
+    {
+     "at": "2026-09-10T12:00:00Z",
+     "status": "Failed",
+     "note": "First QA pass"
+    },
+    {
+     "at": "2026-09-23T17:00:00Z",
+     "status": "Passed",
+     "note": "Fixed and re-tested on the live site"
+    }
+   ]
   },
   "manual-19": {
    "applies": "Relevant",
@@ -150,7 +258,19 @@
    "owner": "Victor / Playbook",
    "evidence": "docs/qa/evidence/row-audit/http-checks.json",
    "comments": "23 Sep 2026: deployed invalid route returned the branded AI Playbook Page not found experience with HTTP 404.",
-   "interpretation": "Invalid application routes must show a custom error page. A generic hosting response is insufficient without an explicit Sage waiver."
+   "interpretation": "Invalid application routes must show a custom error page. A generic hosting response is insufficient without an explicit Sage waiver.",
+   "history": [
+    {
+     "at": "2026-09-09T12:00:00Z",
+     "status": "Failed",
+     "note": "First QA pass"
+    },
+    {
+     "at": "2026-09-23T17:00:00Z",
+     "status": "Passed",
+     "note": "Fixed and re-tested on the live site"
+    }
+   ]
   },
   "manual-20": {
    "applies": "Not relevant",
@@ -222,7 +342,19 @@
    "owner": "Victor / Playbook",
    "evidence": "docs/qa/evidence/row-audit/matrix.json; docs/qa/evidence/row-audit/batch-7.md; docs/qa/evidence/row-audit/2026-09-23-self-checks.md",
    "comments": "23 Sep 2026: Portrait and landscape viewport simulations were repeated across the required widths. The repaired 320px pricing layout and 1080px glossary remained readable and operable without clipping.",
-   "interpretation": "Required portrait, landscape and viewport sizes remain readable and operable without clipping or overlap."
+   "interpretation": "Required portrait, landscape and viewport sizes remain readable and operable without clipping or overlap.",
+   "history": [
+    {
+     "at": "2026-09-09T12:00:00Z",
+     "status": "Failed",
+     "note": "First QA pass"
+    },
+    {
+     "at": "2026-09-23T17:00:00Z",
+     "status": "Passed",
+     "note": "Fixed and re-tested on the live site"
+    }
+   ]
   },
   "manual-29": {
    "applies": "Relevant",
@@ -262,7 +394,19 @@
    "owner": "Victor / Playbook",
    "evidence": "docs/qa/evidence/row-audit/quota-false-save.txt; docs/qa/evidence/row-audit/quota-after-reload.txt; docs/qa/evidence/row-audit/quota-false-save.png; docs/qa/evidence/row-audit/2026-09-23-self-checks.md",
    "comments": "23 Sep 2026: A controlled QuotaExceededError was run against the current deployment. The app showed an explicit alert that the latest change could not be saved and did not claim success.",
-   "interpretation": "Controlled storage-quota failure preserves existing answers and gives truthful save feedback; do not fill the real filesystem."
+   "interpretation": "Controlled storage-quota failure preserves existing answers and gives truthful save feedback; do not fill the real filesystem.",
+   "history": [
+    {
+     "at": "2026-09-10T12:00:00Z",
+     "status": "Failed",
+     "note": "First QA pass"
+    },
+    {
+     "at": "2026-09-23T17:00:00Z",
+     "status": "Passed",
+     "note": "Fixed and re-tested on the live site"
+    }
+   ]
   },
   "manual-34": {
    "applies": "Not relevant",
@@ -293,7 +437,7 @@
    "status": "Passed",
    "owner": "Victor / Playbook",
    "evidence": "docs/qa/evidence/row-audit/pagespeed-mobile.txt; docs/qa/evidence/row-audit/pagespeed-desktop.txt; docs/qa/evidence/row-audit/batch-6.md",
-   "comments": "2026-09-09 23:42 BST: Google PageSpeed web report completed after API 429. Performance 70 mobile / 90 desktop; LCP 11.3s / 2.0s; image savings ~1.4MiB, unused JS ~126KiB. Source asks to run the checker, not achieve a threshold. Scope: initial cover only.",
+   "comments": "2026-09-09 23:42 BST: Google PageSpeed web report completed after API 429. Performance 70 mobile / 90 desktop; LCP 11.3s / 2.0s; image savings ~1.4MiB, unused JS ~126KiB. Source asks to run the checker, not achieve a threshold. Scope: initial cover only. 3 Oct 2026: a meta description and social preview tags were added (the SEO audit flagged it on the MTD playbook).",
    "interpretation": "Run Google PageSpeed and record mobile/desktop findings and performance improvements. A run does not constitute release performance approval."
   },
   "manual-38": {
@@ -406,7 +550,19 @@
    "owner": "Victor / Playbook",
    "evidence": "docs/qa/evidence/row-audit/batch-6.md; docs/qa/evidence/row-audit/batch-7.md; docs/qa/evidence/row-audit/batch-8.md; docs/qa/evidence/row-audit/batch-9.md; docs/qa/evidence/row-audit/2026-09-23-self-checks.md",
    "comments": "23 Sep 2026: All nine recorded fixes are deployed and validated: narrow pricing, glossary wrapping, negative values, font loading, certificate names, clear confirmation, workflow gating, storage failure feedback and branded 404 handling.",
-   "interpretation": ""
+   "interpretation": "",
+   "history": [
+    {
+     "at": "2026-09-10T12:00:00Z",
+     "status": "Failed",
+     "note": "First QA pass"
+    },
+    {
+     "at": "2026-09-23T17:00:00Z",
+     "status": "Passed",
+     "note": "Fixed and re-tested on the live site"
+    }
+   ]
   },
   "release-14": {
    "applies": "Relevant",
@@ -494,7 +650,19 @@
    "owner": "Victor / Playbook",
    "evidence": "docs/qa/evidence/row-audit/glossary-1080-overflow.png; docs/qa/evidence/row-audit/matrix.json",
    "comments": "23 Sep 2026: fixed the page 60 grid breakpoint, minimum widths and text wrapping. The affected glossary page and local production build were rechecked successfully at desktop width.",
-   "interpretation": ""
+   "interpretation": "",
+   "history": [
+    {
+     "at": "2026-09-09T12:00:00Z",
+     "status": "Failed",
+     "note": "First QA pass"
+    },
+    {
+     "at": "2026-09-23T17:00:00Z",
+     "status": "Passed",
+     "note": "Fixed and re-tested on the live site"
+    }
+   ]
   },
   "release-25": {
    "applies": "Relevant",
@@ -510,7 +678,19 @@
    "owner": "Victor / Playbook",
    "evidence": "docs/qa/evidence/row-audit/pricing-320-overlap.png; docs/qa/evidence/row-audit/matrix.json; docs/qa/evidence/row-audit/2026-09-23-self-checks.md",
    "comments": "23 Sep 2026: All 63 pages were rendered below 767px and the repaired populated pricing page was rechecked at exactly 320px. The fields and controls now stack without the recorded overlap.",
-   "interpretation": ""
+   "interpretation": "",
+   "history": [
+    {
+     "at": "2026-09-09T12:00:00Z",
+     "status": "Failed",
+     "note": "First QA pass"
+    },
+    {
+     "at": "2026-09-23T17:00:00Z",
+     "status": "Passed",
+     "note": "Fixed and re-tested on the live site"
+    }
+   ]
   },
   "release-27": {
    "applies": "Relevant",

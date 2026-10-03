@@ -83,6 +83,11 @@ Results typed into the live page are saved **in that browser only**. To keep
 them, use **Share & save → Download editable backup** and fold the results
 into `results.json`.
 
+**Overview extras** (optional, in `project.json`): `testSummary` is a list of `["Label", "text"]`
+pairs shown as "How it was tested"; `nextSteps` is a list of lines shown as "Handover: what happens
+next". **Bold** and `code` work in both. "Fixed after failing" fills itself from each check's history,
+and the **Lessons** tab is built from `lessons-learned.md` (its table and its Patterns list).
+
 ## Copy this to a new project
 
 To QA another site (e.g. the MTD playbook) with the same tracker:

@@ -10,5 +10,42 @@
   "lastChecked": "2026-09-23T17:00:00Z",
   "evidenceBase": "https://aiplaybook-ve.vercel.app/review-tracker/",
   "storageKey": "ai-playbook-qa-review",
-  "sources": []
+  "sources": [],
+  "testSummary": [
+    [
+      "When and who",
+      "9 to 23 Sep 2026, by Victor Egunlae and Codex; site files and Finish fixed on 3 Oct 2026 by Claude"
+    ],
+    [
+      "What",
+      "All 63 pages, every activity and output (certificate, summary, prompt library, glossary), against all 67 Sage checks"
+    ],
+    [
+      "Screen sizes",
+      "320, 767, 768, 1080 and 1920px, portrait and landscape frames"
+    ],
+    [
+      "Browsers",
+      "Chromium browser pane; Edge, Chrome, Firefox, Safari and real devices still to test (To do tab)"
+    ],
+    [
+      "Automated",
+      "**61 tests** (`npm test`)"
+    ],
+    [
+      "Performance",
+      "Google PageSpeed on 9 Sep 2026: mobile 70, desktop 90 (before the later fixes)"
+    ],
+    [
+      "Outcome",
+      "**9 defects found, all fixed and validated; nothing failing.** 30 checks need a person, device or sign-off (To do tab)"
+    ]
+  ],
+  "nextSteps": [
+    "**QA:** test on Edge, Chrome and Firefox (Windows 11), Safari (Mac) and the real devices: iPhone 17 and Mini, iPad 10th gen and Mini 2021, Galaxy Tab A9+, Samsung S25 (release-15 to 22, manual-29).",
+    "**QA:** VQA sign-off, integrated testing and a severity review (release-06, 11, 27, 29).",
+    "**Business owner:** design sign-off, acceptance criteria, which answers (if any) are mandatory, the message catalogue and the font approval (release-01, 02, 07 to 10; manual-05, 08, 23, 30).",
+    "**Other Sage teams:** peer review of the code and Jira items (release-03, 12); **CMS:** Page Editor accents, integration and regression scope (manual-09, release-04, 28).",
+    "**Recording results:** changes you make here save in your own browser only. When you finish, use **Share & save → Download editable backup** and send the file to Victor Egunlae so everyone sees the results."
+  ]
 }
