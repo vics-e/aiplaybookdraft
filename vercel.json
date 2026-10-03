@@ -34,5 +34,17 @@
         }
       ]
     }
+  ],
+  "redirects": [
+    {
+      "source": "/review-tracker",
+      "destination": "/qa-review-tracker/",
+      "permanent": true
+    },
+    {
+      "source": "/review-tracker/:path*",
+      "destination": "/qa-review-tracker/:path*",
+      "permanent": true
+    }
   ]
 }

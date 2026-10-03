@@ -11,8 +11,8 @@ Reads (this project, one folder up in docs/qa/):
 Writes:
 - template/index.html                         blank template preview (open locally)
 - ../qa-testing-tracker.html                  this project's tracker as one file (open locally)
-- template/publish/review-tracker/            this project's tracker, ready for /review-tracker/
-- template/publish/review-tracker/template/   blank template, ready for /review-tracker/template/
+- template/publish/qa-review-tracker/            this project's tracker, ready for /qa-review-tracker/
+- template/publish/qa-review-tracker/template/   blank template, ready for /qa-review-tracker/template/
 
 The publish copies keep their code in theme-init.js and tracker.js, because the
 site's Content-Security-Policy (`script-src 'self'`) blocks inline scripts.
@@ -104,5 +104,5 @@ lessons = read_lessons(qa / 'lessons-learned.md')
 write_file(qa / 'qa-testing-tracker.html', render(project_checks, seed, project, lessons))
 
 shutil.rmtree(here / 'publish', ignore_errors=True)
-write_publish('review-tracker', render(project_checks, seed, project, lessons))
-write_publish('review-tracker/template', render(checks, project=blank_project))
+write_publish('qa-review-tracker', render(project_checks, seed, project, lessons))
+write_publish('qa-review-tracker/template', render(checks, project=blank_project))

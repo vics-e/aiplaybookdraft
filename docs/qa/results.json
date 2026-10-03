@@ -89,7 +89,7 @@
    "status": "Passed",
    "owner": "Victor / Playbook",
    "evidence": "docs/qa/evidence/row-audit/batch-6.md; docs/qa/evidence/row-audit/http-checks.json",
-   "comments": "23 Sep 2026: deployed JavaScript and CSS return 200 and the old broken font host is absent from production CSS. The four recorded font 404 requests are resolved. 3 Oct 2026: robots.txt (keeps /review-tracker/ out of search), a Sage favicon and Apple touch icons added; all return 200.",
+   "comments": "23 Sep 2026: deployed JavaScript and CSS return 200 and the old broken font host is absent from production CSS. The four recorded font 404 requests are resolved. 3 Oct 2026: robots.txt (keeps /qa-review-tracker/ out of search), a Sage favicon and Apple touch icons added; all return 200.",
    "interpretation": "All rendered links and resources load successfully, with no missing images, stylesheet failures or script errors.",
    "history": [
     {

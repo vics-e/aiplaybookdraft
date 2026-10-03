@@ -3,8 +3,8 @@ import path from 'node:path';
 
 const root = path.resolve(process.cwd());
 const redesignDir = path.join(root, 'docs', 'qa', 'template');
-const publishDir = path.join(redesignDir, 'publish', 'review-tracker');
-const destinationDir = path.join(root, 'public', 'review-tracker');
+const publishDir = path.join(redesignDir, 'publish', 'qa-review-tracker');
+const destinationDir = path.join(root, 'public', 'qa-review-tracker');
 const templateSourceDir = path.join(publishDir, 'template');
 const templateDestinationDir = path.join(destinationDir, 'template');
 
@@ -41,7 +41,7 @@ for (const fileName of ['index.html', 'tracker.js', 'theme-init.js']) {
 // docs/qa/qa-testing-tracker.html is written directly by docs/qa/template/build.py.
 
 if (!fs.existsSync(path.join(destinationDir, 'evidence'))) {
-  throw new Error('The existing public review-tracker evidence directory was not preserved.');
+  throw new Error('The existing public qa-review-tracker evidence directory was not preserved.');
 }
 
 console.log('Published the redesigned QA tracker and blank template; existing evidence was preserved.');

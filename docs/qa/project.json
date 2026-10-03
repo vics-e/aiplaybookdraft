@@ -8,7 +8,7 @@
   "owner": "Victor Egunlae",
   "started": "2026-09-09",
   "lastChecked": "2026-09-23T17:00:00Z",
-  "evidenceBase": "https://aiplaybook-ve.vercel.app/review-tracker/",
+  "evidenceBase": "https://aiplaybook-ve.vercel.app/qa-review-tracker/",
   "storageKey": "ai-playbook-qa-review",
   "sources": [],
   "testSummary": [

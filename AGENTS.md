@@ -23,7 +23,7 @@ documents (e.g. the Confluence QA checklist PDFs), credentials or personal data.
 
 - Start with `docs/qa/README.md`. It explains the tracker, the statuses and the folder.
 - The tracker is built from `docs/qa/template/` + `docs/qa/project.json` + `docs/qa/results.json`
-  with `npm run build:review-tracker`, and published at `/review-tracker/`.
+  with `npm run build:review-tracker`, and published at `/qa-review-tracker/`.
 - Save new evidence in `docs/qa/evidence/<check-id>/` with dated names that say
   FAILED / FIXED / PASSED (e.g. `2026-10-03-FAILED-cards-spill-1080.png`).
 - Never overwrite a result's history: a fix is a new entry after the failure.

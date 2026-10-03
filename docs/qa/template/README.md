@@ -9,7 +9,7 @@ results live one folder up, in `docs/qa/project.json` and `docs/qa/results.json`
 | `checks.json` | The 67 checks from Sage's Manual Testing (38) and QA Release (29) checklists, wording as written. |
 | `build.py` | Reads `../project.json`, `../results.json` and `../lessons-learned.md`. Builds `index.html` (blank preview), `../qa-testing-tracker.html` (this project) and `publish/` (ready to deploy). |
 | `index.html` | Blank template preview: open it locally. |
-| `publish/` | Built copies for `/review-tracker/` and `/review-tracker/template/`, with the code in `tracker.js` and `theme-init.js` (the site's Content-Security-Policy blocks inline scripts). |
+| `publish/` | Built copies for `/qa-review-tracker/` and `/qa-review-tracker/template/`, with the code in `tracker.js` and `theme-init.js` (the site's Content-Security-Policy blocks inline scripts). |
 
 Build from the repo root: `npm run build:review-tracker`.
 

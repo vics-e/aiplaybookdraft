@@ -3,8 +3,8 @@
 This folder is how the AI Playbook is checked before release, and the kit for
 checking the next project the same way.
 
-- **See the results:** https://aiplaybook-ve.vercel.app/review-tracker/
-- **Blank tracker for a new project:** https://aiplaybook-ve.vercel.app/review-tracker/template/
+- **See the results:** https://aiplaybook-ve.vercel.app/qa-review-tracker/
+- **Blank tracker for a new project:** https://aiplaybook-ve.vercel.app/qa-review-tracker/template/
 
 ## What gets checked
 
@@ -62,7 +62,7 @@ docs/qa/
 │   ├─ tracker.template.html     the page
 │   ├─ checks.json               the 67 checks
 │   ├─ build.py                  builds the tracker from project.json + results.json
-│   └─ publish/                  built copies, ready for /review-tracker/
+│   └─ publish/                  built copies, ready for /qa-review-tracker/
 ├─ evidence/                 ← proof
 │   ├─ <check-id>/               new evidence: one folder per check (see below)
 │   └─ batch-1…5, row-audit/     the first round's evidence (kept where the tracker links to it)
@@ -76,7 +76,7 @@ PASSED in the name gives the link a matching colour in the tracker.
 ## Updating the tracker
 
 1. Edit `project.json` (version tested, testers, last checked) or `results.json`.
-2. Run `npm run build:review-tracker`. It rebuilds the tracker and copies it into `public/review-tracker/`.
+2. Run `npm run build:review-tracker`. It rebuilds the tracker and copies it into `public/qa-review-tracker/`.
 3. Commit and push to `main`; Vercel publishes it.
 
 Results typed into the live page are saved **in that browser only**. To keep
@@ -102,4 +102,4 @@ To QA another site (e.g. the MTD playbook) with the same tracker:
 5. Copy `docs/qa/lessons-learned.md`. Check the new site against it first; those are the known traps.
 6. Copy `scripts/generate-review-tracker.mjs` and the `build:qa-template` /
    `build:review-tracker` scripts from `package.json`.
-7. Run `npm run build:review-tracker`; the blank tracker appears at `/review-tracker/`.
+7. Run `npm run build:review-tracker`; the blank tracker appears at `/qa-review-tracker/`.
