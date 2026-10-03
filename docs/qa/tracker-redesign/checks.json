@@ -1,0 +1,516 @@
+{
+ "manual": [
+  {
+   "id": "manual-01",
+   "priority": "Low",
+   "type": "Usability",
+   "summary": "Scroll bar should appear only if required.",
+   "tools": "N/A",
+   "standards": "Usability.gov guidelines",
+   "sourceNotes": ""
+  },
+  {
+   "id": "manual-02",
+   "priority": "Low",
+   "type": "Usability",
+   "summary": "Check enough space is applied between field labels, columns, rows and errors.",
+   "tools": "N/A",
+   "standards": "W3C usability guidelines",
+   "sourceNotes": ""
+  },
+  {
+   "id": "manual-03",
+   "priority": "Medium",
+   "type": "Usability",
+   "summary": "All text should be properly aligned.",
+   "tools": "N/A",
+   "standards": "",
+   "sourceNotes": ""
+  },
+  {
+   "id": "manual-04",
+   "priority": "Medium",
+   "type": "Usability",
+   "summary": "Check the site is responsive at 767px, 768px, 1080px and 1920px.",
+   "tools": "Web Developer toolbar: Resize, View Responsive Layouts",
+   "standards": "",
+   "sourceNotes": ""
+  },
+  {
+   "id": "manual-05",
+   "priority": "High",
+   "type": "Usability",
+   "summary": "Font should be consistent throughout the site.",
+   "tools": "N/A",
+   "standards": "",
+   "sourceNotes": ""
+  },
+  {
+   "id": "manual-06",
+   "priority": "Medium",
+   "type": "Usability",
+   "summary": "Display appropriate server-side and client-side validation for form fields.",
+   "tools": "N/A",
+   "standards": "",
+   "sourceNotes": ""
+  },
+  {
+   "id": "manual-07",
+   "priority": "High",
+   "type": "Usability",
+   "summary": "Check for broken links, missing images, CSS, Flash, RSS, script errors, expired domains and server configuration issues.",
+   "tools": "Xenu",
+   "standards": "",
+   "sourceNotes": ""
+  },
+  {
+   "id": "manual-08",
+   "priority": "Medium",
+   "type": "Functional",
+   "summary": "Test all mandatory fields validate correctly based on user input.",
+   "tools": "N/A",
+   "standards": "N/A",
+   "sourceNotes": ""
+  },
+  {
+   "id": "manual-09",
+   "priority": "Medium",
+   "type": "Functional",
+   "summary": "Test accented letters are displayed correctly in Page Editor and the front end.",
+   "tools": "N/A",
+   "standards": "",
+   "sourceNotes": "The source checklist contains examples covering common European accented characters."
+  },
+  {
+   "id": "manual-10",
+   "priority": "Low",
+   "type": "Functional",
+   "summary": "Test no mandatory error message is present for optional fields.",
+   "tools": "N/A",
+   "standards": "",
+   "sourceNotes": ""
+  },
+  {
+   "id": "manual-11",
+   "priority": "Medium",
+   "type": "Functional",
+   "summary": "Test leap years are validated correctly and do not cause errors.",
+   "tools": "N/A",
+   "standards": "",
+   "sourceNotes": ""
+  },
+  {
+   "id": "manual-12",
+   "priority": "Low",
+   "type": "Functional",
+   "summary": "Test negative input values for each field.",
+   "tools": "N/A",
+   "standards": "",
+   "sourceNotes": ""
+  },
+  {
+   "id": "manual-13",
+   "priority": "Low",
+   "type": "Functional",
+   "summary": "Test the maximum length of every field to ensure data is not truncated.",
+   "tools": "N/A",
+   "standards": "",
+   "sourceNotes": ""
+  },
+  {
+   "id": "manual-14",
+   "priority": "Medium",
+   "type": "Functional",
+   "summary": "Check a confirmation message is displayed for update and delete operations.",
+   "tools": "N/A",
+   "standards": "",
+   "sourceNotes": ""
+  },
+  {
+   "id": "manual-15",
+   "priority": "Medium",
+   "type": "Functional",
+   "summary": "Test all input fields for special characters.",
+   "tools": "N/A",
+   "standards": "",
+   "sourceNotes": ""
+  },
+  {
+   "id": "manual-16",
+   "priority": "Medium",
+   "type": "Functional",
+   "summary": "Test the sorting and filtering functionality.",
+   "tools": "N/A",
+   "standards": "",
+   "sourceNotes": ""
+  },
+  {
+   "id": "manual-17",
+   "priority": "Medium",
+   "type": "Functional",
+   "summary": "Test no errors are present in the browser console.",
+   "tools": "Browser developer tools console",
+   "standards": "",
+   "sourceNotes": ""
+  },
+  {
+   "id": "manual-18",
+   "priority": "Medium",
+   "type": "Functional",
+   "summary": "Test the functionality of buttons, including enabled, disabled and hidden states.",
+   "tools": "N/A",
+   "standards": "",
+   "sourceNotes": ""
+  },
+  {
+   "id": "manual-19",
+   "priority": "High",
+   "type": "Functional",
+   "summary": "Test that failed functionality redirects the user to the custom error page (404).",
+   "tools": "N/A",
+   "standards": "",
+   "sourceNotes": ""
+  },
+  {
+   "id": "manual-20",
+   "priority": "Medium",
+   "type": "Functional",
+   "summary": "Test all uploaded documents open correctly in a new window, new tab or intended destination.",
+   "tools": "N/A",
+   "standards": "",
+   "sourceNotes": ""
+  },
+  {
+   "id": "manual-21",
+   "priority": "High",
+   "type": "Functional",
+   "summary": "Test the user is able to download files.",
+   "tools": "N/A",
+   "standards": "",
+   "sourceNotes": ""
+  },
+  {
+   "id": "manual-22",
+   "priority": "High",
+   "type": "Functional",
+   "summary": "Test email functionality, such as feedback and order confirmation.",
+   "tools": "N/A",
+   "standards": "",
+   "sourceNotes": ""
+  },
+  {
+   "id": "manual-23",
+   "priority": "High",
+   "type": "Functional",
+   "summary": "Validate that blank form submissions are not allowed and at least one field is required.",
+   "tools": "N/A",
+   "standards": "",
+   "sourceNotes": ""
+  },
+  {
+   "id": "manual-24",
+   "priority": "Medium",
+   "type": "Functional",
+   "summary": "Test external page links open in a new tab or window.",
+   "tools": "N/A",
+   "standards": "",
+   "sourceNotes": ""
+  },
+  {
+   "id": "manual-25",
+   "priority": "High",
+   "type": "Functional",
+   "summary": "Check Create, Edit, Delete and Publish for a new component.",
+   "tools": "N/A",
+   "standards": "",
+   "sourceNotes": ""
+  },
+  {
+   "id": "manual-26",
+   "priority": "High",
+   "type": "Functional",
+   "summary": "Verify data retrieval delivers the correct data, such as Search and News sections.",
+   "tools": "N/A",
+   "standards": "",
+   "sourceNotes": ""
+  },
+  {
+   "id": "manual-27",
+   "priority": "Medium",
+   "type": "Functional",
+   "summary": "Ensure search functions correctly and results are accurate and helpful to the customer.",
+   "tools": "N/A",
+   "standards": "",
+   "sourceNotes": ""
+  },
+  {
+   "id": "manual-28",
+   "priority": "High",
+   "type": "Compatibility",
+   "summary": "Test page rendering at different screen resolutions and rotations.",
+   "tools": "Web Developer toolbar: Resize, View Responsive Layouts",
+   "standards": "Latest browser versions only",
+   "sourceNotes": "Chrome developer tools can also be used to switch between representative devices."
+  },
+  {
+   "id": "manual-29",
+   "priority": "High",
+   "type": "Compatibility",
+   "summary": "Test that the CSS and HTML used are compatible with the appropriate browser and device versions.",
+   "tools": "Edge, Chrome, Firefox, Safari, iPhone and Android",
+   "standards": "Portrait and landscape orientations",
+   "sourceNotes": ""
+  },
+  {
+   "id": "manual-30",
+   "priority": "Low",
+   "type": "Destructive",
+   "summary": "Apply inputs that force all error messages to occur.",
+   "tools": "N/A",
+   "standards": "N/A",
+   "sourceNotes": ""
+  },
+  {
+   "id": "manual-31",
+   "priority": "Low",
+   "type": "Destructive",
+   "summary": "Repeatedly attempt to submit a form by continually clicking the submit action.",
+   "tools": "N/A",
+   "standards": "",
+   "sourceNotes": ""
+  },
+  {
+   "id": "manual-32",
+   "priority": "Low",
+   "type": "Destructive",
+   "summary": "Force different outputs to be generated for each input.",
+   "tools": "N/A",
+   "standards": "",
+   "sourceNotes": ""
+  },
+  {
+   "id": "manual-33",
+   "priority": "Low",
+   "type": "Destructive",
+   "summary": "Attempt to fill the file system to its capacity.",
+   "tools": "N/A",
+   "standards": "",
+   "sourceNotes": ""
+  },
+  {
+   "id": "manual-34",
+   "priority": "Low",
+   "type": "Destructive",
+   "summary": "Attempt to submit blank forms repeatedly.",
+   "tools": "N/A",
+   "standards": "",
+   "sourceNotes": ""
+  },
+  {
+   "id": "manual-35",
+   "priority": "Low",
+   "type": "Destructive",
+   "summary": "Attempt to view an invalid page URL within the site.",
+   "tools": "N/A",
+   "standards": "",
+   "sourceNotes": ""
+  },
+  {
+   "id": "manual-36",
+   "priority": "Low",
+   "type": "Destructive",
+   "summary": "Alter strings within the webpages where applicable and ensure an appropriate message is displayed.",
+   "tools": "N/A",
+   "standards": "",
+   "sourceNotes": ""
+  },
+  {
+   "id": "manual-37",
+   "priority": "High",
+   "type": "Performance",
+   "summary": "Run Google PageSpeed to identify performance improvements.",
+   "tools": "Google PageSpeed",
+   "standards": "N/A",
+   "sourceNotes": ""
+  },
+  {
+   "id": "manual-38",
+   "priority": "High",
+   "type": "Accessibility",
+   "summary": "Run Lighthouse Accessibility to identify accessibility improvements.",
+   "tools": "Lighthouse",
+   "standards": "N/A",
+   "sourceNotes": ""
+  }
+ ],
+ "release": [
+  {
+   "id": "release-01",
+   "stage": "Entry criteria",
+   "summary": "All designs are signed off."
+  },
+  {
+   "id": "release-02",
+   "stage": "Entry criteria",
+   "summary": "Acceptance criteria are locked down."
+  },
+  {
+   "id": "release-03",
+   "stage": "Entry criteria",
+   "summary": "All code changes are complete and peer reviewed for each user story delivered."
+  },
+  {
+   "id": "release-04",
+   "stage": "Entry criteria",
+   "summary": "The test environment is fully configured to update customer websites dynamically."
+  },
+  {
+   "id": "release-05",
+   "stage": "Entry criteria",
+   "summary": "Test cases are documented and ready for execution."
+  },
+  {
+   "id": "release-06",
+   "stage": "Entry criteria",
+   "summary": "Unit testing and VQA are complete before changes are pushed to development."
+  },
+  {
+   "id": "release-07",
+   "stage": "Entry criteria",
+   "summary": "Modified requirements are updated in acceptance criteria rather than Jira comments or designs."
+  },
+  {
+   "id": "release-08",
+   "stage": "Entry criteria",
+   "summary": "New requirements treated as changes are addressed in a new user story."
+  },
+  {
+   "id": "release-09",
+   "stage": "Entry criteria",
+   "summary": "If designs change, updated designs are recorded in Jira with the exact layouts and styles used for testing."
+  },
+  {
+   "id": "release-10",
+   "stage": "Exit criteria",
+   "summary": "All acceptance criteria have been verified."
+  },
+  {
+   "id": "release-11",
+   "stage": "Exit criteria",
+   "summary": "All targeted and integrated testing is completed."
+  },
+  {
+   "id": "release-12",
+   "stage": "Exit criteria",
+   "summary": "Any bugs found are raised in Jira, assigned to the appropriate developer and linked to the parent story."
+  },
+  {
+   "id": "release-13",
+   "stage": "Exit criteria",
+   "summary": "Bug fixes are deployed and validated as resolved."
+  },
+  {
+   "id": "release-14",
+   "stage": "Exit criteria",
+   "summary": "The automated test suite is maintained and updated for additional requirements."
+  },
+  {
+   "id": "release-15",
+   "stage": "Compatibility: browsers",
+   "summary": "Microsoft Edge, latest version, on Windows 11."
+  },
+  {
+   "id": "release-16",
+   "stage": "Compatibility: browsers",
+   "summary": "Google Chrome, latest version, on Windows 11."
+  },
+  {
+   "id": "release-17",
+   "stage": "Compatibility: browsers",
+   "summary": "Mozilla Firefox, latest version, on Windows 11."
+  },
+  {
+   "id": "release-18",
+   "stage": "Compatibility: browsers",
+   "summary": "Safari, latest version, on macOS."
+  },
+  {
+   "id": "release-19",
+   "stage": "Compatibility: tablets",
+   "summary": "Samsung Galaxy Tab A9+ on the latest Android version."
+  },
+  {
+   "id": "release-20",
+   "stage": "Compatibility: tablets",
+   "summary": "iPad 10th generation and iPad Mini 2021 on the latest iOS version."
+  },
+  {
+   "id": "release-21",
+   "stage": "Compatibility: mobile",
+   "summary": "iPhone 17 and Mini on the latest iOS version."
+  },
+  {
+   "id": "release-22",
+   "stage": "Compatibility: mobile",
+   "summary": "Samsung S25 on the latest Android version."
+  },
+  {
+   "id": "release-23",
+   "stage": "Responsive testing",
+   "summary": "Test at a screen resolution of 1680px or wider."
+  },
+  {
+   "id": "release-24",
+   "stage": "Responsive testing",
+   "summary": "Test at a screen resolution of 1080px or wider."
+  },
+  {
+   "id": "release-25",
+   "stage": "Responsive testing",
+   "summary": "Test at a screen resolution of 767px or wider."
+  },
+  {
+   "id": "release-26",
+   "stage": "Responsive testing",
+   "summary": "Test below 767px."
+  },
+  {
+   "id": "release-27",
+   "stage": "Sign-off criteria",
+   "summary": "No known Blocker or Critical bugs are outstanding."
+  },
+  {
+   "id": "release-28",
+   "stage": "Sign-off criteria",
+   "summary": "Manual and automated regression tests are complete for Sitecore, third parties, Tealium tags, market sites and ecommerce journeys."
+  },
+  {
+   "id": "release-29",
+   "stage": "Sign-off criteria",
+   "summary": "VQA has signed off the changes."
+  }
+ ],
+ "applies": [
+  "To review",
+  "Relevant",
+  "Not relevant",
+  "Needs clarification"
+ ],
+ "status": [
+  "Not assessed",
+  "Already evidenced",
+  "Passed",
+  "Failed",
+  "Blocked",
+  "Needs Project or QA",
+  "Not applicable"
+ ],
+ "owners": [
+  "Unassigned",
+  "Project team",
+  "CMS",
+  "QA",
+  "Business owner",
+  "Other team"
+ ]
+}

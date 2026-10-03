@@ -1,978 +1,481 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>QA Review Tracker — [PROJECT NAME]</title>
-    <style>
-      :root {
-        color-scheme: light;
-        --ink: #17232f;
-        --muted: #5e6a73;
-        --line: #d7ddd9;
-        --soft-line: #e9eeeb;
-        --surface: #ffffff;
-        --canvas: #f4f7f5;
-        --sage: #00a376;
-        --sage-deep: #007a59;
-        --sage-soft: #e7f7f1;
-        --navy: #102a43;
-        --amber: #aa6c00;
-        --amber-soft: #fff5d8;
-        --shadow: 0 14px 34px rgba(16, 42, 67, 0.08);
-      }
-
-      * {
-        box-sizing: border-box;
-      }
-
-      body {
-        margin: 0;
-        min-width: 320px;
-        min-height: 100vh;
-        background: var(--canvas);
-        color: var(--ink);
-        font-family:
-          Inter, "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-        font-size: 16px;
-        line-height: 1.5;
-      }
-
-      button,
-      select,
-      input {
-        font: inherit;
-      }
-
-      button:focus-visible,
-      select:focus-visible,
-      input:focus-visible {
-        outline: 3px solid rgba(0, 163, 118, 0.28);
-        outline-offset: 2px;
-      }
-
-      .topbar {
-        border-bottom: 1px solid var(--line);
-        background: var(--surface);
-      }
-
-      .topbar-inner,
-      main {
-        width: min(1480px, calc(100% - 40px));
-        margin: 0 auto;
-      }
-
-      .topbar-inner {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 24px;
-        min-height: 74px;
-      }
-
-      .brand {
-        display: flex;
-        align-items: center;
-        gap: 13px;
-        min-width: 0;
-      }
-
-      .brand-mark {
-        display: grid;
-        width: 38px;
-        height: 38px;
-        flex: 0 0 auto;
-        place-items: center;
-        border-radius: 10px;
-        background: var(--sage);
-        color: #ffffff;
-        font-weight: 800;
-        letter-spacing: -0.04em;
-      }
-
-      .brand-copy {
-        min-width: 0;
-      }
-
-      .brand-copy strong,
-      .brand-copy span {
-        display: block;
-      }
-
-      .brand-copy strong {
-        font-size: 17px;
-        line-height: 1.2;
-      }
-
-      .brand-copy span {
-        margin-top: 2px;
-        color: var(--muted);
-        font-size: 13px;
-      }
-
-      .draft-badge {
-        flex: 0 0 auto;
-        border: 1px solid #e7cd83;
-        border-radius: 999px;
-        background: var(--amber-soft);
-        color: var(--amber);
-        padding: 6px 11px;
-        font-size: 13px;
-        font-weight: 700;
-      }
-
-      .header-actions {
-        display: flex;
-        align-items: center;
-        flex-wrap: wrap;
-        justify-content: flex-end;
-        gap: 10px;
-      }
-
-      .saved-indicator {
-        color: var(--muted);
-        font-size: 13px;
-        font-weight: 650;
-      }
-
-      .primary-button {
-        min-height: 42px;
-        border: 1px solid var(--sage-deep);
-        border-radius: 9px;
-        background: var(--sage-deep);
-        color: #ffffff;
-        cursor: pointer;
-        padding: 0 14px;
-        font-weight: 750;
-      }
-
-      .primary-button:hover {
-        background: #00684c;
-      }
-
-      .secondary-button {
-        min-height: 42px;
-        border: 1px solid var(--sage-deep);
-        border-radius: 9px;
-        background: #ffffff;
-        color: var(--sage-deep);
-        cursor: pointer;
-        padding: 0 14px;
-        font-weight: 750;
-      }
-
-      .secondary-button:hover { background: var(--sage-soft); }
-
-      .save-note {
-        margin: 12px 0 20px;
-        border-left: 4px solid var(--sage);
-        border-radius: 8px;
-        background: var(--sage-soft);
-        padding: 12px 14px;
-        color: var(--navy);
-      }
-
-      .save-note p { margin: 0; }
-      .save-note p + p { margin-top: 4px; color: var(--muted); font-size: 14px; }
-
-      .device-table td:first-child { font-weight: 750; color: var(--navy); }
-      .device-table .clarify-device { background: var(--amber-soft); }
-
-      .compact-details { margin: 22px 0; }
-      .compact-details > summary {
-        cursor: pointer;
-        color: var(--navy);
-        font-size: 18px;
-        font-weight: 800;
-        padding: 12px 0;
-      }
-
-      main {
-        padding: 34px 0 56px;
-      }
-
-      .page-heading {
-        display: flex;
-        align-items: end;
-        justify-content: space-between;
-        gap: 24px;
-        margin-bottom: 25px;
-      }
-
-      .eyebrow {
-        margin: 0 0 7px;
-        color: var(--sage-deep);
-        font-size: 13px;
-        font-weight: 800;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-      }
-
-      h1 {
-        margin: 0;
-        color: var(--navy);
-        font-size: clamp(27px, 3vw, 38px);
-        line-height: 1.15;
-        letter-spacing: -0.035em;
-      }
-
-      .page-heading p:last-child {
-        max-width: 690px;
-        margin: 9px 0 0;
-        color: var(--muted);
-      }
-
-      .summary-grid {
-        display: grid;
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-        gap: 14px;
-        margin-bottom: 24px;
-      }
-
-      .summary-card {
-        min-height: 115px;
-        border: 1px solid var(--line);
-        border-radius: 14px;
-        background: var(--surface);
-        padding: 18px;
-        box-shadow: 0 6px 20px rgba(16, 42, 67, 0.035);
-      }
-
-      .summary-card span {
-        display: block;
-        color: var(--muted);
-        font-size: 14px;
-        font-weight: 650;
-      }
-
-      .summary-card strong {
-        display: block;
-        margin-top: 9px;
-        color: var(--navy);
-        font-size: 29px;
-        line-height: 1;
-      }
-
-      .workspace {
-        overflow: hidden;
-        border: 1px solid var(--line);
-        border-radius: 17px;
-        background: var(--surface);
-        box-shadow: var(--shadow);
-      }
-
-      .tabs {
-        display: flex;
-        gap: 4px;
-        overflow-x: auto;
-        border-bottom: 1px solid var(--line);
-        padding: 10px 12px 0;
-        scrollbar-width: thin;
-      }
-
-      .tab {
-        position: relative;
-        min-height: 48px;
-        border: 0;
-        border-radius: 9px 9px 0 0;
-        background: transparent;
-        color: var(--muted);
-        cursor: pointer;
-        padding: 0 16px;
-        white-space: nowrap;
-        font-weight: 700;
-      }
-
-      .tab:hover {
-        background: #f3f7f5;
-        color: var(--ink);
-      }
-
-      .tab[aria-selected="true"] {
-        background: var(--sage-soft);
-        color: var(--sage-deep);
-      }
-
-      .tab[aria-selected="true"]::after {
-        position: absolute;
-        right: 12px;
-        bottom: -1px;
-        left: 12px;
-        height: 3px;
-        border-radius: 3px 3px 0 0;
-        background: var(--sage);
-        content: "";
-      }
-
-      .panel {
-        display: none;
-        padding: 22px;
-      }
-
-      .panel.active {
-        display: block;
-      }
-
-      .panel-header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 18px;
-        margin-bottom: 18px;
-      }
-
-      .panel-header h2 {
-        margin: 0;
-        color: var(--navy);
-        font-size: 21px;
-        letter-spacing: -0.02em;
-      }
-
-      .panel-header p {
-        margin: 4px 0 0;
-        color: var(--muted);
-        font-size: 14px;
-      }
-
-      .filters {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-      }
-
-      .filters input,
-      .filters select {
-        min-height: 42px;
-        border: 1px solid var(--line);
-        border-radius: 9px;
-        background: #ffffff;
-        color: var(--ink);
-        padding: 0 12px;
-      }
-
-      .filters input {
-        width: min(290px, 42vw);
-      }
-
-      .table-wrap {
-        overflow-x: auto;
-        border: 1px solid var(--soft-line);
-        border-radius: 12px;
-      }
-
-      table {
-        width: 100%;
-        min-width: 1480px;
-        border-collapse: collapse;
-      }
-
-      th {
-        border-bottom: 1px solid var(--line);
-        background: #f6f8f7;
-        color: #43525d;
-        padding: 12px 14px;
-        text-align: left;
-        font-size: 13px;
-        letter-spacing: 0.02em;
-      }
-
-      td {
-        padding: 14px;
-        border-bottom: 1px solid var(--soft-line);
-        vertical-align: top;
-        font-size: 14px;
-      }
-
-      tbody tr:last-child td {
-        border-bottom: 0;
-      }
-
-      .priority,
-      .status-pill {
-        display: inline-flex;
-        align-items: center;
-        min-height: 27px;
-        border-radius: 999px;
-        padding: 3px 9px;
-        font-size: 12px;
-        font-weight: 800;
-        white-space: nowrap;
-      }
-
-      .priority-high {
-        background: #ffe8e4;
-        color: #a52c1f;
-      }
-
-      .priority-medium {
-        background: var(--amber-soft);
-        color: var(--amber);
-      }
-
-      .priority-low {
-        background: #eaf1f6;
-        color: #425b70;
-      }
-
-      .row-control {
-        width: 100%;
-        min-width: 140px;
-        min-height: 38px;
-        border: 1px solid var(--line);
-        border-radius: 8px;
-        background: #ffffff;
-        color: var(--ink);
-        padding: 7px 9px;
-        font-size: 13px;
-      }
-
-      textarea.row-control {
-        min-width: 220px;
-        min-height: 70px;
-        resize: vertical;
-      }
-
-      .summary-text {
-        min-width: 310px;
-        color: var(--ink);
-        font-weight: 620;
-      }
-
-      .source-detail {
-        min-width: 170px;
-        color: var(--muted);
-      }
-
-      .stage-label {
-        color: var(--sage-deep);
-        font-size: 12px;
-        font-weight: 800;
-        letter-spacing: 0.05em;
-        text-transform: uppercase;
-      }
-
-      .status-passed { background: #dff5e9; color: #11653d; }
-      .status-failed { background: #ffe4df; color: #9a2d20; }
-      .status-needs-sage-badge { background: #ffe9b5; color: #765000; }
-      .status-not-applicable-badge { background: #e9edf0; color: #58636b; }
-      .status-neutral { background: #eaf1f6; color: #425b70; }
-      .status-legend { margin: 8px 0 0; color: var(--muted); font-size: 13px; }
-      .applies-legend { margin: 4px 0 0; color: var(--muted); font-size: 13px; }
-
-      .empty-cell {
-        height: 265px;
-        text-align: center;
-      }
-
-      .empty-state {
-        width: min(450px, 100%);
-        margin: 0 auto;
-      }
-
-      .empty-icon {
-        display: grid;
-        width: 54px;
-        height: 54px;
-        margin: 0 auto 15px;
-        place-items: center;
-        border: 1px solid #bfe4d6;
-        border-radius: 15px;
-        background: var(--sage-soft);
-        color: var(--sage-deep);
-        font-size: 25px;
-        font-weight: 800;
-      }
-
-      .empty-state strong {
-        display: block;
-        color: var(--navy);
-        font-size: 17px;
-      }
-
-      .empty-state p {
-        margin: 7px 0 0;
-        color: var(--muted);
-        font-size: 14px;
-      }
-
-      .overview-empty {
-        display: grid;
-        min-height: 320px;
-        place-items: center;
-        border: 1px dashed #bdc9c2;
-        border-radius: 13px;
-        background: linear-gradient(135deg, #fbfcfb, #f4f8f6);
-        padding: 28px;
-        text-align: center;
-      }
-
-      .overview-empty .empty-state {
-        max-width: 520px;
-      }
-
-      .overview-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 16px;
-      }
-
-      .guide-card {
-        border: 1px solid var(--soft-line);
-        border-radius: 13px;
-        background: #fbfcfb;
-        padding: 21px;
-      }
-
-      .guide-card h3 {
-        margin: 0 0 13px;
-        color: var(--navy);
-        font-size: 17px;
-      }
-
-      .guide-card ol,
-      .guide-card ul {
-        margin: 0;
-        padding-left: 22px;
-      }
-
-      .guide-card li + li {
-        margin-top: 8px;
-      }
-
-      .guide-card p {
-        margin: 13px 0 0;
-        color: var(--muted);
-        font-size: 14px;
-      }
-
-      .legend {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 9px;
-        margin-top: 18px;
-      }
-
-      .legend-item {
-        display: inline-flex;
-        align-items: center;
-        gap: 7px;
-        border: 1px solid var(--line);
-        border-radius: 999px;
-        background: #ffffff;
-        padding: 6px 10px;
-        color: #43525d;
-        font-size: 13px;
-        font-weight: 700;
-      }
-
-      .legend-dot {
-        width: 9px;
-        height: 9px;
-        border-radius: 50%;
-        background: #97a39d;
-      }
-
-      .legend-dot.relevant { background: var(--sage); }
-      .legend-dot.not-relevant { background: #7f8c86; }
-      .legend-dot.clarify { background: #e4a11b; }
-      .legend-dot.review { background: #4f7cac; }
-
-      @media (max-width: 900px) {
-        .summary-grid {
-          grid-template-columns: repeat(2, minmax(0, 1fr));
-        }
-
-        .panel-header {
-          align-items: stretch;
-          flex-direction: column;
-        }
-
-        .overview-grid {
-          grid-template-columns: 1fr;
-        }
-
-        .filters {
-          flex-wrap: wrap;
-        }
-      }
-
-      @media (max-width: 600px) {
-        .topbar-inner,
-        main {
-          width: min(100% - 24px, 1480px);
-        }
-
-        .topbar-inner {
-          min-height: 68px;
-        }
-
-        .brand-copy span,
-        .saved-indicator {
-          display: none;
-        }
-
-        main {
-          padding-top: 25px;
-        }
-
-        .summary-grid {
-          grid-template-columns: 1fr 1fr;
-          gap: 9px;
-        }
-
-        .summary-card {
-          min-height: 98px;
-          padding: 14px;
-        }
-
-        .panel {
-          padding: 16px;
-        }
-
-        .filters {
-          display: grid;
-          grid-template-columns: 1fr;
-        }
-
-        .filters input {
-          width: 100%;
-        }
-
-        .status-summary-table { font-size: 12px; }
-        .status-summary-table th,
-        .status-summary-table td { padding: 9px 6px; }
-      }
-
-      .review-intro { border-left: 4px solid var(--sage); background: var(--sage-soft); padding: 16px 20px; margin-bottom: 20px; border-radius: 10px; }
-      .review-intro h3 { margin: 0 0 6px; }
-      .review-intro p { margin: 5px 0; }
-      .review-table { min-width: 850px; table-layout: fixed; }
-      .review-table th:nth-child(1) { width: 100px; }
-      .review-table th:nth-child(2) { width: 170px; }
-      .review-table th:nth-child(3) { width: 25%; }
-      .review-table th:nth-child(4) { width: 140px; }
-      .review-table th:nth-child(5) { width: 145px; }
-      .review-table td { overflow-wrap: anywhere; }
-      .review-table .failed { background: #fff0ec; }
-      .review-table .passed { background: #edfaf3; }
-      tbody tr.status-needs-sage,
-      .review-table .status-needs-sage { background: #fff4dc; }
-      tbody tr.status-not-applicable,
-      .review-table .status-not-applicable { background: #f1f3f4; color: #58636b; }
-      .status-summary-table { min-width: 0; table-layout: auto; }
-      .status-summary-table th:nth-child(n) { width: auto; }
-      .status-summary-table td:first-child { color: var(--navy); font-weight: 800; }
-      .status-summary-table tbody tr:last-child { background: var(--sage-soft); }
-      .remaining-table { min-width: 720px; }
-      .tab span { display: block; margin-top: 2px; font-size: 11px; font-weight: 650; opacity: .78; }
-      .checklist-choices .guide-card { display: flex; flex-direction: column; align-items: flex-start; }
-      .checklist-choices .guide-card p { flex: 1; }
-      .review-status { font-size: 13px; font-weight: 800; }
-      .evidence-links { display: flex; flex-wrap: wrap; gap: 5px 10px; margin-top: 7px; font-size: 12px; }
-      a { color: #006b4f; }
-      .review-controls { display: flex; flex-wrap: wrap; gap: 10px; margin: 14px 0; }
-      .review-controls input, .review-controls select { border: 1px solid var(--line); border-radius: 8px; padding: 9px; }
-      .review-controls input { flex: 1; min-width: 220px; }
-      #review-count { color: var(--muted); font-size: 13px; }
-      .legacy-evidence { margin-top: 22px; }
-      .legacy-evidence summary { cursor: pointer; font-weight: 750; color: var(--navy); padding: 12px 0; }
-      .defect-groups { margin: 22px 0 26px; }
-      .defect-groups h3 { margin-bottom: 6px; }
-      .defect-groups > p { margin-top: 0; color: var(--muted); }
-      .defect-table { min-width: 980px; table-layout: fixed; }
-      .defect-table th:nth-child(1) { width: 58px; }
-      .defect-table th:nth-child(2) { width: 21%; }
-      .defect-table th:nth-child(3) { width: 25%; }
-      .defect-table th:nth-child(4) { width: 27%; }
-      .defect-table tbody tr { background: #fff0ec; }
-      .checklist-ids { color: #8d281e; font-weight: 750; overflow-wrap: anywhere; }
-      .defect-note { margin-top: 10px; padding: 12px 14px; border-radius: 8px; background: #f6f8f7; font-size: 13px; }
-      .summary-card strong { font-variant-numeric: tabular-nums; }
-      @media print { .header-actions,.tabs,.filters,.review-controls,.legacy-evidence,.save-note { display:none; } .panel { display:none; } #panel-overview { display:block; } .review-table { min-width:0; font-size:10px; } }
-    </style>
-  </head>
-  <body>
-    <header class="topbar">
-      <div class="topbar-inner">
-        <div class="brand">
-          <div class="brand-mark" aria-hidden="true">QA</div>
-          <div class="brand-copy">
-            <strong>QA Review Tracker</strong>
-            <span>[PROJECT NAME] · Assessment date: [ASSESSMENT DATE]</span>
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>QA Review Tracker</title>
+<script src="theme-init.js"></script>
+<style>
+  /* ------------------------------------------------------------------ tokens */
+  :root {
+    color-scheme: light;
+    --bg: #F4F5F4; --surface: #FFFFFF; --surface-2: #F7F8F7; --rule: #E2E5E2; --rule-strong: #C9CEC9;
+    --text: #111511; --muted: #5B635B; --faint: #8A928A;
+    --accent: #008A21; --accent-strong: #006716; --accent-soft: #E8F5EB; --on-accent: #FFFFFF;
+    --pass: #0B7A2B; --pass-bg: #E5F4E9;
+    --fail: #C0261C; --fail-bg: #FCEAE8;
+    --needs: #B06A00; --needs-bg: #FFF4DE; --needs-fill: #F5A623; --needs-number: #C27800;
+    --blocked: #6B3FA0; --blocked-bg: #F1EAFA;
+    --na: #5B635B; --na-bg: #EEF0EE;
+    --none: #5B635B; --none-bg: #FFFFFF;
+    --evidenced: #0E6A8A; --evidenced-bg: #E4F3F8;
+    --focus: 0 0 0 3px rgba(0, 138, 33, .35);
+    --shadow: 0 1px 2px rgba(0,0,0,.04), 0 8px 24px rgba(0,0,0,.05);
+    --font: 'Segoe UI', system-ui, -apple-system, Roboto, Arial, sans-serif;
+    --mono: 'Cascadia Mono', Consolas, ui-monospace, monospace;
+  }
+  :root[data-theme='dark'] {
+    color-scheme: dark;
+    --bg: #0B0D0B; --surface: #151815; --surface-2: #1B1F1B; --rule: #2A2F2A; --rule-strong: #3C433C;
+    --text: #F2F4F2; --muted: #B4BBB4; --faint: #858D85;
+    --accent: #00D639; --accent-strong: #3BE666; --accent-soft: rgba(0,214,57,.12); --on-accent: #000000;
+    --pass: #4BDB76; --pass-bg: rgba(75,219,118,.13);
+    --fail: #FF7468; --fail-bg: rgba(255,116,104,.14);
+    --needs: #FFC970; --needs-bg: rgba(255,193,92,.14); --needs-fill: #FFC15C; --needs-number: #FFC970;
+    --blocked: #C7A6F2; --blocked-bg: rgba(199,166,242,.14);
+    --na: #A8B0A8; --na-bg: rgba(168,176,168,.12);
+    --none: #B4BBB4; --none-bg: transparent;
+    --evidenced: #6CC9EA; --evidenced-bg: rgba(108,201,234,.13);
+    --focus: 0 0 0 3px rgba(0, 214, 57, .4);
+    --shadow: 0 1px 0 rgba(255,255,255,.03) inset, 0 8px 24px rgba(0,0,0,.4);
+  }
+
+  /* -------------------------------------------------------------------- base */
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 15px/1.5 var(--font); -webkit-font-smoothing: antialiased; }
+  a { color: var(--accent-strong); text-underline-offset: 3px; }
+  :root[data-theme='dark'] a { color: var(--accent); }
+  button, input, select, textarea { font: inherit; color: inherit; }
+  :focus-visible { outline: none; box-shadow: var(--focus); border-radius: 6px; }
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
+  @media (max-width: 640px) { .wrap { padding: 0 16px; } }
+  .muted { color: var(--muted); }
+  .mono { font-family: var(--mono); font-size: .82em; }
+
+  /* ---------------------------------------------------------------- top bar */
+  .topbar { position: sticky; top: 0; z-index: 20; background: color-mix(in srgb, var(--surface) 88%, transparent); backdrop-filter: blur(10px); border-bottom: 1px solid var(--rule); }
+  .topbar .wrap { display: flex; align-items: center; gap: 14px; min-height: 60px; }
+  .brand { display: flex; align-items: center; gap: 10px; min-width: 0; }
+  .brand-mark { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 9px; background: var(--accent); color: var(--on-accent); font-weight: 800; font-size: 13px; letter-spacing: .02em; flex: none; }
+  .brand-text { min-width: 0; line-height: 1.2; }
+  .brand-text strong { display: block; font-size: 14px; }
+  .brand-text span { display: block; font-size: 12.5px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .topbar-progress { margin-left: auto; display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--muted); white-space: nowrap; }
+  .meter { width: 120px; height: 6px; border-radius: 99px; background: var(--rule); overflow: hidden; }
+  .meter > span { display: block; height: 100%; background: var(--accent); border-radius: 99px; transition: width .4s; }
+  @media (max-width: 760px) { .topbar-progress .meter, .brand-text span { display: none; } }
+  .icon-btn { display: inline-grid; place-items: center; width: 38px; height: 38px; border-radius: 10px; border: 1px solid var(--rule); background: var(--surface); cursor: pointer; flex: none; }
+  .icon-btn:hover { border-color: var(--rule-strong); }
+  .btn { display: inline-flex; align-items: center; gap: 8px; height: 38px; padding: 0 14px; border-radius: 10px; border: 1px solid var(--rule); background: var(--surface); font-weight: 600; font-size: 14px; cursor: pointer; white-space: nowrap; }
+  .btn:hover { border-color: var(--rule-strong); }
+  .btn-primary { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+  .btn-primary:hover { background: var(--accent-strong); border-color: var(--accent-strong); }
+  .menu { position: relative; }
+  .menu-list { position: absolute; right: 0; top: calc(100% + 6px); min-width: 260px; padding: 6px; border-radius: 12px; border: 1px solid var(--rule); background: var(--surface); box-shadow: var(--shadow); }
+  .menu-list[hidden] { display: none; }
+  .menu-list button { display: flex; flex-direction: column; align-items: flex-start; width: 100%; padding: 9px 10px; border: 0; border-radius: 8px; background: none; text-align: left; cursor: pointer; }
+  .menu-list button:hover { background: var(--surface-2); }
+  .menu-list small { color: var(--muted); font-size: 12.5px; }
+  svg.i { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+  /* -------------------------------------------------------------------- hero */
+  .hero { padding: 30px 0 8px; }
+  .eyebrow { font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--accent-strong); }
+  :root[data-theme='dark'] .eyebrow { color: var(--accent); }
+  .hero h1 { margin: 6px 0 4px; font-size: clamp(26px, 3.4vw, 36px); line-height: 1.12; letter-spacing: -.02em; }
+  .hero p { margin: 0; color: var(--muted); max-width: 70ch; }
+  .facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 1px; margin-top: 20px; border: 1px solid var(--rule); border-radius: 14px; overflow: hidden; background: var(--rule); }
+  .fact { background: var(--surface); padding: 12px 14px; min-width: 0; }
+  .fact dt { font-size: 11.5px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+  .fact dd { margin: 3px 0 0; font-weight: 600; font-size: 14px; overflow-wrap: anywhere; }
+  .fact dd a { font-weight: 600; }
+  .who { display: inline-grid; place-items: center; min-width: 28px; height: 28px; padding: 0 7px; margin-right: 2px; border-radius: 99px; background: var(--accent-soft); color: var(--accent-strong); font-size: 12px; font-weight: 800; letter-spacing: .03em; cursor: default; }
+  :root[data-theme='dark'] .who:not(.who-tool) { color: var(--accent); }
+  .who-tool { background: var(--surface-2); color: var(--muted); border: 1px solid var(--rule); font-weight: 700; letter-spacing: 0; }
+  .unset { display: inline-flex; align-items: center; gap: 6px; color: var(--faint); font-weight: 500; font-style: italic; }
+  .edit-link { margin-top: 10px; font-size: 13px; }
+  .edit-link button { border: 0; background: none; padding: 0; color: var(--accent-strong); font-weight: 600; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+  :root[data-theme='dark'] .edit-link button { color: var(--accent); }
+
+  /* -------------------------------------------------------------------- tabs */
+  .tabs { position: sticky; top: 60px; z-index: 15; background: var(--bg); margin-top: 22px; border-bottom: 1px solid var(--rule); }
+  .tabs .wrap { display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; }
+  .tab { position: relative; display: inline-flex; align-items: center; gap: 8px; padding: 13px 14px 12px; border: 0; background: none; font-weight: 600; color: var(--muted); cursor: pointer; white-space: nowrap; }
+  .tab:hover { color: var(--text); }
+  .tab[aria-selected='true'] { color: var(--text); }
+  .tab[aria-selected='true']::after { content: ''; position: absolute; left: 10px; right: 10px; bottom: -1px; height: 3px; border-radius: 3px 3px 0 0; background: var(--accent); }
+  .count { display: inline-grid; place-items: center; min-width: 24px; height: 20px; padding: 0 6px; border-radius: 99px; background: var(--surface-2); border: 1px solid var(--rule); font-size: 12px; font-weight: 700; color: var(--muted); }
+  .panel { padding: 26px 0 60px; }
+  .panel[hidden] { display: none; }
+  .panel h2 { margin: 0 0 4px; font-size: 21px; letter-spacing: -.01em; }
+  .panel h3 { margin: 28px 0 10px; font-size: 16px; }
+  .lead { margin: 0 0 18px; color: var(--muted); max-width: 72ch; }
+
+  /* ---------------------------------------------------------------- status */
+  .pill { display: inline-flex; align-items: center; gap: 6px; height: 24px; padding: 0 9px; border-radius: 99px; font-size: 12.5px; font-weight: 700; white-space: nowrap; background: var(--s-bg); color: var(--s); border: 1px solid color-mix(in srgb, var(--s) 22%, transparent); }
+  .pill::before { content: ''; width: 7px; height: 7px; border-radius: 99px; background: var(--f, var(--s)); }
+  [data-status='Passed'] { --s: var(--pass); --s-bg: var(--pass-bg); }
+  [data-status='Failed'] { --s: var(--fail); --s-bg: var(--fail-bg); }
+  /* Needs …: words use the darker --needs; bars, edges and dots use the brighter --needs-fill. */
+  [data-status^='Needs'] { --s: var(--needs); --s-bg: var(--needs-bg); --f: var(--needs-fill); }
+  [data-status='Blocked'] { --s: var(--blocked); --s-bg: var(--blocked-bg); }
+  [data-status='Not applicable'] { --s: var(--na); --s-bg: var(--na-bg); }
+  [data-status='Already evidenced'] { --s: var(--evidenced); --s-bg: var(--evidenced-bg); }
+  [data-status='Not assessed'] { --s: var(--none); --s-bg: var(--none-bg); }
+  .prio { display: inline-block; padding: 1px 7px; border-radius: 6px; font-size: 11.5px; font-weight: 700; border: 1px solid var(--rule); color: var(--muted); }
+  .prio[data-p='High'] { color: var(--fail); border-color: color-mix(in srgb, var(--fail) 35%, transparent); }
+  .prio[data-p='Medium'] { color: var(--needs); border-color: color-mix(in srgb, var(--needs) 35%, transparent); }
+
+  /* -------------------------------------------------------------- overview */
+  .stats { display: flex; flex-wrap: wrap; gap: 8px; }
+  .stat { display: inline-flex; align-items: baseline; gap: 8px; padding: 8px 14px; border-radius: 12px; background: var(--surface); border: 1px solid var(--rule); border-left: 4px solid var(--f, var(--s)); cursor: pointer; }
+  .stat:hover { border-color: var(--rule-strong); border-left-color: var(--s); }
+  .stat b { font-size: 22px; line-height: 1; letter-spacing: -.02em; color: var(--s); }
+  .stat[data-status='Not assessed'] b, .stat[data-status='Not applicable'] b { color: var(--text); }
+  .stat span { font-weight: 600; font-size: 13.5px; color: var(--muted); white-space: nowrap; }
+  table.summary { width: 100%; border-collapse: collapse; font-size: 14px; }
+  table.summary th, table.summary td { padding: 11px 14px; text-align: right; border-bottom: 1px solid var(--rule); font-variant-numeric: tabular-nums; }
+  table.summary th:first-child, table.summary td:first-child { text-align: left; }
+  table.summary thead th { font-size: 13px; color: var(--text); font-weight: 700; background: var(--surface-2); }
+  table.summary thead th:first-child { border-top-left-radius: 10px; }
+  table.summary thead th:last-child { border-top-right-radius: 10px; }
+  table.summary td:first-child { font-weight: 600; }
+  table.summary td[data-status] { color: var(--s); font-weight: 700; font-size: 15px; }
+  table.summary td[data-status^='Needs'] { color: var(--needs-number); }
+  table.summary td[data-status].zero { color: var(--faint); font-weight: 400; }
+  table.summary tr.overall td { font-weight: 800; font-size: 19px; border-bottom: 0; background: var(--surface-2); }
+  table.summary tr.overall td:first-child { font-size: 14px; }
+  table.summary .num { border: 0; padding: 2px 6px; margin: -2px -6px; border-radius: 6px; background: none; color: inherit; font: inherit; cursor: pointer; text-decoration: underline; text-decoration-color: transparent; text-underline-offset: 3px; }
+  table.summary .num:hover, table.summary .num:focus-visible { background: var(--s-bg); text-decoration-color: currentColor; }
+  .table-card { padding: 4px 6px; overflow-x: auto; }
+  .card { background: var(--surface); border: 1px solid var(--rule); border-radius: 14px; padding: 18px; box-shadow: var(--shadow); }
+  .split { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media (max-width: 860px) { .split { grid-template-columns: 1fr; } }
+  .bar-row { margin-top: 14px; }
+  .bar-head { display: flex; justify-content: space-between; gap: 10px; font-size: 14px; }
+  .bar-head b { font-weight: 700; }
+  .stack { display: flex; height: 14px; margin-top: 7px; border-radius: 99px; background: var(--surface-2); border: 1px solid var(--rule); }
+  .stack span { position: relative; display: block; height: 100%; background: var(--f, var(--s)); cursor: default; }
+  .stack span:first-child { border-radius: 99px 0 0 99px; }
+  .stack span:last-child { border-radius: 0 99px 99px 0; }
+  .stack span:only-child { border-radius: 99px; }
+  .stack span:hover, .stack span:focus-visible { filter: brightness(1.12); }
+  .stack span::after { content: attr(data-tip); position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%); padding: 5px 9px; border-radius: 7px; background: var(--text); color: var(--bg); font-size: 12.5px; font-weight: 700; white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity .15s; z-index: 2; }
+  .stack span:hover::after, .stack span:focus-visible::after { opacity: 1; }
+  .bar-counts { margin-top: 6px; font-size: 12.5px; color: var(--muted); }
+  .legend { display: flex; flex-wrap: wrap; gap: 6px 14px; margin-top: 14px; font-size: 13px; color: var(--muted); }
+  .legend span { display: inline-flex; align-items: center; gap: 6px; }
+  .legend span::before { content: ''; width: 9px; height: 9px; border-radius: 3px; background: var(--f, var(--s)); }
+  .owner-list { list-style: none; margin: 8px 0 0; padding: 0; }
+  .owner-list li { display: flex; justify-content: space-between; gap: 12px; padding: 9px 0; border-top: 1px solid var(--rule); font-size: 14px; }
+  .owner-list li:first-child { border-top: 0; }
+  .callout { display: flex; gap: 12px; padding: 14px 16px; border-radius: 12px; background: var(--accent-soft); border: 1px solid color-mix(in srgb, var(--accent) 25%, transparent); font-size: 14px; }
+  .callout svg { flex: none; margin-top: 2px; color: var(--accent-strong); }
+  :root[data-theme='dark'] .callout svg { color: var(--accent); }
+
+  /* ----------------------------------------------------------------- about */
+  .about-grid { display: grid; grid-template-columns: 1.15fr .85fr; gap: 16px; align-items: start; }
+  @media (max-width: 900px) { .about-grid { grid-template-columns: 1fr; } }
+  .bullets { margin: 6px 0 0; padding-left: 20px; }
+  .bullets li { margin: 6px 0; }
+  .bullets li::marker { color: var(--accent); }
+  .steps { list-style: none; display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 10px 0 0; padding: 0; counter-reset: s; }
+  @media (max-width: 760px) { .steps { grid-template-columns: 1fr 1fr; } }
+  .steps li { position: relative; padding: 14px; border-radius: 12px; background: var(--surface); border: 1px solid var(--rule); counter-increment: s; font-size: 14px; }
+  .steps li::before { content: counter(s); display: grid; place-items: center; width: 26px; height: 26px; margin-bottom: 8px; border-radius: 99px; background: var(--accent); color: var(--on-accent); font-weight: 800; font-size: 13px; }
+  .steps b { display: block; }
+  .status-key { display: grid; gap: 8px; margin: 10px 0 0; }
+  .status-key div { display: grid; grid-template-columns: 170px 1fr; gap: 10px; align-items: center; font-size: 14px; }
+  @media (max-width: 560px) { .status-key div { grid-template-columns: 1fr; gap: 3px; } }
+  .simple { width: 100%; border-collapse: collapse; font-size: 14px; }
+  .simple th { text-align: left; font-size: 13px; color: var(--text); font-weight: 700; padding: 10px; border-bottom: 1px solid var(--rule-strong); }
+  .simple td { padding: 9px 10px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+  .simple tr:last-child td { border-bottom: 0; }
+
+  /* ------------------------------------------------------------ checklists */
+  .toolbar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 4px 0 14px; }
+  .search { flex: 1 1 240px; display: flex; align-items: center; gap: 8px; height: 40px; padding: 0 12px; border-radius: 10px; border: 1px solid var(--rule); background: var(--surface); }
+  .search input { flex: 1; min-width: 0; border: 0; outline: 0; background: none; }
+  .select { height: 40px; padding: 0 10px; border-radius: 10px; border: 1px solid var(--rule); background: var(--surface); }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
+  .seg { display: inline-flex; padding: 3px; border-radius: 11px; border: 1px solid var(--rule); background: var(--surface); }
+  .seg button { display: inline-flex; align-items: center; gap: 7px; height: 32px; padding: 0 12px; border: 0; border-radius: 8px; background: none; font-weight: 600; font-size: 13.5px; color: var(--muted); cursor: pointer; }
+  .seg svg.i { width: 16px; height: 16px; }
+  .seg button[aria-pressed='true'] { background: var(--accent); color: var(--on-accent); }
+  .warn-tag { font-size: 12px; font-weight: 700; color: var(--needs); white-space: nowrap; }
+  .table-wrap { border: 1px solid var(--rule); border-radius: 14px; background: var(--surface); overflow-x: auto; box-shadow: var(--shadow); }
+  table.checks { width: 100%; min-width: 1080px; border-collapse: collapse; table-layout: fixed; font-size: 13.5px; }
+  table.checks th { position: sticky; top: 0; text-align: left; padding: 11px 12px; font-size: 13px; font-weight: 700; color: var(--text); background: var(--surface-2); border-bottom: 1px solid var(--rule-strong); }
+  table.checks td { padding: 12px; border-top: 1px solid var(--rule); vertical-align: top; }
+  table.checks tbody tr:hover td { background: color-mix(in srgb, var(--surface-2) 60%, transparent); }
+  table.checks .item-title { font-size: 14px; }
+  table.checks tr:first-child td { border-top: 0; }
+  table.checks td:first-child { box-shadow: inset 4px 0 0 var(--f, var(--s)); }
+  table.checks tr[data-status='Not assessed'] td:first-child { box-shadow: inset 4px 0 0 var(--rule); }
+  table.checks select { width: 100%; padding: 6px 8px; border-radius: 8px; border: 1px solid transparent; background-color: transparent; font-size: 13px; color: var(--text); cursor: pointer; }
+  table.checks select:hover, table.checks select:focus-visible { border-color: var(--rule-strong); background-color: var(--surface); }
+  table.checks select option { background: var(--surface); color: var(--text); }
+  table.checks tbody tr:hover td { background: var(--surface-2); }
+  table.checks select.status-select { font-weight: 700; color: var(--s); background: var(--s-bg); border-color: color-mix(in srgb, var(--s) 30%, transparent); }
+  table.checks .notes { display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; color: var(--muted); }
+  table.checks .ev a { display: inline-block; margin: 0 4px 4px 0; padding: 1px 7px; border-radius: 6px; border: 1px solid var(--rule); color: var(--text); text-decoration: none; font-size: 12px; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; vertical-align: top; }
+  table.checks .ev a:hover { border-color: var(--rule-strong); background: var(--surface-2); }
+  a.ev-result::before { content: ''; display: inline-block; width: 7px; height: 7px; margin-right: 5px; border-radius: 99px; background: var(--f, var(--s)); vertical-align: 1px; }
+  .linkish { border: 0; padding: 0; background: none; color: var(--muted); font-weight: 600; font-size: 12.5px; cursor: pointer; text-decoration: underline; text-decoration-color: var(--rule-strong); text-underline-offset: 3px; }
+  .linkish:hover { color: var(--accent-strong); text-decoration-color: currentColor; }
+  :root[data-theme='dark'] .linkish:hover { color: var(--accent); }
+  .sources { list-style: none; margin: 8px 0 0; padding: 0; display: grid; gap: 6px; }
+  .sources a { display: inline-flex; align-items: center; gap: 8px; font-weight: 600; }
+  .chip { display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px; border-radius: 99px; border: 1px solid var(--rule); background: var(--surface); font-size: 13.5px; font-weight: 600; color: var(--muted); cursor: pointer; }
+  .chip[aria-pressed='true'] { color: var(--text); border-color: var(--text); }
+  .chip .n { font-size: 12px; color: var(--faint); font-weight: 700; }
+  .group-title { display: flex; align-items: baseline; gap: 8px; margin: 24px 0 8px; font-size: 15px; font-weight: 700; color: var(--text); }
+  .group-title span { font-size: 13px; font-weight: 600; color: var(--faint); }
+  .list { border: 1px solid var(--rule); border-radius: 14px; background: var(--surface); overflow: hidden; box-shadow: var(--shadow); }
+  .item { border-top: 1px solid var(--rule); }
+  .item:first-child { border-top: 0; }
+  .item-head { display: grid; grid-template-columns: 6px 86px 1fr auto auto 24px; gap: 14px; align-items: center; width: 100%; padding: 13px 16px 13px 0; border: 0; background: none; text-align: left; cursor: pointer; }
+  .item-head:hover { background: var(--surface-2); }
+  .item-head .edge { align-self: stretch; margin: -13px 0; background: var(--f, var(--s)); opacity: .9; }
+  .item[data-status='Not assessed'] .edge { background: var(--rule); }
+  .item-title { font-weight: 600; line-height: 1.35; }
+  .item-sub { display: block; margin-top: 2px; font-weight: 400; font-size: 13px; color: var(--muted); }
+  .chev { transition: transform .2s; color: var(--faint); }
+  .item[open-state] .chev { transform: rotate(180deg); }
+  @media (max-width: 760px) {
+    .item-head { grid-template-columns: 6px 1fr auto 20px; row-gap: 4px; }
+    .item-head .id { grid-column: 2; }
+    .item-head .item-title { grid-column: 2 / 4; grid-row: 2; }
+    .item-head .owner-tag { display: none; }
+  }
+  .owner-tag { font-size: 13px; color: var(--muted); white-space: nowrap; }
+  .item-body { padding: 4px 18px 20px 26px; background: var(--surface-2); border-top: 1px dashed var(--rule); }
+  .item-body[hidden] { display: none; }
+  .fields { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 14px; }
+  @media (max-width: 760px) { .fields { grid-template-columns: 1fr; } }
+  .field label { display: block; margin-bottom: 4px; font-size: 12.5px; font-weight: 700; color: var(--muted); }
+  .field select, .field textarea { width: 100%; padding: 8px 10px; border-radius: 9px; border: 1px solid var(--rule); background: var(--surface); }
+  .field textarea { min-height: 64px; resize: vertical; }
+  .field.wide { grid-column: 1 / -1; }
+  .ref { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; margin-top: 14px; font-size: 13.5px; }
+  .ref div { padding: 10px 12px; border-radius: 10px; background: var(--surface); border: 1px solid var(--rule); }
+  .ref b { display: block; font-size: 11.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--faint); }
+  .history { list-style: none; margin: 8px 0 0; padding: 0; }
+  .history li { display: grid; grid-template-columns: 110px auto 1fr; gap: 10px; align-items: center; padding: 6px 0; font-size: 13.5px; }
+  .history time { color: var(--muted); }
+  .evidence-links { display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: center; margin-top: -4px; font-size: 13px; }
+  .evidence-links span { color: var(--muted); font-weight: 700; }
+  .evidence-links a { padding: 2px 8px; border-radius: 6px; background: var(--surface); border: 1px solid var(--rule); text-decoration: none; }
+  .empty { padding: 28px; text-align: center; color: var(--muted); }
+
+  /* --------------------------------------------------------------- dialog */
+  dialog { width: min(560px, calc(100% - 32px)); padding: 0; border: 1px solid var(--rule); border-radius: 16px; background: var(--surface); color: var(--text); box-shadow: 0 30px 80px rgba(0,0,0,.25); }
+  dialog::backdrop { background: rgba(0,0,0,.45); }
+  .dlg-head { display: flex; justify-content: space-between; align-items: center; padding: 16px 18px; border-bottom: 1px solid var(--rule); }
+  .dlg-head h2 { margin: 0; font-size: 18px; }
+  .dlg-body { display: grid; gap: 12px; padding: 18px; }
+  .dlg-body label { display: grid; gap: 4px; font-size: 13px; font-weight: 700; color: var(--muted); }
+  .dlg-body input, .dlg-body textarea { padding: 9px 11px; border-radius: 9px; border: 1px solid var(--rule); background: var(--surface-2); font-weight: 400; color: var(--text); }
+  .dlg-body .two { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .dlg-foot { display: flex; justify-content: flex-end; gap: 8px; padding: 14px 18px; border-top: 1px solid var(--rule); }
+
+  .toast { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%) translateY(20px); padding: 10px 16px; border-radius: 10px; background: var(--text); color: var(--bg); font-weight: 600; font-size: 14px; opacity: 0; pointer-events: none; transition: .25s; }
+  .toast.show { opacity: 1; transform: translateX(-50%); }
+
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto !important; } }
+  @media print {
+    .topbar, .tabs, .toolbar, .chips, .edit-link, .chev { display: none !important; }
+    .panel[hidden] { display: block !important; }
+    .item-body[hidden] { display: block !important; }
+    body { background: #fff; }
+  }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></symbol>
+  <symbol id="i-share" viewBox="0 0 24 24"><path d="M12 3v12M7 8l5-5 5 5M5 15v4a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-4"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></symbol>
+  <symbol id="i-chev" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+  <symbol id="i-list" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="4" rx="1.5"/><rect x="3" y="10" width="18" height="4" rx="1.5"/><rect x="3" y="16" width="18" height="4" rx="1.5"/></symbol>
+  <symbol id="i-table" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M3 14.5h18M9 9v11M15 9v11"/></symbol>
+</svg>
+
+<header class="topbar">
+  <div class="wrap">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">QA</span>
+      <div class="brand-text"><strong>QA Review Tracker</strong><span id="top-project"></span></div>
+    </div>
+    <div class="topbar-progress" aria-live="polite">
+      <span id="top-checked"></span>
+      <div class="meter" aria-hidden="true"><span id="top-meter"></span></div>
+    </div>
+    <button class="icon-btn" id="theme" type="button" aria-label="Switch to dark mode" title="Switch theme"><svg class="i"><use href="#i-moon"/></svg></button>
+    <div class="menu">
+      <button class="btn btn-primary" id="share-btn" type="button" aria-haspopup="true" aria-expanded="false"><svg class="i"><use href="#i-share"/></svg> Share &amp; save</button>
+      <div class="menu-list" id="share-menu" hidden>
+        <button type="button" data-act="md">Download report<small>A readable summary (.md) to send to anyone</small></button>
+        <button type="button" data-act="json">Download editable backup<small>A file (.json) someone else can import and keep editing</small></button>
+        <button type="button" data-act="import">Import a backup<small>Load a .json backup into this browser</small></button>
+      </div>
+      <input type="file" id="import-file" accept="application/json,.json" hidden />
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap">
+      <div class="eyebrow">QA Review Tracker</div>
+      <h1 id="project-name"></h1>
+      <p id="project-summary"></p>
+      <dl class="facts" id="facts"></dl>
+      <div class="edit-link"><button type="button" id="edit-project">Edit project details</button></div>
+    </div>
+  </section>
+
+  <nav class="tabs" aria-label="Tracker sections">
+    <div class="wrap" role="tablist">
+      <button class="tab" role="tab" id="tab-overview" aria-controls="panel-overview" aria-selected="true">Overview</button>
+      <button class="tab" role="tab" id="tab-manual" aria-controls="panel-manual" aria-selected="false">Manual testing <span class="count" id="count-manual"></span></button>
+      <button class="tab" role="tab" id="tab-release" aria-controls="panel-release" aria-selected="false">Release checklist <span class="count" id="count-release"></span></button>
+      <button class="tab" role="tab" id="tab-actions" aria-controls="panel-actions" aria-selected="false">To do <span class="count" id="count-actions"></span></button>
+      <button class="tab" role="tab" id="tab-about" aria-controls="panel-about" aria-selected="false">About</button>
+    </div>
+  </nav>
+
+  <!-- ABOUT ---------------------------------------------------------------->
+  <section class="panel" id="panel-about" role="tabpanel" aria-labelledby="tab-about" hidden>
+    <div class="wrap">
+      <h2>About this tracker</h2>
+      <p class="lead">A plain record of how this project has been checked before release, so anyone can see what was tested, what passed, what failed and what's still to do.</p>
+      <div class="about-grid">
+        <div>
+          <div class="card">
+            <h3 style="margin-top:0">What's being checked</h3>
+            <ul class="bullets">
+              <li><b>Manual Testing</b> (38 checks): how the site looks, works and copes: layout, forms, browsers, speed and accessibility.</li>
+              <li><b>QA Release Checklist</b> (29 checks): whether it's ready to go live: sign-offs, browsers and devices, and no serious bugs left.</li>
+              <li>Both lists come from Sage's QA checklists (Global Web Development, Confluence). Their wording is kept as written.</li>
+            </ul>
+            <ul class="sources" id="sources"></ul>
           </div>
+          <h3>How a check gets done</h3>
+          <ol class="steps">
+            <li><b>Test it</b>On the live site, at the sizes and browsers it names.</li>
+            <li><b>Record proof</b>A screenshot or note, linked in Evidence.</li>
+            <li><b>Fix if it fails</b>Change the code, push it live.</li>
+            <li><b>Re-test</b>Check again; the history keeps both results.</li>
+          </ol>
+          <h3>Saving and sharing</h3>
+          <ul class="bullets">
+            <li>Changes save automatically, <b>in this browser only</b>.</li>
+            <li>To share results, use <b>Share &amp; save → Download report</b>.</li>
+            <li>To hand over editing, send the <b>editable backup</b>; the other person imports it.</li>
+            <li>The published version only changes when the project owner updates it.</li>
+          </ul>
         </div>
-        <div class="header-actions">
-          <span id="summary-indicator" class="saved-indicator">Loading status…</span>
-          <button id="download-markdown" class="primary-button" type="button">Download report (.md)</button>
-          <button id="download-json" class="secondary-button" type="button">Download editable backup (.json)</button>
-          <button id="import-json" class="secondary-button" type="button">Import backup</button>
-          <input id="import-json-file" type="file" accept="application/json,.json" hidden />
+        <div>
+          <div class="card">
+            <h3 style="margin-top:0">What each status means</h3>
+            <div class="status-key" id="status-key"></div>
+          </div>
+          <div class="card" style="margin-top:16px">
+            <h3 style="margin-top:0">Why we QA</h3>
+            <ul class="bullets">
+              <li>We find problems before the people using it do.</li>
+              <li>It proves it works on the browsers and devices people actually use.</li>
+              <li>Sign-off is based on evidence, not on someone's say-so.</li>
+              <li>Every fix becomes a lesson, so the next project starts with fewer problems.</li>
+            </ul>
+          </div>
         </div>
       </div>
-    </header>
+      <h3>Browsers and devices to test</h3>
+      <div class="card" style="padding:6px 8px">
+        <table class="simple">
+          <thead><tr><th>Setup</th><th>Check</th><th>Who can do it</th></tr></thead>
+          <tbody id="devices"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
 
-    <main>
-      <section class="page-heading" aria-labelledby="page-title">
-        <div>
-          <p class="eyebrow">[PROJECT NAME]</p>
-          <h1 id="page-title">QA Review Tracker</h1>
-          <p><strong>Assessment date:</strong> [ASSESSMENT DATE]</p>
-          <p>Track what applies, what has been tested, the supporting evidence and what needs to happen next.</p>
+  <!-- OVERVIEW ------------------------------------------------------------->
+  <section class="panel" id="panel-overview" role="tabpanel" aria-labelledby="tab-overview">
+    <div class="wrap">
+      <h2>Where things stand</h2>
+      <p class="lead"><span id="overview-lead"></span> <button class="linkish" type="button" data-open-tab="tab-about">New here? How this tracker works</button></p>
+      <div class="card table-card"><table class="summary" id="summary-table"></table></div>
+      <div class="split" style="margin-top:14px">
+        <div class="card">
+          <h3 style="margin-top:0">Progress by checklist</h3>
+          <div id="bars"></div>
+          <div class="legend" id="legend"></div>
         </div>
-      </section>
-
-      <section class="workspace" aria-label="QA tracker">
-        <div class="tabs" role="tablist" aria-label="Tracker sections">
-          <button class="tab" id="tab-overview" role="tab" aria-selected="true" aria-controls="panel-overview">Overview</button>
-          <button class="tab" id="tab-manual" role="tab" aria-selected="false" aria-controls="panel-manual" tabindex="-1">Manual Testing <span id="manual-tab-summary"></span></button>
-          <button class="tab" id="tab-release" role="tab" aria-selected="false" aria-controls="panel-release" tabindex="-1">QA Release Checklist <span id="release-tab-summary"></span></button>
-          <button class="tab" id="tab-actions" role="tab" aria-selected="false" aria-controls="panel-actions" tabindex="-1">Outstanding Actions</button>
+        <div class="card">
+          <h3 style="margin-top:0">Still to do, by owner</h3>
+          <ul class="owner-list" id="owners"></ul>
         </div>
+      </div>
+      <div class="callout" style="margin-top:14px" id="fixed-callout"><svg class="i"><use href="#i-info"/></svg><div id="fixed-text"></div></div>
+    </div>
+  </section>
 
-        <div class="panel active" id="panel-overview" role="tabpanel" aria-labelledby="tab-overview">
-          <div class="panel-header">
-            <div>
-              <h2>At a glance</h2>
-              <p>The current status of the Manual Testing and QA Release checklists.</p>
-            </div>
-          </div>
+  <!-- CHECKLISTS ----------------------------------------------------------->
+  <section class="panel" id="panel-manual" role="tabpanel" aria-labelledby="tab-manual" hidden>
+    <div class="wrap">
+      <h2>Manual testing</h2>
+      <p class="lead">Usability, functional, compatibility, performance and accessibility checks. Open a check to update it.</p>
+      <div data-list="manual"></div>
+    </div>
+  </section>
+  <section class="panel" id="panel-release" role="tabpanel" aria-labelledby="tab-release" hidden>
+    <div class="wrap">
+      <h2>Release checklist</h2>
+      <p class="lead">What must be true before go-live: sign-offs, testing done, browsers and devices covered. Open a check to update it.</p>
+      <div data-list="release"></div>
+    </div>
+  </section>
+  <section class="panel" id="panel-actions" role="tabpanel" aria-labelledby="tab-actions" hidden>
+    <div class="wrap">
+      <h2>To do</h2>
+      <p class="lead">Everything that has failed, is blocked or needs someone, grouped by who owns it.</p>
+      <div id="actions"></div>
+    </div>
+  </section>
+</main>
 
-          <section aria-labelledby="checklist-split-title">
-            <h3 id="checklist-split-title">Checklist status</h3>
-            <div class="table-wrap"><table class="review-table status-summary-table"><thead><tr><th>Checklist</th><th>Passed</th><th>Failed</th><th>Needs Project/QA</th><th>Not applicable</th><th>Total</th></tr></thead><tbody id="checklist-split-rows"></tbody></table></div>
-          </section>
+<dialog id="project-dialog" aria-labelledby="dlg-title">
+  <form method="dialog">
+    <div class="dlg-head"><h2 id="dlg-title">Project details</h2><button class="icon-btn" value="cancel" aria-label="Close"><svg class="i"><use href="#i-x"/></svg></button></div>
+    <div class="dlg-body">
+      <label>Project name<input name="name" placeholder="e.g. MTD: The Practice Playbook" /></label>
+      <label>What it is (one line)<textarea name="summary" rows="2" placeholder="e.g. Interactive web version of the MTD playbook PDF"></textarea></label>
+      <div class="two">
+        <label>Live site<input name="liveUrl" placeholder="https://…" /></label>
+        <label>Code repository<input name="repoUrl" placeholder="https://github.com/…" /></label>
+      </div>
+      <div class="two">
+        <label>Version or commit tested<input name="version" placeholder="e.g. a0bcf5a" /></label>
+        <label>Tested by<input name="testers" placeholder="e.g. Victor, Claude, Codex" /></label>
+      </div>
+      <div class="two">
+        <label>Assessment started<input name="started" type="date" /></label>
+        <label>Project owner<input name="owner" placeholder="e.g. Victor Egunlae" /></label>
+      </div>
+    </div>
+    <div class="dlg-foot"><button class="btn" value="cancel">Cancel</button><button class="btn btn-primary" value="save" id="dlg-save">Save details</button></div>
+  </form>
+</dialog>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-          <section class="review-intro" aria-label="Current assessment">
-            <h3>Current assessment · [ASSESSMENT DATE]</h3>
-            <p id="current-assessment-counts"></p>
-            <p>Complete the checks that can be evidenced directly. Leave business decisions, unavailable browsers or devices, external integrations and formal release approval with the appropriate project or QA owner.</p>
-          </section>
-
-          <section class="save-note" aria-label="Saving and sharing">
-            <p><strong id="saved-indicator">Changes save automatically on this device.</strong></p>
-            <p>Edits in either checklist stay in this browser. Download the Markdown report to share the results, or download the JSON backup so another person can import it and continue editing.</p>
-          </section>
-
-
-
-          <section aria-labelledby="open-checklist-title">
-            <h3 id="open-checklist-title">Review or update a checklist</h3>
-            <div class="overview-grid checklist-choices">
-              <article class="guide-card"><h3>Manual Testing</h3><p>Usability, functional, compatibility, performance and accessibility checks.</p><button class="secondary-button open-tab-button" type="button" data-open-tab="tab-manual">Open Manual Testing</button></article>
-              <article class="guide-card"><h3>QA Release Checklist</h3><p>Release criteria, browser and device coverage, integrations and formal approval.</p><button class="secondary-button open-tab-button" type="button" data-open-tab="tab-release">Open QA Release Checklist</button></article>
-            </div>
-          </section>
-
-
-
-          <details class="compact-details">
-            <summary>About this checklist</summary>
-            <p>The tracker combines the supplied Manual Testing and QA Release checklists. A row is passed only when its full condition has supporting evidence. Checks that require a business decision, formal process evidence, unsupported browser, physical device, CMS access or release approval stay with Project or QA.</p>
-            <p>Changes made on this page save only in the current browser. Download the editable JSON backup and return it to the project owner or agent before expecting the official GitHub and Vercel version to change.</p>
-          </details>
-
-          <details class="compact-details">
-            <summary>View requested browsers and devices</summary>
-            <p>Browser emulation is useful preparation. Checks that name a physical device or operating system should be run on that setup or through a QA device lab.</p>
-            <div class="table-wrap"><table class="review-table device-table"><thead><tr><th>Type</th><th>Requested setup</th><th>Checklist row</th><th>Who can complete it</th></tr></thead><tbody>
-              <tr><td>Desktop browser</td><td>Microsoft Edge, latest version, on Windows 11</td><td>release-15</td><td>QA or a Windows 11 tester</td></tr>
-              <tr><td>Desktop browser</td><td>Google Chrome, latest version, on Windows 11</td><td>release-16</td><td>QA or a Windows 11 tester</td></tr>
-              <tr><td>Desktop browser</td><td>Mozilla Firefox, latest version, on Windows 11</td><td>release-17</td><td>QA or a Windows 11 tester</td></tr>
-              <tr><td>Desktop browser</td><td>Safari, latest version, on macOS</td><td>release-18</td><td>QA or a macOS tester</td></tr>
-              <tr><td>Tablet</td><td>Samsung Galaxy Tab A9+ on the latest Android version</td><td>release-19</td><td>QA or a device owner</td></tr>
-              <tr><td>Tablet</td><td>iPad 10th generation and iPad Mini 2021 on the latest iOS version</td><td>release-20</td><td>QA or a device owner</td></tr>
-              <tr class="clarify-device"><td>Mobile</td><td>iPhone 17 and “Mini” on the latest iOS version. The source does not identify which Mini model.</td><td>release-21</td><td>QA to clarify the Mini model and test both devices</td></tr>
-              <tr><td>Mobile</td><td>Samsung S25 on the latest Android version</td><td>release-22</td><td>QA or a device owner</td></tr>
-            </tbody></table></div>
-          </details>
-
-
-          <div class="legend" aria-label="Applicability key">
-            <span class="legend-item"><span class="legend-dot relevant" aria-hidden="true"></span>Relevant</span>
-            <span class="legend-item"><span class="legend-dot not-relevant" aria-hidden="true"></span>Not relevant</span>
-            <span class="legend-item"><span class="legend-dot clarify" aria-hidden="true"></span>Needs clarification</span>
-            <span class="legend-item"><span class="legend-dot review" aria-hidden="true"></span>To review</span>
-          </div>
-        </div>
-
-        <div class="panel" id="panel-manual" role="tabpanel" aria-labelledby="tab-manual" hidden>
-          <div class="panel-header">
-            <div>
-              <h2>Manual Testing</h2>
-              <p>Individual usability, functional, compatibility, performance and accessibility checks.</p>
-              <p><strong>Editable:</strong> changes here save automatically in the same local tracker as the QA Release Checklist.</p>
-              <p class="status-legend"><strong>Yellow rows:</strong> Needs Project or QA — a decision, approved baseline or external evidence is still needed. <strong>Red:</strong> failed. <strong>Green:</strong> passed.</p>
-              <p class="applies-legend"><strong>“Not relevant” in Applies?</strong> means this standalone deployment has no matching feature (for example email, uploads, CMS CRUD, external page links or server form submission). It does not mean the requirement is unimportant for a future integration.</p>
-            </div>
-            <div class="filters" aria-label="Manual testing filters">
-              <input id="manual-search" type="search" placeholder="Search checks" aria-label="Search manual testing checks" />
-              <select id="manual-priority-filter" aria-label="Filter manual testing by priority">
-                <option>All priorities</option>
-                <option>High</option>
-                <option>Medium</option>
-                <option>Low</option>
-              </select>
-              <select id="manual-status-filter" aria-label="Filter manual testing by status">
-                <option>All statuses</option>
-                <option>Not assessed</option>
-                <option>Already evidenced</option>
-                <option>Passed</option>
-                <option>Failed</option>
-                <option>Blocked</option>
-                <option>Needs Project or QA</option>
-                <option>Not applicable</option>
-              </select>
-              <select id="manual-owner-filter" aria-label="Filter manual testing by owner">
-                <option>All owners</option>
-                <option>Unassigned</option>
-                <option>Project team</option>
-                <option>CMS</option>
-                <option>QA</option>
-                <option>Business owner</option>
-                <option>Other team</option>
-              </select>
-              <select id="manual-sort" aria-label="Sort manual testing checks">
-                <option value="source">Checklist order</option>
-                <option value="priority-desc">Priority: high to low</option>
-                <option value="priority-asc">Priority: low to high</option>
-              </select>
-            </div>
-          </div>
-          <div class="table-wrap">
-            <table>
-              <thead>
-                <tr>
-                  <th>Priority</th>
-                  <th>Test type</th>
-                  <th>Summary</th>
-                  <th>Status (quick view)</th>
-                  <th>Update status</th>
-                  <th>Applies?</th>
-                  <th>Owner</th>
-                  <th>Tools or add-ons</th>
-                  <th>Standards</th>
-                  <th>Checklist notes</th>
-                  <th>Interpretation / pass condition</th>
-                  <th>Evidence</th>
-                  <th>Tester comments</th>
-                </tr>
-              </thead>
-              <tbody id="manual-checks-body"></tbody>
-            </table>
-          </div>
-        </div>
-
-        <div class="panel" id="panel-release" role="tabpanel" aria-labelledby="tab-release" hidden>
-          <div class="panel-header">
-            <div>
-              <h2>QA Release Checklist</h2>
-              <p>Entry criteria, exit criteria and sign-off criteria for the overall release.</p>
-              <p><strong>Editable:</strong> changes here save automatically in the same local tracker as Manual Testing.</p>
-              <p class="status-legend"><strong>Yellow rows:</strong> Needs Project or QA — this is awaiting release evidence or sign-off, not marked as failed. <strong>Red:</strong> failed. <strong>Green:</strong> passed.</p>
-              <p class="applies-legend"><strong>“Not relevant” in Applies?</strong> means the current standalone deployment does not include the matching release integration or workflow. The project or QA owner can change that applicability decision when the integrated scope is confirmed.</p>
-            </div>
-            <div class="filters" aria-label="QA release checklist filters">
-              <input id="release-search" type="search" placeholder="Search criteria" aria-label="Search QA release checklist" />
-              <select id="release-stage-filter" aria-label="Filter QA release checklist by stage">
-                <option>All stages</option>
-                <option>Entry criteria</option>
-                <option>Exit criteria</option>
-                <option>Compatibility: browsers</option>
-                <option>Compatibility: tablets</option>
-                <option>Compatibility: mobile</option>
-                <option>Responsive testing</option>
-                <option>Sign-off criteria</option>
-              </select>
-              <select id="release-status-filter" aria-label="Filter QA release checklist by status">
-                <option>All statuses</option>
-                <option>Not assessed</option>
-                <option>Already evidenced</option>
-                <option>Passed</option>
-                <option>Failed</option>
-                <option>Blocked</option>
-                <option>Needs Project or QA</option>
-                <option>Not applicable</option>
-              </select>
-              <select id="release-owner-filter" aria-label="Filter QA release checklist by owner">
-                <option>All owners</option>
-                <option>Unassigned</option>
-                <option>Project team</option>
-                <option>CMS</option>
-                <option>QA</option>
-                <option>Business owner</option>
-                <option>Other team</option>
-              </select>
-            </div>
-          </div>
-          <div class="table-wrap">
-            <table>
-              <thead>
-                <tr>
-                  <th>Stage</th>
-                  <th>Criterion</th>
-                  <th>Status (quick view)</th>
-                  <th>Update status</th>
-                  <th>Applies?</th>
-                  <th>Owner</th>
-                  <th>Interpretation / pass condition</th>
-                  <th>Evidence</th>
-                  <th>Tester comments</th>
-                </tr>
-              </thead>
-              <tbody id="release-checks-body"></tbody>
-            </table>
-          </div>
-        </div>
-
-        <div class="panel" id="panel-actions" role="tabpanel" aria-labelledby="tab-actions" hidden>
-          <div class="panel-header">
-            <div>
-              <h2>Outstanding Actions</h2>
-              <p>Work queue for failed, blocked, not-assessed and Needs Project or QA rows. It tells you what still needs action; it is not a list of additional failures.</p>
-            </div>
-            <div class="filters" aria-label="Outstanding action filters">
-              <input id="actions-search" type="search" placeholder="Search actions" aria-label="Search outstanding actions" />
-              <select id="actions-owner-filter" aria-label="Filter outstanding actions by owner">
-                <option>All owners</option>
-                <option>Unassigned</option>
-                <option>Project team</option>
-                <option>CMS</option>
-                <option>QA</option>
-                <option>Business owner</option>
-                <option>Other team</option>
-              </select>
-            </div>
-          </div>
-          <div class="table-wrap">
-            <table>
-              <thead>
-                <tr>
-                  <th>Action</th>
-                  <th>Source</th>
-                  <th>Priority</th>
-                  <th>Owner</th>
-                  <th>Status</th>
-                  <th>Evidence needed</th>
-                  <th>Comments</th>
-                </tr>
-              </thead>
-              <tbody id="outstanding-actions-body">
-                <tr>
-                  <td class="empty-cell" colspan="7">
-                    <div class="empty-state">
-                      <div class="empty-icon" aria-hidden="true">0</div>
-                      <strong>No outstanding actions</strong>
-                      <p>Actions will be generated from checks that are missing, failed, blocked or awaiting a decision.</p>
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </section>
-    </main>
-
-    <script src="/review-tracker/template/tracker.js"></script>
-  </body>
+<script src="tracker.js"></script>
+</body>
 </html>

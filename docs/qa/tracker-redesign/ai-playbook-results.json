@@ -1,0 +1,1101 @@
+{
+ "current": {
+  "manual-01": {
+   "applies": "Relevant",
+   "status": "Passed",
+   "owner": "Victor / Playbook",
+   "evidence": "docs/qa/evidence/row-audit/matrix.json; docs/qa/evidence/row-audit/batch-7.md; docs/qa/evidence/row-audit/2026-09-23-self-checks.md",
+   "comments": "23 Sep 2026: All 63 default pages were measured at 320, 767, 768, 1080 and 1920px with no root horizontal overflow. The repaired populated pricing view was then rechecked at exactly 320px.",
+   "interpretation": "Only show scrolling where content requires it. No unintended horizontal scrollbar or trapped internal scrolling."
+  },
+  "manual-02": {
+   "applies": "Relevant",
+   "status": "Passed",
+   "owner": "Victor / Playbook",
+   "evidence": "docs/qa/evidence/row-audit/pricing-320-overlap.png; docs/qa/evidence/row-audit/batch-7.md",
+   "comments": "18 Sep 2026: User review confirms the spacing criterion passes. Earlier 320px pricing evidence recorded cramped controls, so that narrower-layout observation remains a follow-up for manual-28/release-26; this row is marked passed by the current review decision.",
+   "interpretation": "Labels, fields, rows and error messages have consistent spacing and do not overlap or appear cramped."
+  },
+  "manual-03": {
+   "applies": "Relevant",
+   "status": "Passed",
+   "owner": "Victor / Playbook",
+   "evidence": "docs/qa/evidence/row-audit/glossary-1080-overflow.png; docs/qa/evidence/row-audit/pricing-320-overlap.png",
+   "comments": "23 Sep 2026: fixed the glossary grid breakpoint and added containment and word-wrapping safeguards. Local rendered glossary and production build verified; headings and definitions remain within the content panel.",
+   "interpretation": "Text follows the intended page grid and component alignment. Deliberate exceptions are visually consistent."
+  },
+  "manual-04": {
+   "applies": "Relevant",
+   "status": "Passed",
+   "owner": "Victor / Playbook",
+   "evidence": "docs/qa/evidence/row-audit/matrix.json; docs/qa/evidence/row-audit/glossary-1080-overflow.png",
+   "comments": "23 Sep 2026: the identified glossary containment failure is fixed by moving the split layout to the wider breakpoint and wrapping long content. The local build passed and the affected page was rechecked.",
+   "interpretation": "At every required width, content remains readable and usable with no clipping or unintended horizontal overflow."
+  },
+  "manual-05": {
+   "applies": "Relevant",
+   "status": "Needs Sage or QA",
+   "owner": "Business owner",
+   "evidence": "docs/qa/evidence/row-audit/http-checks.json; docs/qa/evidence/row-audit/batch-7.md",
+   "comments": "23 Sep 2026: removed the four broken font CDN requests and retained the established Sage family tokens using the loaded Inter family. Sage still needs to approve the final typography baseline after deployment.",
+   "interpretation": "The playbook uses a deliberate type system. Headings, body text, labels and supporting text each use consistent assigned font families, sizes and weights. They do not all need to be identical."
+  },
+  "manual-06": {
+   "applies": "Relevant",
+   "status": "Passed",
+   "owner": "Victor / Playbook",
+   "evidence": "docs/qa/evidence/row-audit/negative-pricing.txt; docs/qa/evidence/row-audit/batch-8.md",
+   "comments": "23 Sep 2026: fixed signed-number parsing and added number controls with a zero minimum and inline validation. Local retest with -6 and -3 shows Time values cannot be negative and no saving calculation.",
+   "interpretation": "Client-side validation should match agreed required fields. Server-side validation is not applicable unless the hosting or integration design introduces form submission."
+  },
+  "manual-07": {
+   "applies": "Relevant",
+   "status": "Passed",
+   "owner": "Victor / Playbook",
+   "evidence": "docs/qa/evidence/row-audit/batch-6.md; docs/qa/evidence/row-audit/http-checks.json",
+   "comments": "23 Sep 2026: deployed JavaScript and CSS return 200 and the old broken font host is absent from production CSS. The four recorded font 404 requests are resolved.",
+   "interpretation": "All rendered links and resources load successfully, with no missing images, stylesheet failures or script errors."
+  },
+  "manual-08": {
+   "applies": "Needs clarification",
+   "status": "Needs Sage or QA",
+   "owner": "Business owner",
+   "evidence": "docs/qa/evidence/row-audit/workflow-gate.txt; docs/qa/evidence/row-audit/batch-8.md",
+   "comments": "23 Sep 2026: the three-workflow gate is now consistent and locally verified. Business owner must still define which other responses are mandatory and their acceptance rules.",
+   "interpretation": "Every field agreed as mandatory rejects invalid or empty input and provides a clear error message."
+  },
+  "manual-09": {
+   "applies": "Relevant",
+   "status": "Needs Sage or QA",
+   "owner": "CMS",
+   "evidence": "docs/qa/evidence/row-audit/batch-8.md; docs/qa/evidence/row-audit/spec-fields.json; docs/qa/evidence/row-audit/summary-editors.jsonl",
+   "comments": "Front-end accent corpus retained in default text fields, all 11 spec fields, 15 pricing fields, 16 tool fields, 24 prompt variables and all 39 available summary editors. Page Editor is unavailable and cannot be signed off from this standalone deployment.",
+   "interpretation": "Accented characters render and persist without corruption in all relevant content and input fields."
+  },
+  "manual-10": {
+   "applies": "Relevant",
+   "status": "Passed",
+   "owner": "Victor / Playbook",
+   "evidence": "docs/qa/evidence/row-audit/input-cases.json; docs/qa/evidence/row-audit/input-observations-supplement.json; docs/qa/evidence/row-audit/batch-8.md",
+   "comments": "9–10 Sep 2026: optional text fields accepted keyboard clearing without native required errors. Source and expanded field inventories show no required attributes; summary/spec/prompt optional fields remain usable. Blank tool name reverts to its default without an error. This does not approve mandatory-field policy.",
+   "interpretation": "Fields defined as optional can be left empty without showing a required-field error."
+  },
+  "manual-11": {
+   "applies": "Needs clarification",
+   "status": "Needs Sage or QA",
+   "owner": "Business owner",
+   "evidence": "docs/qa/evidence/row-audit/leap-date-valid.txt; docs/qa/evidence/row-audit/leap-date-invalid.txt",
+   "comments": "Audit correction: there IS a free-text DATE placeholder in the prompt library. Both 2028-02-29 and invalid 2027-02-29 are accepted as literal template text. No date validation/calculation runs; Sage must confirm whether this free-form template needs calendar validation.",
+   "interpretation": "Only applicable if the experience introduces date entry or date calculations."
+  },
+  "manual-12": {
+   "applies": "Relevant",
+   "status": "Passed",
+   "owner": "Victor / Playbook",
+   "evidence": "docs/qa/evidence/row-audit/negative-pricing.txt; docs/qa/evidence/row-audit/negative-pricing.png",
+   "comments": "23 Sep 2026: pricing fields now use numeric controls and signed parsing. Negative values show an inline error and do not produce a reduction; time with AI above time today is also rejected.",
+   "interpretation": "Numeric controls reject or safely constrain values outside their agreed range."
+  },
+  "manual-13": {
+   "applies": "Relevant",
+   "status": "Passed",
+   "owner": "Victor / Playbook",
+   "evidence": "docs/qa/evidence/row-audit/certificate-truncation.json; docs/qa/evidence/row-audit/certificate-truncation.png",
+   "comments": "23 Sep 2026: certificate names now have a visible 100-character limit and generated markup preserves every wrapped line. The 83-character reproduction retains every word including LASTTOKEN in the preview and markup test.",
+   "interpretation": "Long input remains usable, is stored safely and is not silently truncated in the interface or output."
+  },
+  "manual-14": {
+   "applies": "Relevant",
+   "status": "Passed",
+   "owner": "Victor / Playbook",
+   "evidence": "docs/qa/evidence/row-audit/prompt-clear.txt; docs/qa/evidence/row-audit/batch-8.md",
+   "comments": "23 Sep 2026: page 31 now announces Prompt cleared in an accessible live status after Clear completes. Verified in the local rendered build.",
+   "interpretation": "Explicit local updates and deletions provide accurate confirmation."
+  },
+  "manual-15": {
+   "applies": "Relevant",
+   "status": "Passed",
+   "owner": "Victor / Playbook",
+   "evidence": "docs/qa/evidence/row-audit/batch-8.md; docs/qa/evidence/row-audit/input-observations-supplement.json; docs/qa/evidence/row-audit/summary-editors.jsonl; docs/qa/evidence/row-audit/prompt-variables.json",
+   "comments": "9–10 Sep 2026: accented characters, punctuation, quotes, backslash and literal script-like text tested through every default editable text control, expanded spec/pricing/tool/prompt groups and all 39 available summary editors. Values retained literally and persisted/reopened. Fixed-choice controls do not accept arbitrary text. This is the specified character test, not a penetration-test sign-off.",
+   "interpretation": "Common punctuation, accented characters and HTML-like text are accepted or safely rejected without corruption or code execution."
+  },
+  "manual-16": {
+   "applies": "Relevant",
+   "status": "Passed",
+   "owner": "Victor / Playbook",
+   "evidence": "docs/qa/evidence/row-audit/glossary-filter-selected.txt; docs/qa/evidence/row-audit/batch-8.md",
+   "comments": "23 Sep 2026: fixed stale glossary selection. Filtering for audit trail now leaves AI Audit Trail in the list and updates the definition panel to AI Audit Trail. Clear and no-results behaviour remain intact.",
+   "interpretation": "Sorting and filters return accurate results, update predictably and can be cleared."
+  },
+  "manual-17": {
+   "applies": "Relevant",
+   "status": "Passed",
+   "owner": "Victor / Playbook",
+   "evidence": "docs/qa/evidence/row-audit/pagespeed-console.txt; docs/qa/evidence/row-audit/batch-6.md",
+   "comments": "23 Sep 2026: deployed browser check returned no console warnings or errors after the broken font requests were removed.",
+   "interpretation": "Normal journeys complete without errors in the browser console."
+  },
+  "manual-18": {
+   "applies": "Relevant",
+   "status": "Passed",
+   "owner": "Victor / Playbook",
+   "evidence": "docs/qa/evidence/row-audit/workflow-gate.txt; docs/qa/evidence/row-audit/batch-8.md",
+   "comments": "23 Sep 2026: every route into workflow scoring now requires at least three workflows. With one workflow, both Score each and Next remain disabled in the local rendered retest.",
+   "interpretation": "Every visible button performs the intended action and disabled or hidden states occur only under the agreed conditions."
+  },
+  "manual-19": {
+   "applies": "Relevant",
+   "status": "Passed",
+   "owner": "Victor / Playbook",
+   "evidence": "docs/qa/evidence/row-audit/http-checks.json",
+   "comments": "23 Sep 2026: deployed invalid route returned the branded AI Playbook Page not found experience with HTTP 404.",
+   "interpretation": "Invalid application routes must show a custom error page. A generic hosting response is insufficient without an explicit Sage waiver."
+  },
+  "manual-20": {
+   "applies": "Not relevant",
+   "status": "Not applicable",
+   "owner": "Victor / Playbook",
+   "evidence": "docs/qa/evidence/row-audit/matrix.json; docs/qa/evidence/row-audit/batch-8.md",
+   "comments": "9–10 Sep 2026: no uploaded-document feature or uploaded-document links in rendered page inventory/source. Generated certificate and summary output are covered by manual-21.",
+   "interpretation": ""
+  },
+  "manual-21": {
+   "applies": "Relevant",
+   "status": "Passed",
+   "owner": "Victor / Playbook",
+   "evidence": "docs/qa/evidence/row-audit/batch-8.md; docs/qa/evidence/row-audit/2026-09-23-self-checks.md",
+   "comments": "23 Sep 2026: The current deployment opened the certificate print/save flow successfully. The maintained controller tests also confirm the print document is written and invoked, including blocked-popup handling.",
+   "interpretation": "The available certificate output opens and can be printed or saved through the browser."
+  },
+  "manual-22": {
+   "applies": "Not relevant",
+   "status": "Not applicable",
+   "owner": "Victor / Playbook",
+   "evidence": "docs/qa/evidence/row-audit/batch-8.md",
+   "comments": "9–10 Sep 2026: no email submission integration exists. Prompt examples containing email text are local templates, not an email-sending feature.",
+   "interpretation": ""
+  },
+  "manual-23": {
+   "applies": "Needs clarification",
+   "status": "Needs Sage or QA",
+   "owner": "Business owner",
+   "evidence": "docs/qa/evidence/row-audit/batch-8.md",
+   "comments": "No server form submission. Activities auto-save and accept blank optional fields; business owner must decide whether any answer is mandatory before completion/output.",
+   "interpretation": "At least one response is required only if the agreed business requirements define the activity as mandatory."
+  },
+  "manual-24": {
+   "applies": "Not relevant",
+   "status": "Not applicable",
+   "owner": "Victor / Playbook",
+   "evidence": "docs/qa/evidence/row-audit/matrix.json; docs/qa/evidence/row-audit/batch-8.md",
+   "comments": "9–10 Sep 2026: no external page-link controls found in all 63 default page DOM inventories or app source. Runtime font/analytics URLs are resources, not external page links.",
+   "interpretation": ""
+  },
+  "manual-25": {
+   "applies": "Not relevant",
+   "status": "Not applicable",
+   "owner": "CMS",
+   "evidence": "docs/qa/evidence/row-audit/batch-8.md",
+   "comments": "Standalone Vercel experience has no CMS/Page Editor component CRUD/publishing. Future Sage integration remains explicitly open in release-04/28 and manual-09.",
+   "interpretation": ""
+  },
+  "manual-26": {
+   "applies": "Relevant",
+   "status": "Passed",
+   "owner": "Victor / Playbook",
+   "evidence": "docs/qa/evidence/row-audit/glossary-filter-selected.txt; docs/qa/evidence/row-audit/summary-after-reload.txt",
+   "comments": "23 Sep 2026: glossary retrieval now selects the first matching filtered term rather than retaining a hidden stale definition. Local retest returns AI Audit Trail consistently in both list and detail.",
+   "interpretation": "Local glossary, workflow and activity-summary retrieval displays the correct selected/saved data."
+  },
+  "manual-27": {
+   "applies": "Relevant",
+   "status": "Passed",
+   "owner": "Victor / Playbook",
+   "evidence": "docs/qa/evidence/row-audit/glossary-filter-selected.txt; docs/qa/evidence/row-audit/batch-8.md",
+   "comments": "23 Sep 2026: glossary search now keeps results and the displayed definition in sync. Filtering for audit trail returns and displays AI Audit Trail; no-results and clearing remain predictable.",
+   "interpretation": "Search returns the expected matching playbook content and empty or cleared searches behave predictably."
+  },
+  "manual-28": {
+   "applies": "Relevant",
+   "status": "Passed",
+   "owner": "Victor / Playbook",
+   "evidence": "docs/qa/evidence/row-audit/matrix.json; docs/qa/evidence/row-audit/batch-7.md; docs/qa/evidence/row-audit/2026-09-23-self-checks.md",
+   "comments": "23 Sep 2026: Portrait and landscape viewport simulations were repeated across the required widths. The repaired 320px pricing layout and 1080px glossary remained readable and operable without clipping.",
+   "interpretation": "Required portrait, landscape and viewport sizes remain readable and operable without clipping or overlap."
+  },
+  "manual-29": {
+   "applies": "Relevant",
+   "status": "Needs Sage or QA",
+   "owner": "QA",
+   "evidence": "docs/qa/evidence/row-audit/batch-7.md",
+   "comments": "Partial: in-app Chromium only. Chrome and Edge installed but CUA reports both unavailable; no Firefox or Apple/Android device connected. No browsers installed. Physical portrait/landscape and latest-version certification remain QA work.",
+   "interpretation": "The supported browser and device matrix renders and behaves consistently. Missing browsers or physical devices are recorded for manual testing."
+  },
+  "manual-30": {
+   "applies": "Needs clarification",
+   "status": "Needs Sage or QA",
+   "owner": "Business owner",
+   "evidence": "docs/qa/evidence/row-audit/batch-8.md",
+   "comments": "23 Sep 2026: negative pricing and workflow-gate errors are fixed locally. Storage failure feedback is implemented and awaits the controlled deployed retest; the complete expected-error catalogue still requires agreement.",
+   "interpretation": ""
+  },
+  "manual-31": {
+   "applies": "Not relevant",
+   "status": "Not applicable",
+   "owner": "Victor / Playbook",
+   "evidence": "docs/qa/evidence/row-audit/batch-8.md",
+   "comments": "No form-submit endpoint exists. Local Add/Save/clear actions are covered under manual-14/18/32; source row's repeated form submission is not a backend scenario in this deployment.",
+   "interpretation": ""
+  },
+  "manual-32": {
+   "applies": "Relevant",
+   "status": "Passed",
+   "owner": "Victor / Playbook",
+   "evidence": "docs/qa/evidence/row-audit/batch-8.md; docs/qa/evidence/row-audit/input-observations-supplement.json; docs/qa/evidence/row-audit/2026-09-23-self-checks.md",
+   "comments": "23 Sep 2026: Varied valid, invalid, long, accented and HTML-like inputs were exercised across pricing, certificate, glossary and workflow outputs; current outputs update without stale or executable content.",
+   "interpretation": "Different valid inputs produce the expected saved state, summary or output without stale data."
+  },
+  "manual-33": {
+   "applies": "Relevant",
+   "status": "Passed",
+   "owner": "Victor / Playbook",
+   "evidence": "docs/qa/evidence/row-audit/quota-false-save.txt; docs/qa/evidence/row-audit/quota-after-reload.txt; docs/qa/evidence/row-audit/quota-false-save.png; docs/qa/evidence/row-audit/2026-09-23-self-checks.md",
+   "comments": "23 Sep 2026: A controlled QuotaExceededError was run against the current deployment. The app showed an explicit alert that the latest change could not be saved and did not claim success.",
+   "interpretation": "Controlled storage-quota failure preserves existing answers and gives truthful save feedback; do not fill the real filesystem."
+  },
+  "manual-34": {
+   "applies": "Not relevant",
+   "status": "Not applicable",
+   "owner": "Victor / Playbook",
+   "evidence": "docs/qa/evidence/row-audit/batch-8.md",
+   "comments": "No submitted forms/endpoints. Repeated empty local edits are separate from source row's blank form submission; optional clearing and workflow gates were tested.",
+   "interpretation": ""
+  },
+  "manual-35": {
+   "applies": "Relevant",
+   "status": "Passed",
+   "owner": "Victor / Playbook",
+   "evidence": "docs/qa/evidence/row-audit/http-checks.json",
+   "comments": "2026-09-09: invalid route safely returns HTTP 404. Custom presentation separately fails manual-19.",
+   "interpretation": "Request a harmless invalid route; it returns an error rather than crashing the application or exposing data."
+  },
+  "manual-36": {
+   "applies": "Needs clarification",
+   "status": "Needs Sage or QA",
+   "owner": "Business owner",
+   "evidence": "docs/qa/evidence/row-audit/batch-8.md",
+   "comments": "Literal altered/special strings retained safely in tested controls. Application intentionally lacks general validation messaging; Sage must define which altered-string states should produce messages.",
+   "interpretation": ""
+  },
+  "manual-37": {
+   "applies": "Relevant",
+   "status": "Passed",
+   "owner": "Victor / Playbook",
+   "evidence": "docs/qa/evidence/row-audit/pagespeed-mobile.txt; docs/qa/evidence/row-audit/pagespeed-desktop.txt; docs/qa/evidence/row-audit/batch-6.md",
+   "comments": "2026-09-09 23:42 BST: Google PageSpeed web report completed after API 429. Performance 70 mobile / 90 desktop; LCP 11.3s / 2.0s; image savings ~1.4MiB, unused JS ~126KiB. Source asks to run the checker, not achieve a threshold. Scope: initial cover only.",
+   "interpretation": "Run Google PageSpeed and record mobile/desktop findings and performance improvements. A run does not constitute release performance approval."
+  },
+  "manual-38": {
+   "applies": "Relevant",
+   "status": "Passed",
+   "owner": "Victor / Playbook",
+   "evidence": "docs/qa/evidence/row-audit/pagespeed-mobile.txt; docs/qa/evidence/row-audit/pagespeed-desktop.txt; docs/qa/evidence/row-audit/batch-6.md",
+   "comments": "2026-09-09: Lighthouse 13.4.1 via Google PageSpeed returned Accessibility 100 on mobile and desktop cover. Ten manual checks remain outside automation; keyboard, screen reader and every interactive state still require broader QA.",
+   "interpretation": "Run Lighthouse Accessibility, retain results and identify follow-up work. This is the source row's tool-run requirement, not an all-page WCAG or screen-reader certification."
+  },
+  "release-01": {
+   "applies": "Relevant",
+   "status": "Needs Sage or QA",
+   "owner": "Business owner",
+   "evidence": "docs/qa/evidence/row-audit/batch-9.md; docs/qa/evidence/row-audit/checklist-runbook.md",
+   "comments": "10 Sep 2026: Obtain dated design sign-off covering the actual delivered revision. Current local reports and git merge history do not establish this formal criterion.",
+   "interpretation": ""
+  },
+  "release-02": {
+   "applies": "Relevant",
+   "status": "Needs Sage or QA",
+   "owner": "Business owner",
+   "evidence": "docs/qa/evidence/row-audit/batch-9.md; docs/qa/evidence/row-audit/checklist-runbook.md",
+   "comments": "10 Sep 2026: Obtain the locked acceptance criteria and revision/change baseline. Current local reports and git merge history do not establish this formal criterion.",
+   "interpretation": ""
+  },
+  "release-03": {
+   "applies": "Relevant",
+   "status": "Needs Sage or QA",
+   "owner": "Other Sage team",
+   "evidence": "docs/qa/evidence/row-audit/batch-9.md; docs/qa/evidence/row-audit/checklist-runbook.md",
+   "comments": "10 Sep 2026: Map each delivered user story to completed commits and peer-review approval. Current local reports and git merge history do not establish this formal criterion.",
+   "interpretation": ""
+  },
+  "release-04": {
+   "applies": "Needs clarification",
+   "status": "Needs Sage or QA",
+   "owner": "CMS",
+   "evidence": "docs/qa/evidence/row-audit/batch-9.md; docs/qa/evidence/row-audit/checklist-runbook.md",
+   "comments": "10 Sep 2026: Have CMS demonstrate the configured Sage integration environment dynamically updates a QA customer site. Current local reports and git merge history do not establish this formal criterion.",
+   "interpretation": ""
+  },
+  "release-05": {
+   "applies": "Relevant",
+   "status": "Passed",
+   "owner": "QA",
+   "evidence": "docs/qa/evidence/row-audit/checklist-runbook.md; docs/qa/evidence/row-audit/batch-9.md",
+   "comments": "10 Sep 2026: 67 distinct test cases documented and checked against both PDFs. This completes test-case documentation, not execution or acceptance-criteria sign-off.",
+   "interpretation": "All 67 source checklist cases are documented with executable procedures, expected results, owners, prerequisites and evidence requirements. External execution may await its prerequisite environment."
+  },
+  "release-06": {
+   "applies": "Relevant",
+   "status": "Needs Sage or QA",
+   "owner": "QA",
+   "evidence": "docs/qa/evidence/row-audit/batch-9.md; docs/qa/evidence/row-audit/checklist-runbook.md",
+   "comments": "10 Sep 2026: Obtain unit-test evidence and VQA completion dated before development promotion. Current local reports and git merge history do not establish this formal criterion.",
+   "interpretation": ""
+  },
+  "release-07": {
+   "applies": "Needs clarification",
+   "status": "Needs Sage or QA",
+   "owner": "Business owner",
+   "evidence": "docs/qa/evidence/row-audit/batch-9.md; docs/qa/evidence/row-audit/checklist-runbook.md",
+   "comments": "10 Sep 2026: For modified requirements, inspect updated acceptance criteria rather than only comments/designs. Current local reports and git merge history do not establish this formal criterion.",
+   "interpretation": ""
+  },
+  "release-08": {
+   "applies": "Needs clarification",
+   "status": "Needs Sage or QA",
+   "owner": "Business owner",
+   "evidence": "docs/qa/evidence/row-audit/batch-9.md; docs/qa/evidence/row-audit/checklist-runbook.md",
+   "comments": "10 Sep 2026: For new requirements, verify separate linked user stories or confirm no changes in scope. Current local reports and git merge history do not establish this formal criterion.",
+   "interpretation": ""
+  },
+  "release-09": {
+   "applies": "Needs clarification",
+   "status": "Needs Sage or QA",
+   "owner": "Business owner",
+   "evidence": "docs/qa/evidence/row-audit/batch-9.md; docs/qa/evidence/row-audit/checklist-runbook.md",
+   "comments": "10 Sep 2026: For design changes, verify the precise revised layouts/styles attached to Jira. Current local reports and git merge history do not establish this formal criterion.",
+   "interpretation": ""
+  },
+  "release-10": {
+   "applies": "Relevant",
+   "status": "Needs Sage or QA",
+   "owner": "Business owner",
+   "evidence": "docs/qa/evidence/row-audit/batch-9.md; docs/qa/evidence/row-audit/checklist-runbook.md",
+   "comments": "10 Sep 2026: Map each locked acceptance criterion to passing executed evidence. Current local reports and git merge history do not establish this formal criterion.",
+   "interpretation": ""
+  },
+  "release-11": {
+   "applies": "Relevant",
+   "status": "Needs Sage or QA",
+   "owner": "QA",
+   "evidence": "docs/qa/evidence/row-audit/batch-9.md; docs/qa/evidence/row-audit/checklist-runbook.md",
+   "comments": "10 Sep 2026: Obtain complete targeted and integrated test results, including unavailable environments. Current local reports and git merge history do not establish this formal criterion.",
+   "interpretation": ""
+  },
+  "release-12": {
+   "applies": "Needs clarification",
+   "status": "Needs Sage or QA",
+   "owner": "Other Sage team",
+   "evidence": "docs/qa/evidence/row-audit/batch-9.md; docs/qa/evidence/row-audit/checklist-runbook.md",
+   "comments": "10 Sep 2026: Verify each confirmed defect is assigned in Jira and linked to its parent story; local files alone do not satisfy this. Current local reports and git merge history do not establish this formal criterion.",
+   "interpretation": ""
+  },
+  "release-13": {
+   "applies": "Relevant",
+   "status": "Passed",
+   "owner": "Victor / Playbook",
+   "evidence": "docs/qa/evidence/row-audit/batch-6.md; docs/qa/evidence/row-audit/batch-7.md; docs/qa/evidence/row-audit/batch-8.md; docs/qa/evidence/row-audit/batch-9.md; docs/qa/evidence/row-audit/2026-09-23-self-checks.md",
+   "comments": "23 Sep 2026: All nine recorded fixes are deployed and validated: narrow pricing, glossary wrapping, negative values, font loading, certificate names, clear confirmation, workflow gating, storage failure feedback and branded 404 handling.",
+   "interpretation": ""
+  },
+  "release-14": {
+   "applies": "Relevant",
+   "status": "Passed",
+   "owner": "Victor / Playbook",
+   "evidence": "docs/qa/evidence/row-audit/batch-9.md; docs/qa/evidence/row-audit/checklist-runbook.md; docs/qa/evidence/row-audit/2026-09-23-self-checks.md",
+   "comments": "23 Sep 2026: The maintained automated suite now covers the added certificate, validation, persistence and interaction requirements. All 61 tests passed on 23 Sep 2026.",
+   "interpretation": ""
+  },
+  "release-15": {
+   "applies": "Relevant",
+   "status": "Needs Sage or QA",
+   "owner": "QA",
+   "evidence": "docs/qa/evidence/row-audit/batch-7.md",
+   "comments": "Installed Edge 152.0.4191.66; browser connector unavailable. No actual Edge run or latest-version verification claimed.",
+   "interpretation": ""
+  },
+  "release-16": {
+   "applies": "Relevant",
+   "status": "Needs Sage or QA",
+   "owner": "QA",
+   "evidence": "docs/qa/evidence/row-audit/batch-7.md",
+   "comments": "Installed Chrome 150.0.7871.125; browser connector unavailable. PageSpeed remote Chromium is not Chrome/Windows 11 compatibility evidence.",
+   "interpretation": ""
+  },
+  "release-17": {
+   "applies": "Relevant",
+   "status": "Needs Sage or QA",
+   "owner": "QA",
+   "evidence": "docs/qa/evidence/row-audit/batch-7.md",
+   "comments": "Firefox unavailable; not installed as instructed. QA must use the specified latest Firefox on Windows 11.",
+   "interpretation": ""
+  },
+  "release-18": {
+   "applies": "Relevant",
+   "status": "Needs Sage or QA",
+   "owner": "QA",
+   "evidence": "docs/qa/evidence/row-audit/batch-7.md",
+   "comments": "Safari/macOS environment unavailable. QA must test on the actual supported environment.",
+   "interpretation": ""
+  },
+  "release-19": {
+   "applies": "Relevant",
+   "status": "Needs Sage or QA",
+   "owner": "QA",
+   "evidence": "docs/qa/evidence/row-audit/batch-7.md",
+   "comments": "Galaxy Tab A9+ unavailable; CSS frame testing does not substitute for physical-device coverage.",
+   "interpretation": ""
+  },
+  "release-20": {
+   "applies": "Relevant",
+   "status": "Needs Sage or QA",
+   "owner": "QA",
+   "evidence": "docs/qa/evidence/row-audit/batch-7.md",
+   "comments": "iPad 10th generation / Mini 2021 unavailable; requires specified devices and current iOS.",
+   "interpretation": ""
+  },
+  "release-21": {
+   "applies": "Relevant",
+   "status": "Needs Sage or QA",
+   "owner": "QA",
+   "evidence": "docs/qa/evidence/row-audit/batch-7.md",
+   "comments": "Specified iPhone 17 / Mini unavailable. Preserve PDF device wording; Sage should clarify which Mini model.",
+   "interpretation": ""
+  },
+  "release-22": {
+   "applies": "Relevant",
+   "status": "Needs Sage or QA",
+   "owner": "QA",
+   "evidence": "docs/qa/evidence/row-audit/batch-7.md",
+   "comments": "Samsung S25 unavailable; latest Android and physical rotation remain QA checks.",
+   "interpretation": ""
+  },
+  "release-23": {
+   "applies": "Relevant",
+   "status": "Passed",
+   "owner": "Victor / Playbook",
+   "evidence": "docs/qa/evidence/row-audit/matrix.json; docs/qa/evidence/row-audit/batch-7.md; docs/qa/evidence/row-audit/2026-09-23-self-checks.md",
+   "comments": "23 Sep 2026: All 63 pages were rendered at 1920×1080, satisfying the 1680px-or-wider check; no root horizontal overflow was found.",
+   "interpretation": ""
+  },
+  "release-24": {
+   "applies": "Relevant",
+   "status": "Passed",
+   "owner": "Victor / Playbook",
+   "evidence": "docs/qa/evidence/row-audit/glossary-1080-overflow.png; docs/qa/evidence/row-audit/matrix.json",
+   "comments": "23 Sep 2026: fixed the page 60 grid breakpoint, minimum widths and text wrapping. The affected glossary page and local production build were rechecked successfully at desktop width.",
+   "interpretation": ""
+  },
+  "release-25": {
+   "applies": "Relevant",
+   "status": "Passed",
+   "owner": "Victor / Playbook",
+   "evidence": "docs/qa/evidence/row-audit/matrix.json; docs/qa/evidence/row-audit/batch-7.md; docs/qa/evidence/row-audit/2026-09-23-self-checks.md",
+   "comments": "23 Sep 2026: All 63 pages were rendered at 767px and 768px. Internal intentional scrolling was distinguished from root overflow, and the repaired populated states were rechecked.",
+   "interpretation": ""
+  },
+  "release-26": {
+   "applies": "Relevant",
+   "status": "Passed",
+   "owner": "Victor / Playbook",
+   "evidence": "docs/qa/evidence/row-audit/pricing-320-overlap.png; docs/qa/evidence/row-audit/matrix.json; docs/qa/evidence/row-audit/2026-09-23-self-checks.md",
+   "comments": "23 Sep 2026: All 63 pages were rendered below 767px and the repaired populated pricing page was rechecked at exactly 320px. The fields and controls now stack without the recorded overlap.",
+   "interpretation": ""
+  },
+  "release-27": {
+   "applies": "Relevant",
+   "status": "Needs Sage or QA",
+   "owner": "QA",
+   "evidence": "docs/qa/evidence/row-audit/batch-9.md; docs/qa/evidence/row-audit/checklist-runbook.md",
+   "comments": "10 Sep 2026: QA reviews severity/waivers in the formal defect register and confirms no Blocker/Critical remains. Current local reports and git merge history do not establish this formal criterion.",
+   "interpretation": ""
+  },
+  "release-28": {
+   "applies": "Needs clarification",
+   "status": "Needs Sage or QA",
+   "owner": "CMS",
+   "evidence": "docs/qa/evidence/row-audit/batch-9.md; docs/qa/evidence/row-audit/checklist-runbook.md",
+   "comments": "10 Sep 2026: Obtain regression completion for agreed Sitecore, third parties, Tealium, market-site and ecommerce scope; explicitly approve exclusions. Current local reports and git merge history do not establish this formal criterion.",
+   "interpretation": ""
+  },
+  "release-29": {
+   "applies": "Relevant",
+   "status": "Needs Sage or QA",
+   "owner": "QA",
+   "evidence": "docs/qa/evidence/row-audit/batch-9.md; docs/qa/evidence/row-audit/checklist-runbook.md",
+   "comments": "10 Sep 2026: Obtain dated formal VQA approval for the release revision. Current local reports and git merge history do not establish this formal criterion.",
+   "interpretation": ""
+  }
+ },
+ "previous": {
+  "manual-01": {
+   "applies": "Relevant",
+   "status": "Not assessed",
+   "owner": "Victor / Playbook",
+   "evidence": "tests/front-end-foundations.test.mjs; docs/accessibility/2026-08-12-accessibility-browser-qa.md; docs/qa/evidence/batch-3/2026-09-09-batch-3-structure-and-visual-foundations.md",
+   "comments": "Automated layout safeguards passed and sampled widths had no horizontal overflow, but this has not been checked across every page.",
+   "interpretation": "Only show scrolling where content requires it. No unintended horizontal scrollbar or trapped internal scrolling."
+  },
+  "manual-02": {
+   "applies": "Relevant",
+   "status": "Not assessed",
+   "owner": "Victor / Playbook",
+   "evidence": "docs/design-consistency-audit.md; tests/front-end-foundations.test.mjs",
+   "comments": "Shared spacing improvements are documented, but there is no complete visual spacing audit.",
+   "interpretation": "Labels, fields, rows and error messages have consistent spacing and do not overlap or appear cramped."
+  },
+  "manual-03": {
+   "applies": "Relevant",
+   "status": "Not assessed",
+   "owner": "Victor / Playbook",
+   "evidence": "docs/design-consistency-audit.md",
+   "comments": "Some alignment improvements are documented. All pages and states still need a visual check.",
+   "interpretation": "Text follows the intended page grid and component alignment. Deliberate exceptions are visually consistent."
+  },
+  "manual-04": {
+   "applies": "Relevant",
+   "status": "Not assessed",
+   "owner": "Victor / Playbook",
+   "evidence": "docs/qa/orbit-theme-accessibility-qa.md; docs/accessibility/2026-08-12-accessibility-browser-qa.md; docs/qa/evidence/batch-3/2026-09-09-batch-3-structure-and-visual-foundations.md",
+   "comments": "Mobile navigation and responsive foundations passed. Prior samples cover 320px, 390px, 768px, 1280px and 1440px, but the full required width and page matrix remains incomplete.",
+   "interpretation": "At every required width, content remains readable and usable with no clipping or unintended horizontal overflow."
+  },
+  "manual-05": {
+   "applies": "Relevant",
+   "status": "Not assessed",
+   "owner": "Victor / Playbook",
+   "evidence": "tests/front-end-foundations.test.mjs; src/styles/fonts.css; src/styles/theme.css; docs/qa/evidence/batch-1/2026-09-09-batch-1-technical-checks.md",
+   "comments": "The code defines a deliberate type hierarchy, but the four intended Sage font files returned 404 in production. Visual consistency still needs checking after the font issue is resolved.",
+   "interpretation": "The playbook uses a deliberate type system. Headings, body text, labels and supporting text each use consistent assigned font families, sizes and weights. They do not all need to be identical."
+  },
+  "manual-06": {
+   "applies": "Needs clarification",
+   "status": "Needs Sage or QA",
+   "owner": "Business owner",
+   "evidence": "docs/accessibility/2026-08-12-accessibility-browser-qa.md; docs/security/internal-security-review-2026-08-12.md",
+   "comments": "There is no server-side form handling. Activities save locally and empty inputs are intentionally allowed. Expected validation needs agreement.",
+   "interpretation": "Client-side validation should match agreed required fields. Server-side validation is not applicable unless the hosting or integration design introduces form submission."
+  },
+  "manual-07": {
+   "applies": "Relevant",
+   "status": "Failed",
+   "owner": "Victor / Playbook",
+   "evidence": "docs/qa/evidence/batch-1/2026-09-09-batch-1-technical-checks.md; docs/qa/evidence/batch-5/2026-09-09-batch-5-production-readiness.md",
+   "comments": "All 25 bundled application assets returned 200, but four Sage font URLs returned 404. Batch 5 also confirmed missing robots.txt and favicon resources. One external-image CSP risk needs a targeted page check.",
+   "interpretation": "All rendered links and resources load successfully, with no missing images, stylesheet failures or script errors."
+  },
+  "manual-08": {
+   "applies": "Needs clarification",
+   "status": "Needs Sage or QA",
+   "owner": "Business owner",
+   "evidence": "docs/accessibility/2026-08-12-accessibility-browser-qa.md",
+   "comments": "No fields are formally defined as mandatory. Required fields and validation rules need agreement first.",
+   "interpretation": "Every field agreed as mandatory rejects invalid or empty input and provides a clear error message."
+  },
+  "manual-09": {
+   "applies": "Relevant",
+   "status": "Not assessed",
+   "owner": "Victor / Playbook",
+   "evidence": "tests/page-content-models.test.mjs; docs/qa/evidence/batch-2/2026-09-09-batch-2-core-functional-journey.md",
+   "comments": "Accented and script-like certificate text rendered safely, but the full character set has not been checked across all relevant inputs. Page Editor is outside the standalone application.",
+   "interpretation": "Accented characters render and persist without corruption in all relevant content and input fields."
+  },
+  "manual-10": {
+   "applies": "Relevant",
+   "status": "Passed",
+   "owner": "Victor / Playbook",
+   "evidence": "docs/qa/evidence/batch-2/2026-09-09-batch-2-core-functional-journey.md",
+   "comments": "A blank optional activity remained valid and appeared as Not completed in the summary without a required-field error.",
+   "interpretation": "Fields defined as optional can be left empty without showing a required-field error."
+  },
+  "manual-11": {
+   "applies": "Not relevant",
+   "status": "Not applicable",
+   "owner": "Victor / Playbook",
+   "evidence": "src/app",
+   "comments": "The application has no date fields or date calculations.",
+   "interpretation": "Only applicable if the experience introduces date entry or date calculations."
+  },
+  "manual-12": {
+   "applies": "Relevant",
+   "status": "Already evidenced",
+   "owner": "Victor / Playbook",
+   "evidence": "tests/page-content-models.test.mjs",
+   "comments": "Negative and excessive workflow scores are tested and clamped to the permitted 1 to 5 range. Other fields are text.",
+   "interpretation": "Numeric controls reject or safely constrain values outside their agreed range."
+  },
+  "manual-13": {
+   "applies": "Relevant",
+   "status": "Not assessed",
+   "owner": "Victor / Playbook",
+   "evidence": "tests/certificate-markup.test.mjs; docs/security/internal-security-review-2026-08-12.md",
+   "comments": "Long certificate names are tested, but maximum length and truncation have not been assessed for every input.",
+   "interpretation": "Long input remains usable, is stored safely and is not silently truncated in the interface or output."
+  },
+  "manual-14": {
+   "applies": "Not relevant",
+   "status": "Not applicable",
+   "owner": "Victor / Playbook",
+   "evidence": "docs/security/internal-security-review-2026-08-12.md",
+   "comments": "The app has no server-side create, update or delete operations. Answers auto-save locally.",
+   "interpretation": "Only applicable to explicit update or delete actions that need user confirmation."
+  },
+  "manual-15": {
+   "applies": "Relevant",
+   "status": "Not assessed",
+   "owner": "Victor / Playbook",
+   "evidence": "docs/security/internal-security-review-2026-08-12.md; tests/certificate-markup.test.mjs; docs/qa/evidence/batch-2/2026-09-09-batch-2-core-functional-journey.md",
+   "comments": "A script-like certificate value remained literal text in the preview and summary. Every application input has not yet been covered.",
+   "interpretation": "Common punctuation, accented characters and HTML-like text are accepted or safely rejected without corruption or code execution."
+  },
+  "manual-16": {
+   "applies": "Relevant",
+   "status": "Passed",
+   "owner": "Victor / Playbook",
+   "evidence": "tests/page-content-models.test.mjs; docs/qa/evidence/batch-2/2026-09-09-batch-2-core-functional-journey.md",
+   "comments": "Glossary matching, no-results and clear states passed. Flashcard reveal, learned-state and progression controls also passed.",
+   "interpretation": "Sorting and filters return accurate results, update predictably and can be cleared."
+  },
+  "manual-17": {
+   "applies": "Relevant",
+   "status": "Passed",
+   "owner": "Victor / Playbook",
+   "evidence": "docs/qa/evidence/batch-1/2026-09-09-batch-1-technical-checks.md",
+   "comments": "A representative production journey covering reload, navigation and an activity produced zero console logs, warnings or errors. This is representative coverage, not a full 63-page crawl.",
+   "interpretation": "Normal journeys complete without errors in the browser console."
+  },
+  "manual-18": {
+   "applies": "Relevant",
+   "status": "Not assessed",
+   "owner": "Victor / Playbook",
+   "evidence": "tests/front-end-foundations.test.mjs; tests/playbook-journey-state.test.mjs; docs/activity-functionality-review.md; docs/qa/evidence/batch-2/2026-09-09-batch-2-core-functional-journey.md; docs/qa/evidence/batch-3/2026-09-09-batch-3-structure-and-visual-foundations.md",
+   "comments": "Representative controls and structural navigation tests passed. Every enabled, disabled and hidden state across all 63 pages has not been manually checked.",
+   "interpretation": "Every visible button performs the intended action and disabled or hidden states occur only under the agreed conditions."
+  },
+  "manual-19": {
+   "applies": "Relevant",
+   "status": "Failed",
+   "owner": "Victor / Playbook",
+   "evidence": "docs/qa/evidence/batch-1/2026-09-09-batch-1-technical-checks.md; docs/qa/evidence/batch-5/2026-09-09-batch-5-production-readiness.md",
+   "comments": "Batch 5 reconfirmed that invalid deep paths return the hosting provider's generic 404 rather than a custom application error page.",
+   "interpretation": "Invalid application routes show the agreed error experience or a documented acceptable hosting response."
+  },
+  "manual-20": {
+   "applies": "Not relevant",
+   "status": "Not applicable",
+   "owner": "Victor / Playbook",
+   "evidence": "docs/security/internal-security-review-2026-08-12.md",
+   "comments": "The application has no document-upload feature or uploaded-document links.",
+   "interpretation": ""
+  },
+  "manual-21": {
+   "applies": "Relevant",
+   "status": "Already evidenced",
+   "owner": "Victor / Playbook",
+   "evidence": "docs/activity-functionality-review.md; tests/certificate-markup.test.mjs; docs/qa/evidence/batch-2/2026-09-09-batch-2-core-functional-journey.md",
+   "comments": "The certificate preview updated correctly and automated print/download tests pass. The operating-system print/save dialogue still needs a final manual confirmation.",
+   "interpretation": "The available certificate output opens and can be printed or saved through the browser."
+  },
+  "manual-22": {
+   "applies": "Not relevant",
+   "status": "Not applicable",
+   "owner": "Victor / Playbook",
+   "evidence": "docs/security/internal-security-review-2026-08-12.md",
+   "comments": "No email integration or submission endpoint exists.",
+   "interpretation": ""
+  },
+  "manual-23": {
+   "applies": "Needs clarification",
+   "status": "Needs Sage or QA",
+   "owner": "Business owner",
+   "evidence": "docs/accessibility/2026-08-12-accessibility-browser-qa.md",
+   "comments": "Blank activities are currently permitted by design. Sage must decide whether any response is required before this can be tested.",
+   "interpretation": "At least one response is required only if the agreed business requirements define the activity as mandatory."
+  },
+  "manual-24": {
+   "applies": "Not relevant",
+   "status": "Not applicable",
+   "owner": "Victor / Playbook",
+   "evidence": "src/app",
+   "comments": "No external page-link interactions were found in the current application interface.",
+   "interpretation": ""
+  },
+  "manual-25": {
+   "applies": "Not relevant",
+   "status": "Not applicable",
+   "owner": "CMS",
+   "evidence": "docs/security/internal-security-review-2026-08-12.md",
+   "comments": "Sitecore component creation, editing, deletion and publishing are CMS integration checks rather than standalone application behaviour.",
+   "interpretation": ""
+  },
+  "manual-26": {
+   "applies": "Not relevant",
+   "status": "Not applicable",
+   "owner": "Victor / Playbook",
+   "evidence": "docs/security/internal-security-review-2026-08-12.md",
+   "comments": "The application has no backend data retrieval, Search feed or News feed.",
+   "interpretation": ""
+  },
+  "manual-27": {
+   "applies": "Relevant",
+   "status": "Passed",
+   "owner": "Victor / Playbook",
+   "evidence": "src/app/components/content/GlossaryExperience.tsx; tests/page-content-models.test.mjs; docs/qa/evidence/batch-2/2026-09-09-batch-2-core-functional-journey.md",
+   "comments": "Glossary search returned the expected single match, showed a clear no-results message and restored results when cleared.",
+   "interpretation": "Search returns the expected matching playbook content and empty or cleared searches behave predictably."
+  },
+  "manual-28": {
+   "applies": "Relevant",
+   "status": "Not assessed",
+   "owner": "Victor / Playbook",
+   "evidence": "docs/accessibility/2026-08-12-accessibility-browser-qa.md; docs/qa/orbit-theme-accessibility-qa.md",
+   "comments": "Several desktop and mobile widths passed without horizontal overflow. Rotation and the full resolution matrix remain untested.",
+   "interpretation": "Required portrait, landscape and viewport sizes remain readable and operable without clipping or overlap."
+  },
+  "manual-29": {
+   "applies": "Relevant",
+   "status": "Not assessed",
+   "owner": "QA",
+   "evidence": "docs/accessibility/2026-08-12-accessibility-browser-qa.md; docs/qa/orbit-theme-accessibility-qa.md",
+   "comments": "Chromium on Windows was tested. Separate Edge, Firefox, Safari, iPhone and Android coverage remains incomplete.",
+   "interpretation": "The supported browser and device matrix renders and behaves consistently. Missing browsers or physical devices are recorded for manual testing."
+  },
+  "manual-30": {
+   "applies": "Needs clarification",
+   "status": "Needs Sage or QA",
+   "owner": "Business owner",
+   "evidence": "docs/accessibility/2026-08-12-accessibility-browser-qa.md",
+   "comments": "Most activities intentionally have no error messages. Expected required and error states must be defined first.",
+   "interpretation": ""
+  },
+  "manual-31": {
+   "applies": "Not relevant",
+   "status": "Not applicable",
+   "owner": "Victor / Playbook",
+   "evidence": "docs/security/internal-security-review-2026-08-12.md",
+   "comments": "There are no submitted forms or submission endpoints to repeatedly trigger.",
+   "interpretation": ""
+  },
+  "manual-32": {
+   "applies": "Relevant",
+   "status": "Passed",
+   "owner": "Victor / Playbook",
+   "evidence": "tests/page-content-models.test.mjs; tests/activity-summary-journey.test.mjs; docs/qa/evidence/batch-2/2026-09-09-batch-2-core-functional-journey.md",
+   "comments": "A selected activity answer and a certificate name persisted and appeared correctly in the activity summary. Edit and Cancel controls behaved correctly.",
+   "interpretation": "Different valid inputs produce the expected saved state, summary or output without stale data."
+  },
+  "manual-33": {
+   "applies": "Not relevant",
+   "status": "Not applicable",
+   "owner": "Victor / Playbook",
+   "evidence": "docs/security/internal-security-review-2026-08-12.md",
+   "comments": "The static application has no server filesystem. Browser localStorage quota exhaustion is a separate local scenario.",
+   "interpretation": ""
+  },
+  "manual-34": {
+   "applies": "Not relevant",
+   "status": "Not applicable",
+   "owner": "Victor / Playbook",
+   "evidence": "docs/security/internal-security-review-2026-08-12.md",
+   "comments": "The application does not submit forms to a server.",
+   "interpretation": ""
+  },
+  "manual-35": {
+   "applies": "Relevant",
+   "status": "Passed",
+   "owner": "Victor / Playbook",
+   "evidence": "docs/qa/evidence/batch-1/2026-09-09-batch-1-technical-checks.md; docs/qa/evidence/batch-5/2026-09-09-batch-5-production-readiness.md",
+   "comments": "A random invalid deep path safely returned 404 again. This passes the destructive invalid-URL check, although manual-19 still fails because the page is generic.",
+   "interpretation": ""
+  },
+  "manual-36": {
+   "applies": "Needs clarification",
+   "status": "Needs Sage or QA",
+   "owner": "Business owner",
+   "evidence": "docs/security/internal-security-review-2026-08-12.md; tests/certificate-markup.test.mjs",
+   "comments": "Altered and script-like strings remain safe literal text, but the application intentionally gives no validation message. Desired messaging needs definition.",
+   "interpretation": ""
+  },
+  "manual-37": {
+   "applies": "Relevant",
+   "status": "Not assessed",
+   "owner": "Victor / Playbook",
+   "evidence": "docs/qa/evidence/batch-1/2026-09-09-batch-1-technical-checks.md; docs/qa/evidence/batch-5/2026-09-09-batch-5-production-readiness.md",
+   "comments": "The production build passed again. Its main JavaScript bundle is about 802 kB before compression and triggered the existing size warning. A Google PageSpeed run is still required.",
+   "interpretation": "Record mobile and desktop PageSpeed results and review any agreed performance threshold or major warning."
+  },
+  "manual-38": {
+   "applies": "Relevant",
+   "status": "Not assessed",
+   "owner": "Victor / Playbook",
+   "evidence": "docs/accessibility/2026-08-12-accessibility-browser-qa.md; docs/qa/orbit-theme-accessibility-qa.md; tests/accessibility-browser-qa.test.mjs; docs/qa/evidence/batch-4/2026-09-09-batch-4-accessibility.md",
+   "comments": "All four accessibility regression checks passed, but no Lighthouse Accessibility result or complete manual keyboard and screen-reader review is recorded.",
+   "interpretation": "Run Lighthouse and record the score, findings and any manual accessibility limitations."
+  },
+  "release-01": {
+   "applies": "Relevant",
+   "status": "Needs Sage or QA",
+   "owner": "Business owner",
+   "evidence": "docs/design-consistency-audit.md; docs/qa/wave-1/",
+   "comments": "Design work is documented, but no formal design sign-off is recorded.",
+   "interpretation": ""
+  },
+  "release-02": {
+   "applies": "Relevant",
+   "status": "Needs Sage or QA",
+   "owner": "Business owner",
+   "evidence": "docs/page-audit.md; docs/activity-functionality-review.md",
+   "comments": "No locked functional requirements or acceptance-criteria document was found.",
+   "interpretation": ""
+  },
+  "release-03": {
+   "applies": "Relevant",
+   "status": "Not assessed",
+   "owner": "Other Sage team",
+   "evidence": "Git history; docs/technical-architecture/ai-playbook-technical-architecture.md; docs/qa/evidence/batch-1/2026-09-09-batch-1-technical-checks.md",
+   "comments": "The current code builds successfully, but completion and peer review for every user story are not proven.",
+   "interpretation": ""
+  },
+  "release-04": {
+   "applies": "Needs clarification",
+   "status": "Needs Sage or QA",
+   "owner": "CMS",
+   "evidence": "docs/technical-architecture/ai-playbook-technical-architecture.md",
+   "comments": "The current application is statically hosted on Vercel. A Sage.com integration test environment is not documented.",
+   "interpretation": ""
+  },
+  "release-05": {
+   "applies": "Relevant",
+   "status": "Not assessed",
+   "owner": "QA",
+   "evidence": "tests/*.test.mjs; docs/qa/qa-testing-tracker.html",
+   "comments": "Automated cases and this checklist exist, but the complete agreed release scope has not yet been approved as executable test cases.",
+   "interpretation": ""
+  },
+  "release-06": {
+   "applies": "Relevant",
+   "status": "Needs Sage or QA",
+   "owner": "QA",
+   "evidence": "tests/*.test.mjs; docs/accessibility/2026-08-12-accessibility-browser-qa.md; docs/qa/evidence/batch-2/2026-09-09-batch-2-core-functional-journey.md; docs/qa/evidence/batch-3/2026-09-09-batch-3-structure-and-visual-foundations.md; docs/qa/evidence/batch-4/2026-09-09-batch-4-accessibility.md",
+   "comments": "The relevant automated suites pass, but there is no VQA completion or sign-off evidence.",
+   "interpretation": ""
+  },
+  "release-07": {
+   "applies": "Needs clarification",
+   "status": "Needs Sage or QA",
+   "owner": "Business owner",
+   "evidence": "",
+   "comments": "Only applicable where requirements changed. This needs acceptance-criteria and Jira process evidence.",
+   "interpretation": ""
+  },
+  "release-08": {
+   "applies": "Needs clarification",
+   "status": "Needs Sage or QA",
+   "owner": "Business owner",
+   "evidence": "",
+   "comments": "Only applicable if new requirements were raised. Jira must confirm whether separate user stories were created.",
+   "interpretation": ""
+  },
+  "release-09": {
+   "applies": "Needs clarification",
+   "status": "Needs Sage or QA",
+   "owner": "Business owner",
+   "evidence": "docs/design-consistency-audit.md; docs/qa/wave-1/",
+   "comments": "Visual evidence exists locally, but Jira recording and formal design approval are unverified.",
+   "interpretation": ""
+  },
+  "release-10": {
+   "applies": "Relevant",
+   "status": "Needs Sage or QA",
+   "owner": "Business owner",
+   "evidence": "",
+   "comments": "Acceptance criteria must first be agreed and then formally verified.",
+   "interpretation": ""
+  },
+  "release-11": {
+   "applies": "Relevant",
+   "status": "Not assessed",
+   "owner": "QA",
+   "evidence": "tests/*.test.mjs; docs/accessibility/2026-08-12-accessibility-browser-qa.md; docs/security/internal-security-review-2026-08-12.md",
+   "comments": "Substantial technical testing exists, but the full agreed and Sage.com integration scope is incomplete.",
+   "interpretation": ""
+  },
+  "release-12": {
+   "applies": "Needs clarification",
+   "status": "Needs Sage or QA",
+   "owner": "Other Sage team",
+   "evidence": "docs/activity-functionality-review.md; docs/security/internal-security-review-2026-08-12.md",
+   "comments": "Findings are documented locally, but formal Jira defects, assignment and parent-story links are not evidenced.",
+   "interpretation": ""
+  },
+  "release-13": {
+   "applies": "Needs clarification",
+   "status": "Not assessed",
+   "owner": "QA",
+   "evidence": "docs/qa/evidence/batch-1/2026-09-09-batch-1-technical-checks.md; docs/qa/evidence/batch-5/2026-09-09-batch-5-production-readiness.md",
+   "comments": "Production security headers were verified, but recorded defects and readiness gaps are still open. The wider defect list has not been formally validated as resolved.",
+   "interpretation": ""
+  },
+  "release-14": {
+   "applies": "Relevant",
+   "status": "Passed",
+   "owner": "Victor / Playbook",
+   "evidence": "tests/*.test.mjs; package.json; docs/qa/evidence/batch-1/2026-09-09-batch-1-technical-checks.md; docs/qa/evidence/batch-2/2026-09-09-batch-2-core-functional-journey.md; docs/qa/evidence/batch-3/2026-09-09-batch-3-structure-and-visual-foundations.md; docs/qa/evidence/batch-4/2026-09-09-batch-4-accessibility.md; docs/qa/evidence/batch-5/2026-09-09-batch-5-production-readiness.md",
+   "comments": "The automated suite remains maintained and the grouped Batch 2 to 5 reruns all passed.",
+   "interpretation": ""
+  },
+  "release-15": {
+   "applies": "Relevant",
+   "status": "Not assessed",
+   "owner": "QA",
+   "evidence": "docs/accessibility/2026-08-12-accessibility-browser-qa.md",
+   "comments": "Chromium testing is not explicit latest Edge testing on Windows 11.",
+   "interpretation": ""
+  },
+  "release-16": {
+   "applies": "Relevant",
+   "status": "Not assessed",
+   "owner": "QA",
+   "evidence": "docs/accessibility/2026-08-12-accessibility-browser-qa.md",
+   "comments": "The report explicitly says Chrome desktop was not separately tested.",
+   "interpretation": ""
+  },
+  "release-17": {
+   "applies": "Relevant",
+   "status": "Not assessed",
+   "owner": "QA",
+   "evidence": "docs/accessibility/2026-08-12-accessibility-browser-qa.md; docs/qa/orbit-theme-accessibility-qa.md",
+   "comments": "Firefox is explicitly recorded as untested.",
+   "interpretation": ""
+  },
+  "release-18": {
+   "applies": "Relevant",
+   "status": "Not assessed",
+   "owner": "QA",
+   "evidence": "docs/accessibility/2026-08-12-accessibility-browser-qa.md; docs/qa/orbit-theme-accessibility-qa.md",
+   "comments": "Safari on macOS is explicitly recorded as untested.",
+   "interpretation": ""
+  },
+  "release-19": {
+   "applies": "Relevant",
+   "status": "Not assessed",
+   "owner": "QA",
+   "evidence": "docs/accessibility/2026-08-12-accessibility-browser-qa.md",
+   "comments": "No Samsung Galaxy Tab A9+ physical-device evidence exists.",
+   "interpretation": ""
+  },
+  "release-20": {
+   "applies": "Relevant",
+   "status": "Not assessed",
+   "owner": "QA",
+   "evidence": "docs/accessibility/2026-08-12-accessibility-browser-qa.md",
+   "comments": "No iPad 10th generation or iPad Mini 2021 evidence exists.",
+   "interpretation": ""
+  },
+  "release-21": {
+   "applies": "Relevant",
+   "status": "Not assessed",
+   "owner": "QA",
+   "evidence": "docs/accessibility/2026-08-12-accessibility-browser-qa.md",
+   "comments": "No specified iPhone physical-device evidence exists.",
+   "interpretation": ""
+  },
+  "release-22": {
+   "applies": "Relevant",
+   "status": "Not assessed",
+   "owner": "QA",
+   "evidence": "docs/accessibility/2026-08-12-accessibility-browser-qa.md",
+   "comments": "No Samsung S25 physical-device evidence exists.",
+   "interpretation": ""
+  },
+  "release-23": {
+   "applies": "Relevant",
+   "status": "Not assessed",
+   "owner": "Victor / Playbook",
+   "evidence": "docs/accessibility/2026-08-12-accessibility-browser-qa.md; docs/qa/orbit-theme-accessibility-qa.md",
+   "comments": "Existing checks reached 1440px and 1280px, not 1680px or wider.",
+   "interpretation": ""
+  },
+  "release-24": {
+   "applies": "Relevant",
+   "status": "Already evidenced",
+   "owner": "Victor / Playbook",
+   "evidence": "docs/qa/orbit-theme-accessibility-qa.md; docs/design-consistency-audit.md",
+   "comments": "Checks at 1280px and 1440px satisfy the 1080px or wider range.",
+   "interpretation": ""
+  },
+  "release-25": {
+   "applies": "Relevant",
+   "status": "Already evidenced",
+   "owner": "Victor / Playbook",
+   "evidence": "docs/qa/orbit-theme-accessibility-qa.md",
+   "comments": "A 768px reflow check satisfies the 767px or wider range.",
+   "interpretation": ""
+  },
+  "release-26": {
+   "applies": "Relevant",
+   "status": "Already evidenced",
+   "owner": "Victor / Playbook",
+   "evidence": "docs/accessibility/2026-08-12-accessibility-browser-qa.md; docs/qa/orbit-theme-accessibility-qa.md",
+   "comments": "Checks at 390px and 320px cover below 767px with no horizontal overflow recorded.",
+   "interpretation": ""
+  },
+  "release-27": {
+   "applies": "Relevant",
+   "status": "Needs Sage or QA",
+   "owner": "QA",
+   "evidence": "docs/security/internal-security-review-2026-08-12.md; docs/qa/evidence/batch-1/2026-09-09-batch-1-technical-checks.md; docs/qa/evidence/batch-5/2026-09-09-batch-5-production-readiness.md",
+   "comments": "The dependency audit found zero vulnerabilities and the security suites passed. Sage or QA still needs to confirm the formal defect register contains no Blocker or Critical bugs.",
+   "interpretation": ""
+  },
+  "release-28": {
+   "applies": "Needs clarification",
+   "status": "Needs Sage or QA",
+   "owner": "CMS",
+   "evidence": "tests/*.test.mjs; docs/technical-architecture/ai-playbook-technical-architecture.md",
+   "comments": "Application regression exists. Sitecore, third-party, Tealium, market-site and ecommerce coverage needs Sage scoping.",
+   "interpretation": ""
+  },
+  "release-29": {
+   "applies": "Relevant",
+   "status": "Needs Sage or QA",
+   "owner": "QA",
+   "evidence": "",
+   "comments": "Only Sage's VQA process can provide this sign-off.",
+   "interpretation": ""
+  }
+ },
+ "owners": [
+  "Unassigned",
+  "Victor / Playbook",
+  "CMS",
+  "QA",
+  "Business owner",
+  "Other Sage team"
+ ],
+ "statuses": [
+  "Not assessed",
+  "Already evidenced",
+  "Passed",
+  "Failed",
+  "Blocked",
+  "Needs Sage or QA",
+  "Not applicable"
+ ],
+ "applies": [
+  "To review",
+  "Relevant",
+  "Not relevant",
+  "Needs clarification"
+ ]
+}

@@ -1,73 +1,50 @@
 import fs from 'node:fs';
 import path from 'node:path';
 
-const root = process.cwd();
-const sourceFile = path.join(root, 'docs', 'qa', 'qa-testing-tracker.html');
-const outputDir = path.join(root, 'public', 'review-tracker');
-const sourceHtml = fs.readFileSync(sourceFile, 'utf8');
-const scriptMatch = sourceHtml.match(/\n    <script>([\s\S]*?)\n    <\/script>\n  <\/body>/);
+const root = path.resolve(process.cwd());
+const redesignDir = path.join(root, 'docs', 'qa', 'tracker-redesign');
+const publishDir = path.join(redesignDir, 'publish', 'review-tracker');
+const destinationDir = path.join(root, 'public', 'review-tracker');
+const templateSourceDir = path.join(publishDir, 'template');
+const templateDestinationDir = path.join(destinationDir, 'template');
 
-if (!scriptMatch) throw new Error('Tracker script block was not found.');
-
-fs.rmSync(outputDir, { recursive: true, force: true });
-fs.mkdirSync(outputDir, { recursive: true });
-
-const hostedHtml = sourceHtml
-  .replace(scriptMatch[0], '\n    <script src="/review-tracker/tracker.js"></script>\n  </body>')
-  .replace('<p class="eyebrow">Testing workspace</p>', '<p class="eyebrow">Review workspace</p>')
-  .replace('<h1 id="page-title">QA testing overview</h1>', '<h1 id="page-title">Review overview</h1>');
-
-fs.writeFileSync(path.join(outputDir, 'index.html'), hostedHtml);
-fs.writeFileSync(
-  path.join(outputDir, 'tracker.js'),
-  scriptMatch[1].trimStart() + '\n'
-);
-
-const templateSourceDir = path.join(root, 'docs', 'qa', 'template');
-const templateOutputDir = path.join(outputDir, 'template');
-const templateSourcePath = path.join(templateSourceDir, 'qa-review-tracker-template.html');
-const templateHtml = fs.readFileSync(templateSourcePath, 'utf8');
-const templateScriptMatch = templateHtml.match(/\n    <script>([\s\S]*?)\n    <\/script>\n  <\/body>/);
-
-if (!templateScriptMatch) throw new Error('Reusable tracker template script block was not found.');
-
-fs.mkdirSync(templateOutputDir, { recursive: true });
-fs.writeFileSync(
-  path.join(templateOutputDir, 'index.html'),
-  templateHtml.replace(
-    templateScriptMatch[0],
-    '\n    <script src="/review-tracker/template/tracker.js"></script>\n  </body>'
-  )
-);
-fs.writeFileSync(
-  path.join(templateOutputDir, 'tracker.js'),
-  templateScriptMatch[1].trimStart() + '\n'
-);
-fs.copyFileSync(
-  templateSourcePath,
-  path.join(templateOutputDir, 'qa-review-tracker-template.html')
-);
-for (const guideName of ['QA-RUNBOOK.md', 'README.md']) {
-  fs.copyFileSync(
-    path.join(templateSourceDir, guideName),
-    path.join(templateOutputDir, guideName)
-  );
+function assertInsideWorkspace(target, label) {
+  const relative = path.relative(root, path.resolve(target));
+  if (relative.startsWith('..') || path.isAbsolute(relative)) {
+    throw new Error(`${label} is outside the workspace: ${target}`);
+  }
 }
 
-const evidencePaths = new Set();
-for (const match of sourceHtml.matchAll(/docs\/qa\/(evidence\/[A-Za-z0-9_./ -]+)/g)) {
-  evidencePaths.add(match[1].trim().replace(/[.;]+$/, ''));
-}
-for (const match of sourceHtml.matchAll(/href="(evidence\/[^"]+)"/g)) {
-  evidencePaths.add(match[1]);
-}
-
-for (const relativePath of evidencePaths) {
-  const sourcePath = path.join(root, 'docs', 'qa', relativePath);
-  if (!fs.existsSync(sourcePath) || !fs.statSync(sourcePath).isFile()) continue;
-  const destinationPath = path.join(outputDir, relativePath);
-  fs.mkdirSync(path.dirname(destinationPath), { recursive: true });
-  fs.copyFileSync(sourcePath, destinationPath);
+function copyRequired(source, destination) {
+  if (!fs.existsSync(source) || !fs.statSync(source).isFile()) {
+    throw new Error(`Required redesign file is missing: ${source}`);
+  }
+  fs.copyFileSync(source, destination);
 }
 
-console.log(`Generated AI Playbook QA Review Tracker, reusable template and ${evidencePaths.size} evidence references.`);
+assertInsideWorkspace(redesignDir, 'Redesign source');
+assertInsideWorkspace(destinationDir, 'Review tracker destination');
+assertInsideWorkspace(templateDestinationDir, 'Template destination');
+
+fs.mkdirSync(destinationDir, { recursive: true });
+for (const fileName of ['index.html', 'tracker.js', 'theme-init.js']) {
+  copyRequired(path.join(publishDir, fileName), path.join(destinationDir, fileName));
+}
+
+// Replace only the reusable template. The evidence folder belongs to the live tracker.
+fs.rmSync(templateDestinationDir, { recursive: true, force: true });
+fs.mkdirSync(templateDestinationDir, { recursive: true });
+for (const fileName of ['index.html', 'tracker.js', 'theme-init.js']) {
+  copyRequired(path.join(templateSourceDir, fileName), path.join(templateDestinationDir, fileName));
+}
+
+copyRequired(
+  path.join(redesignDir, 'ai-playbook-example.html'),
+  path.join(root, 'docs', 'qa', 'qa-testing-tracker.html'),
+);
+
+if (!fs.existsSync(path.join(destinationDir, 'evidence'))) {
+  throw new Error('The existing public review-tracker evidence directory was not preserved.');
+}
+
+console.log('Published the redesigned QA tracker and blank template; existing evidence was preserved.');
