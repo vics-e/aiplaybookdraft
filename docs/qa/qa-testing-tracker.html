@@ -186,13 +186,14 @@
   .owner-list li { display: flex; justify-content: space-between; gap: 12px; padding: 9px 0; border-top: 1px solid var(--rule); font-size: 14px; }
   .owner-list li:first-child { border-top: 0; }
   /* Overview: how it was tested, fixed after failing, handover. */
-  .facts { display: grid; grid-template-columns: max-content 1fr; gap: 8px 16px; margin: 10px 0 0; font-size: 14px; }
-  .facts dt { color: var(--muted); font-weight: 600; }
-  .facts dd { margin: 0; }
-  @media (max-width: 560px) { .facts { grid-template-columns: 1fr; gap: 2px; } .facts dd { margin-bottom: 8px; } }
+  .tested-facts { display: grid; grid-template-columns: max-content 1fr; gap: 8px 16px; margin: 10px 0 0; font-size: 14px; }
+  .tested-facts dt { color: var(--muted); font-weight: 600; }
+  .tested-facts dd { margin: 0; }
+  @media (max-width: 560px) { .tested-facts { grid-template-columns: 1fr; gap: 2px; } .tested-facts dd { margin-bottom: 8px; } }
   .fixed-list { list-style: none; margin: 10px 0 0; padding: 0; font-size: 14px; }
   .fixed-list li { display: flex; gap: 10px; align-items: baseline; padding: 7px 0; border-top: 1px solid var(--rule); }
   .fixed-list li:first-child { border-top: 0; }
+  .fixed-list .linkish { text-align: left; }
   .fixed-list .id { font-family: ui-monospace, Consolas, monospace; font-size: 12.5px; color: var(--muted); white-space: nowrap; }
   .next-steps { margin: 10px 0 0; padding-left: 22px; font-size: 14px; line-height: 1.55; }
   .next-steps li { padding: 4px 0; }
@@ -469,7 +470,7 @@
       <div class="split" style="margin-top:14px">
         <div class="card" id="tested-card" hidden>
           <h3 style="margin-top:0">How it was tested</h3>
-          <dl class="facts" id="tested"></dl>
+          <dl class="tested-facts" id="tested"></dl>
         </div>
         <div class="card">
           <h3 style="margin-top:0">Fixed after failing</h3>
