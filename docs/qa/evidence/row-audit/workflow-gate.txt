@@ -1,0 +1,137 @@
+- complementary "Playbook navigation":
+  - button "Sage The AI Playbook For Accountants & Bookkeepers":
+    - img "Sage"
+    - heading "The AI Playbook" [level=1]
+    - paragraph: For Accountants & Bookkeepers
+  - generic: CURRENT SECTION
+  - generic: Assistants & Agents
+  - navigation:
+    - button "Introduction 100%" [expanded]:
+      - generic: Introduction
+      - generic: 100%
+    - button "Contents":
+      - generic: Contents
+    - button "Section 1 Understanding AI 100%":
+      - generic: Section 1
+      - generic: Understanding AI
+      - generic: 100%
+    - button "Section 2 Professional Guardrails 100%":
+      - generic: Section 2
+      - generic: Professional Guardrails
+      - generic: 100%
+    - button "Section 3 Assistants & Agents 100%":
+      - generic: Section 3
+      - generic: Assistants & Agents
+      - generic: 100%
+    - button "Section 4 Prompting Skills 100%":
+      - generic: Section 4
+      - generic: Prompting Skills
+      - generic: 100%
+    - button "Section 5 Pricing & Economics 100%":
+      - generic: Section 5
+      - generic: Pricing & Economics
+      - generic: 100%
+    - button "Section 6 90-Day Plan 100%":
+      - generic: Section 6
+      - generic: 90-Day Plan
+      - generic: 100%
+    - button "Section 7 Templates & Tools 100%":
+      - generic: Section 7
+      - generic: Templates & Tools
+      - generic: 100%
+    - button "Conclusion 100%":
+      - generic: Conclusion
+      - generic: 100%
+  - generic: OVERALL PROGRESS
+  - generic: 100%
+  - generic: 63 of 63 pages visited
+- button "Close navigation menu" [expanded]:
+- button "Switch to light mode":
+  - tooltip "Switch to light mode"
+- main:
+  - generic: "Section 3: Assistants & Agents"
+  - 'heading "The Workflow Map: Where Agents Work Best" [level=2]'
+  - paragraph: Mapping your firm's processes to identify agent opportunities
+  - paragraph: Not all workflows are equal candidates for agent automation. Some are perfectly suited; others require too much judgement, involve unstructured data, or occur too infrequently to justify the setup effort.
+  - heading "The Workflow Mapping Exercise:" [level=4]
+  - paragraph: This exercise helps you identify which workflows in your firm are strong agent candidates and which should remain human-led or assistant-supported.
+  - heading "How to Map Your Workflows:" [level=4]
+  - paragraph:
+    - text: Select a step to explore.
+  - tablist "How to Map Your Workflows:":
+    - tab "1 List your workflows" [selected]:
+      - generic: "1"
+      - generic: List your workflows
+    - tab "2 Score each workflow":
+      - generic: "2"
+      - generic: Score each workflow
+    - tab "3 Plot the results":
+      - generic: "3"
+      - generic: Plot the results
+    - tab "4 Prioritise":
+      - generic: "4"
+      - generic: Prioritise
+  - tabpanel "1 List your workflows":
+    - generic: 1 of 4
+    - heading "List your workflows" [level=5]
+    - paragraph: Write down 10-15 common workflows or processes in your firm (e.g., monthly reporting, client onboarding, tax return preparation, payroll processing).
+  - complementary "Learning":
+    - paragraph: The goal is not to automate everything. It's to identify where agents create the most value with the least risk.
+  - 'generic "Common High-Impact Agent Candidates: Show examples These are examples to help you think of your own workflows."':
+    - heading "Common High-Impact Agent Candidates:" [level=4]
+    - generic: Show examples
+    - paragraph: These are examples to help you think of your own workflows.
+  - generic: Activity
+  - heading "Map Your Workflows" [level=4]
+  - paragraph: "Complete the workflow mapping exercise for your firm:"
+  - button "1 List workflows":
+    - generic: "1"
+    - generic: List workflows
+  - button "2 Score each" [active]:
+    - generic: "2"
+    - generic: Score each
+  - button "3 See results":
+    - generic: "3"
+    - generic: See results
+  - button "4 Prioritise":
+    - generic: "4"
+    - generic: Prioritise
+  - paragraph: Step 2 of 4
+  - heading "Score each" [level=5]
+  - generic: 1 workflow
+  - paragraph: Workflow 1 of 1
+  - heading "QA workflow one" [level=5]
+  - generic: 1 scored
+  - paragraph: Score one workflow at a time. Higher repeatability means the process happens often and follows consistent steps. Higher judgement means it needs more professional interpretation.
+  - generic: Repeatability
+  - generic: 3/5
+  - button "1"
+  - button "2"
+  - button "3"
+  - button "4"
+  - button "5"
+  - paragraph: 1 = rare/ad-hoc, 5 = daily and highly repeatable.
+  - generic: Judgement required
+  - generic: 3/5
+  - button "1"
+  - button "2"
+  - button "3"
+  - button "4"
+  - button "5"
+  - paragraph: 1 = pure data entry, 5 = deep professional interpretation.
+  - paragraph: Workflows in this step
+  - button "Back"
+  - button "See results"
+  - status: Workflow map saved locally
+  - generic: Key Takeaway
+  - paragraph: Use workflow mapping to focus agent adoption where it will have the greatest impact with the lowest risk.
+  - button "Go to previous page":
+    - generic: Previous
+  - generic: Page 24 of 63
+  - button "Go to page 22"
+  - button "Go to page 23"
+  - button "Go to page 24"
+  - button "Go to page 25"
+  - button "Go to page 26"
+  - button "Go to next page":
+    - generic: Next

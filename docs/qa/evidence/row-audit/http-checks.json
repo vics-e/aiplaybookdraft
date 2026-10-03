@@ -1,0 +1,40 @@
+[
+  {
+    "url": "https://aiplaybook-ve.vercel.app/qa-nonexistent-20260909",
+    "time": "2026-09-09T23:42:45.3140922+01:00",
+    "status": 404,
+    "body": "The page could not be found\n\nNOT_FOUND\n\nlhr1::ncv2p-1788993763562-3528e9ce69a0\n"
+  },
+  {
+    "url": "https://aiplaybook-ve.vercel.app/robots.txt",
+    "time": "2026-09-09T23:42:45.4803825+01:00",
+    "status": 404,
+    "body": "The page could not be found\n\nNOT_FOUND\n\nlhr1::79djh-1788993763810-4a90e727f0cf\n"
+  },
+  {
+    "url": "https://aiplaybook-ve.vercel.app/favicon.ico",
+    "time": "2026-09-09T23:42:45.6373013+01:00",
+    "status": 404,
+    "body": "The page could not be found\n\nNOT_FOUND\n\nlhr1::sccsw-1788993763974-3c990ff62b65\n"
+  },
+  {
+    "url": "https://fonts.cdnfonts.com/s/93102/SageDisplayHeadline-Bold.woff",
+    "time": "2026-09-09T23:42:45.8705242+01:00",
+    "status": 404
+  },
+  {
+    "url": "https://fonts.cdnfonts.com/s/93102/SageText-Regular.woff",
+    "time": "2026-09-09T23:42:46.0067499+01:00",
+    "status": 404
+  },
+  {
+    "url": "https://fonts.cdnfonts.com/s/93102/SageText-Medium.woff",
+    "time": "2026-09-09T23:42:46.1445312+01:00",
+    "status": 404
+  },
+  {
+    "url": "https://fonts.cdnfonts.com/s/93102/SageText-Bold.woff",
+    "time": "2026-09-09T23:42:46.2971285+01:00",
+    "status": 404
+  }
+]

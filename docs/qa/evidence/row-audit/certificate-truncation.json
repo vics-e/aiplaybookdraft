@@ -1,0 +1,11 @@
+{
+  "testedAt": "2026-09-09T23:00:47.868Z",
+  "displayName": "Firstpart Secondpart Thirdpart Fourthpart Fifthpart Sixthpart Seventhpart LASTTOKEN",
+  "outputContainsLastToken": false,
+  "renderedNameLines": [
+    "Firstpart Secondpart",
+    "Thirdpart Fourthpart"
+  ],
+  "deployedSnippet": "nction YA({title:e,subtitle:n,displayName:i,statement:a,poweredByTitle:l,poweredByText:c,completionDate:d}){const h=vu(i,28).slice(0,2),m=vu(a,74).slice(0,3),p=vu(c,60).slice(0,3),x=`\n    <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 1123 794\" role=\"img",
+  "limitation": "Executed source markup builder; matching deployed minified logic independently inspected. OS print/save is not verified."
+}

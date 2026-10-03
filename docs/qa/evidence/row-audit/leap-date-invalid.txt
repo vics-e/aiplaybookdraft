@@ -1,0 +1,372 @@
+- complementary "Playbook navigation":
+  - button "Sage The AI Playbook For Accountants & Bookkeepers":
+    - img "Sage"
+    - heading "The AI Playbook" [level=1]
+    - paragraph: For Accountants & Bookkeepers
+  - generic: CURRENT SECTION
+  - generic: Prompting Skills
+  - navigation:
+    - button "Introduction 100%" [expanded]:
+      - generic: Introduction
+      - generic: 100%
+    - button "Contents":
+      - generic: Contents
+    - button "Section 1 Understanding AI 100%":
+      - generic: Section 1
+      - generic: Understanding AI
+      - generic: 100%
+    - button "Section 2 Professional Guardrails 100%":
+      - generic: Section 2
+      - generic: Professional Guardrails
+      - generic: 100%
+    - button "Section 3 Assistants & Agents 100%":
+      - generic: Section 3
+      - generic: Assistants & Agents
+      - generic: 100%
+    - button "Section 4 Prompting Skills 100%":
+      - generic: Section 4
+      - generic: Prompting Skills
+      - generic: 100%
+    - button "Section 5 Pricing & Economics 100%":
+      - generic: Section 5
+      - generic: Pricing & Economics
+      - generic: 100%
+    - button "Section 6 90-Day Plan 100%":
+      - generic: Section 6
+      - generic: 90-Day Plan
+      - generic: 100%
+    - button "Section 7 Templates & Tools 100%":
+      - generic: Section 7
+      - generic: Templates & Tools
+      - generic: 100%
+    - button "Conclusion 100%":
+      - generic: Conclusion
+      - generic: 100%
+  - generic: OVERALL PROGRESS
+  - generic: 100%
+  - generic: 63 of 63 pages visited
+- button "Close navigation menu" [expanded]:
+- button "Switch to light mode":
+  - tooltip "Switch to light mode"
+- main:
+  - generic: "Section 4: Prompting Skills"
+  - heading "Your Starter Prompt Library" [level=2]
+  - paragraph: Ready-to-use prompts for common accounting tasks
+  - paragraph: You don't need to write every prompt from scratch. This starter library provides tested, professional prompts for the most common accounting tasks. Copy them, adapt them, and use them as templates for your own prompts.
+  - button "Expand All":
+    - generic: Expand All
+  - button "Collapse All":
+    - generic: Collapse All
+  - textbox "Filter prompts":
+    - /placeholder: Filter prompts...
+  - complementary:
+    - heading "How to Use This Library:" [level=3]
+    - generic: "1"
+    - paragraph: Choose the prompt type that matches your task
+    - generic: "2"
+    - paragraph: Copy the template
+    - generic: "3"
+    - paragraph: Replace the [PLACEHOLDERS] with your specific details
+    - generic: "4"
+    - paragraph: Run the prompt and review the output
+    - generic: "5"
+    - paragraph: Refine if needed
+    - generic: "6"
+    - paragraph: Save successful adaptations to your firm's internal library
+  - article:
+    - generic: "1"
+    - heading "1. Draft Client Email - Accounts Ready" [level=3]
+    - paragraph: You are an accountant. Draft a professional email to QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1, a QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1 client, letting them know their QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1 are now ready for review. Mention that QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1. Keep it under 100 words and use a positive, client-friendly tone.
+    - button "Hide":
+      - generic: Hide
+    - button "Copy":
+      - generic: Copy
+    - button "Collapse prompt":
+    - heading "Type values here" [level=4]
+    - generic: CLIENT NAME
+    - textbox "CLIENT NAME":
+      - /placeholder: Type client name...
+      - text: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+    - generic: CLIENT TYPE
+    - textbox "CLIENT TYPE":
+      - /placeholder: Type client type...
+      - text: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+    - generic: ACCOUNTS TYPE
+    - textbox "ACCOUNTS TYPE":
+      - /placeholder: Type accounts type...
+      - text: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+    - generic: KEY FINDING - e.g., revenue increased by X%, profit margin improved
+    - textbox "KEY FINDING - e.g., revenue increased by X%, profit margin improved":
+      - /placeholder: Type key finding...
+      - text: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+    - heading "Live prompt" [level=4]
+    - generic: You are an accountant. Draft a professional email to QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1, a QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1 client, letting them know their QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1 are now ready for review. Mention that QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1. Keep it under 100 words and use a positive, client-friendly tone.
+    - button "Copy personalised prompt":
+      - generic: Copy personalised prompt
+    - button "Reset fields":
+      - generic: Reset fields
+  - article:
+    - generic: "2"
+    - heading "2. Draft Client Email - Missing Information" [level=3]
+    - paragraph: You are a bookkeeper. Draft a polite, professional email to QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1 requesting QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1. Explain that we need these to complete their QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1. Keep it under 80 words and use a friendly but clear tone.
+    - button "Hide":
+      - generic: Hide
+    - button "Copy":
+      - generic: Copy
+    - button "Collapse prompt":
+    - heading "Type values here" [level=4]
+    - generic: CLIENT NAME
+    - textbox "CLIENT NAME":
+      - /placeholder: Type client name...
+      - text: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+    - generic: SPECIFIC ITEMS - e.g., missing bank statements for March, supplier invoices
+    - textbox "SPECIFIC ITEMS - e.g., missing bank statements for March, supplier invoices":
+      - /placeholder: Type specific items...
+      - text: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+    - generic: TASK - e.g., VAT return, year-end accounts
+    - textbox "TASK - e.g., VAT return, year-end accounts":
+      - /placeholder: Type task...
+      - text: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+    - heading "Live prompt" [level=4]
+    - generic: You are a bookkeeper. Draft a polite, professional email to QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1 requesting QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1. Explain that we need these to complete their QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1. Keep it under 80 words and use a friendly but clear tone.
+    - button "Copy personalised prompt":
+      - generic: Copy personalised prompt
+    - button "Reset fields":
+      - generic: Reset fields
+  - article:
+    - generic: "3"
+    - heading "3. Draft Client Email - Deadline Reminder" [level=3]
+    - paragraph: You are an accountant. Draft a reminder email to QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1 about an upcoming deadline for QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1. The deadline is 2027-02-29. Keep it under 60 words, use a helpful tone, and remind them what action they need to take.
+    - button "Hide":
+      - generic: Hide
+    - button "Copy":
+      - generic: Copy
+    - button "Collapse prompt":
+    - heading "Type values here" [level=4]
+    - generic: CLIENT NAME
+    - textbox "CLIENT NAME":
+      - /placeholder: Type client name...
+      - text: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+    - generic: TASK - e.g., Self-Assessment tax return, Corporation Tax payment
+    - textbox "TASK - e.g., Self-Assessment tax return, Corporation Tax payment":
+      - /placeholder: Type task...
+      - text: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+    - generic: DATE
+    - textbox "DATE" [active]:
+      - /placeholder: Type date...
+      - text: 2027-02-29
+    - heading "Live prompt" [level=4]
+    - generic: You are an accountant. Draft a reminder email to QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1 about an upcoming deadline for QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1. The deadline is 2027-02-29. Keep it under 60 words, use a helpful tone, and remind them what action they need to take.
+    - button "Copy personalised prompt":
+      - generic: Copy personalised prompt
+    - button "Reset fields":
+      - generic: Reset fields
+  - article:
+    - generic: "4"
+    - heading "4. Explain a Tax Concept" [level=3]
+    - paragraph: You are a tax accountant. Explain QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1 to a QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1 who has never encountered this before. Use simple language, avoid jargon, and keep it under 120 words.
+    - button "Hide":
+      - generic: Hide
+    - button "Copy":
+      - generic: Copy
+    - button "Collapse prompt":
+    - heading "Type values here" [level=4]
+    - generic: CONCEPT - e.g., Capital Gains Tax, IR35, VAT Flat Rate Scheme
+    - textbox "CONCEPT - e.g., Capital Gains Tax, IR35, VAT Flat Rate Scheme":
+      - /placeholder: Type concept...
+      - text: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+    - generic: CLIENT TYPE - e.g., sole trader, first-time company director
+    - textbox "CLIENT TYPE - e.g., sole trader, first-time company director":
+      - /placeholder: Type client type...
+      - text: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+    - heading "Live prompt" [level=4]
+    - generic: You are a tax accountant. Explain QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1 to a QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1 who has never encountered this before. Use simple language, avoid jargon, and keep it under 120 words.
+    - button "Copy personalised prompt":
+      - generic: Copy personalised prompt
+    - button "Reset fields":
+      - generic: Reset fields
+  - article:
+    - generic: "5"
+    - heading "5. Summarise Financial Results" [level=3]
+    - paragraph: "You are an accountant. Summarise the key financial results from QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> \"single' double\" \\ / -1 for QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> \"single' double\" \\ / -1. Focus on: revenue performance, profit or loss, major cost changes, and cash position. Present as 4-5 bullet points suitable for a client meeting."
+    - button "Hide":
+      - generic: Hide
+    - button "Copy":
+      - generic: Copy
+    - button "Collapse prompt":
+    - heading "Type values here" [level=4]
+    - generic: DOCUMENT TYPE - e.g., management accounts, year-end report
+    - textbox "DOCUMENT TYPE - e.g., management accounts, year-end report":
+      - /placeholder: Type document type...
+      - text: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+    - generic: CLIENT NAME
+    - textbox "CLIENT NAME":
+      - /placeholder: Type client name...
+      - text: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+    - heading "Live prompt" [level=4]
+    - generic: "You are an accountant. Summarise the key financial results from QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> \"single' double\" \\ / -1 for QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> \"single' double\" \\ / -1. Focus on: revenue performance, profit or loss, major cost changes, and cash position. Present as 4-5 bullet points suitable for a client meeting."
+    - button "Copy personalised prompt":
+      - generic: Copy personalised prompt
+    - button "Reset fields":
+      - generic: Reset fields
+  - article:
+    - generic: "6"
+    - heading "6. Check for Completeness" [level=3]
+    - paragraph: "You are a bookkeeper. Review QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> \"single' double\" \\ / -1 and check for completeness. Verify: all required fields are filled in, amounts are clear and legible, dates are present, and QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> \"single' double\" \\ / -1. List any issues or missing items."
+    - button "Hide":
+      - generic: Hide
+    - button "Copy":
+      - generic: Copy
+    - button "Collapse prompt":
+    - heading "Type values here" [level=4]
+    - generic: DOCUMENT TYPE - e.g., this expense claim, this invoice, this timesheet
+    - textbox "DOCUMENT TYPE - e.g., this expense claim, this invoice, this timesheet":
+      - /placeholder: Type document type...
+      - text: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+    - generic: SPECIFIC REQUIREMENT - e.g., VAT is correctly identified, receipts are attached
+    - textbox "SPECIFIC REQUIREMENT - e.g., VAT is correctly identified, receipts are attached":
+      - /placeholder: Type specific requirement...
+      - text: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+    - heading "Live prompt" [level=4]
+    - generic: "You are a bookkeeper. Review QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> \"single' double\" \\ / -1 and check for completeness. Verify: all required fields are filled in, amounts are clear and legible, dates are present, and QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> \"single' double\" \\ / -1. List any issues or missing items."
+    - button "Copy personalised prompt":
+      - generic: Copy personalised prompt
+    - button "Reset fields":
+      - generic: Reset fields
+  - article:
+    - generic: "7"
+    - heading "7. Draft Variance Explanation" [level=3]
+    - paragraph: You are an accountant. Draft a brief explanation for why QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1 changed by QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1 compared to QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1. Base the explanation on QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1. Keep it under 60 words and use professional language suitable for a client report.
+    - button "Hide":
+      - generic: Hide
+    - button "Copy":
+      - generic: Copy
+    - button "Collapse prompt":
+    - heading "Type values here" [level=4]
+    - generic: METRIC - e.g., revenue, costs, profit
+    - textbox "METRIC - e.g., revenue, costs, profit":
+      - /placeholder: Type metric...
+      - text: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+    - generic: AMOUNT/PERCENTAGE
+    - textbox "AMOUNT/PERCENTAGE":
+      - /placeholder: Type amount/percentage...
+      - text: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+    - generic: COMPARISON PERIOD - e.g., last quarter, prior year
+    - textbox "COMPARISON PERIOD - e.g., last quarter, prior year":
+      - /placeholder: Type comparison period...
+      - text: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+    - generic: DATA/CONTEXT - e.g., higher supplier costs, seasonal demand
+    - textbox "DATA/CONTEXT - e.g., higher supplier costs, seasonal demand":
+      - /placeholder: Type data/context...
+      - text: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+    - heading "Live prompt" [level=4]
+    - generic: You are an accountant. Draft a brief explanation for why QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1 changed by QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1 compared to QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1. Base the explanation on QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1. Keep it under 60 words and use professional language suitable for a client report.
+    - button "Copy personalised prompt":
+      - generic: Copy personalised prompt
+    - button "Reset fields":
+      - generic: Reset fields
+  - article:
+    - generic: "8"
+    - heading "8. Create a Checklist" [level=3]
+    - paragraph: You are a practice manager. Create a checklist for QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1 for a QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1. Include all key steps, required documents, and deadlines. Format as a numbered list.
+    - button "Hide":
+      - generic: Hide
+    - button "Copy":
+      - generic: Copy
+    - button "Collapse prompt":
+    - heading "Type values here" [level=4]
+    - generic: PROCESS - e.g., client onboarding, year-end close, VAT return preparation
+    - textbox "PROCESS - e.g., client onboarding, year-end close, VAT return preparation":
+      - /placeholder: Type process...
+      - text: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+    - generic: CLIENT TYPE - e.g., small limited company, sole trader with employees
+    - textbox "CLIENT TYPE - e.g., small limited company, sole trader with employees":
+      - /placeholder: Type client type...
+      - text: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+    - heading "Live prompt" [level=4]
+    - generic: You are a practice manager. Create a checklist for QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1 for a QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1. Include all key steps, required documents, and deadlines. Format as a numbered list.
+    - button "Copy personalised prompt":
+      - generic: Copy personalised prompt
+    - button "Reset fields":
+      - generic: Reset fields
+  - article:
+    - generic: "9"
+    - heading "9. Answer a Technical Question" [level=3]
+    - paragraph: You are a tax accountant. What is QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1? Provide a clear, factual answer with the current figures and any relevant conditions.
+    - button "Hide":
+      - generic: Hide
+    - button "Copy":
+      - generic: Copy
+    - button "Collapse prompt":
+    - heading "Type values here" [level=4]
+    - generic: QUESTION - e.g., the current VAT registration threshold, the deadline for Self-Assessment registration, the Corporation Tax rate for small companies
+    - textbox "QUESTION - e.g., the current VAT registration threshold, the deadline for Self-Assessment registration, the Corporation Tax rate for small companies":
+      - /placeholder: Type question...
+      - text: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+    - heading "Live prompt" [level=4]
+    - generic: You are a tax accountant. What is QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1? Provide a clear, factual answer with the current figures and any relevant conditions.
+    - button "Copy personalised prompt":
+      - generic: Copy personalised prompt
+    - button "Reset fields":
+      - generic: Reset fields
+  - article:
+    - generic: "10"
+    - heading "10. Draft Meeting Summary" [level=3]
+    - paragraph: "You are an accountant. Summarise the key points from a client meeting about QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> \"single' double\" \\ / -1. Include: decisions made, actions required, deadlines, and who is responsible for each action. Format as bullet points under clear headings."
+    - button "Hide":
+      - generic: Hide
+    - button "Copy":
+      - generic: Copy
+    - button "Collapse prompt":
+    - heading "Type values here" [level=4]
+    - generic: TOPIC - e.g., year-end planning, tax strategy, business growth
+    - textbox "TOPIC - e.g., year-end planning, tax strategy, business growth":
+      - /placeholder: Type topic...
+      - text: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+    - heading "Live prompt" [level=4]
+    - generic: "You are an accountant. Summarise the key points from a client meeting about QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> \"single' double\" \\ / -1. Include: decisions made, actions required, deadlines, and who is responsible for each action. Format as bullet points under clear headings."
+    - button "Copy personalised prompt":
+      - generic: Copy personalised prompt
+    - button "Reset fields":
+      - generic: Reset fields
+  - generic: i
+  - paragraph: These prompts are templates. Replace the [BRACKETED PLACEHOLDERS] with your specific details, and you have a professional, structured prompt ready to use.
+  - paragraph: As you use these prompts, you'll notice patterns. You'll start adapting them without thinking. Eventually, structured prompts become second nature—not because you've memorized them, but because you've practiced them.
+  - generic: Activity
+  - heading "Build Your Prompt Library" [level=4]
+  - paragraph: "Start building your own prompt library based on the tasks you perform most often:"
+  - paragraph: 0 / 3 completed
+  - generic: "1"
+  - paragraph: Choose one prompt from the starter library above. Adapt it to a real task you have this week by filling in the placeholders.
+  - textbox "Choose one prompt from the starter library above. Adapt it to a real task you have this week by filling in the placeholders.":
+    - /placeholder: Type your answer here...
+    - text: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - checkbox "Mark as complete"
+  - generic: Mark as complete
+  - generic: "2"
+  - paragraph: Identify one task you perform regularly that is NOT in the starter library. Write a new structured prompt for it using Role + Task + Context + Constraints.
+  - textbox "Identify one task you perform regularly that is NOT in the starter library. Write a new structured prompt for it using Role + Task + Context + Constraints.":
+    - /placeholder: Type your answer here...
+    - text: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - checkbox "Mark as complete"
+  - generic: Mark as complete
+  - generic: "3"
+  - paragraph: Where will you store your firm's prompt library so the team can access and share useful prompts?
+  - textbox "Where will you store your firm's prompt library so the team can access and share useful prompts?":
+    - /placeholder: Type your answer here...
+    - text: QA àèìòù ÀÈÌÒÙ áéíóúý ÁÉÍÓÚÝ âêîôû ÂÊÎÔÛ ãñõ ÃÑÕ äëïöüÿ ÄËÏÖÜŸ åÅ æÆ œŒ øØ ß €£ & <script>QA_ONLY</script> "single' double" \ / -1
+  - checkbox "Mark as complete"
+  - generic: Mark as complete
+  - status: Prompt library activity saved locally
+  - generic: Key Takeaway
+  - paragraph: A good prompt library is not built overnight. Start with these 10, adapt them to your work, and add new ones as you discover what works.
+  - button "Go to previous page":
+    - generic: Previous
+  - generic: Page 35 of 63
+  - button "Go to page 33"
+  - button "Go to page 34"
+  - button "Go to page 35"
+  - button "Go to page 36"
+  - button "Go to page 37"
+  - button "Go to next page":
+    - generic: Next
