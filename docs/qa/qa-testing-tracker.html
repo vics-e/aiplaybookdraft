@@ -112,7 +112,7 @@
   .tab:hover { color: var(--text); }
   /* Six tabs: tighter on tablets and laptops so they all fit; on phones the row scrolls and fades at the edge. */
   @media (max-width: 900px) { .tab { padding: 12px 9px 11px; gap: 6px; font-size: 14.5px; } .tabs .wrap { gap: 0; } }
-  @media (max-width: 640px) { .tabs .wrap { -webkit-mask-image: linear-gradient(to right, #000 82%, transparent); mask-image: linear-gradient(to right, #000 82%, transparent); padding-right: 28px; } }
+  @media (max-width: 767px) { .tabs .wrap { -webkit-mask-image: linear-gradient(to right, #000 82%, transparent); mask-image: linear-gradient(to right, #000 82%, transparent); padding-right: 28px; } }
   .tab[aria-selected='true'] { color: var(--text); }
   .tab[aria-selected='true']::after { content: ''; position: absolute; left: 10px; right: 10px; bottom: -1px; height: 3px; border-radius: 3px 3px 0 0; background: var(--accent); }
   .count { display: inline-grid; place-items: center; min-width: 24px; height: 20px; padding: 0 6px; border-radius: 99px; background: var(--surface-2); border: 1px solid var(--rule); font-size: 12px; font-weight: 700; color: var(--muted); }
@@ -173,6 +173,11 @@
   .stack span:hover, .stack span:focus-visible { filter: brightness(1.12); }
   .stack span::after { content: attr(data-tip); position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%); padding: 5px 9px; border-radius: 7px; background: var(--text); color: var(--bg); font-size: 12.5px; font-weight: 700; white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity .15s; z-index: 2; }
   .stack span:hover::after, .stack span:focus-visible::after { opacity: 1; }
+  /* Hidden labels take no space (they made the page scroll sideways); end labels stay inside the bar. */
+  .stack span::after { display: none; }
+  .stack span:hover::after, .stack span:focus-visible::after { display: block; }
+  .stack span:first-child::after { left: 0; transform: none; }
+  .stack span:last-child::after { left: auto; right: 0; transform: none; }
   .bar-counts { margin-top: 6px; font-size: 12.5px; color: var(--muted); }
   .legend { display: flex; flex-wrap: wrap; gap: 6px 14px; margin-top: 14px; font-size: 13px; color: var(--muted); }
   .legend span { display: inline-flex; align-items: center; gap: 6px; }
