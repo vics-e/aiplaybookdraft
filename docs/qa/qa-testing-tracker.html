@@ -199,6 +199,7 @@
   .next-steps li { padding: 4px 0; }
   /* Lessons tab */
   .lessons-wrap { overflow-x: auto; }
+  .lessons-wrap:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
   table.lessons { width: 100%; min-width: 720px; border-collapse: collapse; font-size: 13.5px; }
   table.lessons th { text-align: left; font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); padding: 10px 12px; border-bottom: 1px solid var(--rule-strong); background: var(--surface-2); }
   table.lessons td { padding: 10px 12px; border-bottom: 1px solid var(--rule); vertical-align: top; line-height: 1.45; }
@@ -504,7 +505,7 @@
     <div class="wrap">
       <h2>Lessons learned</h2>
       <p class="lead" id="lessons-intro"></p>
-      <div class="card table-card lessons-wrap"><table class="lessons" id="lessons-table"></table></div>
+      <div class="card table-card lessons-wrap" role="region" tabindex="0" aria-label="Lessons table (scroll sideways to see more)"><table class="lessons" id="lessons-table"></table></div>
       <div class="card" style="margin-top:14px" id="patterns-card">
         <h3 style="margin-top:0">Patterns</h3>
         <ul class="patterns" id="patterns"></ul>
