@@ -225,7 +225,11 @@
   table.checks select option { background: var(--surface); color: var(--text); }
   table.checks tbody tr:hover td { background: var(--surface-2); }
   table.checks select.status-select { font-weight: 700; color: var(--s); background: var(--s-bg); border-color: color-mix(in srgb, var(--s) 30%, transparent); }
-  table.checks .notes { display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; color: var(--muted); }
+  /* Notes are typed straight into the table: plain text until hovered or focused, saved as you type. */
+  table.checks .notes-edit { display: block; width: 100%; min-height: 4.8em; padding: 6px 8px; margin: -6px 0; border: 1px solid transparent; border-radius: 8px; background: transparent; color: var(--muted); font-size: 13px; line-height: 1.45; resize: vertical; }
+  table.checks .notes-edit:hover { border-color: var(--rule-strong); }
+  table.checks .notes-edit:focus { border-color: var(--accent); background: var(--surface); color: var(--text); outline: none; box-shadow: var(--focus); }
+  table.checks .notes-edit::placeholder { color: var(--faint); }
   table.checks .ev a { display: inline-block; margin: 0 4px 4px 0; padding: 1px 7px; border-radius: 6px; border: 1px solid var(--rule); color: var(--text); text-decoration: none; font-size: 12px; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; vertical-align: top; }
   table.checks .ev a:hover { border-color: var(--rule-strong); background: var(--surface-2); }
   a.ev-result::before { content: ''; display: inline-block; width: 7px; height: 7px; margin-right: 5px; border-radius: 99px; background: var(--f, var(--s)); vertical-align: 1px; }
@@ -739,7 +743,7 @@ function tableRows(items) {
       <td><select aria-label="Applies for ${c.id}" data-id="${c.id}" data-field="applies">${opt(CHECKS.applies, r.applies)}</select></td>
       <td><select aria-label="Owner for ${c.id}" data-id="${c.id}" data-field="owner">${opt(CHECKS.owners, r.owner)}</select></td>
       <td class="ev">${ev.length ? ev.slice(0, 2).join('') + (ev.length > 2 ? `<button class="linkish" type="button" data-edit="${c.id}">+${ev.length - 2} more</button>` : '') : noEvidence(r) ? '<span class="warn-tag">No evidence linked</span>' : '<span class="muted">—</span>'}</td>
-      <td><div class="notes" title="${esc(r.comments)}">${esc(r.comments) || '<span class="muted">—</span>'}</div></td>
+      <td><textarea class="notes-edit" rows="3" aria-label="Notes for ${c.id}" placeholder="Add a note…" data-id="${c.id}" data-field="comments">${esc(r.comments)}</textarea></td>
     </tr>`;
   }).join('');
 }

@@ -254,7 +254,7 @@ function tableRows(items) {
       <td><select aria-label="Applies for ${c.id}" data-id="${c.id}" data-field="applies">${opt(CHECKS.applies, r.applies)}</select></td>
       <td><select aria-label="Owner for ${c.id}" data-id="${c.id}" data-field="owner">${opt(CHECKS.owners, r.owner)}</select></td>
       <td class="ev">${ev.length ? ev.slice(0, 2).join('') + (ev.length > 2 ? `<button class="linkish" type="button" data-edit="${c.id}">+${ev.length - 2} more</button>` : '') : noEvidence(r) ? '<span class="warn-tag">No evidence linked</span>' : '<span class="muted">—</span>'}</td>
-      <td><div class="notes" title="${esc(r.comments)}">${esc(r.comments) || '<span class="muted">—</span>'}</div></td>
+      <td><textarea class="notes-edit" rows="3" aria-label="Notes for ${c.id}" placeholder="Add a note…" data-id="${c.id}" data-field="comments">${esc(r.comments)}</textarea></td>
     </tr>`;
   }).join('');
 }
