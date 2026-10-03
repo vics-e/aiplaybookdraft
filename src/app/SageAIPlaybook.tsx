@@ -69,6 +69,9 @@ function getInitialPlaybookState(totalPages: number) {
   return loadPlaybookState(getBrowserPlaybookStorage(), totalPages);
 }
 
+/** Where Finish on the last page takes the reader. */
+const CONTENTS_PAGE_INDEX = Math.max(0, playbook.findIndex(page => page.type === 'contents'));
+
 export default function SageAIPlaybook() {
   const [persistedState] = useState(() => getInitialPlaybookState(playbook.length));
   const [currentPage, setCurrentPage] = useState(persistedState.currentPage);
@@ -177,6 +180,11 @@ export default function SageAIPlaybook() {
   };
 
   const goToNextExperience = () => {
+    // Finish on the last page (the certificate) returns to the contents, never a dead end.
+    if (!activeSectionOpener && currentPage === totalPages - 1) {
+      goToPage(CONTENTS_PAGE_INDEX);
+      return;
+    }
     const nextOpener = getSectionOpenerByStartPage(currentPage + 1);
     const destination = resolveNextExperience(currentPage, activeSectionOpener, totalPages, SECTION_OPENER_NAVIGATION);
     if (destination.kind === 'opener' && nextOpener) {
@@ -614,7 +622,6 @@ export default function SageAIPlaybook() {
             <button
               type="button"
               onClick={goToNextExperience}
-              disabled={currentPage === totalPages - 1}
               aria-label={activeSectionOpener ? 'Start section' : currentPage === totalPages - 1 ? 'Finish playbook' : 'Go to next page'}
               className="accent-action-shadow order-3 flex min-h-11 items-center gap-2 justify-self-end rounded-xl border accent-border accent-bg px-4 py-2.5 text-sm font-black text-black transition-all hover:scale-105 accent-hover disabled:cursor-not-allowed disabled:scale-100 disabled:opacity-20 disabled:shadow-none sm:px-6 sm:py-3"
             >
