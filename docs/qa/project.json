@@ -1,0 +1,14 @@
+{
+  "name": "AI Playbook",
+  "summary": "Interactive AI playbook for accountants and bookkeepers",
+  "liveUrl": "https://aiplaybook-ve.vercel.app/",
+  "repoUrl": "https://github.com/vics-e/aiplaybookdraft",
+  "version": "fad5b8d",
+  "testers": "Victor Egunlae, Codex",
+  "owner": "Victor Egunlae",
+  "started": "2026-09-09",
+  "lastChecked": "2026-09-23T17:00:00Z",
+  "evidenceBase": "https://aiplaybook-ve.vercel.app/review-tracker/",
+  "storageKey": "ai-playbook-qa-review",
+  "sources": []
+}

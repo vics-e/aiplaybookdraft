@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "build": "vite build",
-    "build:qa-template": "python docs/qa/tracker-redesign/build.py && node scripts/generate-review-tracker.mjs",
+    "build:qa-template": "python docs/qa/template/build.py && node scripts/generate-review-tracker.mjs",
     "build:review-tracker": "npm run build:qa-template",
     "dev": "vite",
     "test": "node --test --test-isolation=none tests/*.test.mjs"

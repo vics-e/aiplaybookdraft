@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 const root = path.resolve(process.cwd());
-const redesignDir = path.join(root, 'docs', 'qa', 'tracker-redesign');
+const redesignDir = path.join(root, 'docs', 'qa', 'template');
 const publishDir = path.join(redesignDir, 'publish', 'review-tracker');
 const destinationDir = path.join(root, 'public', 'review-tracker');
 const templateSourceDir = path.join(publishDir, 'template');
@@ -38,10 +38,7 @@ for (const fileName of ['index.html', 'tracker.js', 'theme-init.js']) {
   copyRequired(path.join(templateSourceDir, fileName), path.join(templateDestinationDir, fileName));
 }
 
-copyRequired(
-  path.join(redesignDir, 'ai-playbook-example.html'),
-  path.join(root, 'docs', 'qa', 'qa-testing-tracker.html'),
-);
+// docs/qa/qa-testing-tracker.html is written directly by docs/qa/template/build.py.
 
 if (!fs.existsSync(path.join(destinationDir, 'evidence'))) {
   throw new Error('The existing public review-tracker evidence directory was not preserved.');

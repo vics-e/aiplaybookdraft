@@ -1,25 +1,16 @@
-# Reusable QA Review Tracker
+# QA review tracker: template
 
-This folder contains a blank, self-contained QA tracker that can be copied into another project.
+The reusable tracker, shared by every project. The project's own details and
+results live one folder up, in `docs/qa/project.json` and `docs/qa/results.json`.
 
-## Start a new project
+| File | What it is |
+|---|---|
+| `tracker.template.html` | The page: Overview, Manual testing and Release checklist (Summary or Table view), To do, About; light and dark (dark by default); a dated history on every check. Edit this to change the design. |
+| `checks.json` | The 67 checks from Sage's Manual Testing (38) and QA Release (29) checklists, wording as written. |
+| `build.py` | Builds `index.html` (blank preview), `../qa-testing-tracker.html` (this project) and `publish/` (ready to deploy). |
+| `index.html` | Blank template preview: open it locally. |
+| `publish/` | Built copies for `/review-tracker/` and `/review-tracker/template/`, with the code in `tracker.js` and `theme-init.js` (the site's Content-Security-Policy blocks inline scripts). |
 
-1. Copy `qa-review-tracker-template.html` into the new project's QA folder.
-2. Replace `[PROJECT NAME]`, `[PROJECT-SLUG]` and `[ASSESSMENT DATE]` throughout the file.
-3. Give the agent `QA-RUNBOOK.md` and the project URL, repository guidance, requirements and supported browser/device list.
-4. Let the agent complete directly testable checks and record evidence against each row.
-5. Ask project owners or QA to complete items that need decisions, external systems, physical devices or formal approval.
+Build from the repo root: `npm run build:review-tracker`.
 
-## Editing and sharing
-
-The tracker saves edits in the current browser only. It does not write directly to GitHub or synchronise between people.
-
-- **Download report (.md)** creates a readable snapshot.
-- **Download editable backup (.json)** preserves the current editable state.
-- **Import backup** loads an editable JSON file into another browser or back into the source owner's browser.
-
-To update the official version, return the JSON backup to the project owner or agent. They must import it, verify the changes, update the project source, commit it and redeploy.
-
-## Evidence
-
-Keep durable evidence in the project repository when appropriate. Screenshots are useful for visual defects and responsive states; test output and short Markdown reports are better for repeatable automated or technical checks. Avoid committing temporary browser logs, secrets or unnecessary duplicate files.
+To use it in another project, see "Copy this to a new project" in `docs/qa/README.md`.
