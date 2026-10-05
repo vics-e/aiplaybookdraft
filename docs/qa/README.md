@@ -83,6 +83,15 @@ Results typed into the live page are saved **in that browser only**. To keep
 them, use **Share & save → Download editable backup** and fold the results
 into `results.json`.
 
+**Collecting results from QA testers.** The "Start here" box at the top of the
+tracker walks testers through it: they add their name (every change and history
+entry is credited to them), record results, then press **Download my results**
+and send you the `.json` file. Import each file with **Share & save → Import a
+backup**. Imports **merge**: only the checks in the file change, the more recent
+copy of a check wins, and both histories are kept, so several testers' files can
+be imported one after another, in any order, without losing anyone's work.
+Then fold the merged results into `results.json` as above.
+
 **Overview extras** (optional, in `project.json`): `testSummary` is a list of `["Label", "text"]`
 pairs shown as "How it was tested"; `nextSteps` is a list of lines shown as "Handover: what happens
 next". **Bold** and `code` work in both. "Fixed after failing" fills itself from each check's history,

@@ -72,6 +72,7 @@
   .meter { width: 120px; height: 6px; border-radius: 99px; background: var(--rule); overflow: hidden; }
   .meter > span { display: block; height: 100%; background: var(--accent); border-radius: 99px; transition: width .4s; }
   @media (max-width: 760px) { .topbar-progress .meter, .brand-text span { display: none; } }
+  @media (max-width: 480px) { .topbar-progress { display: none; } }
   .icon-btn { display: inline-grid; place-items: center; width: 38px; height: 38px; border-radius: 10px; border: 1px solid var(--rule); background: var(--surface); cursor: pointer; flex: none; }
   .icon-btn:hover { border-color: var(--rule-strong); }
   .btn { display: inline-flex; align-items: center; gap: 8px; height: 38px; padding: 0 14px; border-radius: 10px; border: 1px solid var(--rule); background: var(--surface); font-weight: 600; font-size: 14px; cursor: pointer; white-space: nowrap; }
@@ -102,6 +103,26 @@
   .who-tool { background: var(--surface-2); color: var(--muted); border: 1px solid var(--rule); font-weight: 700; letter-spacing: 0; }
   .unset { display: inline-flex; align-items: center; gap: 6px; color: var(--faint); font-weight: 500; font-style: italic; }
   .edit-link { margin-top: 10px; font-size: 13px; }
+
+  /* --------------------------------------------------- QA testers: start here */
+  .start { margin-top: 20px; border: 1px solid color-mix(in srgb, var(--accent) 45%, var(--rule)); border-radius: 14px; background: var(--surface); box-shadow: var(--shadow); }
+  .start > summary { display: flex; align-items: center; gap: 10px; padding: 14px 18px; cursor: pointer; font-weight: 700; list-style: none; }
+  .start > summary::-webkit-details-marker { display: none; }
+  .start > summary::after { content: ''; margin-left: auto; width: 9px; height: 9px; border-right: 2px solid var(--muted); border-bottom: 2px solid var(--muted); transform: rotate(45deg); transition: transform .15s ease; }
+  .start[open] > summary::after { transform: rotate(-135deg); }
+  .start-tag { flex-shrink: 0; white-space: nowrap; padding: 2px 8px; border-radius: 99px; background: var(--accent); color: var(--on-accent); font-size: 11.5px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; }
+  .start-body { padding: 0 18px 18px; }
+  .start-steps { list-style: none; display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin: 0; padding: 0; counter-reset: st; }
+  @media (max-width: 1000px) { .start-steps { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 560px) { .start-steps { grid-template-columns: 1fr; } }
+  .start-steps li { display: flex; flex-direction: column; gap: 6px; padding: 12px; border-radius: 12px; background: var(--surface-2); counter-increment: st; font-size: 13.5px; line-height: 1.45; }
+  .start-steps li::before { content: counter(st); display: grid; place-items: center; width: 24px; height: 24px; border-radius: 99px; background: var(--accent); color: var(--on-accent); font-weight: 800; font-size: 12.5px; }
+  .start-steps b { font-size: 14px; }
+  .start-steps .btn { align-self: flex-start; height: 32px; margin-top: auto; font-size: 13px; }
+  .start-name { width: 100%; height: 34px; padding: 0 10px; border: 1px solid var(--rule-strong); border-radius: 8px; background: var(--surface); color: var(--text); font: inherit; font-size: 13.5px; }
+  .start-name:focus { outline: none; border-color: var(--accent); box-shadow: var(--focus); }
+  .start-owner { margin: 12px 0 0; font-size: 13px; color: var(--muted); }
+  .history .by { color: var(--text); font-weight: 600; }
   .edit-link button { border: 0; background: none; padding: 0; color: var(--accent-strong); font-weight: 600; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
   :root[data-theme='dark'] .edit-link button { color: var(--accent); }
 
@@ -242,7 +263,9 @@
   .seg button[aria-pressed='true'] { background: var(--accent); color: var(--on-accent); }
   .warn-tag { font-size: 12px; font-weight: 700; color: var(--needs); white-space: nowrap; }
   .table-wrap { border: 1px solid var(--rule); border-radius: 14px; background: var(--surface); overflow-x: auto; box-shadow: var(--shadow); }
-  table.checks { width: 100%; min-width: 1080px; border-collapse: collapse; table-layout: fixed; font-size: 13.5px; }
+  /* Table view breaks out of the 1180px column so Notes gets real room; it scrolls sideways only on small screens. */
+  .table-wrap { position: relative; left: 50%; width: min(calc(100vw - 64px), 1640px); transform: translateX(-50%); }
+  table.checks { width: 100%; min-width: 1240px; border-collapse: collapse; table-layout: fixed; font-size: 13.5px; }
   table.checks th { position: sticky; top: 0; text-align: left; padding: 11px 12px; font-size: 13px; font-weight: 700; color: var(--text); background: var(--surface-2); border-bottom: 1px solid var(--rule-strong); }
   table.checks td { padding: 12px; border-top: 1px solid var(--rule); vertical-align: top; }
   table.checks tbody tr:hover td { background: color-mix(in srgb, var(--surface-2) 60%, transparent); }
@@ -256,7 +279,7 @@
   table.checks tbody tr:hover td { background: var(--surface-2); }
   table.checks select.status-select { font-weight: 700; color: var(--s); background: var(--s-bg); border-color: color-mix(in srgb, var(--s) 30%, transparent); }
   /* Notes are typed straight into the table: plain text until hovered or focused, saved as you type. */
-  table.checks .notes-edit { display: block; width: 100%; min-height: 4.8em; padding: 6px 8px; margin: -6px 0; border: 1px solid transparent; border-radius: 8px; background: transparent; color: var(--muted); font-size: 13px; line-height: 1.45; resize: vertical; }
+  table.checks .notes-edit { field-sizing: content; max-height: 18em; display: block; width: 100%; min-height: 6.6em; padding: 6px 8px; margin: -6px 0; border: 1px solid transparent; border-radius: 8px; background: transparent; color: var(--muted); font-size: 13px; line-height: 1.45; resize: vertical; }
   table.checks .notes-edit:hover { border-color: var(--rule-strong); }
   table.checks .notes-edit:focus { border-color: var(--accent); background: var(--surface); color: var(--text); outline: none; box-shadow: var(--focus); }
   table.checks .notes-edit::placeholder { color: var(--faint); }
@@ -329,7 +352,8 @@
 
   @media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto !important; } }
   @media print {
-    .topbar, .tabs, .toolbar, .chips, .edit-link, .chev { display: none !important; }
+    .topbar, .tabs, .toolbar, .chips, .edit-link, .start, .chev { display: none !important; }
+    .table-wrap { left: auto; width: auto; transform: none; }
     .panel[hidden] { display: block !important; }
     .item-body[hidden] { display: block !important; }
     body { background: #fff; }
@@ -365,7 +389,7 @@
       <div class="menu-list" id="share-menu" hidden>
         <button type="button" data-act="md">Download report<small>A readable summary (.md) to send to anyone</small></button>
         <button type="button" data-act="json">Download editable backup<small>A file (.json) someone else can import and keep editing</small></button>
-        <button type="button" data-act="import">Import a backup<small>Load a .json backup into this browser</small></button>
+        <button type="button" data-act="import">Import a backup<small>Merge a tester's .json results into this browser</small></button>
       </div>
       <input type="file" id="import-file" accept="application/json,.json" hidden />
     </div>
@@ -380,6 +404,23 @@
       <p id="project-summary"></p>
       <dl class="facts" id="facts"></dl>
       <div class="edit-link"><button type="button" id="edit-project">Edit project details</button></div>
+      <details class="start" id="start-here" open>
+        <summary><span class="start-tag">Start here</span> QA testers: how to record your results</summary>
+        <div class="start-body">
+          <ol class="start-steps">
+            <li><b>Add your name</b><span>So your results are credited to you.</span>
+              <label class="sr-only" for="tester-name">Your name</label>
+              <input class="start-name" id="tester-name" type="text" autocomplete="name" placeholder="Your name" /></li>
+            <li><b>Pick your checks</b><span>The To do tab lists what's waiting on QA.</span>
+              <button class="btn" type="button" data-goto="tab-actions">Open To do</button></li>
+            <li><b>Record each result</b><span>Set the status, add a note, and link a screenshot under <i>Details &amp; history</i>.</span></li>
+            <li><b>Stay in this browser</b><span>Results save here automatically, but only here, until you send them.</span></li>
+            <li><b>Send them in</b><span>Download your results file and send it to <span class="start-owner-name">the project owner</span>.</span>
+              <button class="btn btn-primary" type="button" data-act="json">Download my results</button></li>
+          </ol>
+          <p class="start-owner"><b>Project owner:</b> use <b>Share &amp; save → Import a backup</b> for each file you receive. Imports merge: each tester's results are added and nobody else's are overwritten.</p>
+        </div>
+      </details>
     </div>
   </section>
 
@@ -421,7 +462,8 @@
           <ul class="bullets">
             <li>Changes save automatically, <b>in this browser only</b>.</li>
             <li>To share results, use <b>Share &amp; save → Download report</b>.</li>
-            <li>To hand over editing, send the <b>editable backup</b>; the other person imports it.</li>
+            <li>To hand in results, send the <b>editable backup</b>; the project owner imports it.</li>
+            <li>Importing <b>merges</b>: only the checks in the file change, and every result's history is kept.</li>
             <li>The published version only changes when the project owner updates it.</li>
           </ul>
         </div>
@@ -641,7 +683,7 @@ const fmtDate = iso => { if (!iso) return ''; const d = new Date(iso); return is
 
 /* ------------------------------------------------------------ saved state */
 const KEY = PROJECT.storageKey;
-let state = { project: {}, rows: {}, lastChecked: '' };
+let state = { project: {}, rows: {}, lastChecked: '', tester: '' };
 try { state = { ...state, ...JSON.parse(localStorage.getItem(KEY) || '{}') }; } catch {}
 const save = () => { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch {} };
 const project = () => ({ ...PROJECT, ...Object.fromEntries(Object.entries(state.project).filter(([, v]) => v)) });
@@ -652,8 +694,10 @@ const ALL = [...CHECKS.manual.map(c => ({ ...c, list: 'manual' })), ...CHECKS.re
 function setField(id, field, value) {
   const current = row(id);
   const next = { ...current, [field]: value };
+  const by = (state.tester || '').trim();
+  if (by) { next.by = by; next.at = new Date().toISOString(); }
   if (field === 'status' && value !== current.status) {
-    next.history = [...current.history, { at: new Date().toISOString(), status: value }];
+    next.history = [...current.history, { at: new Date().toISOString(), status: value, ...(by && { by }) }];
     state.lastChecked = new Date().toISOString();
   }
   state.rows[id] = next;
@@ -813,7 +857,7 @@ function itemHtml(c) {
     c.sourceNotes && ['Source note', esc(c.sourceNotes)],
   ].filter(Boolean);
   const history = r.history.length
-    ? `<ul class="history">${[...r.history].reverse().map(h => `<li><time>${fmtDate(h.at)}</time><span class="pill" data-status="${esc(h.status)}">${esc(h.status)}</span><span class="muted">${esc(h.note || '')}</span></li>`).join('')}</ul>`
+    ? `<ul class="history">${[...r.history].reverse().map(h => `<li><time>${fmtDate(h.at)}</time><span class="pill" data-status="${esc(h.status)}">${esc(h.status)}</span><span class="muted">${h.by ? `<span class="by">${esc(h.by)}</span> ` : ''}${esc(h.note || '')}</span></li>`).join('')}</ul>`
     : '<p class="muted" style="margin:6px 0 0;font-size:13.5px">No results recorded yet. Each status change is kept here.</p>';
   return `<div class="item" data-status="${esc(r.status)}" ${isOpen ? 'open-state' : ''}>
     <button class="item-head" type="button" aria-expanded="${isOpen}" aria-controls="body-${c.id}" data-toggle="${c.id}">
@@ -863,7 +907,7 @@ function tableRows(items) {
 
 function tableHtml(items) {
   return `<div class="table-wrap"><table class="checks">
-    <colgroup><col style="width:26%"><col style="width:178px"><col style="width:166px"><col style="width:168px"><col style="width:16%"><col></colgroup>
+    <colgroup><col style="width:280px"><col style="width:164px"><col style="width:140px"><col style="width:150px"><col style="width:150px"><col></colgroup>
     <thead><tr><th>Check</th><th>Status</th><th>Applies?</th><th>Owner</th><th>Evidence</th><th>Notes</th></tr></thead>
     <tbody>${tableRows(items)}</tbody></table></div>`;
 }
@@ -997,23 +1041,70 @@ const menuBtn = $('#share-btn'), menu = $('#share-menu');
 function closeMenu() { menu.hidden = true; menuBtn.setAttribute('aria-expanded', 'false'); }
 menuBtn.addEventListener('click', () => { menu.hidden = !menu.hidden; menuBtn.setAttribute('aria-expanded', String(!menu.hidden)); });
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
+function act(name) {
+  const who = (state.tester || '').trim();
+  const file = who ? `${slug()}-qa-results-${who.toLowerCase().replace(/[^a-z0-9]+/g, '-')}-${today()}.json` : `${slug()}-qa-backup-${today()}.json`;
+  if (name === 'md') download(`${slug()}-qa-report-${today()}.md`, markdown(), 'text/markdown');
+  if (name === 'json') download(file, JSON.stringify({ format: 'qa-review-tracker', version: 3, exportedAt: new Date().toISOString(), exportedBy: who, ...state }, null, 2), 'application/json');
+  if (name === 'import') $('#import-file').click();
+}
 menu.addEventListener('click', e => {
-  const act = e.target.closest('[data-act]')?.dataset.act; if (!act) return;
-  closeMenu();
-  if (act === 'md') download(`${slug()}-qa-report-${today()}.md`, markdown(), 'text/markdown');
-  if (act === 'json') download(`${slug()}-qa-backup-${today()}.json`, JSON.stringify({ format: 'qa-review-tracker', version: 2, exportedAt: new Date().toISOString(), ...state }, null, 2), 'application/json');
-  if (act === 'import') $('#import-file').click();
+  const name = e.target.closest('[data-act]')?.dataset.act; if (!name) return;
+  closeMenu(); act(name);
 });
+
+/** Newest first-recorded time of a row, for deciding which copy of a check is more recent. */
+const touched = r => [r.at, ...(r.history || []).map(h => h.at)].filter(Boolean).sort().pop() || '';
+
+/**
+ * Merge a tester's backup into this browser. Only the checks in the file change;
+ * for each one the more recent copy wins and both histories are kept, so files
+ * from several testers can be imported one after another without losing work.
+ */
+function mergeRows(incoming) {
+  let changed = 0;
+  for (const [id, theirs] of Object.entries(incoming)) {
+    if (!theirs || typeof theirs !== 'object') continue;
+    const ours = state.rows[id];
+    const history = [...(ours?.history || []), ...(theirs.history || [])]
+      .filter((h, i, all) => all.findIndex(x => x.at === h.at && x.status === h.status) === i)
+      .sort((a, b) => String(a.at).localeCompare(String(b.at)));
+    const newer = !ours || touched(theirs) >= touched(ours);
+    const merged = newer ? { ...ours, ...theirs } : { ...theirs, ...ours };
+    const before = JSON.stringify(ours || null);
+    state.rows[id] = { ...merged, history };
+    if (JSON.stringify(state.rows[id]) !== before) changed++;
+  }
+  return changed;
+}
+
 $('#import-file').addEventListener('change', async e => {
   const file = e.target.files?.[0]; e.target.value = ''; if (!file) return;
   try {
     const data = JSON.parse(await file.text());
     const rows = data.rows || data.assessments;
     if (!rows || typeof rows !== 'object') throw new Error();
-    state = { project: data.project || state.project, rows, lastChecked: data.lastChecked || state.lastChecked };
-    save(); renderAll(); toast('Backup imported');
+    const changed = mergeRows(rows);
+    if (data.lastChecked && data.lastChecked > (state.lastChecked || '')) state.lastChecked = data.lastChecked;
+    save(); renderAll();
+    const from = data.exportedBy ? ` from ${data.exportedBy}` : '';
+    toast(changed ? `Merged ${changed} check${changed === 1 ? '' : 's'}${from}` : `Nothing new${from}: already up to date`);
   } catch { toast('That file isn’t a tracker backup'); }
 });
+
+/* QA testers: start here */
+const nameInput = $('#tester-name');
+nameInput.value = state.tester || '';
+nameInput.addEventListener('input', () => { state.tester = nameInput.value; save(); });
+document.querySelectorAll('.start-owner-name').forEach(el => { if (project().owner) el.textContent = project().owner; });
+$('#start-here').addEventListener('click', e => {
+  const go = e.target.closest('[data-goto]')?.dataset.goto;
+  if (go) { select(go); document.getElementById(go).scrollIntoView({ block: 'start', behavior: 'smooth' }); }
+  const name = e.target.closest('[data-act]')?.dataset.act;
+  if (name) act(name);
+});
+try { if (localStorage.getItem('qa-tracker-start') === 'closed') $('#start-here').open = false; } catch {}
+$('#start-here').addEventListener('toggle', e => { try { localStorage.setItem('qa-tracker-start', e.target.open ? 'open' : 'closed'); } catch {} });
 const today = () => new Date().toISOString().slice(0, 10);
 const slug = () => (project().name || 'project').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 function download(name, text, type) {
@@ -1023,8 +1114,8 @@ function download(name, text, type) {
 }
 function markdown() {
   const p = project(); const { n, total } = counts();
-  const line = c => { const r = row(c.id); return `| ${c.id} | ${c.summary.replace(/\|/g, '/')} | ${r.status} | ${r.owner} | ${(r.comments || '').replace(/\n/g, ' ').replace(/\|/g, '/')} | ${(r.evidence || '').replace(/\n/g, ' ').replace(/\|/g, '/')} |`; };
-  const table = list => ['| ID | Check | Status | Owner | Notes | Evidence |', '|---|---|---|---|---|---|', ...CHECKS[list].map(line)].join('\n');
+  const line = c => { const r = row(c.id); return `| ${c.id} | ${c.summary.replace(/\|/g, '/')} | ${r.status} | ${r.owner} | ${(r.by || '').replace(/\|/g, '/')} | ${(r.comments || '').replace(/\n/g, ' ').replace(/\|/g, '/')} | ${(r.evidence || '').replace(/\n/g, ' ').replace(/\|/g, '/')} |`; };
+  const table = list => ['| ID | Check | Status | Owner | Recorded by | Notes | Evidence |', '|---|---|---|---|---|---|---|', ...CHECKS[list].map(line)].join('\n');
   return [`# QA report: ${p.name || 'Untitled project'}`, '',
     `- Live site: ${p.liveUrl || 'not set'}`, `- Repository: ${p.repoUrl || 'not set'}`, `- Version tested: ${p.version || 'not set'}`,
     `- Assessment started: ${p.started || 'not set'} · Last checked: ${lastChecked() ? fmtDate(lastChecked()) : 'not yet'}`, `- Tested by: ${p.testers || 'not set'}`, '',

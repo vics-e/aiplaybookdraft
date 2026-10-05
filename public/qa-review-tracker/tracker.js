@@ -93,7 +93,7 @@ const fmtDate = iso => { if (!iso) return ''; const d = new Date(iso); return is
 
 /* ------------------------------------------------------------ saved state */
 const KEY = PROJECT.storageKey;
-let state = { project: {}, rows: {}, lastChecked: '' };
+let state = { project: {}, rows: {}, lastChecked: '', tester: '' };
 try { state = { ...state, ...JSON.parse(localStorage.getItem(KEY) || '{}') }; } catch {}
 const save = () => { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch {} };
 const project = () => ({ ...PROJECT, ...Object.fromEntries(Object.entries(state.project).filter(([, v]) => v)) });
@@ -104,8 +104,10 @@ const ALL = [...CHECKS.manual.map(c => ({ ...c, list: 'manual' })), ...CHECKS.re
 function setField(id, field, value) {
   const current = row(id);
   const next = { ...current, [field]: value };
+  const by = (state.tester || '').trim();
+  if (by) { next.by = by; next.at = new Date().toISOString(); }
   if (field === 'status' && value !== current.status) {
-    next.history = [...current.history, { at: new Date().toISOString(), status: value }];
+    next.history = [...current.history, { at: new Date().toISOString(), status: value, ...(by && { by }) }];
     state.lastChecked = new Date().toISOString();
   }
   state.rows[id] = next;
@@ -265,7 +267,7 @@ function itemHtml(c) {
     c.sourceNotes && ['Source note', esc(c.sourceNotes)],
   ].filter(Boolean);
   const history = r.history.length
-    ? `<ul class="history">${[...r.history].reverse().map(h => `<li><time>${fmtDate(h.at)}</time><span class="pill" data-status="${esc(h.status)}">${esc(h.status)}</span><span class="muted">${esc(h.note || '')}</span></li>`).join('')}</ul>`
+    ? `<ul class="history">${[...r.history].reverse().map(h => `<li><time>${fmtDate(h.at)}</time><span class="pill" data-status="${esc(h.status)}">${esc(h.status)}</span><span class="muted">${h.by ? `<span class="by">${esc(h.by)}</span> ` : ''}${esc(h.note || '')}</span></li>`).join('')}</ul>`
     : '<p class="muted" style="margin:6px 0 0;font-size:13.5px">No results recorded yet. Each status change is kept here.</p>';
   return `<div class="item" data-status="${esc(r.status)}" ${isOpen ? 'open-state' : ''}>
     <button class="item-head" type="button" aria-expanded="${isOpen}" aria-controls="body-${c.id}" data-toggle="${c.id}">
@@ -315,7 +317,7 @@ function tableRows(items) {
 
 function tableHtml(items) {
   return `<div class="table-wrap"><table class="checks">
-    <colgroup><col style="width:26%"><col style="width:178px"><col style="width:166px"><col style="width:168px"><col style="width:16%"><col></colgroup>
+    <colgroup><col style="width:280px"><col style="width:164px"><col style="width:140px"><col style="width:150px"><col style="width:150px"><col></colgroup>
     <thead><tr><th>Check</th><th>Status</th><th>Applies?</th><th>Owner</th><th>Evidence</th><th>Notes</th></tr></thead>
     <tbody>${tableRows(items)}</tbody></table></div>`;
 }
@@ -449,23 +451,70 @@ const menuBtn = $('#share-btn'), menu = $('#share-menu');
 function closeMenu() { menu.hidden = true; menuBtn.setAttribute('aria-expanded', 'false'); }
 menuBtn.addEventListener('click', () => { menu.hidden = !menu.hidden; menuBtn.setAttribute('aria-expanded', String(!menu.hidden)); });
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
+function act(name) {
+  const who = (state.tester || '').trim();
+  const file = who ? `${slug()}-qa-results-${who.toLowerCase().replace(/[^a-z0-9]+/g, '-')}-${today()}.json` : `${slug()}-qa-backup-${today()}.json`;
+  if (name === 'md') download(`${slug()}-qa-report-${today()}.md`, markdown(), 'text/markdown');
+  if (name === 'json') download(file, JSON.stringify({ format: 'qa-review-tracker', version: 3, exportedAt: new Date().toISOString(), exportedBy: who, ...state }, null, 2), 'application/json');
+  if (name === 'import') $('#import-file').click();
+}
 menu.addEventListener('click', e => {
-  const act = e.target.closest('[data-act]')?.dataset.act; if (!act) return;
-  closeMenu();
-  if (act === 'md') download(`${slug()}-qa-report-${today()}.md`, markdown(), 'text/markdown');
-  if (act === 'json') download(`${slug()}-qa-backup-${today()}.json`, JSON.stringify({ format: 'qa-review-tracker', version: 2, exportedAt: new Date().toISOString(), ...state }, null, 2), 'application/json');
-  if (act === 'import') $('#import-file').click();
+  const name = e.target.closest('[data-act]')?.dataset.act; if (!name) return;
+  closeMenu(); act(name);
 });
+
+/** Newest first-recorded time of a row, for deciding which copy of a check is more recent. */
+const touched = r => [r.at, ...(r.history || []).map(h => h.at)].filter(Boolean).sort().pop() || '';
+
+/**
+ * Merge a tester's backup into this browser. Only the checks in the file change;
+ * for each one the more recent copy wins and both histories are kept, so files
+ * from several testers can be imported one after another without losing work.
+ */
+function mergeRows(incoming) {
+  let changed = 0;
+  for (const [id, theirs] of Object.entries(incoming)) {
+    if (!theirs || typeof theirs !== 'object') continue;
+    const ours = state.rows[id];
+    const history = [...(ours?.history || []), ...(theirs.history || [])]
+      .filter((h, i, all) => all.findIndex(x => x.at === h.at && x.status === h.status) === i)
+      .sort((a, b) => String(a.at).localeCompare(String(b.at)));
+    const newer = !ours || touched(theirs) >= touched(ours);
+    const merged = newer ? { ...ours, ...theirs } : { ...theirs, ...ours };
+    const before = JSON.stringify(ours || null);
+    state.rows[id] = { ...merged, history };
+    if (JSON.stringify(state.rows[id]) !== before) changed++;
+  }
+  return changed;
+}
+
 $('#import-file').addEventListener('change', async e => {
   const file = e.target.files?.[0]; e.target.value = ''; if (!file) return;
   try {
     const data = JSON.parse(await file.text());
     const rows = data.rows || data.assessments;
     if (!rows || typeof rows !== 'object') throw new Error();
-    state = { project: data.project || state.project, rows, lastChecked: data.lastChecked || state.lastChecked };
-    save(); renderAll(); toast('Backup imported');
+    const changed = mergeRows(rows);
+    if (data.lastChecked && data.lastChecked > (state.lastChecked || '')) state.lastChecked = data.lastChecked;
+    save(); renderAll();
+    const from = data.exportedBy ? ` from ${data.exportedBy}` : '';
+    toast(changed ? `Merged ${changed} check${changed === 1 ? '' : 's'}${from}` : `Nothing new${from}: already up to date`);
   } catch { toast('That file isn’t a tracker backup'); }
 });
+
+/* QA testers: start here */
+const nameInput = $('#tester-name');
+nameInput.value = state.tester || '';
+nameInput.addEventListener('input', () => { state.tester = nameInput.value; save(); });
+document.querySelectorAll('.start-owner-name').forEach(el => { if (project().owner) el.textContent = project().owner; });
+$('#start-here').addEventListener('click', e => {
+  const go = e.target.closest('[data-goto]')?.dataset.goto;
+  if (go) { select(go); document.getElementById(go).scrollIntoView({ block: 'start', behavior: 'smooth' }); }
+  const name = e.target.closest('[data-act]')?.dataset.act;
+  if (name) act(name);
+});
+try { if (localStorage.getItem('qa-tracker-start') === 'closed') $('#start-here').open = false; } catch {}
+$('#start-here').addEventListener('toggle', e => { try { localStorage.setItem('qa-tracker-start', e.target.open ? 'open' : 'closed'); } catch {} });
 const today = () => new Date().toISOString().slice(0, 10);
 const slug = () => (project().name || 'project').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 function download(name, text, type) {
@@ -475,8 +524,8 @@ function download(name, text, type) {
 }
 function markdown() {
   const p = project(); const { n, total } = counts();
-  const line = c => { const r = row(c.id); return `| ${c.id} | ${c.summary.replace(/\|/g, '/')} | ${r.status} | ${r.owner} | ${(r.comments || '').replace(/\n/g, ' ').replace(/\|/g, '/')} | ${(r.evidence || '').replace(/\n/g, ' ').replace(/\|/g, '/')} |`; };
-  const table = list => ['| ID | Check | Status | Owner | Notes | Evidence |', '|---|---|---|---|---|---|', ...CHECKS[list].map(line)].join('\n');
+  const line = c => { const r = row(c.id); return `| ${c.id} | ${c.summary.replace(/\|/g, '/')} | ${r.status} | ${r.owner} | ${(r.by || '').replace(/\|/g, '/')} | ${(r.comments || '').replace(/\n/g, ' ').replace(/\|/g, '/')} | ${(r.evidence || '').replace(/\n/g, ' ').replace(/\|/g, '/')} |`; };
+  const table = list => ['| ID | Check | Status | Owner | Recorded by | Notes | Evidence |', '|---|---|---|---|---|---|---|', ...CHECKS[list].map(line)].join('\n');
   return [`# QA report: ${p.name || 'Untitled project'}`, '',
     `- Live site: ${p.liveUrl || 'not set'}`, `- Repository: ${p.repoUrl || 'not set'}`, `- Version tested: ${p.version || 'not set'}`,
     `- Assessment started: ${p.started || 'not set'} · Last checked: ${lastChecked() ? fmtDate(lastChecked()) : 'not yet'}`, `- Tested by: ${p.testers || 'not set'}`, '',
