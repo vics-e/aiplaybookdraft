@@ -1,0 +1,46 @@
+{
+  "url": "http://127.0.0.1:5189/",
+  "status": 200,
+  "metadata": {
+    "viewport": "width=device-width, initial-scale=1.0",
+    "description": "The AI Playbook for Accountants &amp; Bookkeepers from Sage: an interactive guide to becoming an AI-ready practice.",
+    "og:title": "The AI Playbook for Accountants &amp; Bookkeepers",
+    "og:description": "Build your AI-ready practice. Explore practical guidance, prompting skills, tools and a 90-day adoption plan for accountants and bookkeepers, from Sage.",
+    "og:type": "website",
+    "og:url": "https://aiplaybook-ve.vercel.app/",
+    "og:site_name": "Sage AI Playbook",
+    "og:locale": "en_GB",
+    "og:image": "https://aiplaybook-ve.vercel.app/social/ai-playbook-preview-v2.png",
+    "og:image:secure_url": "https://aiplaybook-ve.vercel.app/social/ai-playbook-preview-v2.png",
+    "og:image:type": "image/png",
+    "og:image:width": "1200",
+    "og:image:height": "630",
+    "og:image:alt": "Sage: The AI Playbook for Accountants and Bookkeepers. Build your AI-ready practice, on the green and black playbook cover.",
+    "twitter:card": "summary_large_image",
+    "twitter:title": "The AI Playbook for Accountants &amp; Bookkeepers",
+    "twitter:description": "Build your AI-ready practice. Practical guidance, prompting skills, tools and a 90-day adoption plan, from Sage.",
+    "twitter:image": "https://aiplaybook-ve.vercel.app/social/ai-playbook-preview-v2.png",
+    "twitter:image:alt": "Sage: The AI Playbook for Accountants and Bookkeepers. Build your AI-ready practice, on the green and black playbook cover."
+  },
+  "images": [
+    {
+      "url": "http://127.0.0.1:5189/social/ai-playbook-preview-v2.png",
+      "status": 200,
+      "type": "image/png",
+      "width": 1200,
+      "height": 630,
+      "bytes": 424562,
+      "sha256": "204ca377c05015c948a10cb2e11852efd10366cde0d43a2dc9563efb8d0007c0"
+    },
+    {
+      "url": "http://127.0.0.1:5189/social/ai-playbook-square-v2.png",
+      "status": 200,
+      "type": "image/png",
+      "width": 1080,
+      "height": 1080,
+      "bytes": 539850,
+      "sha256": "803d78e220b31c81db60f557192c47f8a222e7329b6dc4beec0dcc08800fc5e8"
+    }
+  ],
+  "result": "PASSED"
+}

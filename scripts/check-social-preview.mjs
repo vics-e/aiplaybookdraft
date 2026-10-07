@@ -16,7 +16,7 @@ if (failure.length) {
   throw new Error(`Missing social metadata: ${failure.join(', ')}`);
 }
 assert.equal(meta['og:url'], 'https://aiplaybook-ve.vercel.app/');
-assert.equal(meta['og:image'], 'https://aiplaybook-ve.vercel.app/social/ai-playbook-preview-v1.png');
+assert.equal(meta['og:image'], 'https://aiplaybook-ve.vercel.app/social/ai-playbook-preview-v2.png');
 assert.equal(meta['og:image:width'], '1200');
 assert.equal(meta['og:image:height'], '630');
 assert.equal(meta['og:image:type'], 'image/png');
@@ -25,8 +25,8 @@ assert.equal(meta['twitter:card'], 'summary_large_image');
 assert.equal(meta['twitter:image'], meta['og:image']);
 assert.match(html, /<link rel="canonical" href="https:\/\/aiplaybook-ve\.vercel\.app\/"/);
 for (const [name, width, height] of [
-  ['ai-playbook-preview-v1.png', 1200, 630],
-  ['ai-playbook-square-v1.png', 1080, 1080],
+  ['ai-playbook-preview-v2.png', 1200, 630],
+  ['ai-playbook-square-v2.png', 1080, 1080],
 ]) {
   const path = `social/${name}`;
   const asset = await fetch(new URL(path, base), { headers: { 'User-Agent': 'facebookexternalhit/1.1' } });

@@ -17,8 +17,8 @@ try {
     await Promise.all([...document.images].map(image => image.decode()));
   });
   for (const [layout, width, height, name] of [
-    ['wide', 1200, 630, 'ai-playbook-preview-v1.png'],
-    ['square', 1080, 1080, 'ai-playbook-square-v1.png'],
+    ['wide', 1200, 630, 'ai-playbook-preview-v2.png'],
+    ['square', 1080, 1080, 'ai-playbook-square-v2.png'],
   ]) {
     await page.setViewportSize({ width, height });
     await page.evaluate(layout => { document.body.dataset.layout = layout; }, layout);

@@ -3,10 +3,12 @@
 Share https://aiplaybook-ve.vercel.app/ to use the site's link preview.
 The metadata is in the initial HTML, so link crawlers do not need JavaScript.
 
-- Automatic link preview: `/social/ai-playbook-preview-v1.png` (1200 × 630).
-- Square artwork for a manual post: `/social/ai-playbook-square-v1.png` (1080 × 1080).
+- Automatic link preview: `/social/ai-playbook-preview-v2.png` (1200 × 630).
+- Square artwork for a manual post: `/social/ai-playbook-square-v2.png` (1080 × 1080).
 
-Both reuse the existing Sage logo and playbook cover. Edit `card.html`, then run
+Both reuse the existing Sage logo and playbook cover, without a printed website
+address. Version 2 removes the address at the owner's request; version 1 remains
+available for previously shared image links. Edit `card.html`, then run
 `node scripts/generate-social-images.mjs` with Playwright and Chrome available
 (or set `PLAYWRIGHT_CHANNEL` to another installed Playwright browser channel).
 In Codex, set `NODE_PATH` to the bundled Node packages returned by
