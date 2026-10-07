@@ -19,6 +19,7 @@ QA pass.** Add to it at the end of every QA round.
 | 11 | Unknown pages showed a generic error | manual-19 | AI playbook | Ship a branded `404.html`. |
 | 12 | "Finish" on the last page was disabled: a dead end | manual-18 | AI playbook (certificate) · MTD p37, both fixed 3 Oct 2026 | Every final button leads somewhere (contents or action plan), or isn't shown. |
 | 13 | No meta description (PageSpeed SEO below 100) | manual-37 | AI playbook · MTD, both fixed 3 Oct 2026 | Ship a meta description and social preview tags in the starter kit. |
+| 14 | Link sharing had a title and description but no preview image or canonical Open Graph URL | manual-07 | AI playbook, fixed 7 Oct 2026; evidence: `evidence/manual-07/2026-10-07-FAILED-social-preview.json` and `2026-10-07-FIXED-social-preview.json` | Include an absolute public PNG URL, image dimensions and alt text in the initial HTML. Verify crawler access and that deployed image bytes match the artwork; version filenames when replacing cached artwork. |
 
 ## Patterns
 

@@ -1,0 +1,18 @@
+{
+  "url": "https://aiplaybook-ve.vercel.app/",
+  "status": 200,
+  "metadata": {
+    "viewport": "width=device-width, initial-scale=1.0",
+    "description": "The AI Playbook for Accountants &amp; Bookkeepers from Sage: an interactive guide to becoming an AI-ready practice.",
+    "og:title": "The AI Playbook for Accountants &amp; Bookkeepers",
+    "og:description": "An interactive guide to becoming an AI-ready practice, from Sage.",
+    "og:type": "website"
+  },
+  "images": [],
+  "result": "FAILED",
+  "missing": [
+    "og:image",
+    "og:url",
+    "twitter:card"
+  ]
+}
